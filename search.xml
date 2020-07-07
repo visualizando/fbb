@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>¿Cómo evoluciona mi provincia?</title>
+    <url>/2020/07/07/e4/</url>
+    <content><![CDATA[<h2 id="Uno"><a href="#Uno" class="headerlink" title="Uno"></a>Uno</h2>]]></content>
+  </entry>
+  <entry>
+    <title>¿Cuál es el ritmo de la pandemia?</title>
+    <url>/2020/07/07/e1/</url>
+    <content><![CDATA[<h2 id="Uno"><a href="#Uno" class="headerlink" title="Uno"></a>Uno</h2><p>¿Qué hay que mirar en los números para saber en qué situación estamos parados?<br>La respuesta está en este gráfico.<br>¿Por qué? ¿Cómo se lee?<br>Vamos a la cocina/el detrás de escena de este gráfico.</p>
+<h2 id="Dos"><a href="#Dos" class="headerlink" title="Dos"></a>Dos</h2><p>Si miramos los números de este gráfico, sólo vemos una cosa, que la cantidad de casos positivos es cada vez más y más grande.<br>Exponencialmente más grande se escucha por ahí.<br>Eso no nos dice nada de la epidemia, salvo que se está expandiendo.<br>Pero eso ya lo sabíamos.<br>Sin embargo, hay más en este gráfico, mucho más, sólo que hayque hacerle un cambio…</p>
+<h2 id="Tres"><a href="#Tres" class="headerlink" title="Tres"></a>Tres</h2><p>Si le cambiamos astutamente la escala a este eje, podemos hacer que eso que parecía una curva empinadísima ahora nos revele otras cosas.<br>Este cambio “des-exponencializa” la curva.</p>
+<h2 id="Cuatro"><a href="#Cuatro" class="headerlink" title="Cuatro"></a>Cuatro</h2><p>En este tipo de gráficos, “Semi-log” para lxs amigxs, vemos mucho más que antes.<br>Por ejemplo, se ve un gran cambio en la inclinación después de los primeros 20 días.</p>
+<h2 id="Cinco"><a href="#Cinco" class="headerlink" title="Cinco"></a>Cinco</h2><p>La inclinación de la curva va cambiando y nos da una idea de cuán rápido crece la exponencial.<br>Es como la velocidad que nos dice cuán rápido va un auto, pero en vez de km/h, lo medimos en días de duplicación.<br>Al principio, el tiempo de duplicación era de 3.2 días. La curva estaba muy empinada.<br>En el día 100, es de 16 días. Crece, pero más lento.</p>
+<h2 id="Seis"><a href="#Seis" class="headerlink" title="Seis"></a>Seis</h2><p>Para poder evaluar la situación conviene, entonces, mirar la inclinación de la curva este gráfico,<br>Por ejemplo, se suelen calcular el tiempo de duplicación usando los datos de la última semana.<br>Ese es un buen termómetro de la situación actual.<br>Si te interesa saber más de la maravillosa y no tan complicada matemática detrás de la “des-exponencialización”, seguí por acá (Link)</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>¿Cuántos contagiados hay realmente?</title>
+    <url>/2020/07/07/e3/</url>
+    <content><![CDATA[<h2 id="Uno"><a href="#Uno" class="headerlink" title="Uno"></a>Uno</h2><p>Este es otro de los gráficos que posiblemente más veces viste desde que empezó el aislamiento social: el número de nuevos casos que detectamos cada día.<br>Pregunta, ¿ese número refleja la cantidad real de personas con COVID19?</p>
+<p>La mejor respuesta es…</p>
+<h2 id="Dos"><a href="#Dos" class="headerlink" title="Dos"></a>Dos</h2><p>…no. No conocemos el número real de personas con COVID-19. Y cuando decimos que no lo conocemos queremos decir que NADIE EN EL MUNDO lo conoce.<br>¿Por qué?</p>
+<h2 id="Tres"><a href="#Tres" class="headerlink" title="Tres"></a>Tres</h2><p>Para saber quién tiene coronavirus, hacemos un test. Y ese test no lo hacemos a todo el mundo.<br>¿Por qué?<br>Testear a TODA la población es muy difícil y costoso. Encima habría que testearla periódicamente, por ejemplo una vez por semana. Una tarea imposible. ¡Más de 40 millones de tests semanales!<br>Entonces hay que DECIDIR a quiénes se testea.</p>
+<h2 id="Cuatro"><a href="#Cuatro" class="headerlink" title="Cuatro"></a>Cuatro</h2><p>Ahí entra la definición de caso sospechoso: a quiénes decidís testear.<br>Lo más común es que se testee a personas con ciertos síntomas significativos (fiebre, tos, pérdida del olfato, etc) o que representen un potencial foco de contagio (viaje al exterior, contactos estrechos, personal de salud, etc).<br>Como muchas personas con COVID 19 no van a tener los  síntomas suficientes para ser testeados según nuestra definición, tendremos algunas personas que nunca testearemos.</p>
+<h2 id="Cinco"><a href="#Cinco" class="headerlink" title="Cinco"></a>Cinco</h2><p>De las personas que testeamos por ser casos sospechosos, algunas terminan siendo casos confirmados para COVID19.<br>Y muchas otras de esas personas, dan negativo al test.<br>Nueva pregunta. ¿Solo las personas dan positivo al test entonces son las que están contagiadas de COVID19?</p>
+<h2 id="Seis"><a href="#Seis" class="headerlink" title="Seis"></a>Seis</h2><p>La respuesta es que no. Ahora sabemos que hay muchas personas que tienen COVID-19 y no tienen síntomas: los famosos casos asintomáticos.<br>Como no cumplen con la definición de caso sospechoso, no son testeadas y por lo tanto no entran en el número de casos diarios confirmados aunque realmente tengan o hayan tenido COVID19.<br>¡Entonces no aparecen en nuestro gráfico! Los únicos que aparecen son los casos de personas que fueron testeadas y dieron positivo. </p>
+<h2 id="Siete"><a href="#Siete" class="headerlink" title="Siete"></a>Siete</h2><p>Pero además las decisiones de a quién testear pueden cambiar a medida que la situación progresa.<br>Por ejemplo, una persona que había perdido el olfato y tenía tos antes del 8 de junio NO era testeada. Pero después si.<br>Una persona así no aparecía en nuestro gráfico y ahora sí</p>
+<h2 id="Ocho"><a href="#Ocho" class="headerlink" title="Ocho"></a>Ocho</h2><p>Siempre que miramos datos hay que preguntarse cómo fueron tomados.<br>En este caso, las decisiones de testeo dependen de muchas cosas: lo que sabemos de la enfermedad, los recursos que tenemos y cómo decidimos administrarlos. Si tenemos en cuenta estas cosas, podemos comparar solo entre los días donde se testeaba con el mismo criterio.<br>El número real podría ser en algunos casos hasta cuatro veces más grande que el número de confirmados.<br>Entonces, ¿no nos sirve el dato que tenemos? Claro que sí, nos sirve siempre que tengamos en cuenta qué nos dice y que no nos dice</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>¿Cuál es la curva que hay que achatar?</title>
+    <url>/2020/07/07/l1/</url>
+    <content><![CDATA[<h2 id="Uno"><a href="#Uno" class="headerlink" title="Uno"></a>Uno</h2>]]></content>
+  </entry>
+  <entry>
+    <title>¿Cuántos personas murieron por COVID19 en el mundo ?</title>
+    <url>/2020/07/07/l3/</url>
+    <content><![CDATA[<h2 id="Uno"><a href="#Uno" class="headerlink" title="Uno"></a>Uno</h2>]]></content>
+  </entry>
+</search>
