@@ -25,6 +25,7 @@ figure.sticky {
   position: sticky;
   top: 5vh;
   height: 90vh;
+  margin: 0px;
 }
 
 .scrolly .step{
@@ -33,12 +34,29 @@ figure.sticky {
     height: 90vh;
 }
 
+.scrolly .step p{
+    line-height: 1.2;
+    background-color: #ffffffc2;
+    padding: 10px 25px;
+    margin:0px;
+}
+
+
 @media only screen and (min-width: 600px) {
     .scrolly .step{
             margin-left: auto;
             margin-right: 0;
-            width: 30%;
+            width: 40%;
+            min-width: 250px;
     }
+
+    figure.sticky {
+        top: 18vh;
+        height: 60vh;
+
+        }
+
+
 }
 
 
@@ -49,7 +67,7 @@ figure.sticky {
     <div class='scrolly'>
 
         <!-- sticky graphic -->
-        <figure class='sticky' style="background-color:silver;">
+        <figure class='sticky' style="background-color:silver; text-align: center;">
             <h2>Este es el gráfico</h2>
             <h1></h1>
         </figure>

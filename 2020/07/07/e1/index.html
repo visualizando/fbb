@@ -30,7 +30,7 @@
 <meta property="og:description" content="Pequeña descripcion de la historia">
 <meta property="og:locale" content="es_ES">
 <meta property="article:published_time" content="2020-07-07T04:35:00.343Z">
-<meta property="article:modified_time" content="2020-07-10T03:27:12.828Z">
+<meta property="article:modified_time" content="2020-07-10T13:10:31.954Z">
 <meta property="article:author" content="Fundacion Bunge y Born">
 <meta name="twitter:card" content="summary">
 
@@ -198,7 +198,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Editado el</span>
-                <time title="Modificado por: 10-07-20 00" itemprop="dateModified" datetime="2020-07-10T00:27:12-03:00">10-07-20</time>
+                <time title="Modificado por: 10-07-20 10" itemprop="dateModified" datetime="2020-07-10T10:10:31-03:00">10-07-20</time>
               </span>
 
           
@@ -230,6 +230,7 @@ figure.sticky {
   position: sticky;
   top: 5vh;
   height: 90vh;
+  margin: 0px;
 }
 
 .scrolly .step{
@@ -238,12 +239,29 @@ figure.sticky {
     height: 90vh;
 }
 
+.scrolly .step p{
+    line-height: 1.2;
+    background-color: #ffffffc2;
+    padding: 10px 25px;
+    margin:0px;
+}
+
+
 @media only screen and (min-width: 600px) {
     .scrolly .step{
             margin-left: auto;
             margin-right: 0;
-            width: 30%;
+            width: 40%;
+            min-width: 250px;
     }
+
+    figure.sticky {
+        top: 18vh;
+        height: 60vh;
+
+        }
+
+
 }
 
 
@@ -254,7 +272,7 @@ figure.sticky {
     <div class='scrolly'>
 
         <!-- sticky graphic -->
-        <figure class='sticky' style="background-color:silver;">
+        <figure class='sticky' style="background-color:silver; text-align: center;">
             <h2>Este es el gráfico</h2>
             <h1></h1>
         </figure>
