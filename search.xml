@@ -8,12 +8,137 @@
   <entry>
     <title>¿Cuál es el ritmo de la pandemia?</title>
     <url>/fbb/2020/07/07/e1/</url>
-    <content><![CDATA[<h2 id="Uno"><a href="#Uno" class="headerlink" title="Uno"></a>Uno</h2><p>¿Qué hay que mirar en los números para saber en qué situación estamos parados?<br>La respuesta está en este gráfico.<br>¿Por qué? ¿Cómo se lee?<br>Vamos a la cocina/el detrás de escena de este gráfico.</p>
-<h2 id="Dos"><a href="#Dos" class="headerlink" title="Dos"></a>Dos</h2><p>Si miramos los números de este gráfico, sólo vemos una cosa, que la cantidad de casos positivos es cada vez más y más grande.<br>Exponencialmente más grande se escucha por ahí.<br>Eso no nos dice nada de la epidemia, salvo que se está expandiendo.<br>Pero eso ya lo sabíamos.<br>Sin embargo, hay más en este gráfico, mucho más, sólo que hayque hacerle un cambio…</p>
-<h2 id="Tres"><a href="#Tres" class="headerlink" title="Tres"></a>Tres</h2><p>Si le cambiamos astutamente la escala a este eje, podemos hacer que eso que parecía una curva empinadísima ahora nos revele otras cosas.<br>Este cambio “des-exponencializa” la curva.</p>
-<h2 id="Cuatro"><a href="#Cuatro" class="headerlink" title="Cuatro"></a>Cuatro</h2><p>En este tipo de gráficos, “Semi-log” para lxs amigxs, vemos mucho más que antes.<br>Por ejemplo, se ve un gran cambio en la inclinación después de los primeros 20 días.</p>
-<h2 id="Cinco"><a href="#Cinco" class="headerlink" title="Cinco"></a>Cinco</h2><p>La inclinación de la curva va cambiando y nos da una idea de cuán rápido crece la exponencial.<br>Es como la velocidad que nos dice cuán rápido va un auto, pero en vez de km/h, lo medimos en días de duplicación.<br>Al principio, el tiempo de duplicación era de 3.2 días. La curva estaba muy empinada.<br>En el día 100, es de 16 días. Crece, pero más lento.</p>
-<h2 id="Seis"><a href="#Seis" class="headerlink" title="Seis"></a>Seis</h2><p>Para poder evaluar la situación conviene, entonces, mirar la inclinación de la curva este gráfico,<br>Por ejemplo, se suelen calcular el tiempo de duplicación usando los datos de la última semana.<br>Ese es un buen termómetro de la situación actual.<br>Si te interesa saber más de la maravillosa y no tan complicada matemática detrás de la “des-exponencialización”, seguí por acá (Link)</p>
+    <content><![CDATA[
+
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stickyfill/2.1.0/stickyfill.js"></script>
+<script src="https://unpkg.com/enter-view"></script>
+
+
+<style>
+
+.scrolly article {
+  position: relative;
+}
+figure.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 5vh;
+  height: 90vh;
+}
+
+.scrolly .step{
+    width: 90%;
+    margin:auto;
+    height: 90vh;
+}
+
+@media only screen and (min-width: 600px) {
+    .scrolly .step{
+            margin-left: auto;
+            margin-right: 0;
+            width: 30%;
+    }
+}
+
+
+</style>
+
+
+<section id='scrolly'>
+    <div class='scrolly'>
+
+        <!-- sticky graphic -->
+        <figure class='sticky' style="background-color:silver;">
+            <h2>Este es el gráfico</h2>
+            <h1></h1>
+        </figure>
+
+        <!-- step text -->
+        <article>
+            <div class='step' data-index='0'>
+                <p>
+                ¿Qué hay que mirar en los números para saber en qué situación estamos parados?
+    La respuesta está en este gráfico.
+    ¿Por qué? ¿Cómo se lee?
+    Vamos a la cocina/el detrás de escena de este gráfico.
+                </p>
+            </div>
+            
+            <div class='step' data-index='1'>
+                <p>
+                Si miramos los números de este gráfico, sólo vemos una cosa, que la cantidad de casos positivos es cada vez más y más grande.
+    Exponencialmente más grande se escucha por ahí.
+    Eso no nos dice nada de la epidemia, salvo que se está expandiendo.
+    Pero eso ya lo sabíamos. 
+    Sin embargo, hay más en este gráfico, mucho más, sólo que hayque hacerle un cambio...
+                </p>
+            </div>
+            <div class='step' data-index='2'>
+                <p>
+                Si le cambiamos astutamente la escala a este eje, podemos hacer que eso que parecía una curva empinadísima ahora nos revele otras cosas.
+    Este cambio “des-exponencializa” la curva.
+                </p>
+            </div>
+            <div class='step' data-index='3'>
+                <p>
+                En este tipo de gráficos, “Semi-log” para lxs amigxs, vemos mucho más que antes.
+    Por ejemplo, se ve un gran cambio en la inclinación después de los primeros 20 días.
+                </p>
+            </div>
+            <div class='step' data-index='4'>
+                <p>
+                La inclinación de la curva va cambiando y nos da una idea de cuán rápido crece la exponencial.
+    Es como la velocidad que nos dice cuán rápido va un auto, pero en vez de km/h, lo medimos en días de duplicación.
+    Al principio, el tiempo de duplicación era de 3.2 días. La curva estaba muy empinada.
+    En el día 100, es de 16 días. Crece, pero más lento.
+                </p>
+            </div>
+            <div class='step' data-index='5'>
+                <p>
+                Para poder evaluar la situación conviene, entonces, mirar la inclinación de la curva este gráfico,
+    Por ejemplo, se suelen calcular el tiempo de duplicación usando los datos de la última semana.
+    Ese es un buen termómetro de la situación actual.
+    Si te interesa saber más de la maravillosa y no tan complicada matemática detrás de la “des-exponencialización”, seguí por acá (Link)
+                </p>
+            </div>
+
+        </article>
+
+    </div>
+
+</section>
+ <!-- Scripts -->
+ <script>
+    const container = d3.select('#scrolly');
+    const stepSel = container.selectAll('.step');
+
+    function updateChart(index) {
+        const sel = container.select(`[data-index='${index}']`);
+        const width = sel.attr('data-width');
+        stepSel.classed('is-active', (d, i) => i === index);
+        container.select('h1').html(index);
+    }
+
+    function init() {
+        Stickyfill.add(d3.select('.sticky').node());
+
+        enterView({
+            selector: stepSel.nodes(),
+            offset: 0.5,
+            enter: el => {
+                const index = +d3.select(el).attr('data-index');
+                updateChart(index);
+            },
+            exit: el => {
+                let index = +d3.select(el).attr('data-index');
+                index = Math.max(0, index - 1);
+                updateChart(index);
+            }
+        });
+    }
+    init()
+</script>
 ]]></content>
   </entry>
   <entry>
