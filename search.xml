@@ -27,6 +27,7 @@ figure.sticky {
     width: 90%;
     margin:auto;
     height: 90vh;
+    z-index: 20;
 }
 
 .scrolly .step p{
@@ -156,7 +157,7 @@ figure.sticky {
   </entry>
   <entry>
     <title>¿Cuántos contagiados hay realmente?</title>
-    <url>/07/e3/</url>
+    <url>/07/la_cantidad_de_contagiados/</url>
     <content><![CDATA[<h2 id="Uno"><a href="#Uno" class="headerlink" title="Uno"></a>Uno</h2><p>Este es otro de los gráficos que posiblemente más veces viste desde que empezó el aislamiento social: el número de nuevos casos que detectamos cada día.<br>Pregunta, ¿ese número refleja la cantidad real de personas con COVID19?</p>
 <p>La mejor respuesta es…</p>
 <h2 id="Dos"><a href="#Dos" class="headerlink" title="Dos"></a>Dos</h2><p>…no. No conocemos el número real de personas con COVID-19. Y cuando decimos que no lo conocemos queremos decir que NADIE EN EL MUNDO lo conoce.<br>¿Por qué?</p>
@@ -170,13 +171,22 @@ figure.sticky {
   </entry>
   <entry>
     <title>¿Cómo evoluciona mi provincia?</title>
-    <url>/07/e4/</url>
-    <content><![CDATA[<h2 id="Uno"><a href="#Uno" class="headerlink" title="Uno"></a>Uno</h2>]]></content>
-  </entry>
-  <entry>
-    <title>¿Cuántos personas murieron por COVID19 en el mundo ?</title>
-    <url>/07/l3/</url>
-    <content><![CDATA[<h2 id="Uno"><a href="#Uno" class="headerlink" title="Uno"></a>Uno</h2>]]></content>
+    <url>/07/evolucion_por_provincia/</url>
+    <content><![CDATA[<h2 id="Uno"><a href="#Uno" class="headerlink" title="Uno"></a>Uno</h2><p>Las medidas para evitar el movimiento de personas entre distritos nos permiten “desarmar” el problema grande en partes más chicas con la esperanza de que así sea más fácil enfrentarlo.<br>¿Cómo va cada provincia?<br>La respuesta está en este gráfico, mirándolo por partes.</p>
+<h2 id="dos"><a href="#dos" class="headerlink" title="dos"></a>dos</h2><p>Esta es la curva de todos los casos positivos de COVID-19 en Argentina.<br>Si ya viste esta otra historia (link E1) sabés que para saber cómo está avanzando la pandemia lo importante es el ritmo:</p>
+<p>mayor    &lt;–&gt;    mayor<br>inclinación        ritmo<br>        (tiempo de<br>        duplicación<br>        más corto)</p>
+<p>La curva de Argentina tiene un ritmo. Pero eso no quiere decir que todas las provincias estén igual.</p>
+<h2 id="Tres"><a href="#Tres" class="headerlink" title="Tres"></a>Tres</h2><p>Dentro de la curva de Argentina están los datos de cada provincia.<br>Ahora se puede comparar la inclinación de cada una por separado.<br>¡Y no es igual para todas!</p>
+<h2 id="Cuatro"><a href="#Cuatro" class="headerlink" title="Cuatro"></a>Cuatro</h2><p>Para saber cómo va el ritmo de cada provincia, tenemos que mirar la inclinación de las partes rectas, por ejemplo en los últimos días.<br>Esa inclinación nos da el tiempo de duplicación que no es el mismo en todos los lugares.</p>
+<p>El tiempo de duplicación es un criterio para definir las fases del aislamiento social.</p>
+<h2 id="Cinco"><a href="#Cinco" class="headerlink" title="Cinco"></a>Cinco</h2><p>El comienzo de la pandemia en Argentina estuvo marcado por curvas muy empinadas en todos los distritos que tenían casos.<br>El ritmo era muy alto, es decir el número de casos se duplicaba en pocos días (tiempo de duplicación muy corto) y todo el país estaba en fase 1 (aislamiento estricto).</p>
+<h2 id="Seis"><a href="#Seis" class="headerlink" title="Seis"></a>Seis</h2><p>Considerando los datos de las últimas dos semanas, estas son las provincias que duplican el número de casos confirmados en menos de 5 días.<br>El ritmo de la pandemia en estas provincias es muy alto.</p>
+<h2 id="Siete"><a href="#Siete" class="headerlink" title="Siete"></a>Siete</h2><p>Estas las que están duplicando sus casos confirmados con tiempos de entre 5 y 15 días.</p>
+<h2 id="Ocho"><a href="#Ocho" class="headerlink" title="Ocho"></a>Ocho</h2><p>Estas las que lo hacen entre 15 y 25 días.</p>
+<h2 id="Nueve"><a href="#Nueve" class="headerlink" title="Nueve"></a>Nueve</h2><p>Y estas provincias, donde los brotes parecen estar más controlados, están duplicando muy lentamente (cada 25 días o más)…</p>
+<h2 id="Once"><a href="#Once" class="headerlink" title="Once"></a>Once</h2><p>…o directamente no tienen casos nuevos.</p>
+<h2 id="Doce"><a href="#Doce" class="headerlink" title="Doce"></a>Doce</h2><p>Separar el todo en sus partes es muy importante para tomar decisiones, especialmente cuando el comportamiento de las partes difiere entre sí.<br>En algunos lugares fue y es posible flexibilizar las medidas de aislamiento social antes que en otros. Pero, más importante aún, ¡esto puede ir cambiando!<br>Y con las ciudades, ¿será igual? Exactamente; de la misma forma que separamos en partes por provincias, también podríamos hacerlo con ciudades.<br>Por ahora, no te olvides de seguir el ritmo de la pandemia en tu provincia.</p>
+]]></content>
   </entry>
   <entry>
     <title>¿Cuál es la curva que hay que achatar?</title>
