@@ -21,6 +21,10 @@ figure.sticky {
   top: 5vh;
   height: 90vh;
   margin: 0px;
+  background-color: #f1f1f1;
+  text-align: center;
+  border-radius: 6px;
+  padding-top: 20px;
 }
 
 .scrolly .step{
@@ -65,6 +69,12 @@ figure.sticky {
       shape-rendering: crispEdges;
     }
     
+    .axis-title {
+      fill: #222;
+        font-size: 12px;
+        text-anchor: start;
+    }
+    
     .line {
       fill: none;
       stroke: #6F257F;
@@ -95,9 +105,7 @@ figure.sticky {
     <div class='scrolly'>
 
         <!-- sticky graphic -->
-        <figure class='sticky' style="background-color:silver; text-align: center;">
-            <svg width="660" height="500"></svg>
-
+        <figure id="grafico" class='sticky' >
         </figure>
 
         <!-- step text -->
@@ -187,12 +195,15 @@ figure.sticky {
 
 
     
-var ejeY;
+var ejeY, tituloY;
 
-var svg = d3.select("svg"),
-    margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = +svg.attr("width") - margin.left - margin.right,
-    height = +svg.attr("height") - margin.top - margin.bottom;
+var svg = d3.select("#grafico").append("svg"),
+    margin = {top: 5, right: 5, bottom: 25, left: 50},
+    width = 600,
+    height = 460;
+
+    svg.attr("width", width + margin.left + margin.right);
+    svg.attr("height", height + margin.top + margin.bottom);
 
 var parseTime = d3.timeParse("%Y-%m-%d")
     bisectDate = d3.bisector(function(d) { return d.fecha; }).left;
@@ -200,6 +211,13 @@ var parseTime = d3.timeParse("%Y-%m-%d")
 var x = d3.scaleTime().range([0, width]);
 var y = d3.scaleLinear().range([height, 0]);
 var yLog = d3.scaleLog().range([height, 0]);
+
+//var yAxis = d3.axisLeft(yLog).tickFormat(function(d) { return parseInt(d / 1000) + "mil"; })
+var yAxis = d3.axisLeft(y);
+        yAxis.ticks(6).tickFormat(d3.format(",.1r"));
+
+var yLogAxis = d3.axisLeft(yLog);
+        yLogAxis.ticks(4).tickFormat(d3.format(",.1r"));
 
 var line = d3.line()
     .x(function(d) { return x(d.fecha); })
@@ -219,8 +237,8 @@ d3.csv("/datos/Fuente_datos_historias - E1_ritmo.csv")
       d.casos_tot = +d.casos_tot;
     });
 
-    x.domain(d3.extent(data, function(d) { return d.fecha; }));
-    y.domain([d3.min(data, function(d) { return d.casos_tot; }), d3.max(data, function(d) { return d.casos_tot; })]);
+        x.domain(d3.extent(data, function(d) { return d.fecha; }));
+    y.domain([d3.min(data, function(d) { return d.casos_tot; }), d3.max(data, function(d) { return d.casos_tot; })+20000]);
     yLog.domain(y.domain());
 
     g.append("g")
@@ -230,16 +248,13 @@ d3.csv("/datos/Fuente_datos_historias - E1_ritmo.csv")
 
         ejeY = g.append("g")
         .attr("class", "axis axis--y")
-        .call(d3.axisLeft(yLog).ticks(3).tickFormat(function(d) { return parseInt(d / 1000) + "mil"; }));
+        .call(yLogAxis);
     
-      ejeY.append("text")
+      tituloY = ejeY.append("text")
         .attr("class", "axis-title")
-        .attr("y", 6)
-        .attr("x", 3)
-        .attr("dy", "1em")
-        .style("text-anchor", "start")
-        .attr("fill", "#5D6971")
-        .text("Casos");
+        .attr("y", 14)
+        .attr("x", 8)
+        .text("Casos (log)");
 
     g.append("path")
         .datum(data)
@@ -304,12 +319,14 @@ d3.csv("/datos/Fuente_datos_historias - E1_ritmo.csv")
 function scrollyTelling(step){
     switch (step) {
         case 0: // INICIO, ES LOG
-            ejeY.transition().duration(600).call(d3.axisLeft(yLog).ticks(3).tickFormat(function(d) { return parseInt(d / 1000) + "mil"; }));
+            ejeY.transition().duration(600).call(yLogAxis);
 
             line.y(function(d) { return yLog(d.casos_tot); });
             d3.selectAll(".line")
             .transition().duration(600)
             .attr("d", line);
+
+            tituloY.text("Casos (log)")
 
             d3.selectAll(".dataCircle")
             .transition().duration(600)
@@ -317,11 +334,13 @@ function scrollyTelling(step){
         break;
 
         case 1: // PASA A LINEAL
-            ejeY.transition().duration(600).call(d3.axisLeft(y).ticks(6).tickFormat(function(d) { return parseInt(d / 1000) + "mil"; }));
+            ejeY.transition().duration(600).call(yAxis);
             line.y(function(d) { return y(d.casos_tot); });
             d3.selectAll(".line")
             .transition().duration(600)
             .attr("d", line);
+
+            tituloY.text("Casos (lineal)")
 
             d3.selectAll(".dataCircle")
             .transition().duration(600)
@@ -332,12 +351,14 @@ function scrollyTelling(step){
         break;
 
         case 3: // VUELVE A LOG CON FLECHAS/GRADIENTE
-            ejeY.transition().duration(600).call(d3.axisLeft(yLog).ticks(3).tickFormat(function(d) { return parseInt(d / 1000) + "mil"; }));
+            ejeY.transition().duration(600).call(yLogAxis);
 
             line.y(function(d) { return yLog(d.casos_tot); });
             d3.selectAll(".line")
             .transition().duration(600)
             .attr("d", line);
+
+            tituloY.text("Casos (log)")
 
             d3.selectAll(".dataCircle")
             .transition().duration(600)
@@ -397,199 +418,5 @@ function scrollyTelling(step){
     <title>¿Cuál es la curva que hay que achatar?</title>
     <url>/07/l1/</url>
     <content><![CDATA[<h2 id="Uno"><a href="#Uno" class="headerlink" title="Uno"></a>Uno</h2>]]></content>
-  </entry>
-  <entry>
-    <title>¿Cuál es el ritmo de la pandemia TEST?</title>
-    <url>/07/el_ritmo_de_la_pandemia2/</url>
-    <content><![CDATA[
-
-<script src="https://d3js.org/d3.v5.min.js"></script>
-
-<style>
-    
-    .axis path,
-    .axis line {
-      fill: none;
-      stroke: #D4D8DA;
-      stroke-width: 2px;
-      shape-rendering: crispEdges;
-    }
-    
-    .line {
-      fill: none;
-      stroke: #6F257F;
-      stroke-width: 1px;
-    }
-    
-    .overlay {
-      fill: none;
-      pointer-events: all;
-    }
-    
-    .focus circle {
-      fill: #F1F3F3;
-      stroke: #6F257F;
-      stroke-width: 1px;
-    }
-      
-    .hover-line {
-      stroke: #6F257F;
-      stroke-width: 2px;
-      stroke-dasharray: 3,3;
-    }
-    
-    </style>
-
-<svg width="660" height="500"></svg>
-<script>
-
-var ejeY;
-
-var svg = d3.select("svg"),
-    margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = +svg.attr("width") - margin.left - margin.right,
-    height = +svg.attr("height") - margin.top - margin.bottom;
-
-var parseTime = d3.timeParse("%Y-%m-%d")
-    bisectDate = d3.bisector(function(d) { return d.fecha; }).left;
-
-var x = d3.scaleTime().range([0, width]);
-var y = d3.scaleLinear().range([height, 0]);
-var yLog = d3.scaleLog().range([height, 0]);
-
-var line = d3.line()
-    .x(function(d) { return x(d.fecha); })
-    .y(function(d) { return y(d.casos_tot); });
-
-var g = svg.append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-//********************* CARGA DATOS ************
-
-d3.csv("/datos/Fuente_datos_historias - E1_ritmo.csv")
-    .then(function(data) {
-
-
-    data.forEach(function(d) {
-      d.fecha = parseTime(d.fecha);
-      d.casos_tot = +d.casos_tot;
-    });
-
-    x.domain(d3.extent(data, function(d) { return d.fecha; }));
-    y.domain([d3.min(data, function(d) { return d.casos_tot; }), d3.max(data, function(d) { return d.casos_tot; })]);
-    yLog.domain([d3.min(data, function(d) { return d.casos_tot; }), d3.max(data, function(d) { return d.casos_tot; })]);
-
-    g.append("g")
-        .attr("class", "axis axis--x")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x).tickFormat(d3.timeFormat("%d/%-m")));
-
-        ejeY = g.append("g")
-        .attr("class", "axis axis--y")
-        //.call(d3.axisLeft(y));
-        .call(d3.axisLeft(y).ticks(6).tickFormat(function(d) { return parseInt(d / 1000) + "mil"; }));
-    
-      ejeY.append("text")
-        .attr("class", "axis-title")
-        .attr("y", 6)
-        .attr("dy", "1em")
-        .style("text-anchor", "end")
-        .attr("fill", "#5D6971")
-        .text("Casos");
-
-    g.append("path")
-        .datum(data)
-        .attr("class", "line")
-        .attr("d", line);
-
-    g.append("g")
-      .attr("fill", "steelblue")
-      .attr("stroke", "none")
-    .selectAll("circle")
-    .data(data)
-    .join("circle")
-        .attr("class","dataCircle")
-      .attr("cx", i => x(i.fecha))
-      .attr("cy", i => y(i.casos_tot))
-      .attr("r", 3);
-
-    var focus = g.append("g")
-        .attr("class", "focus")
-        .style("display", "none");
-
-    focus.append("line")
-        .attr("class", "x-hover-line hover-line")
-        .attr("y1", 0)
-        .attr("y2", height);
-
-    focus.append("line")
-        .attr("class", "y-hover-line hover-line")
-        .attr("x1", width)
-        .attr("x2", width);
-
-    focus.append("circle")
-        .attr("r", 4.5);
-
-    focus.append("text")
-        .attr("x", 15)
-      	.attr("dy", ".31em");
-
-    svg.append("rect")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-        .attr("class", "overlay")
-        .attr("width", width)
-        .attr("height", height)
-        //.on("mouseover", function() { focus.style("display", null); })
-        //.on("mouseout", function() { focus.style("display", "none"); })
-        //.on("mousemove", mousemove)
-        ;
-
-    function mousemove() {
-      var x0 = x.invert(d3.mouse(this)[0]),
-          i = bisectDate(data, x0, 1),
-          d0 = data[i - 1],
-          d1 = data[i],
-          d = x0 - d0.year > d1.year - x0 ? d1 : d0;
-      focus.attr("transform", "translate(" + x(d.fecha) + "," + y(d.casos_tot) + ")");
-      focus.select("text").text(function() { return d.casos_tot; });
-      focus.select(".x-hover-line").attr("y2", height - y(d.casos_tot));
-      focus.select(".y-hover-line").attr("x2", width + width);
-    }
-});
-
-function scrollyTelling(step){
-    switch (step) {
-        case 0:
-            ejeY.transition().duration(600).call(d3.axisLeft(y).ticks(6).tickFormat(function(d) { return parseInt(d / 1000) + "mil"; }));
-            line.y(function(d) { return y(d.casos_tot); });
-            d3.selectAll(".line")
-            .transition().duration(600)
-            .attr("d", line);
-
-            d3.selectAll(".dataCircle")
-            .transition().duration(600)
-            .attr("cy", function(d) { return y(d.casos_tot); })
-        break;
-
-        case 1:
-            ejeY.transition().duration(600).call(d3.axisLeft(yLog).ticks(3).tickFormat(function(d) { return parseInt(d / 1000) + "mil"; }));
-
-            line.y(function(d) { return yLog(d.casos_tot); });
-            d3.selectAll(".line")
-            .transition().duration(600)
-            .attr("d", line);
-
-            d3.selectAll(".dataCircle")
-            .transition().duration(600)
-            .attr("cy", function(d) { return yLog(d.casos_tot); })
-        break;
-       
-    }
-}
-
-</script>
-
-
-]]></content>
   </entry>
 </search>

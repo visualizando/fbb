@@ -30,7 +30,7 @@
 <meta property="og:description" content="Entender cómo evoluciona la pandemia nos permite tomar decisiones. ¿Qué miramos, o qué deberíamos mirar, para entender esa evolución? Sobre tendencias y cómo interpretar si estamos mejor, igual o peor">
 <meta property="og:locale" content="es_ES">
 <meta property="article:published_time" content="2020-07-07T04:35:00.343Z">
-<meta property="article:modified_time" content="2020-07-14T05:42:35.788Z">
+<meta property="article:modified_time" content="2020-07-14T13:33:14.996Z">
 <meta property="article:author" content="Fundacion Bunge y Born">
 <meta name="twitter:card" content="summary">
 
@@ -207,7 +207,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Editado el</span>
-                <time title="Modificado por: 14-07-20 02" itemprop="dateModified" datetime="2020-07-14T02:42:35-03:00">14-07-20</time>
+                <time title="Modificado por: 14-07-20 10" itemprop="dateModified" datetime="2020-07-14T10:33:14-03:00">14-07-20</time>
               </span>
 
           
@@ -240,6 +240,10 @@ figure.sticky {
   top: 5vh;
   height: 90vh;
   margin: 0px;
+  background-color: #f1f1f1;
+  text-align: center;
+  border-radius: 6px;
+  padding-top: 20px;
 }
 
 .scrolly .step{
@@ -284,6 +288,12 @@ figure.sticky {
       shape-rendering: crispEdges;
     }
     
+    .axis-title {
+      fill: #222;
+        font-size: 12px;
+        text-anchor: start;
+    }
+    
     .line {
       fill: none;
       stroke: #6F257F;
@@ -314,9 +324,7 @@ figure.sticky {
     <div class='scrolly'>
 
         <!-- sticky graphic -->
-        <figure class='sticky' style="background-color:silver; text-align: center;">
-            <svg width="660" height="500"></svg>
-
+        <figure id="grafico" class='sticky' >
         </figure>
 
         <!-- step text -->
@@ -406,12 +414,15 @@ figure.sticky {
 
 
     
-var ejeY;
+var ejeY, tituloY;
 
-var svg = d3.select("svg"),
-    margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = +svg.attr("width") - margin.left - margin.right,
-    height = +svg.attr("height") - margin.top - margin.bottom;
+var svg = d3.select("#grafico").append("svg"),
+    margin = {top: 5, right: 5, bottom: 25, left: 50},
+    width = 600,
+    height = 460;
+
+    svg.attr("width", width + margin.left + margin.right);
+    svg.attr("height", height + margin.top + margin.bottom);
 
 var parseTime = d3.timeParse("%Y-%m-%d")
     bisectDate = d3.bisector(function(d) { return d.fecha; }).left;
@@ -419,6 +430,13 @@ var parseTime = d3.timeParse("%Y-%m-%d")
 var x = d3.scaleTime().range([0, width]);
 var y = d3.scaleLinear().range([height, 0]);
 var yLog = d3.scaleLog().range([height, 0]);
+
+//var yAxis = d3.axisLeft(yLog).tickFormat(function(d) { return parseInt(d / 1000) + "mil"; })
+var yAxis = d3.axisLeft(y);
+        yAxis.ticks(6).tickFormat(d3.format(",.1r"));
+
+var yLogAxis = d3.axisLeft(yLog);
+        yLogAxis.ticks(4).tickFormat(d3.format(",.1r"));
 
 var line = d3.line()
     .x(function(d) { return x(d.fecha); })
@@ -438,8 +456,8 @@ d3.csv("/datos/Fuente_datos_historias - E1_ritmo.csv")
       d.casos_tot = +d.casos_tot;
     });
 
-    x.domain(d3.extent(data, function(d) { return d.fecha; }));
-    y.domain([d3.min(data, function(d) { return d.casos_tot; }), d3.max(data, function(d) { return d.casos_tot; })]);
+        x.domain(d3.extent(data, function(d) { return d.fecha; }));
+    y.domain([d3.min(data, function(d) { return d.casos_tot; }), d3.max(data, function(d) { return d.casos_tot; })+20000]);
     yLog.domain(y.domain());
 
     g.append("g")
@@ -449,16 +467,13 @@ d3.csv("/datos/Fuente_datos_historias - E1_ritmo.csv")
 
         ejeY = g.append("g")
         .attr("class", "axis axis--y")
-        .call(d3.axisLeft(yLog).ticks(3).tickFormat(function(d) { return parseInt(d / 1000) + "mil"; }));
+        .call(yLogAxis);
     
-      ejeY.append("text")
+      tituloY = ejeY.append("text")
         .attr("class", "axis-title")
-        .attr("y", 6)
-        .attr("x", 3)
-        .attr("dy", "1em")
-        .style("text-anchor", "start")
-        .attr("fill", "#5D6971")
-        .text("Casos");
+        .attr("y", 14)
+        .attr("x", 8)
+        .text("Casos (log)");
 
     g.append("path")
         .datum(data)
@@ -523,12 +538,14 @@ d3.csv("/datos/Fuente_datos_historias - E1_ritmo.csv")
 function scrollyTelling(step){
     switch (step) {
         case 0: // INICIO, ES LOG
-            ejeY.transition().duration(600).call(d3.axisLeft(yLog).ticks(3).tickFormat(function(d) { return parseInt(d / 1000) + "mil"; }));
+            ejeY.transition().duration(600).call(yLogAxis);
 
             line.y(function(d) { return yLog(d.casos_tot); });
             d3.selectAll(".line")
             .transition().duration(600)
             .attr("d", line);
+
+            tituloY.text("Casos (log)")
 
             d3.selectAll(".dataCircle")
             .transition().duration(600)
@@ -536,11 +553,13 @@ function scrollyTelling(step){
         break;
 
         case 1: // PASA A LINEAL
-            ejeY.transition().duration(600).call(d3.axisLeft(y).ticks(6).tickFormat(function(d) { return parseInt(d / 1000) + "mil"; }));
+            ejeY.transition().duration(600).call(yAxis);
             line.y(function(d) { return y(d.casos_tot); });
             d3.selectAll(".line")
             .transition().duration(600)
             .attr("d", line);
+
+            tituloY.text("Casos (lineal)")
 
             d3.selectAll(".dataCircle")
             .transition().duration(600)
@@ -551,12 +570,14 @@ function scrollyTelling(step){
         break;
 
         case 3: // VUELVE A LOG CON FLECHAS/GRADIENTE
-            ejeY.transition().duration(600).call(d3.axisLeft(yLog).ticks(3).tickFormat(function(d) { return parseInt(d / 1000) + "mil"; }));
+            ejeY.transition().duration(600).call(yLogAxis);
 
             line.y(function(d) { return yLog(d.casos_tot); });
             d3.selectAll(".line")
             .transition().duration(600)
             .attr("d", line);
+
+            tituloY.text("Casos (log)")
 
             d3.selectAll(".dataCircle")
             .transition().duration(600)
