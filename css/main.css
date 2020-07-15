@@ -1586,7 +1586,7 @@ pre code {
   width: 100%;
 }
 .with-love {
-  color: #ff0000;
+  color: #222;
   display: inline-block;
   margin: 0 5px;
 }
@@ -2031,12 +2031,9 @@ pre code {
   text-align: center;
 }
 .posts-expand .post-meta .post-description {
-  font-size: 0.875em;
+  font-size: 1.25em;
+  line-height: 1.5em;
   margin-top: 2px;
-}
-.posts-expand .post-meta time {
-  border-bottom: 1px dashed #999;
-  cursor: pointer;
 }
 .post-meta .post-meta-item + .post-meta-item::before {
   content: '|';
@@ -2682,7 +2679,7 @@ hr {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #e0ff5b;
+  background: #bd30ff;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
