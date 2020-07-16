@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"decodificar.org","root":"/","scheme":"Mist","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"remove","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeIn","post_body":"none","coll_header":"fadeIn","sidebar":"fadeInUp"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="El número de nuevos casos confirmados de COVID-19 inunda pantallas y portadas de diarios en todo el mundo. ¿Qué nos dice y qué no nos dice este número? ¿Es el número de casos confirmados el número rea">
+  <meta name="description" content="El número de nuevos casos confirmados de COVID-19 inunda pantallas y portadas de diarios en todo el mundo, y lo esperamos cada día con las noticias. ¿Cuál es el número real de personas que tienen la e">
 <meta property="og:type" content="article">
 <meta property="og:title" content="¿Cuántos contagiados hay realmente?">
 <meta property="og:url" content="http://decodificar.org/07/la_cantidad_de_contagiados/index.html">
 <meta property="og:site_name" content="Decodificar: COVID19">
-<meta property="og:description" content="El número de nuevos casos confirmados de COVID-19 inunda pantallas y portadas de diarios en todo el mundo. ¿Qué nos dice y qué no nos dice este número? ¿Es el número de casos confirmados el número rea">
+<meta property="og:description" content="El número de nuevos casos confirmados de COVID-19 inunda pantallas y portadas de diarios en todo el mundo, y lo esperamos cada día con las noticias. ¿Cuál es el número real de personas que tienen la e">
 <meta property="og:locale" content="es_ES">
 <meta property="article:published_time" content="2020-07-07T04:58:22.494Z">
-<meta property="article:modified_time" content="2020-07-13T16:05:22.627Z">
+<meta property="article:modified_time" content="2020-07-07T04:58:22.494Z">
 <meta property="article:author" content="Fundacion Bunge y Born">
 <meta name="twitter:card" content="summary">
 
@@ -99,9 +99,17 @@
   </style>
 </noscript>
 
+      <script src="https://d3js.org/d3.v5.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/stickyfill/2.1.0/stickyfill.js"></script>
+      <script src="https://unpkg.com/enter-view"></script>
+      <link rel="stylesheet" href="/styles/scrolly.css">
+  
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
+
+  
+
   <div class="container use-motion">
     <div class="headband"></div>
 
@@ -196,34 +204,442 @@
         <div class="post-meta">
 
           
-            <div class="post-description">El número de nuevos casos confirmados de COVID-19 inunda pantallas y portadas de diarios en todo el mundo. ¿Qué nos dice y qué no nos dice este número? ¿Es el número de casos confirmados el número real de personas que tienen la enfermedad?</div>
+            <div class="post-description">El número de nuevos casos confirmados de COVID-19 inunda pantallas y portadas de diarios en todo el mundo, y lo esperamos cada día con las noticias. ¿Cuál es el número real de personas que tienen la enfermedad?</div>
               <span class="post-meta-item">
             <!--     <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span> -->
                 <span class="post-meta-item-text">Editado el</span>
-                <time title="Modificado por: 13 de julio de 2020 13" itemprop="dateModified" datetime="2020-07-13T13:05:22-03:00">13 de julio de 2020</time>
+                <time title="Modificado por: 7 de julio de 2020 01" itemprop="dateModified" datetime="2020-07-07T01:58:22-03:00">7 de julio de 2020</time>
               </span>
 
           
         </div>
       </header>
 
+
+
     
     
     
     <div class="post-body" itemprop="articleBody">
-
+<!-- imagen destacada -->
+        
       
-        <h2 id="Uno"><a href="#Uno" class="headerlink" title="Uno"></a>Uno</h2><p>Este es otro de los gráficos que posiblemente más veces viste desde que empezó el aislamiento social: el número de nuevos casos que detectamos cada día.<br>Pregunta, ¿ese número refleja la cantidad real de personas con COVID19?</p>
-<p>La mejor respuesta es…</p>
-<h2 id="Dos"><a href="#Dos" class="headerlink" title="Dos"></a>Dos</h2><p>…no. No conocemos el número real de personas con COVID-19. Y cuando decimos que no lo conocemos queremos decir que NADIE EN EL MUNDO lo conoce.<br>¿Por qué?</p>
-<h2 id="Tres"><a href="#Tres" class="headerlink" title="Tres"></a>Tres</h2><p>Para saber quién tiene coronavirus, hacemos un test. Y ese test no lo hacemos a todo el mundo.<br>¿Por qué?<br>Testear a TODA la población es muy difícil y costoso. Encima habría que testearla periódicamente, por ejemplo una vez por semana. Una tarea imposible. ¡Más de 40 millones de tests semanales!<br>Entonces hay que DECIDIR a quiénes se testea.</p>
-<h2 id="Cuatro"><a href="#Cuatro" class="headerlink" title="Cuatro"></a>Cuatro</h2><p>Ahí entra la definición de caso sospechoso: a quiénes decidís testear.<br>Lo más común es que se testee a personas con ciertos síntomas significativos (fiebre, tos, pérdida del olfato, etc) o que representen un potencial foco de contagio (viaje al exterior, contactos estrechos, personal de salud, etc).<br>Como muchas personas con COVID 19 no van a tener los  síntomas suficientes para ser testeados según nuestra definición, tendremos algunas personas que nunca testearemos.</p>
-<h2 id="Cinco"><a href="#Cinco" class="headerlink" title="Cinco"></a>Cinco</h2><p>De las personas que testeamos por ser casos sospechosos, algunas terminan siendo casos confirmados para COVID19.<br>Y muchas otras de esas personas, dan negativo al test.<br>Nueva pregunta. ¿Solo las personas dan positivo al test entonces son las que están contagiadas de COVID19?</p>
-<h2 id="Seis"><a href="#Seis" class="headerlink" title="Seis"></a>Seis</h2><p>La respuesta es que no. Ahora sabemos que hay muchas personas que tienen COVID-19 y no tienen síntomas: los famosos casos asintomáticos.<br>Como no cumplen con la definición de caso sospechoso, no son testeadas y por lo tanto no entran en el número de casos diarios confirmados aunque realmente tengan o hayan tenido COVID19.<br>¡Entonces no aparecen en nuestro gráfico! Los únicos que aparecen son los casos de personas que fueron testeadas y dieron positivo. </p>
-<h2 id="Siete"><a href="#Siete" class="headerlink" title="Siete"></a>Siete</h2><p>Pero además las decisiones de a quién testear pueden cambiar a medida que la situación progresa.<br>Por ejemplo, una persona que había perdido el olfato y tenía tos antes del 8 de junio NO era testeada. Pero después si.<br>Una persona así no aparecía en nuestro gráfico y ahora sí</p>
-<h2 id="Ocho"><a href="#Ocho" class="headerlink" title="Ocho"></a>Ocho</h2><p>Siempre que miramos datos hay que preguntarse cómo fueron tomados.<br>En este caso, las decisiones de testeo dependen de muchas cosas: lo que sabemos de la enfermedad, los recursos que tenemos y cómo decidimos administrarlos. Si tenemos en cuenta estas cosas, podemos comparar solo entre los días donde se testeaba con el mismo criterio.<br>El número real podría ser en algunos casos hasta cuatro veces más grande que el número de confirmados.<br>Entonces, ¿no nos sirve el dato que tenemos? Claro que sí, nos sirve siempre que tengamos en cuenta qué nos dice y que no nos dice</p>
+        
+
+
+<style>
+
+
+    .axis path, .axis line {
+      fill: none;
+      stroke: #D4D8DA;
+      stroke-width: 2px;
+      shape-rendering: crispEdges;
+    }
+
+    .axis--y .domain{
+        stroke-width: 2px;
+    }
+    
+    
+    .axis--y .tick{
+        stroke-width: 1px;
+        stroke-dasharray: 3px 2px;
+    }
+    
+    .axis-title {
+      fill: #222;
+        font-size: 16px;
+        text-anchor: start;
+    }
+    
+    .line, .aspo {
+      fill: none;
+      stroke: #a3a3a3;
+      stroke-width: 1px;
+    }
+
+    .aspo {
+        stroke:#222;
+        stroke-dasharray: 3px 1px;   
+    }
+
+    .tendencia{
+        fill: none;
+        stroke-width: 3px;
+        stroke-linecap: round;
+    }
+
+    .duplicacionesTextos{
+        text-anchor: end;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .aspoTexto{
+        text-anchor: start;
+        font-size: 14px;
+        font-weight: 600;
+        fill: #222;
+    }
+    
+</style>
+
+
+<section id='scrolly'>
+    <div class='scrolly'>
+
+        <!-- aca va el grafico que va a quedar fijo -->
+        <figure id="grafico" class='sticky' >
+        </figure>
+
+        <!-- acá van los textos de cada paso -->
+        <article>
+            <div class='step' data-index='0'>
+                <p> Vemos gráficos, números e información sobre la pandemia todo el tiempo. Pero ¿qué debemos mirar en los datos para saber en qué situación estamos?  
+                </p><p>
+                    Una de las respuestas está en mirar el "ritmo" al cual se desarrolla el contagio (en vez de mirar cifras aisladas como el número absoluto de casos). ¿Qué es y cómo se ve el ritmo de contagio en una pandemia?
+                </p><p>                    
+                    Para responder, tenemos que mirar el detrás de escena de este gráfico.
+                </p>
+            </div>
+            
+            <div class='step' data-index='1'>
+                <p>
+                    El detrás de escena comienza con este gráfico, que encontramos habitualmente en las noticias.
+                </p><p>
+                    Se ve claramente una cosa, pero no mucho más: que la cantidad de casos confirmados es cada vez más y más grande. Y esto es porque la curva crece de forma "aproximadamente exponencial”, como se oye por ahí.
+                </p><p>
+                    Sin embargo, esto no nos dice mucho sobre la pandemia salvo que se está expandiendo, algo que ya sabíamos.
+
+Sin embargo, hay más en este gráfico, mucho más, sólo que hay que hacerle un cambio…
+
+                </p>
+            </div>
+            <div class='step' data-index='2'>
+                <p>
+                    Para que estos datos muestren su verdadera naturaleza tenemos que hacer un zoom combinado en el eje vertical: ampliar la parte de números chicos y comprimir la parte de números grandes.
+                </p>
+            </div>
+            <div class='step' data-index='3'>
+                <p>
+                    Aclaramos antes de que sospeches: no estamos modificando los datos, sólo estamos cambiando astutamente la escala del eje vertical del gráfico. ¿Para qué?
+                </p><p>
+                    Para que eso que parecía una curva empinadísima ahora nos revele otras cosas.
+                </p>
+            </div>
+            <div class='step' data-index='4'>
+                <p>
+                En este tipo de escala, llamada “semi-log” por los expertos, vemos mucho más que antes.
+            </p><p>
+                Por ejemplo, se ve que la evolución está formada por partes aproximadamente rectas. Y se ve un gran cambio en la inclinación después de los primeros 20 días.
+                </p>
+            </div>
+            <div class='step' data-index='5'>
+                <p>
+                    La inclinación de cada parte recta nos dice cuál es el ritmo de la pandemia. Ese ritmo se mide por la cantidad de días que el número total de casos tarda en duplicarse. Por ejemplo, al comienzo pasamos de 10 a 20 casos en tres días. Y en los siguientes tres días ya teníamos 40 casos.
+                </p><p>
+                    mayor inclinación <--> mayor ritmo<br/>
+                    (tiempo de duplicación más corto)
+                    
+                </p>
+            </div>
+            <div class='step' data-index='6'>
+                <p>
+                    Vemos que al comienzo, el tiempo de duplicación era de aproximadamente 3 días. Luego del primer mes, el ritmo disminuyó mucho y el tiempo de duplicación pasó a 20 días.
+                </p><p>
+Mostrar los datos así nos permite asociar esa gran disminución del ritmo al efecto de medidas drásticas como el aislamiento social (que tardan unos 15 días en reflejarse en el número de casos confirmados).
+</p>
+            </div>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+
+
+
+<p>Para evaluar la situación conviene, entonces, mirar la inclinación de la curva (¡en escala semi-log!): menor inclinación significa menor ritmo de contagio, es decir situación más controlada.</p>
+<p>En resumen, el ritmo de la curva es uno de los termómetros que tenemos para evaluar la situación actual, y nos da mayor información que la cifra aislada del número total de casos.</p>
+
+
+ <!-- Scripts -->
+ <script>
+    
+
+    // **** CODIGO DEL SCROLLY *******
+
+
+    const container = d3.select('#scrolly'); //busco el container total
+    const stepSel = container.selectAll('.step'); // selecciono los "steps"
+
+    function updateChart(index) {  // funcion que llama cada vez que cruza un humbral
+        const sel = container.select(`[data-index='${index}']`);
+        stepSel.classed('is-active', (d, i) => i === index);
+        
+        scrollyTelling(index); // <<<<< AQUI LLAMA AL GRAFICO VERDADERO
+    }
+
+    function init() { // configuracion inicial
+        Stickyfill.add(d3.select('.sticky').node()); // fallback para browsers sin sticky
+
+        enterView({
+            selector: stepSel.nodes(),
+            offset: 0.1,
+            enter: el => {
+                const index = +d3.select(el).attr('data-index');
+                updateChart(index);
+            },
+            exit: el => {
+                let index = +d3.select(el).attr('data-index');
+                index = Math.max(0, index - 1);
+                updateChart(index);
+            }
+        });
+    }
+    init()
+
+    // **** END SCROLLY *******
+
+
+/* COLORES
+azul #00468B
+violeta #8B6BAF
+rojo #F04E53
+naranja #F26522
+verde #62BB46
+*/
+
+var colores = d3.scaleOrdinal()
+        .domain([0,5])
+        .range(["#00468B","#8B6BAF","#F04E53","#F26522","#62BB46"]);
+        
+        
+var ejeY, tituloY;
+
+var svg = d3.select("#grafico").append("svg"),
+    margin = {top: 25, right: 5, bottom: 25, left: 50},
+    width = 600,
+    height = 400;
+
+    svg.attr("width", width + margin.left + margin.right);
+    svg.attr("height", height + margin.top + margin.bottom);
+
+var parseTime = d3.timeParse("%Y-%m-%d")
+    bisectDate = d3.bisector(function(d) { return d.fecha; }).left;
+
+var x = d3.scaleTime().range([0, width]);
+var y = d3.scaleLinear().range([height, 0]);
+var yLog = d3.scaleLog().range([height, 0]);
+
+var yAxis = d3.axisLeft(y);
+        yAxis.ticks(8).tickFormat(d3.format(",.1r")).tickSizeInner(-6);
+
+var yLogAxis = d3.axisLeft(yLog);
+        yLogAxis.ticks(4).tickFormat(d3.format(",.1r")).tickSizeInner(-6);
+
+var line = d3.line()
+    .x(function(d) { return x(d.fecha); })
+    .y(function(d) { return yLog(d.casos_tot); });
+
+var grafico = svg.append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+//********************* CARGA DATOS ************
+
+Promise.all([
+    d3.csv("/datos/tablaMaestra.csv"),
+    d3.csv("/datos/Fuente_datos_historias - E1_ritmo.csv"),
+]).then(function(files) {
+    
+    var data = files[0] // datos principales;
+
+    var duplicaciones = files[1] // funciones de duplicacion de casos;
+
+    data.forEach(function(d) {
+      d.fecha = parseTime(d.fecha);
+      d.casos_tot = +d.casos_tot;
+    });
+
+    duplicaciones.forEach(function(d,i) {
+      d.desdeX = parseTime(d.desdeX);
+      d.hastaX = parseTime(d.hastaX);
+      d.desdeY = +d.desdeY;
+      d.hastaY = +d.hastaY;
+      d.index = i;
+    });
+
+    x.domain(d3.extent(data, function(d) { return d.fecha; }));
+    y.domain([d3.min(data, function(d) { return d.casos_tot; }), d3.max(data, function(d) { return d.casos_tot; })+20000]);
+    yLog.domain(y.domain());
+
+    grafico.append("g") // EJE X
+        .attr("class", "axis axis--x")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x)
+        .ticks(d3.timeMonth.every(1)))
+        ;
+
+    ejeY = grafico.append("g") // EJE Y
+        .attr("class", "axis axis--y")
+       .call(yLogAxis);
+    
+    tituloY = ejeY.append("text")
+        .attr("class", "axis-title")
+        .attr("y", -5)
+        .attr("x", 8)
+        .text("Casos (logarítmico)");
+
+    grafico.append("path") // LINEA DE FONDO
+        .datum(data)
+        .attr("class", "line")
+        .attr("d", line);
+
+    grafico.append("g") // CIRCULITOS DE DATOS
+      .attr("fill", "#00468B")
+      .attr("stroke", "none")
+    .selectAll("circle")
+    .data(data)
+    .join("circle")
+      .attr("class","dataCircle")
+      .attr("cx", i => x(i.fecha))
+      .attr("cy", i => yLog(i.casos_tot))
+      .attr("r", 3);
+
+
+
+    var tendencias = grafico.append("g"); // DUPLICACIONES
+    
+    tendencias.selectAll("path")
+     .data(duplicaciones)
+     .join("path")
+        .attr("class", "tendencia")
+        .style("opacity", 0)
+        .attr('d', d => d3.line()([[x(d.desdeX), yLog(d.desdeY)],[x(d.hastaX), yLog(d.hastaY)]]))
+        .style("stroke", d => colores(d.index+1));
+
+    tendencias.selectAll("text")
+     .data(duplicaciones)
+     .join("text")
+        .attr("class", "duplicacionesTextos")
+        .style("opacity", 0)
+        .attr('x', d => Math.abs(x(d.hastaX) - x(d.desdeX))/2+ x(d.desdeX))
+        .attr('y', d => yLog(d.desdeY) - 10 - Math.abs(yLog(d.hastaY) - yLog(d.desdeY) )/2)
+        .style("fill", d => colores(d.index+1))
+        .text(d=> d.duplicacion + " días");
+
+    var aspo = grafico.append("g").attr("id","aspo")
+                .style("opacity",0)
+    ;// ASPO
+            
+    aspo.append("path")
+                .attr("class", "aspo")
+                .attr('d', d3.line()([[x(parseTime("2020-03-21")), 50],[x(parseTime("2020-03-21")),height]])) ; 
+
+    aspo.append("text")
+                .attr("class", "aspoTexto")
+                .attr('x', x(parseTime("2020-03-21"))+4)
+                .attr('y', 55)
+                .text("A.S.P.O")
+                ;
+                
+
+
+    
+    
+   
+});
+
+function scrollyTelling(step){
+
+    var cambia = {};
+    switch (step) {
+        case 0: // INICIO, ES LOG
+            cambia.tipo = "log";
+            cambia.tick = -6;
+        break;
+
+        case 1: // PASA A LINEAL
+            cambia.tipo = "lineal"
+            cambia.tick =-6
+        break;
+
+        case 2: // AGREGA FLECHAS/GRADIENTE
+            cambia.tipo = "lineal"
+            cambia.tick =-width
+        break;
+
+        case 3: // VUELVE A LOG CON FLECHAS/GRADIENTE
+            cambia.tipo = "log"
+            cambia.tick =-width
+
+            d3.selectAll(".tendencia").transition().duration(600).style("opacity",0)
+        break;
+
+        case 4: // AGREGA TENDENCIAS
+            cambia.tipo = 0
+            cambia.tick =-6
+            d3.selectAll(".tendencia").transition().delay(d=>d.index*100).duration(1100).style("opacity",100)
+            d3.selectAll(".duplicacionesTextos").transition().duration(600).style("opacity",0)
+
+        break;
+
+        case 5: // AGREGA NUMEROS A tENDECNIAS
+            cambia.tipo = 0
+            d3.selectAll(".duplicacionesTextos").transition().delay(d=>d.index*100).duration(1100).style("opacity",100)
+            d3.select("#aspo").transition().duration(600).style("opacity",0)
+        break;
+
+        case 6: // AGREGA ASPO
+            cambia.tipo = 0
+            d3.select("#aspo").transition().duration(600).style("opacity",100)
+        break;
+
+    }
+
+    if(cambia.tipo == "log"){
+        if(cambia.tick!=0) yLogAxis.tickSizeInner(cambia.tick);
+        
+        ejeY.transition().duration(600).call(yLogAxis);
+
+        tituloY.text("Casos (logarítmico)");
+
+        line.y(function(d) { return yLog(d.casos_tot); });
+        d3.selectAll(".line")
+            .transition().duration(600)
+            .attr("d", line);
+
+        d3.selectAll(".dataCircle")
+            .transition().duration(600)
+            .attr("cy", function(d) { return yLog(d.casos_tot); });
+
+    }else if (cambia.tipo == "lineal"){
+        if(cambia.tick!=0) yAxis.tickSizeInner(cambia.tick);
+        ejeY.transition().duration(600).call(yAxis);
+
+        tituloY.text("Casos (lineal)")
+
+        line.y(function(d) { return y(d.casos_tot); });
+        d3.selectAll(".line")
+            .transition().duration(600)
+            .attr("d", line);
+
+        d3.selectAll(".dataCircle")
+            .transition().duration(600)
+            .attr("cy", function(d) { return y(d.casos_tot); })
+
+    }
+        
+
+}
+
+
+</script>
 
     </div>
 

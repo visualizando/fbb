@@ -99,9 +99,17 @@
   </style>
 </noscript>
 
+      <script src="https://d3js.org/d3.v5.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/stickyfill/2.1.0/stickyfill.js"></script>
+      <script src="https://unpkg.com/enter-view"></script>
+      <link rel="stylesheet" href="/styles/scrolly.css">
+  
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
+
+  
+
   <div class="container use-motion">
     <div class="headband"></div>
 
@@ -209,67 +217,20 @@
         </div>
       </header>
 
+
+
     
     
     
     <div class="post-body" itemprop="articleBody">
-
+<!-- imagen destacada -->
+        
       
         
-
-<script src="https://d3js.org/d3.v5.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stickyfill/2.1.0/stickyfill.js"></script>
-<script src="https://unpkg.com/enter-view"></script>
 
 
 <style>
 
-    .scrolly article {
-    position: relative;
-    }
-
-    figure.sticky {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 5vh;
-    height: 90vh;
-    margin: 0px;
-    background-color: #f1f1f1;
-    text-align: center;
-    border-radius: 6px;
-    padding-top: 20px;
-    margin-bottom: 50px;
-    }
-
-    .scrolly .step{
-        width: 90%;
-        margin:auto;
-        height: 90vh;
-        z-index: 20;
-    }
-
-    .scrolly .step p{
-        line-height: 1.2;
-        background-color: #ffffffc2;
-        padding: 10px 25px;
-        margin:0px;
-        text-align: left;
-    }
-
-
-    @media only screen and (min-width: 600px) {
-        .scrolly .step{
-                margin-left: auto;
-                margin-right: 10px;
-                width: 45%;
-                min-width: 250px;
-        }
-        figure.sticky {
-            top: 18vh;
-            height: 60vh;
-
-            }
-    }
 
     .axis path, .axis line {
       fill: none;
@@ -401,12 +362,19 @@ Mostrar los datos así nos permite asociar esa gran disminución del ritmo al ef
 
 
 
+
+
 <p>Para evaluar la situación conviene, entonces, mirar la inclinación de la curva (¡en escala semi-log!): menor inclinación significa menor ritmo de contagio, es decir situación más controlada.</p>
 <p>En resumen, el ritmo de la curva es uno de los termómetros que tenemos para evaluar la situación actual, y nos da mayor información que la cifra aislada del número total de casos.</p>
 
 
  <!-- Scripts -->
  <script>
+    
+
+    // **** CODIGO DEL SCROLLY *******
+
+
     const container = d3.select('#scrolly'); //busco el container total
     const stepSel = container.selectAll('.step'); // selecciono los "steps"
 
@@ -435,6 +403,9 @@ Mostrar los datos así nos permite asociar esa gran disminución del ritmo al ef
         });
     }
     init()
+
+    // **** END SCROLLY *******
+
 
 /* COLORES
 azul #00468B
@@ -543,7 +514,7 @@ Promise.all([
 
 
     var tendencias = grafico.append("g"); // DUPLICACIONES
-    
+
     tendencias.selectAll("path")
      .data(duplicaciones)
      .join("path")
