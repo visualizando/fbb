@@ -12,12 +12,12 @@
     .axis path, .axis line {
       fill: none;
       stroke: #D4D8DA;
-      stroke-width: 2px;
-      shape-rendering: crispEdges;
+      stroke-width: 1px;
+     
     }
 
-    .axis--y .domain{
-        stroke-width: 2px;
+    .axis--y .domain, .axis--x .domain{
+        display: none;
     }
     
     
@@ -25,7 +25,15 @@
         stroke-width: 1px;
         stroke-dasharray: 3px 2px;
     }
+
+    .axis--x .tick line{
+        stroke-width: 2px;
+    }
     
+    .axis--y .tick text{
+        text-anchor: start;
+    }
+
     .axis-title {
       fill: #222;
         font-size: 16px;
@@ -61,22 +69,49 @@
         font-weight: 600;
         fill: #222;
     }
+
+    #avisoDuplicacion {
+        position: absolute;
+        top: 38%;
+        right: 5%;
+        width: 34%;
+        background-color: #ffd1d3;
+        line-height: 21px;
+        font-size: 15px;
+        padding: 8px 10px;
+        border-radius: 5px;
+        color: rgb(240, 78, 83);
+        font-weight: bold;
+        text-align: right;
+    }
+
+     
+    @media only screen and (min-width: 768px) {
+        #avisoDuplicacion {
+            top: 28%;
+            right: 5%;
+            width: 24%;
+        }
+    }
     
 </style>
 
 
 <section id='scrolly'>
     <div class='scrolly'>
+        <div class='stepFijo'>
+            <p> Vemos gráficos, números e información sobre la pandemia todo el tiempo. Pero ¿qué debemos mirar en los datos para saber en qué situación estamos?  
+            </p>
+        </div>
 
         <!-- aca va el grafico que va a quedar fijo -->
-        <figure id="grafico" class='sticky' >
+        <figure id="contenedorGrafico" class='sticky' >
         </figure>
 
         <!-- acá van los textos de cada paso -->
         <article>
             <div class='step' data-index='0'>
-                <p> Vemos gráficos, números e información sobre la pandemia todo el tiempo. Pero ¿qué debemos mirar en los datos para saber en qué situación estamos?  
-                </p><p>
+                <p>
                     Una de las respuestas está en mirar el "ritmo" al cual se desarrolla el contagio (en vez de mirar cifras aisladas como el número absoluto de casos). ¿Qué es y cómo se ve el ritmo de contagio en una pandemia?
                 </p><p>                    
                     Para responder, tenemos que mirar el detrás de escena de este gráfico.
@@ -127,22 +162,23 @@ Sin embargo, hay más en este gráfico, mucho más, sólo que hay que hacerle un
                 <p>
                     Vemos que al comienzo, el tiempo de duplicación era de aproximadamente 3 días. Luego del primer mes, el ritmo disminuyó mucho y el tiempo de duplicación pasó a 20 días.
                 </p><p>
-Mostrar los datos así nos permite asociar esa gran disminución del ritmo al efecto de medidas drásticas como el aislamiento social (que tardan unos 15 días en reflejarse en el número de casos confirmados).
-</p>
+                    Para evaluar la situación conviene, entonces, mirar la inclinación de la curva (¡en escala semi-log!): menor inclinación significa menor ritmo de contagio, es decir situación más controlada.
+                </p><p>
+                    En resumen, el ritmo de la curva es uno de los termómetros que tenemos para evaluar la situación actual, y nos da mayor información que la cifra aislada del número total de casos.
+                    
+                </p>
             </div>
 
         </article>
 
+        <div class='stepFijo' >
+            <p> Vemos gráficos, números e información sobre la pandemia todo el tiempo. Pero ¿qué debemos mirar en los datos para saber en qué situación estamos?  
+            </p>
+        </div>
+
     </div>
 
 </section>
-
-
-
-
-
-<p>Para evaluar la situación conviene, entonces, mirar la inclinación de la curva (¡en escala semi-log!): menor inclinación significa menor ritmo de contagio, es decir situación más controlada.</p>
-<p>En resumen, el ritmo de la curva es uno de los termómetros que tenemos para evaluar la situación actual, y nos da mayor información que la cifra aislada del número total de casos.</p>
 
 
  <!-- Scripts -->
@@ -167,7 +203,7 @@ Mostrar los datos así nos permite asociar esa gran disminución del ritmo al ef
 
         enterView({
             selector: stepSel.nodes(),
-            offset: 0.1,
+            offset: 0.5,
             enter: el => {
                 const index = +d3.select(el).attr('data-index');
                 updateChart(index);
@@ -191,41 +227,48 @@ rojo #F04E53
 naranja #F26522
 verde #62BB46
 */
-
-var colores = d3.scaleOrdinal()
-        .domain([0,5])
-        .range(["#00468B","#8B6BAF","#F04E53","#F26522","#62BB46"]);
-        
+       
         
 var ejeY, tituloY;
 
-var svg = d3.select("#grafico").append("svg"),
-    margin = {top: 25, right: 5, bottom: 25, left: 50},
-    width = 600,
-    height = 400;
+var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maximo
 
-    svg.attr("width", width + margin.left + margin.right);
-    svg.attr("height", height + margin.top + margin.bottom);
+var svg = d3.select("#contenedorGrafico").append("svg"),
+    margin = isMobile ? {top: 35, right: 20, bottom: 25, left: 20} : {top: 50, right: 30, bottom: 50, left: 30},
+    width =  +d3.select('#contenedorGrafico').style('width').slice(0, -2),
+    height = +d3.select('#contenedorGrafico').style('height').slice(0, -2);
 
-var parseTime = d3.timeParse("%Y-%m-%d")
-    bisectDate = d3.bisector(function(d) { return d.fecha; }).left;
+    if (height > altoMaximo*width) {
+        svg.style('margin-top', (height - altoMaximo*width)/2 + "px")
+        height = altoMaximo*width;
+    }
+
+    svg.attr("viewBox", [0, 0, width, height]);
+
+    height = height - margin.top - margin.bottom;
+    width = width - margin.left - margin.right;
+    
+
+var parseTime = d3.timeParse("%Y-%m-%d");
 
 var x = d3.scaleTime().range([0, width]);
 var y = d3.scaleLinear().range([height, 0]);
 var yLog = d3.scaleLog().range([height, 0]);
 
 var yAxis = d3.axisLeft(y);
-        yAxis.ticks(8).tickFormat(d3.format(",.1r")).tickSizeInner(-6);
+    yAxis.ticks(8).tickFormat(d3.format(",.1r")).tickSizeInner(-6)
+;
 
 var yLogAxis = d3.axisLeft(yLog);
-        yLogAxis.ticks(4).tickFormat(d3.format(",.1r")).tickSizeInner(-6);
+    yLogAxis.ticks(4).tickFormat(d3.format(",.1r")).tickSizeInner(-6);
 
 var line = d3.line()
     .x(function(d) { return x(d.fecha); })
     .y(function(d) { return yLog(d.casos_tot); });
 
 var grafico = svg.append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    ;
 
 //********************* CARGA DATOS ************
 
@@ -251,25 +294,40 @@ Promise.all([
       d.index = i;
     });
 
-    x.domain(d3.extent(data, function(d) { return d.fecha; }));
+    x.domain([parseTime("2020-03-01"),d3.max(data, function(d) { return d.fecha; })]);
     y.domain([d3.min(data, function(d) { return d.casos_tot; }), d3.max(data, function(d) { return d.casos_tot; })+20000]);
     yLog.domain(y.domain());
 
-    grafico.append("g") // EJE X
+
+     grafico.append("g") // EJE X
         .attr("class", "axis axis--x")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x)
         .ticks(d3.timeMonth.every(1)))
+        .call(g => {  // ESTO PONE LOS NOMBRES DE LOS MESES EN MEDIO DE CADA MES
+            g.selectAll(".tick:not(:last-of-type) text") // para todos los meses menos el ultimo
+                .attr("dx", x(parseTime("2020-03-16"))) 
+                .attr("dy", "0.3em") ;
+            
+            g.selectAll(".tick:last-of-type text") // el ultimo si no esta completo lo centra en los dias que haya
+                .attr("dx",  x(parseTime("2020-03-" + Math.ceil((d3.timeFormat("%-d")(d3.max(data, function(d) { return d.fecha; })))/2))))
+                .attr("dy", "0.3em") ;
+            
+            g.selectAll(".tick line") // las lineas que separan los meses, mas altas
+                .attr("y2", "1.4em") ;
+            }
+            )
         ;
 
     ejeY = grafico.append("g") // EJE Y
         .attr("class", "axis axis--y")
-       .call(yLogAxis);
+       .call(yLogAxis)
+       ;
     
     tituloY = ejeY.append("text")
         .attr("class", "axis-title")
-        .attr("y", -5)
-        .attr("x", 8)
+        .attr("y", -8)
+        
         .text("Casos (logarítmico)");
 
     grafico.append("path") // LINEA DE FONDO
@@ -288,7 +346,8 @@ Promise.all([
       .attr("cy", i => yLog(i.casos_tot))
       .attr("r", 3);
 
-
+    
+    
 
     var tendencias = grafico.append("g"); // DUPLICACIONES
 
@@ -296,19 +355,25 @@ Promise.all([
      .data(duplicaciones)
      .join("path")
         .attr("class", "tendencia")
-        .style("opacity", 0)
+        .style("opacity", d=> { return d.index==0 ? 100 : 0})
         .attr('d', d => d3.line()([[x(d.desdeX), yLog(d.desdeY)],[x(d.hastaX), yLog(d.hastaY)]]))
         .style("stroke", d => colores(d.index+1));
 
     tendencias.selectAll("text")
      .data(duplicaciones)
      .join("text")
-        .attr("class", "duplicacionesTextos")
-        .style("opacity", 0)
+        .attr("class", d=>{return "duplicacionesTextos"+" duplica"+d.index})
+        .style("opacity", d=> { return d.index==0 ? 100 : 0})
         .attr('x', d => Math.abs(x(d.hastaX) - x(d.desdeX))/2+ x(d.desdeX))
         .attr('y', d => yLog(d.desdeY) - 10 - Math.abs(yLog(d.hastaY) - yLog(d.desdeY) )/2)
         .style("fill", d => colores(d.index+1))
-        .text(d=> d.duplicacion + " días");
+        .text(d=> { return d.duplicacion + " días"});
+
+
+     d3.select("#contenedorGrafico").append("div")
+            .attr("id","avisoDuplicacion")
+            .html("Tiempo de duplicación última semana:<br/>"+ duplicaciones[0].duplicacion+" días")
+
 
     var aspo = grafico.append("g").attr("id","aspo")
                 .style("opacity",0)
@@ -325,10 +390,6 @@ Promise.all([
                 .text("A.S.P.O")
                 ;
                 
-
-
-    
-    
    
 });
 
@@ -339,9 +400,16 @@ function scrollyTelling(step){
         case 0: // INICIO, ES LOG
             cambia.tipo = "log";
             cambia.tick = -6;
+            d3.selectAll(".tendencia").filter(d=>d.index==0).transition().delay(300).duration(300).style("opacity",100);
+            d3.selectAll(".duplicacionesTextos").filter(d=>d.index==0).transition().delay(300).duration(300).style("opacity",100);
+            d3.select("#avisoDuplicacion").transition().duration(300).style("opacity",100);
+
         break;
 
         case 1: // PASA A LINEAL
+            d3.selectAll(".tendencia").filter(d=>d.index==0).transition().duration(300).style("opacity",0);
+            d3.selectAll(".duplicacionesTextos").filter(d=>d.index==0).transition().duration(300).style("opacity",0);
+            d3.select("#avisoDuplicacion").transition().duration(300).style("opacity",0);
             cambia.tipo = "lineal"
             cambia.tick =-6
         break;
@@ -431,12 +499,12 @@ function scrollyTelling(step){
     .axis path, .axis line {
       fill: none;
       stroke: #D4D8DA;
-      stroke-width: 2px;
-      shape-rendering: crispEdges;
+      stroke-width: 1px;
+     
     }
 
-    .axis--y .domain{
-        stroke-width: 2px;
+    .axis--y .domain, .axis--x .domain{
+        display: none;
     }
     
     
@@ -444,7 +512,15 @@ function scrollyTelling(step){
         stroke-width: 1px;
         stroke-dasharray: 3px 2px;
     }
+
+    .axis--x .tick line{
+        stroke-width: 2px;
+    }
     
+    .axis--y .tick text{
+        text-anchor: start;
+    }
+
     .axis-title {
       fill: #222;
         font-size: 16px;
@@ -480,22 +556,49 @@ function scrollyTelling(step){
         font-weight: 600;
         fill: #222;
     }
+
+    #avisoDuplicacion {
+        position: absolute;
+        top: 38%;
+        right: 5%;
+        width: 34%;
+        background-color: #ffd1d3;
+        line-height: 21px;
+        font-size: 15px;
+        padding: 8px 10px;
+        border-radius: 5px;
+        color: rgb(240, 78, 83);
+        font-weight: bold;
+        text-align: right;
+    }
+
+     
+    @media only screen and (min-width: 768px) {
+        #avisoDuplicacion {
+            top: 28%;
+            right: 5%;
+            width: 24%;
+        }
+    }
     
 </style>
 
 
 <section id='scrolly'>
     <div class='scrolly'>
+        <div class='stepFijo'>
+            <p> Vemos gráficos, números e información sobre la pandemia todo el tiempo. Pero ¿qué debemos mirar en los datos para saber en qué situación estamos?  
+            </p>
+        </div>
 
         <!-- aca va el grafico que va a quedar fijo -->
-        <figure id="grafico" class='sticky' >
+        <figure id="contenedorGrafico" class='sticky' >
         </figure>
 
         <!-- acá van los textos de cada paso -->
         <article>
             <div class='step' data-index='0'>
-                <p> Vemos gráficos, números e información sobre la pandemia todo el tiempo. Pero ¿qué debemos mirar en los datos para saber en qué situación estamos?  
-                </p><p>
+                <p>
                     Una de las respuestas está en mirar el "ritmo" al cual se desarrolla el contagio (en vez de mirar cifras aisladas como el número absoluto de casos). ¿Qué es y cómo se ve el ritmo de contagio en una pandemia?
                 </p><p>                    
                     Para responder, tenemos que mirar el detrás de escena de este gráfico.
@@ -546,22 +649,23 @@ Sin embargo, hay más en este gráfico, mucho más, sólo que hay que hacerle un
                 <p>
                     Vemos que al comienzo, el tiempo de duplicación era de aproximadamente 3 días. Luego del primer mes, el ritmo disminuyó mucho y el tiempo de duplicación pasó a 20 días.
                 </p><p>
-Mostrar los datos así nos permite asociar esa gran disminución del ritmo al efecto de medidas drásticas como el aislamiento social (que tardan unos 15 días en reflejarse en el número de casos confirmados).
-</p>
+                    Para evaluar la situación conviene, entonces, mirar la inclinación de la curva (¡en escala semi-log!): menor inclinación significa menor ritmo de contagio, es decir situación más controlada.
+                </p><p>
+                    En resumen, el ritmo de la curva es uno de los termómetros que tenemos para evaluar la situación actual, y nos da mayor información que la cifra aislada del número total de casos.
+                    
+                </p>
             </div>
 
         </article>
 
+        <div class='stepFijo' >
+            <p> Vemos gráficos, números e información sobre la pandemia todo el tiempo. Pero ¿qué debemos mirar en los datos para saber en qué situación estamos?  
+            </p>
+        </div>
+
     </div>
 
 </section>
-
-
-
-
-
-<p>Para evaluar la situación conviene, entonces, mirar la inclinación de la curva (¡en escala semi-log!): menor inclinación significa menor ritmo de contagio, es decir situación más controlada.</p>
-<p>En resumen, el ritmo de la curva es uno de los termómetros que tenemos para evaluar la situación actual, y nos da mayor información que la cifra aislada del número total de casos.</p>
 
 
  <!-- Scripts -->
@@ -586,7 +690,7 @@ Mostrar los datos así nos permite asociar esa gran disminución del ritmo al ef
 
         enterView({
             selector: stepSel.nodes(),
-            offset: 0.1,
+            offset: 0.5,
             enter: el => {
                 const index = +d3.select(el).attr('data-index');
                 updateChart(index);
@@ -610,41 +714,48 @@ rojo #F04E53
 naranja #F26522
 verde #62BB46
 */
-
-var colores = d3.scaleOrdinal()
-        .domain([0,5])
-        .range(["#00468B","#8B6BAF","#F04E53","#F26522","#62BB46"]);
-        
+       
         
 var ejeY, tituloY;
 
-var svg = d3.select("#grafico").append("svg"),
-    margin = {top: 25, right: 5, bottom: 25, left: 50},
-    width = 600,
-    height = 400;
+var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maximo
 
-    svg.attr("width", width + margin.left + margin.right);
-    svg.attr("height", height + margin.top + margin.bottom);
+var svg = d3.select("#contenedorGrafico").append("svg"),
+    margin = isMobile ? {top: 35, right: 20, bottom: 25, left: 20} : {top: 50, right: 30, bottom: 50, left: 30},
+    width =  +d3.select('#contenedorGrafico').style('width').slice(0, -2),
+    height = +d3.select('#contenedorGrafico').style('height').slice(0, -2);
 
-var parseTime = d3.timeParse("%Y-%m-%d")
-    bisectDate = d3.bisector(function(d) { return d.fecha; }).left;
+    if (height > altoMaximo*width) {
+        svg.style('margin-top', (height - altoMaximo*width)/2 + "px")
+        height = altoMaximo*width;
+    }
+
+    svg.attr("viewBox", [0, 0, width, height]);
+
+    height = height - margin.top - margin.bottom;
+    width = width - margin.left - margin.right;
+    
+
+var parseTime = d3.timeParse("%Y-%m-%d");
 
 var x = d3.scaleTime().range([0, width]);
 var y = d3.scaleLinear().range([height, 0]);
 var yLog = d3.scaleLog().range([height, 0]);
 
 var yAxis = d3.axisLeft(y);
-        yAxis.ticks(8).tickFormat(d3.format(",.1r")).tickSizeInner(-6);
+    yAxis.ticks(8).tickFormat(d3.format(",.1r")).tickSizeInner(-6)
+;
 
 var yLogAxis = d3.axisLeft(yLog);
-        yLogAxis.ticks(4).tickFormat(d3.format(",.1r")).tickSizeInner(-6);
+    yLogAxis.ticks(4).tickFormat(d3.format(",.1r")).tickSizeInner(-6);
 
 var line = d3.line()
     .x(function(d) { return x(d.fecha); })
     .y(function(d) { return yLog(d.casos_tot); });
 
 var grafico = svg.append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    ;
 
 //********************* CARGA DATOS ************
 
@@ -670,25 +781,40 @@ Promise.all([
       d.index = i;
     });
 
-    x.domain(d3.extent(data, function(d) { return d.fecha; }));
+    x.domain([parseTime("2020-03-01"),d3.max(data, function(d) { return d.fecha; })]);
     y.domain([d3.min(data, function(d) { return d.casos_tot; }), d3.max(data, function(d) { return d.casos_tot; })+20000]);
     yLog.domain(y.domain());
 
-    grafico.append("g") // EJE X
+
+     grafico.append("g") // EJE X
         .attr("class", "axis axis--x")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x)
         .ticks(d3.timeMonth.every(1)))
+        .call(g => {  // ESTO PONE LOS NOMBRES DE LOS MESES EN MEDIO DE CADA MES
+            g.selectAll(".tick:not(:last-of-type) text") // para todos los meses menos el ultimo
+                .attr("dx", x(parseTime("2020-03-16"))) 
+                .attr("dy", "0.3em") ;
+            
+            g.selectAll(".tick:last-of-type text") // el ultimo si no esta completo lo centra en los dias que haya
+                .attr("dx",  x(parseTime("2020-03-" + Math.ceil((d3.timeFormat("%-d")(d3.max(data, function(d) { return d.fecha; })))/2))))
+                .attr("dy", "0.3em") ;
+            
+            g.selectAll(".tick line") // las lineas que separan los meses, mas altas
+                .attr("y2", "1.4em") ;
+            }
+            )
         ;
 
     ejeY = grafico.append("g") // EJE Y
         .attr("class", "axis axis--y")
-       .call(yLogAxis);
+       .call(yLogAxis)
+       ;
     
     tituloY = ejeY.append("text")
         .attr("class", "axis-title")
-        .attr("y", -5)
-        .attr("x", 8)
+        .attr("y", -8)
+        
         .text("Casos (logarítmico)");
 
     grafico.append("path") // LINEA DE FONDO
@@ -707,27 +833,34 @@ Promise.all([
       .attr("cy", i => yLog(i.casos_tot))
       .attr("r", 3);
 
-
+    
+    
 
     var tendencias = grafico.append("g"); // DUPLICACIONES
-    
+
     tendencias.selectAll("path")
      .data(duplicaciones)
      .join("path")
         .attr("class", "tendencia")
-        .style("opacity", 0)
+        .style("opacity", d=> { return d.index==0 ? 100 : 0})
         .attr('d', d => d3.line()([[x(d.desdeX), yLog(d.desdeY)],[x(d.hastaX), yLog(d.hastaY)]]))
         .style("stroke", d => colores(d.index+1));
 
     tendencias.selectAll("text")
      .data(duplicaciones)
      .join("text")
-        .attr("class", "duplicacionesTextos")
-        .style("opacity", 0)
+        .attr("class", d=>{return "duplicacionesTextos"+" duplica"+d.index})
+        .style("opacity", d=> { return d.index==0 ? 100 : 0})
         .attr('x', d => Math.abs(x(d.hastaX) - x(d.desdeX))/2+ x(d.desdeX))
         .attr('y', d => yLog(d.desdeY) - 10 - Math.abs(yLog(d.hastaY) - yLog(d.desdeY) )/2)
         .style("fill", d => colores(d.index+1))
-        .text(d=> d.duplicacion + " días");
+        .text(d=> { return d.duplicacion + " días"});
+
+
+     d3.select("#contenedorGrafico").append("div")
+            .attr("id","avisoDuplicacion")
+            .html("Tiempo de duplicación última semana:<br/>"+ duplicaciones[0].duplicacion+" días")
+
 
     var aspo = grafico.append("g").attr("id","aspo")
                 .style("opacity",0)
@@ -744,10 +877,6 @@ Promise.all([
                 .text("A.S.P.O")
                 ;
                 
-
-
-    
-    
    
 });
 
@@ -758,9 +887,16 @@ function scrollyTelling(step){
         case 0: // INICIO, ES LOG
             cambia.tipo = "log";
             cambia.tick = -6;
+            d3.selectAll(".tendencia").filter(d=>d.index==0).transition().delay(300).duration(300).style("opacity",100);
+            d3.selectAll(".duplicacionesTextos").filter(d=>d.index==0).transition().delay(300).duration(300).style("opacity",100);
+            d3.select("#avisoDuplicacion").transition().duration(300).style("opacity",100);
+
         break;
 
         case 1: // PASA A LINEAL
+            d3.selectAll(".tendencia").filter(d=>d.index==0).transition().duration(300).style("opacity",0);
+            d3.selectAll(".duplicacionesTextos").filter(d=>d.index==0).transition().duration(300).style("opacity",0);
+            d3.select("#avisoDuplicacion").transition().duration(300).style("opacity",0);
             cambia.tipo = "lineal"
             cambia.tick =-6
         break;
@@ -841,20 +977,500 @@ function scrollyTelling(step){
   <entry>
     <title>¿Cómo evoluciona mi provincia?</title>
     <url>/07/evolucion_por_provincia/</url>
-    <content><![CDATA[<h2 id="Uno"><a href="#Uno" class="headerlink" title="Uno"></a>Uno</h2><p>Las medidas para evitar el movimiento de personas entre distritos nos permiten “desarmar” el problema grande en partes más chicas con la esperanza de que así sea más fácil enfrentarlo.<br>¿Cómo va cada provincia?<br>La respuesta está en este gráfico, mirándolo por partes.</p>
-<h2 id="dos"><a href="#dos" class="headerlink" title="dos"></a>dos</h2><p>Esta es la curva de todos los casos positivos de COVID-19 en Argentina.<br>Si ya viste esta otra historia (link E1) sabés que para saber cómo está avanzando la pandemia lo importante es el ritmo:</p>
-<p>mayor    &lt;–&gt;    mayor<br>inclinación        ritmo<br>        (tiempo de<br>        duplicación<br>        más corto)</p>
-<p>La curva de Argentina tiene un ritmo. Pero eso no quiere decir que todas las provincias estén igual.</p>
-<h2 id="Tres"><a href="#Tres" class="headerlink" title="Tres"></a>Tres</h2><p>Dentro de la curva de Argentina están los datos de cada provincia.<br>Ahora se puede comparar la inclinación de cada una por separado.<br>¡Y no es igual para todas!</p>
-<h2 id="Cuatro"><a href="#Cuatro" class="headerlink" title="Cuatro"></a>Cuatro</h2><p>Para saber cómo va el ritmo de cada provincia, tenemos que mirar la inclinación de las partes rectas, por ejemplo en los últimos días.<br>Esa inclinación nos da el tiempo de duplicación que no es el mismo en todos los lugares.</p>
-<p>El tiempo de duplicación es un criterio para definir las fases del aislamiento social.</p>
-<h2 id="Cinco"><a href="#Cinco" class="headerlink" title="Cinco"></a>Cinco</h2><p>El comienzo de la pandemia en Argentina estuvo marcado por curvas muy empinadas en todos los distritos que tenían casos.<br>El ritmo era muy alto, es decir el número de casos se duplicaba en pocos días (tiempo de duplicación muy corto) y todo el país estaba en fase 1 (aislamiento estricto).</p>
-<h2 id="Seis"><a href="#Seis" class="headerlink" title="Seis"></a>Seis</h2><p>Considerando los datos de las últimas dos semanas, estas son las provincias que duplican el número de casos confirmados en menos de 5 días.<br>El ritmo de la pandemia en estas provincias es muy alto.</p>
-<h2 id="Siete"><a href="#Siete" class="headerlink" title="Siete"></a>Siete</h2><p>Estas las que están duplicando sus casos confirmados con tiempos de entre 5 y 15 días.</p>
-<h2 id="Ocho"><a href="#Ocho" class="headerlink" title="Ocho"></a>Ocho</h2><p>Estas las que lo hacen entre 15 y 25 días.</p>
-<h2 id="Nueve"><a href="#Nueve" class="headerlink" title="Nueve"></a>Nueve</h2><p>Y estas provincias, donde los brotes parecen estar más controlados, están duplicando muy lentamente (cada 25 días o más)…</p>
-<h2 id="Once"><a href="#Once" class="headerlink" title="Once"></a>Once</h2><p>…o directamente no tienen casos nuevos.</p>
-<h2 id="Doce"><a href="#Doce" class="headerlink" title="Doce"></a>Doce</h2><p>Separar el todo en sus partes es muy importante para tomar decisiones, especialmente cuando el comportamiento de las partes difiere entre sí.<br>En algunos lugares fue y es posible flexibilizar las medidas de aislamiento social antes que en otros. Pero, más importante aún, ¡esto puede ir cambiando!<br>Y con las ciudades, ¿será igual? Exactamente; de la misma forma que separamos en partes por provincias, también podríamos hacerlo con ciudades.<br>Por ahora, no te olvides de seguir el ritmo de la pandemia en tu provincia.</p>
+    <content><![CDATA[
+
+
+<style>
+
+
+    .axis path, .axis line {
+      fill: none;
+      stroke: #D4D8DA;
+      stroke-width: 1px;
+     
+    }
+
+    .axis--y .domain, .axis--x .domain{
+        display: none;
+    }
+    
+    
+    .axis--y .tick{
+        stroke-width: 1px;
+        stroke-dasharray: 3px 2px;
+    }
+
+    .axis--x .tick line{
+        stroke-width: 2px;
+    }
+    
+    .axis--y .tick text{
+        text-anchor: start;
+    }
+
+    .axis-title {
+      fill: #222;
+        font-size: 16px;
+        text-anchor: start;
+    }
+    
+    .line {
+      fill: none;
+      stroke: #a3a3a3;
+      stroke-width: 1px;
+    }
+
+    .tendencia{
+        fill: none;
+        stroke-width: 3px;
+        stroke-linecap: round;
+    }
+
+    .duplicacionesTextos{
+        text-anchor: end;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+  
+     
+    @media only screen and (min-width: 768px) {
+      
+    }
+    
+</style>
+
+
+<section id='scrolly'>
+    <div class='scrolly'>
+        <div class='stepFijo'>
+            <p> Las medidas para evitar el movimiento de personas entre distritos o provincias nos permiten "desarmar" el problema grande en partes más chicas, con la esperanza de que así sea más fácil enfrentarlo.
+            </p>
+        </div>
+
+        <!-- aca va el grafico que va a quedar fijo -->
+        <figure id="contenedorGrafico" class='sticky' >
+        </figure>
+
+        <!-- acá van los textos de cada paso -->
+        <article>
+            <div class='step' data-index='0'>
+                <p>
+                    Veamos, ¿cómo va cada provincia? La respuesta está en este gráfico, pero hay que mirarlo por partes.
+
+                </p>
+            </div>
+            
+            <div class='step' data-index='1'>
+                <p>
+                    Esta es la curva de todos los casos confirmados de COVID-19 en Argentina.
+				</p>
+				<p>
+					Si ya viste esta otra historia (link E1), sabés que para saber cómo está avanzando la pandemia lo importante es el ritmo. En el gráfico, el ritmo se ve en la inclinación de la curva:
+				</p>
+				<p>
+					mayor	<-->	mayor
+					inclinación		ritmo
+							(tiempo de
+							duplicación
+							más corto)
+						</p>
+						<p>
+					Ahora bien, la curva de la Argentina tiene un ritmo como país. Pero eso no quiere decir que todas las provincias estén igual.
+                </p>
+            </div>
+            <div class='step' data-index='2'>
+                <p>
+                    Dentro de la curva de Argentina están los datos de cada provincia, y podemos comparar la inclinación de cada una por separado.
+				</p>
+				<p>
+
+¡No es igual para todas!
+
+                </p>
+            </div>
+            <div class='step' data-index='3'>
+                <p>
+                    Para saber cómo va el ritmo de cada provincia, tenemos que mirar la inclinación de las partes rectas de cada curva (link E1), por ejemplo en los últimos días.
+                </p><p>
+					Esa inclinación nos da el tiempo de duplicación de casos, que no es el mismo en todos los lugares.
+                </p>
+            </div>
+            <div class='step' data-index='4'>
+                <p>
+					El comienzo de la pandemia en Argentina estuvo marcado por curvas muy empinadas en todos los distritos que tenían casos.
+            </p><p>
+                El ritmo era muy alto, es decir, el número de casos se duplicaba en pocos días (tiempo de duplicación muy corto) y todo el país estaba en fase 1 (aislamiento estricto).
+                </p>
+            </div>
+            <div class='step' data-index='5'>
+                <p>
+                    Considerando los datos de las últimas dos semanas, estas son las provincias en las que el número de casos confirmados se duplica en menos de 5 días.
+                </p><p>
+                    Es decir, el ritmo de la pandemia en estas provincias es muy alto
+                </p>
+            </div>
+            <div class='step' data-index='6'>
+                <p>
+					Estas son las provincias en las que sus casos confirmados se están duplicando con tiempos de entre 5 y 15 días.
+                </p>
+            </div>
+
+			<div class='step' data-index='7'>
+                <p>
+					En éstas, la duplicación de casos se da entre 15 y 25 días.
+                </p>
+			</div>
+			
+			<div class='step' data-index='8'>
+                <p>
+					Y en estas provincias, donde los brotes parecen estar más controlados, y los casos se están duplicando muy lentamente (cada 25 días o más)...
+
+                </p>
+			</div>
+
+			<div class='step' data-index='8'>
+                <p>
+					...o también están aquellas que, directamente, no tienen casos nuevos
+                </p>
+			</div>
+
+			<div class='step' data-index='9'>
+                <p>
+					Separar el todo en sus partes es muy importante para tomar decisiones, especialmente cuando el comportamiento de las partes difiere entre sí.
+                </p>
+				<p>
+					En algunos lugares fue y es posible flexibilizar las medidas de aislamiento social antes que en otros. Pero, más importante aún,  ¡la evolución local de la pandemia puede ir cambiando! Y, por lo tanto, las medidas también.
+                </p>
+			</div>
+			
+
+			
+			
+        </article>
+
+        <div class='stepFijo' >
+            <p> 
+				Y con las ciudades, ¿será igual? Exactamente; de la misma forma que separamos en partes por provincias, también podríamos hacerlo con ciudades.
+			</p>
+				<p> Por ahora, no te olvides de seguir el ritmo de la pandemia en tu provincia.
+
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+ <!-- Scripts -->
+ <script>
+    
+
+    // **** CODIGO DEL SCROLLY *******
+
+
+    const container = d3.select('#scrolly'); //busco el container total
+    const stepSel = container.selectAll('.step'); // selecciono los "steps"
+
+    function updateChart(index) {  // funcion que llama cada vez que cruza un humbral
+        const sel = container.select(`[data-index='${index}']`);
+        stepSel.classed('is-active', (d, i) => i === index);
+        
+        scrollyTelling(index); // <<<<< AQUI LLAMA AL GRAFICO VERDADERO
+    }
+
+    function init() { // configuracion inicial
+        Stickyfill.add(d3.select('.sticky').node()); // fallback para browsers sin sticky
+
+        enterView({
+            selector: stepSel.nodes(),
+            offset: 0.5,
+            enter: el => {
+                const index = +d3.select(el).attr('data-index');
+                updateChart(index);
+            },
+            exit: el => {
+                let index = +d3.select(el).attr('data-index');
+                index = Math.max(0, index - 1);
+                updateChart(index);
+            }
+        });
+    }
+    init()
+
+    // **** END SCROLLY *******
+
+
+/* COLORES
+azul #00468B
+violeta #8B6BAF
+rojo #F04E53
+naranja #F26522
+verde #62BB46
+*/
+       
+        
+var ejeY, tituloY;
+
+var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maximo
+
+var svg = d3.select("#contenedorGrafico").append("svg"),
+    margin = isMobile ? {top: 35, right: 20, bottom: 25, left: 20} : {top: 50, right: 30, bottom: 50, left: 30},
+    width =  +d3.select('#contenedorGrafico').style('width').slice(0, -2),
+    height = +d3.select('#contenedorGrafico').style('height').slice(0, -2);
+
+    if (height > altoMaximo*width) {
+        svg.style('margin-top', (height - altoMaximo*width)/2 + "px")
+        height = altoMaximo*width;
+    }
+
+    svg.attr("viewBox", [0, 0, width, height]);
+
+    height = height - margin.top - margin.bottom;
+    width = width - margin.left - margin.right;
+    
+
+var parseTime = d3.timeParse("%Y-%m-%d");
+
+var x = d3.scaleTime().range([0, width]);
+var yLog = d3.scaleLog().range([height, 0]);
+
+var yLogAxis = d3.axisLeft(yLog);
+    yLogAxis.ticks(4).tickFormat(d3.format(",.1r")).tickSizeInner(-6);
+
+var line = d3.line()
+    .x(function(d) { return x(d.fecha); })
+    .y(function(d) { return yLog(d.casos_tot); });
+
+var grafico = svg.append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    ;
+
+//********************* CARGA DATOS ************
+
+Promise.all([
+    d3.csv("/datos/tablaMaestra.csv"),
+	d3.csv("/datos/Fuente_datos_historias - E1_ritmo.csv"),
+	d3.csv("Fuente_datos_historias - E4_ritmo_prov.csv")
+]).then(function(files) {
+    
+    var data = files[0] // datos principales;
+
+	var duplicaciones = files[1] // funciones de duplicacion de casos;
+	
+	var dataProv = files[2] // funciones de duplicacion de casos;
+
+    data.forEach(function(d) {
+      d.fecha = parseTime(d.fecha);
+      d.casos_tot = +d.casos_tot;
+	});
+	
+    duplicaciones.forEach(function(d,i) {
+      d.desdeX = parseTime(d.desdeX);
+      d.hastaX = parseTime(d.hastaX);
+      d.desdeY = +d.desdeY;
+      d.hastaY = +d.hastaY;
+      d.index = i;
+	});
+	
+	dataProv.forEach(function(d) {
+      d.fecha = d3.timeDay.offset(parseTime("2020-03-03"), d.dia)
+      d.casos_tot = +d.casos_tot;
+	});
+	
+
+    x.domain([parseTime("2020-03-01"),d3.max(data, function(d) { return d.fecha; })]);
+	var yDomainPais = [d3.min(data, function(d) { return d.casos_tot; }), d3.max(data, function(d) { return d.casos_tot; })+20000];
+	var yDomainProv = [d3.min(dataProv, function(d) { return d.casos_tot; }), d3.max(data, function(d) { return d.casos_tot; })+20000];
+	yLog.domain(yDomainPais);
+    
+     grafico.append("g") // EJE X
+        .attr("class", "axis axis--x")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x)
+        .ticks(d3.timeMonth.every(1)))
+        .call(g => {  // ESTO PONE LOS NOMBRES DE LOS MESES EN MEDIO DE CADA MES
+            g.selectAll(".tick:not(:last-of-type) text") // para todos los meses menos el ultimo
+                .attr("dx", x(parseTime("2020-03-16"))) 
+                .attr("dy", "0.3em") ;
+            
+            g.selectAll(".tick:last-of-type text") // el ultimo si no esta completo lo centra en los dias que haya
+                .attr("dx",  x(parseTime("2020-03-" + Math.ceil((d3.timeFormat("%-d")(d3.max(data, function(d) { return d.fecha; })))/2))))
+                .attr("dy", "0.3em") ;
+            
+            g.selectAll(".tick line") // las lineas que separan los meses, mas altas
+                .attr("y2", "1.4em") ;
+            }
+            )
+        ;
+
+    ejeY = grafico.append("g") // EJE Y
+        .attr("class", "axis axis--y")
+       .call(yLogAxis)
+       ;
+    
+    tituloY = ejeY.append("text")
+        .attr("class", "axis-title")
+        .attr("y", -8)
+        
+        .text("Casos (logarítmico)");
+
+    grafico.append("path") // LINEA DE FONDO
+        .datum(data)
+        .attr("class", "line")
+        .attr("d", line);
+
+    grafico.append("g") // CIRCULITOS DE DATOS
+      .attr("fill", "#00468B")
+      .attr("stroke", "none")
+    .selectAll("circle")
+    .data(data)
+    .join("circle")
+      .attr("class","dataCircle")
+      .attr("cx", i => x(i.fecha))
+      .attr("cy", i => yLog(i.casos_tot))
+      .attr("r", 3);
+
+    
+    
+
+    var tendencias = grafico.append("g"); // DUPLICACIONES
+
+    tendencias.selectAll("path")
+     .data(duplicaciones)
+     .join("path")
+        .attr("class", "tendencia")
+        .style("opacity", d=> { return d.index==0 ? 100 : 0})
+        .attr('d', d => d3.line()([[x(d.desdeX), yLog(d.desdeY)],[x(d.hastaX), yLog(d.hastaY)]]))
+        .style("stroke", d => colores(d.index+1));
+
+    tendencias.selectAll("text")
+     .data(duplicaciones)
+     .join("text")
+        .attr("class", d=>{return "duplicacionesTextos"+" duplica"+d.index})
+        .style("opacity", d=> { return d.index==0 ? 100 : 0})
+        .attr('x', d => Math.abs(x(d.hastaX) - x(d.desdeX))/2+ x(d.desdeX))
+        .attr('y', d => yLog(d.desdeY) - 10 - Math.abs(yLog(d.hastaY) - yLog(d.desdeY) )/2)
+        .style("fill", d => colores(d.index+1))
+        .text(d=> { return d.duplicacion + " días"});
+
+
+     d3.select("#contenedorGrafico").append("div")
+            .attr("id","avisoDuplicacion")
+            .html("Tiempo de duplicación última semana:<br/>"+ duplicaciones[0].duplicacion+" días")
+
+
+    var aspo = grafico.append("g").attr("id","aspo")
+                .style("opacity",0)
+    ;// ASPO
+            
+    aspo.append("path")
+                .attr("class", "aspo")
+                .attr('d', d3.line()([[x(parseTime("2020-03-21")), 50],[x(parseTime("2020-03-21")),height]])) ; 
+
+    aspo.append("text")
+                .attr("class", "aspoTexto")
+                .attr('x', x(parseTime("2020-03-21"))+4)
+                .attr('y', 55)
+                .text("A.S.P.O")
+                ;
+                
+   
+});
+
+function scrollyTelling(step){
+
+    var cambia = {};
+    switch (step) {
+        case 0: // INICIO, ES LOG
+            cambia.tipo = "log";
+            cambia.tick = -6;
+            d3.selectAll(".tendencia").filter(d=>d.index==0).transition().delay(300).duration(300).style("opacity",100);
+            d3.selectAll(".duplicacionesTextos").filter(d=>d.index==0).transition().delay(300).duration(300).style("opacity",100);
+            d3.select("#avisoDuplicacion").transition().duration(300).style("opacity",100);
+
+        break;
+
+        case 1: // PASA A LINEAL
+            d3.selectAll(".tendencia").filter(d=>d.index==0).transition().duration(300).style("opacity",0);
+            d3.selectAll(".duplicacionesTextos").filter(d=>d.index==0).transition().duration(300).style("opacity",0);
+            d3.select("#avisoDuplicacion").transition().duration(300).style("opacity",0);
+            cambia.tipo = "lineal"
+            cambia.tick =-6
+        break;
+
+        case 2: // AGREGA FLECHAS/GRADIENTE
+            cambia.tipo = "lineal"
+            cambia.tick =-width
+        break;
+
+        case 3: // VUELVE A LOG CON FLECHAS/GRADIENTE
+            cambia.tipo = "log"
+            cambia.tick =-width
+
+            d3.selectAll(".tendencia").transition().duration(600).style("opacity",0)
+        break;
+
+        case 4: // AGREGA TENDENCIAS
+            cambia.tipo = 0
+            cambia.tick =-6
+            d3.selectAll(".tendencia").transition().delay(d=>d.index*100).duration(1100).style("opacity",100)
+            d3.selectAll(".duplicacionesTextos").transition().duration(600).style("opacity",0)
+
+        break;
+
+        case 5: // AGREGA NUMEROS A tENDECNIAS
+            cambia.tipo = 0
+            d3.selectAll(".duplicacionesTextos").transition().delay(d=>d.index*100).duration(1100).style("opacity",100)
+            d3.select("#aspo").transition().duration(600).style("opacity",0)
+        break;
+
+        case 6: // AGREGA ASPO
+            cambia.tipo = 0
+            d3.select("#aspo").transition().duration(600).style("opacity",100)
+        break;
+
+    }
+
+    if(cambia.tipo == "log"){
+        if(cambia.tick!=0) yLogAxis.tickSizeInner(cambia.tick);
+        
+        ejeY.transition().duration(600).call(yLogAxis);
+
+        tituloY.text("Casos (logarítmico)");
+
+        line.y(function(d) { return yLog(d.casos_tot); });
+        d3.selectAll(".line")
+            .transition().duration(600)
+            .attr("d", line);
+
+        d3.selectAll(".dataCircle")
+            .transition().duration(600)
+            .attr("cy", function(d) { return yLog(d.casos_tot); });
+
+    }else if (cambia.tipo == "lineal"){
+        if(cambia.tick!=0) yAxis.tickSizeInner(cambia.tick);
+        ejeY.transition().duration(600).call(yAxis);
+
+        tituloY.text("Casos (lineal)")
+
+        line.y(function(d) { return y(d.casos_tot); });
+        d3.selectAll(".line")
+            .transition().duration(600)
+            .attr("d", line);
+
+        d3.selectAll(".dataCircle")
+            .transition().duration(600)
+            .attr("cy", function(d) { return y(d.casos_tot); })
+
+    }
+        
+
+}
+
+
+</script>
 ]]></content>
   </entry>
   <entry>

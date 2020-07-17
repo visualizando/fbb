@@ -107,6 +107,35 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
+      <script>
+      var es_ES = {
+        "decimal": ",",
+        "thousands": ".",
+        "grouping": [3],
+        "currency": ["$", ""],
+        "dateTime": "%a %b %e %X %Y",
+        "date": "%d/%m/%Y",
+        "time": "%H:%M:%S",
+        "periods": ["AM", "PM"],
+        "days": ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+        "shortDays": ["Dom", "Lun", "Mar", "Mi", "Jue", "Vie", "Sab"],
+        "months": ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+        "shortMonths": ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
+    };
+
+    d3.timeFormatDefaultLocale(es_ES);
+    d3.formatDefaultLocale(es_ES);
+
+    var isMobile = document.getElementsByTagName("body")[0].clientWidth < 768 ? 1 : 0; 
+    
+
+
+
+var colores = d3.scaleOrdinal()
+        .domain([0,5])
+        .range(["#00468B","#8B6BAF","#F04E53","#F26522","#62BB46"]);
+        
+      </script>
 
   
 
@@ -202,16 +231,18 @@
         </h1>
 
         <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar-check"></i>
+              </span>
+              <!-- <span class="post-meta-item-text">Editado el</span> -->
+              <time title="Modificado por: 7 de julio de 2020 01" itemprop="dateModified" datetime="2020-07-07T01:35:00-03:00">Actualizado 7 de julio de 2020</time>
+            </span>
 
           
             <div class="post-description">Entender cómo evoluciona la pandemia nos permite tomar decisiones. ¿Qué miramos, o qué deberíamos mirar, para entender esa evolución? Sobre tendencias y cómo interpretar si estamos mejor, igual o peor que ayer.</div>
-              <span class="post-meta-item">
-            <!--     <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span> -->
-                <span class="post-meta-item-text">Editado el</span>
-                <time title="Modificado por: 7 de julio de 2020 01" itemprop="dateModified" datetime="2020-07-07T01:35:00-03:00">7 de julio de 2020</time>
-              </span>
+
+         
 
           
         </div>
@@ -235,12 +266,12 @@
     .axis path, .axis line {
       fill: none;
       stroke: #D4D8DA;
-      stroke-width: 2px;
-      shape-rendering: crispEdges;
+      stroke-width: 1px;
+     
     }
 
-    .axis--y .domain{
-        stroke-width: 2px;
+    .axis--y .domain, .axis--x .domain{
+        display: none;
     }
     
     
@@ -248,7 +279,15 @@
         stroke-width: 1px;
         stroke-dasharray: 3px 2px;
     }
+
+    .axis--x .tick line{
+        stroke-width: 2px;
+    }
     
+    .axis--y .tick text{
+        text-anchor: start;
+    }
+
     .axis-title {
       fill: #222;
         font-size: 16px;
@@ -284,22 +323,49 @@
         font-weight: 600;
         fill: #222;
     }
+
+    #avisoDuplicacion {
+        position: absolute;
+        top: 38%;
+        right: 5%;
+        width: 34%;
+        background-color: #ffd1d3;
+        line-height: 21px;
+        font-size: 15px;
+        padding: 8px 10px;
+        border-radius: 5px;
+        color: rgb(240, 78, 83);
+        font-weight: bold;
+        text-align: right;
+    }
+
+     
+    @media only screen and (min-width: 768px) {
+        #avisoDuplicacion {
+            top: 28%;
+            right: 5%;
+            width: 24%;
+        }
+    }
     
 </style>
 
 
 <section id='scrolly'>
     <div class='scrolly'>
+        <div class='stepFijo'>
+            <p> Vemos gráficos, números e información sobre la pandemia todo el tiempo. Pero ¿qué debemos mirar en los datos para saber en qué situación estamos?  
+            </p>
+        </div>
 
         <!-- aca va el grafico que va a quedar fijo -->
-        <figure id="grafico" class='sticky' >
+        <figure id="contenedorGrafico" class='sticky' >
         </figure>
 
         <!-- acá van los textos de cada paso -->
         <article>
             <div class='step' data-index='0'>
-                <p> Vemos gráficos, números e información sobre la pandemia todo el tiempo. Pero ¿qué debemos mirar en los datos para saber en qué situación estamos?  
-                </p><p>
+                <p>
                     Una de las respuestas está en mirar el "ritmo" al cual se desarrolla el contagio (en vez de mirar cifras aisladas como el número absoluto de casos). ¿Qué es y cómo se ve el ritmo de contagio en una pandemia?
                 </p><p>                    
                     Para responder, tenemos que mirar el detrás de escena de este gráfico.
@@ -350,22 +416,23 @@ Sin embargo, hay más en este gráfico, mucho más, sólo que hay que hacerle un
                 <p>
                     Vemos que al comienzo, el tiempo de duplicación era de aproximadamente 3 días. Luego del primer mes, el ritmo disminuyó mucho y el tiempo de duplicación pasó a 20 días.
                 </p><p>
-Mostrar los datos así nos permite asociar esa gran disminución del ritmo al efecto de medidas drásticas como el aislamiento social (que tardan unos 15 días en reflejarse en el número de casos confirmados).
-</p>
+                    Para evaluar la situación conviene, entonces, mirar la inclinación de la curva (¡en escala semi-log!): menor inclinación significa menor ritmo de contagio, es decir situación más controlada.
+                </p><p>
+                    En resumen, el ritmo de la curva es uno de los termómetros que tenemos para evaluar la situación actual, y nos da mayor información que la cifra aislada del número total de casos.
+                    
+                </p>
             </div>
 
         </article>
 
+        <div class='stepFijo' >
+            <p> Vemos gráficos, números e información sobre la pandemia todo el tiempo. Pero ¿qué debemos mirar en los datos para saber en qué situación estamos?  
+            </p>
+        </div>
+
     </div>
 
 </section>
-
-
-
-
-
-<p>Para evaluar la situación conviene, entonces, mirar la inclinación de la curva (¡en escala semi-log!): menor inclinación significa menor ritmo de contagio, es decir situación más controlada.</p>
-<p>En resumen, el ritmo de la curva es uno de los termómetros que tenemos para evaluar la situación actual, y nos da mayor información que la cifra aislada del número total de casos.</p>
 
 
  <!-- Scripts -->
@@ -390,7 +457,7 @@ Mostrar los datos así nos permite asociar esa gran disminución del ritmo al ef
 
         enterView({
             selector: stepSel.nodes(),
-            offset: 0.1,
+            offset: 0.5,
             enter: el => {
                 const index = +d3.select(el).attr('data-index');
                 updateChart(index);
@@ -414,41 +481,48 @@ rojo #F04E53
 naranja #F26522
 verde #62BB46
 */
-
-var colores = d3.scaleOrdinal()
-        .domain([0,5])
-        .range(["#00468B","#8B6BAF","#F04E53","#F26522","#62BB46"]);
-        
+       
         
 var ejeY, tituloY;
 
-var svg = d3.select("#grafico").append("svg"),
-    margin = {top: 25, right: 5, bottom: 25, left: 50},
-    width = 600,
-    height = 400;
+var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maximo
 
-    svg.attr("width", width + margin.left + margin.right);
-    svg.attr("height", height + margin.top + margin.bottom);
+var svg = d3.select("#contenedorGrafico").append("svg"),
+    margin = isMobile ? {top: 35, right: 20, bottom: 25, left: 20} : {top: 50, right: 30, bottom: 50, left: 30},
+    width =  +d3.select('#contenedorGrafico').style('width').slice(0, -2),
+    height = +d3.select('#contenedorGrafico').style('height').slice(0, -2);
 
-var parseTime = d3.timeParse("%Y-%m-%d")
-    bisectDate = d3.bisector(function(d) { return d.fecha; }).left;
+    if (height > altoMaximo*width) {
+        svg.style('margin-top', (height - altoMaximo*width)/2 + "px")
+        height = altoMaximo*width;
+    }
+
+    svg.attr("viewBox", [0, 0, width, height]);
+
+    height = height - margin.top - margin.bottom;
+    width = width - margin.left - margin.right;
+    
+
+var parseTime = d3.timeParse("%Y-%m-%d");
 
 var x = d3.scaleTime().range([0, width]);
 var y = d3.scaleLinear().range([height, 0]);
 var yLog = d3.scaleLog().range([height, 0]);
 
 var yAxis = d3.axisLeft(y);
-        yAxis.ticks(8).tickFormat(d3.format(",.1r")).tickSizeInner(-6);
+    yAxis.ticks(8).tickFormat(d3.format(",.1r")).tickSizeInner(-6)
+;
 
 var yLogAxis = d3.axisLeft(yLog);
-        yLogAxis.ticks(4).tickFormat(d3.format(",.1r")).tickSizeInner(-6);
+    yLogAxis.ticks(4).tickFormat(d3.format(",.1r")).tickSizeInner(-6);
 
 var line = d3.line()
     .x(function(d) { return x(d.fecha); })
     .y(function(d) { return yLog(d.casos_tot); });
 
 var grafico = svg.append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    ;
 
 //********************* CARGA DATOS ************
 
@@ -474,25 +548,40 @@ Promise.all([
       d.index = i;
     });
 
-    x.domain(d3.extent(data, function(d) { return d.fecha; }));
+    x.domain([parseTime("2020-03-01"),d3.max(data, function(d) { return d.fecha; })]);
     y.domain([d3.min(data, function(d) { return d.casos_tot; }), d3.max(data, function(d) { return d.casos_tot; })+20000]);
     yLog.domain(y.domain());
 
-    grafico.append("g") // EJE X
+
+     grafico.append("g") // EJE X
         .attr("class", "axis axis--x")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x)
         .ticks(d3.timeMonth.every(1)))
+        .call(g => {  // ESTO PONE LOS NOMBRES DE LOS MESES EN MEDIO DE CADA MES
+            g.selectAll(".tick:not(:last-of-type) text") // para todos los meses menos el ultimo
+                .attr("dx", x(parseTime("2020-03-16"))) 
+                .attr("dy", "0.3em") ;
+            
+            g.selectAll(".tick:last-of-type text") // el ultimo si no esta completo lo centra en los dias que haya
+                .attr("dx",  x(parseTime("2020-03-" + Math.ceil((d3.timeFormat("%-d")(d3.max(data, function(d) { return d.fecha; })))/2))))
+                .attr("dy", "0.3em") ;
+            
+            g.selectAll(".tick line") // las lineas que separan los meses, mas altas
+                .attr("y2", "1.4em") ;
+            }
+            )
         ;
 
     ejeY = grafico.append("g") // EJE Y
         .attr("class", "axis axis--y")
-       .call(yLogAxis);
+       .call(yLogAxis)
+       ;
     
     tituloY = ejeY.append("text")
         .attr("class", "axis-title")
-        .attr("y", -5)
-        .attr("x", 8)
+        .attr("y", -8)
+        
         .text("Casos (logarítmico)");
 
     grafico.append("path") // LINEA DE FONDO
@@ -511,7 +600,8 @@ Promise.all([
       .attr("cy", i => yLog(i.casos_tot))
       .attr("r", 3);
 
-
+    
+    
 
     var tendencias = grafico.append("g"); // DUPLICACIONES
 
@@ -519,19 +609,25 @@ Promise.all([
      .data(duplicaciones)
      .join("path")
         .attr("class", "tendencia")
-        .style("opacity", 0)
+        .style("opacity", d=> { return d.index==0 ? 100 : 0})
         .attr('d', d => d3.line()([[x(d.desdeX), yLog(d.desdeY)],[x(d.hastaX), yLog(d.hastaY)]]))
         .style("stroke", d => colores(d.index+1));
 
     tendencias.selectAll("text")
      .data(duplicaciones)
      .join("text")
-        .attr("class", "duplicacionesTextos")
-        .style("opacity", 0)
+        .attr("class", d=>{return "duplicacionesTextos"+" duplica"+d.index})
+        .style("opacity", d=> { return d.index==0 ? 100 : 0})
         .attr('x', d => Math.abs(x(d.hastaX) - x(d.desdeX))/2+ x(d.desdeX))
         .attr('y', d => yLog(d.desdeY) - 10 - Math.abs(yLog(d.hastaY) - yLog(d.desdeY) )/2)
         .style("fill", d => colores(d.index+1))
-        .text(d=> d.duplicacion + " días");
+        .text(d=> { return d.duplicacion + " días"});
+
+
+     d3.select("#contenedorGrafico").append("div")
+            .attr("id","avisoDuplicacion")
+            .html("Tiempo de duplicación última semana:<br/>"+ duplicaciones[0].duplicacion+" días")
+
 
     var aspo = grafico.append("g").attr("id","aspo")
                 .style("opacity",0)
@@ -548,10 +644,6 @@ Promise.all([
                 .text("A.S.P.O")
                 ;
                 
-
-
-    
-    
    
 });
 
@@ -562,9 +654,16 @@ function scrollyTelling(step){
         case 0: // INICIO, ES LOG
             cambia.tipo = "log";
             cambia.tick = -6;
+            d3.selectAll(".tendencia").filter(d=>d.index==0).transition().delay(300).duration(300).style("opacity",100);
+            d3.selectAll(".duplicacionesTextos").filter(d=>d.index==0).transition().delay(300).duration(300).style("opacity",100);
+            d3.select("#avisoDuplicacion").transition().duration(300).style("opacity",100);
+
         break;
 
         case 1: // PASA A LINEAL
+            d3.selectAll(".tendencia").filter(d=>d.index==0).transition().duration(300).style("opacity",0);
+            d3.selectAll(".duplicacionesTextos").filter(d=>d.index==0).transition().duration(300).style("opacity",0);
+            d3.select("#avisoDuplicacion").transition().duration(300).style("opacity",0);
             cambia.tipo = "lineal"
             cambia.tick =-6
         break;

@@ -1,47 +1,56 @@
 
-    .scrolly article {
-        position: relative;
+        .scrolly article {
+            position: relative;
+            z-index: 20;
+            margin-bottom: 50px;
         }
     
-        figure.sticky {
-        position: -webkit-sticky;
-        position: sticky;
-        top: 5vh;
-        height: 90vh;
-        margin: 0px;
-        background-color: #f1f1f1;
-        text-align: center;
-        border-radius: 6px;
-        padding-top: 20px;
-        margin-bottom: 50px;
+        #contenedorGrafico.sticky {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 5vh;
+            height: 90vh;
+            margin: 0px;
+            background-color: #f1f1f1;
+            text-align: center;
+            border-radius: 3px;
+            z-index: 1;
+            margin-bottom: 120px;
         }
     
         .scrolly .step{
             width: 90%;
             margin:auto;
-            height: 90vh;
-            z-index: 20;
+            height: 110vh;
+
         }
     
-        .scrolly .step p{
+        .scrolly .step p, .scrolly .stepFijo p{
             line-height: 1.2;
             background-color: #ffffffc2;
             padding: 10px 25px;
             margin:0px;
             text-align: left;
         }
-    
-    
-        @media only screen and (min-width: 600px) {
-            .scrolly .step{
-                    margin-left: auto;
-                    margin-right: 10px;
-                    width: 45%;
-                    min-width: 250px;
+        
+     
+        
+        @media only screen and (min-width: 768px) {
+            .scrolly .step p, .scrolly .stepFijo p{
+                margin-left: auto;
+                background-color: #ffffffdf;
+                margin-right: 10px;
+                width: 45%;
+                min-width: 250px;
             }
-            figure.sticky {
+
+            .scrolly .stepFijo p{
+                margin: auto;
+                margin-bottom: 20px;
+            }
+
+            #contenedorGrafico.sticky {
                 top: 18vh;
                 height: 60vh;
-    
-                }
+                    }
         }
