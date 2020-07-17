@@ -654,9 +654,9 @@ function scrollyTelling(step){
         case 0: // INICIO, ES LOG
             cambia.tipo = "log";
             cambia.tick = -6;
-            d3.selectAll(".tendencia").filter(d=>d.index==0).transition().delay(300).duration(300).style("opacity",100);
-            d3.selectAll(".duplicacionesTextos").filter(d=>d.index==0).transition().delay(300).duration(300).style("opacity",100);
-            d3.select("#avisoDuplicacion").transition().duration(300).style("opacity",100);
+            d3.selectAll(".tendencia").filter(d=>d.index==0).transition().delay(300).duration(300).style("opacity",1);
+            d3.selectAll(".duplicacionesTextos").filter(d=>d.index==0).transition().delay(300).duration(300).style("opacity",1);
+            d3.select("#avisoDuplicacion").transition().duration(300).style("opacity",1);
 
         break;
 
@@ -683,20 +683,20 @@ function scrollyTelling(step){
         case 4: // AGREGA TENDENCIAS
             cambia.tipo = 0
             cambia.tick =-6
-            d3.selectAll(".tendencia").transition().delay(d=>d.index*100).duration(1100).style("opacity",100)
+            d3.selectAll(".tendencia").transition().delay(d=>d.index*100).duration(1100).style("opacity",1)
             d3.selectAll(".duplicacionesTextos").transition().duration(600).style("opacity",0)
 
         break;
 
         case 5: // AGREGA NUMEROS A tENDECNIAS
             cambia.tipo = 0
-            d3.selectAll(".duplicacionesTextos").transition().delay(d=>d.index*100).duration(1100).style("opacity",100)
+            d3.selectAll(".duplicacionesTextos").transition().delay(d=>d.index*100).duration(1100).style("opacity",1)
             d3.select("#aspo").transition().duration(600).style("opacity",0)
         break;
 
         case 6: // AGREGA ASPO
             cambia.tipo = 0
-            d3.select("#aspo").transition().duration(600).style("opacity",100)
+            d3.select("#aspo").transition().duration(600).style("opacity",1)
         break;
 
     }
