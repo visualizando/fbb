@@ -25,7 +25,7 @@
   <meta name="description" content="Entender cómo evoluciona la pandemia nos permite tomar decisiones. ¿Qué miramos, o qué deberíamos mirar, para entender esa evolución? Sobre tendencias y cómo interpretar si estamos mejor, igual o peor">
 <meta property="og:type" content="article">
 <meta property="og:title" content="¿Cuál es el ritmo de la pandemia?">
-<meta property="og:url" content="http://decodificar.org/07/el_ritmo_de_la_pandemia/index.html">
+<meta property="og:url" content="http://decodificar.org/covid/el_ritmo_de_la_pandemia/index.html">
 <meta property="og:site_name" content="Decodificar: COVID19">
 <meta property="og:description" content="Entender cómo evoluciona la pandemia nos permite tomar decisiones. ¿Qué miramos, o qué deberíamos mirar, para entender esa evolución? Sobre tendencias y cómo interpretar si estamos mejor, igual o peor">
 <meta property="og:locale" content="es_ES">
@@ -34,7 +34,7 @@
 <meta property="article:author" content="Fundacion Bunge y Born">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://decodificar.org/07/el_ritmo_de_la_pandemia/">
+<link rel="canonical" href="http://decodificar.org/covid/el_ritmo_de_la_pandemia/">
 
 
 <script class="page-configurations">
@@ -129,12 +129,42 @@
     var isMobile = document.getElementsByTagName("body")[0].clientWidth < 768 ? 1 : 0; 
     
 
+    var provinciasAbreviadas= {
+        "Buenos Aires" : "BsAs",
+        "CABA":"CABA",
+        "Chaco":"Chaco",
+        "Chubut":"Chu.",
+        "Córdoba":"Cba.",
+        "Corrientes":"Corr.",
+        "Entre Ríos":"E.Ríos",
+        "Formosa":"Form.",
+        "Jujuy":"Juj.",
+        "La Pampa":"Pampa",
+        "La Rioja":"Rioja",
+        "Mendoza":"Mdza",
+        "Misiones":"Mis.",
+        "Neuquén":"Nqn",
+        "Río Negro":"R.Negro",
+        "Salta":"Salta",
+        "San Juan":"S.Juan",
+        "San Luis":"S.Luis",
+        "Santa Cruz":"S.Cruz",
+        "Santa Fe":"S.Fe",
+        "Santiago del Estero":"SdE",
+        "Tierra del Fuego":"TdF",
+        "Tucumán":"Tuc"
+        }
+
 
 
 var colores = d3.scaleOrdinal()
         .domain([0,5])
         .range(["#00468B","#8B6BAF","#F04E53","#F26522","#62BB46"]);
-        
+
+
+var coloreaCategorias = d3.scaleOrdinal()
+        .range(["#4e79a7","#f28e2c","#e15759","#76b7b2","#59a14f","#af7aa1","#ff9da7","#9c755f","#bab0ab"]);
+
       </script>
 
   
@@ -214,7 +244,7 @@ var colores = d3.scaleOrdinal()
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="es">
-    <link itemprop="mainEntityOfPage" href="http://decodificar.org/07/el_ritmo_de_la_pandemia/">
+    <link itemprop="mainEntityOfPage" href="http://decodificar.org/covid/el_ritmo_de_la_pandemia/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -755,7 +785,7 @@ function scrollyTelling(step){
     <div class="post-nav">
       <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/07/la_cantidad_de_contagiados/" rel="next" title="¿Cuántos contagiados hay realmente?">
+    <a href="/covid/la_cantidad_de_contagiados/" rel="next" title="¿Cuántos contagiados hay realmente?">
       ¿Cuántos contagiados hay realmente? <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>

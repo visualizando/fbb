@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>¿Cuál es el ritmo de la pandemia?</title>
-    <url>/07/el_ritmo_de_la_pandemia/</url>
+    <url>/covid/el_ritmo_de_la_pandemia/</url>
     <content><![CDATA[
 
 
@@ -489,7 +489,7 @@ function scrollyTelling(step){
   </entry>
   <entry>
     <title>¿Cuántos contagiados hay realmente?</title>
-    <url>/07/la_cantidad_de_contagiados/</url>
+    <url>/covid/la_cantidad_de_contagiados/</url>
     <content><![CDATA[
 
 
@@ -976,7 +976,7 @@ function scrollyTelling(step){
   </entry>
   <entry>
     <title>¿Cómo evoluciona mi provincia?</title>
-    <url>/07/evolucion_por_provincia/</url>
+    <url>/covid/evolucion_por_provincia/</url>
     <content><![CDATA[
 
 
@@ -1006,7 +1006,12 @@ function scrollyTelling(step){
     
     .axis--y .tick text{
         text-anchor: start;
-    }
+	}
+	
+	text.nombreProvincias{
+		font-size: 11px;
+	}
+
 
     .axis-title {
       fill: #222;
@@ -1019,7 +1024,13 @@ function scrollyTelling(step){
       stroke: #a3a3a3;
       stroke-width: 1px;
     }
-
+    .linePais {
+      fill: none;
+      stroke: #00468B;
+      stroke-width: 2px;
+	}
+	
+	
     .tendencia{
         fill: none;
         stroke-width: 3px;
@@ -1239,9 +1250,7 @@ var yLog = d3.scaleLog().range([height, 0]);
 var yLogAxis = d3.axisLeft(yLog);
     yLogAxis.ticks(4).tickFormat(d3.format(",.1r")).tickSizeInner(-6);
 
-var line = d3.line()
-    .x(function(d) { return x(d.fecha); })
-    .y(function(d) { return yLog(d.casos_tot); });
+
 
 var grafico = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
@@ -1254,7 +1263,19 @@ Promise.all([
 	d3.csv("/datos/Fuente_datos_historias - E1_ritmo.csv"),
 	d3.csv("/datos/Fuente_datos_historias - E4_ritmo_prov.csv")
 ]).then(function(files) {
-    
+	
+	var line = d3.line()
+	.defined(d => d>0)
+    .x((d,i) => x(dataParaGrafico.dates[i]))
+	.y(d => yLog(d))
+	;
+
+	var linePais = d3.line()
+    .x(d => x(d.fecha))
+	.y(d => yLog(d.casos_tot))
+	;
+
+
     var data = files[0] // datos principales;
 
 	var duplicaciones = files[1] // funciones de duplicacion de casos;
@@ -1275,16 +1296,27 @@ Promise.all([
 	});
 	
 	dataProv.forEach(function(d) {
-		d.dia = +d.dia;
-      d.fecha = d3.timeDay.offset(parseTime("2020-03-03"), d.dia)
-	  d.casos_tot = +d.casos_tot;
-	  d.dia = +d.dia;
+    	d.fecha = d3.timeDay.offset(parseTime("2020-03-03"), d.dia) //transforma de numero de dia a fecha
+		d.casos_tot = +d.casos_tot;
+		d.prov= d.prov.replace("Santiago", "Sgo.")
+		d.prov= d.prov.replace("Tierra", "T.")
 	});
 	
 
 	dataProv = d3.nest().key(d => d.prov).entries(dataProv)
 
-    x.domain([parseTime("2020-03-01"),d3.max(data, function(d) { return d.fecha; })]);
+	var minDate = parseTime("2020-03-01"), //fecha de inicio el primero de marzo para que aparezca marzo!
+		maxDate = d3.max(data, d => d.fecha)
+		todosLosDias = d3.timeDay.range(minDate, d3.timeDay.offset(maxDate));
+
+	var dataParaGrafico = {
+		series: dataProv.map(obj => {return {"name":obj.key, "values":obj.values.map(r=>r.casos_tot)}})
+						.sort((a, b) => d3.descending(a.values[a.values.length-1], b.values[b.values.length-1])),
+    	dates: todosLosDias
+	}
+
+
+	x.domain([minDate,maxDate]);
 	var yDomainPais = [d3.min(data, function(d) { return d.casos_tot; }), d3.max(data, function(d) { return d.casos_tot; })+20000];
 	var yDomainProv = [d3.min(dataProv, function(d) { return d.casos_tot; }), d3.max(data, function(d) { return d.casos_tot; })+20000];
 	yLog.domain(yDomainPais);
@@ -1311,8 +1343,8 @@ Promise.all([
 
     ejeY = grafico.append("g") // EJE Y
         .attr("class", "axis axis--y")
-       .call(yLogAxis)
-       ;
+	   	.call(yLogAxis)
+	        ;
     
     tituloY = ejeY.append("text")
         .attr("class", "axis-title")
@@ -1320,45 +1352,46 @@ Promise.all([
         
         .text("Casos (logarítmico)");
 
-   /*  grafico.append("path") // LINEA DE FONDO
-        .datum(data)
-        .attr("class", "line")
-        .attr("d", line); */
 
-    grafico.append("g") // CIRCULITOS DE DATOS PAIS
-      .attr("fill", "#00468B")
-	  .attr("stroke", "none")
-	  .style("opacity",0)
-	  .attr("class","circulosPais")
-    .selectAll("circle")
-    .data(data)
-    .join("circle")
-      .attr("class","dataCircle")
-      .attr("cx", i => x(i.fecha))
-      .attr("cy", i => yLog(i.casos_tot))
-      .attr("r", 3);
+    grafico.append("path") // Linea DE DATOS PAIS
+		.attr("stroke", "black")
+	 	.style("opacity",0)
+	    .datum(data)
+        .attr("class","linePais")
+    	.attr("d", linePais);
 
-
-			console.log(dataProv);
 	  var provincias = grafico.append("g").attr("id","provincias")
-		.selectAll("g")
-		.data(dataProv) //.filter((d,i)=>i<4)
-		.join("g")
-		.attr("class","circulosProv")
-		.attr("id",d=>d.key)
-		;
 
-		provincias.selectAll("circle")
-			.data(d=>d.values)
-			.join("circle")
-				.attr("class","dataCircle")
-				.attr("cx", i => x(i.fecha))
-				.attr("cy", i => yLog(i.casos_tot))
-				.attr("r", 2);
-	  
-    
+	  provincias.selectAll("path") // AGREGA LAS LINEAS DE LAS PROVINCIAS
+				.data(dataParaGrafico.series )
+				.join("path")
+				.attr("class", "prov line")
+				.style("stroke", d=>coloreaCategorias(d.name))
+				.attr("d", d => line(d.values));
 
-    var tendencias = grafico.append("g"); // DUPLICACIONES
+	var dataParaLabels = dataParaGrafico.series.map(r=>{  //Prepara la data para poner los labels
+					return  {"labelY": yLog(d3.max(r.values)),
+							"name": r.name,
+							"values": r.values}
+						});
+	
+	relax(dataParaLabels, 8); // Separa los labels para que no se pisen
+
+	  provincias.selectAll("text")  // AGREGA LOS LABELS
+				.data(dataParaLabels)
+				.join("text")
+					.attr("x",d=>x(dataParaGrafico.dates[d.values.length]))
+					.attr("y",d=>d.labelY)
+					.attr("dy", "3px")
+					.style("fill", d=>coloreaCategorias(d.name))
+					.attr("class", "prov nombreProvincias")
+					.text(d=>isMobile?provinciasAbreviadas[d.name]:d.name); // provinciasAbreviadas en caso de mobile (es una variable en el layout.njk)
+
+		
+
+	var tendencias = grafico.append("g") // DUPLICACIONES
+					.attr("id", "duplicaciones")
+					;
 
     tendencias.selectAll("path")
      .data(duplicaciones)
@@ -1379,21 +1412,6 @@ Promise.all([
         .text(d=> { return d.duplicacion + " días"});
 
 
-   
-    var aspo = grafico.append("g").attr("id","aspo")
-                .style("opacity",0)
-    ;// ASPO
-            
-    aspo.append("path")
-                .attr("class", "aspo")
-                .attr('d', d3.line()([[x(parseTime("2020-03-21")), 50],[x(parseTime("2020-03-21")),height]])) ; 
-
-    aspo.append("text")
-                .attr("class", "aspoTexto")
-                .attr('x', x(parseTime("2020-03-21"))+4)
-                .attr('y', 55)
-                .text("A.S.P.O")
-                ;
                 
    
 });
@@ -1404,19 +1422,18 @@ function scrollyTelling(step){
     switch (step) {
 		case 0: // muestra por provincia
 		case 2: // muestra por provincia
-            d3.selectAll(".circulosPais").transition().delay((d,i)=>i*10).duration(400).style("opacity",0);
-            d3.selectAll(".circulosProv").transition().delay((d,i)=>i*10).duration(400).style("opacity",1);
+            d3.selectAll(".linePais").transition().duration(600).style("opacity",0);
+            d3.selectAll(".prov").transition().delay((d,i)=>i*10).duration(400).style("opacity",1);
             d3.selectAll(".tendencia").transition().duration(300).style("opacity",0);
             d3.selectAll(".duplicacionesTextos").transition().duration(300).style("opacity",0);
 
 		break;
 
 		case 1: // muestra pais
-			d3.selectAll(".circulosPais").transition().delay((d,i)=>i*10).duration(400).style("opacity",1);
-			d3.selectAll(".circulosProv").transition().delay((d,i)=>i*10).duration(400).style("opacity",0);
-            d3.selectAll(".tendencia").transition().duration(300).style("opacity",1);
-			d3.selectAll(".duplicacionesTextos").transition().duration(300).style("opacity",1);
-			d3.selectAll("circle").transition().duration(400).style("opacity",1);
+			d3.selectAll(".linePais").transition().duration(600).style("opacity",1);
+            d3.selectAll(".prov").transition().delay((d,i)=>i*10).duration(400).style("opacity",0);
+			d3.selectAll(".tendencia").transition().delay((d,i)=>400+i*200).duration(300).style("opacity",1);
+			d3.selectAll(".duplicacionesTextos").transition().delay((d,i)=>400+i*200).duration(300).style("opacity",1);
         break;
 
         
@@ -1466,12 +1483,47 @@ function scrollyTelling(step){
 }
 
 
+//********** funciones
+
+// separa en el eje Y los datos que le lleguen con formato: 
+// d.name // d.labelY // d.values
+function relax(data, spacing) {
+				spacing = spacing? spacing : 8;
+				var dy = 1;
+				var repeat = false;
+				var count = 0;
+				data.forEach(function(dA, i) {
+					var yA = dA.labelY;
+					data.forEach(function(dB, j) {
+						var yB = dB.labelY;
+						if (i === j) {
+							return;
+						}
+						diff = yA - yB;
+						if (Math.abs(diff) > spacing) {
+							return;
+						}
+						repeat = true;
+						magnitude = diff > 0 ? 1 : -1;
+						adjust = magnitude * dy;
+						dA.labelY = +yA + adjust;
+						dB.labelY = +yB - adjust;
+						dB.labelY = dB.labelY > height ? height : dB.labelY
+						dA.labelY = dA.labelY > height ? height : dA.labelY
+					})
+				})
+				if (repeat) {
+					relax(data, spacing);
+				}
+			}
+
+
 </script>
 ]]></content>
   </entry>
   <entry>
     <title>¿Cuál es la curva que hay que achatar?</title>
-    <url>/07/l1/</url>
+    <url>/covid/l1/</url>
     <content><![CDATA[<h2 id="Uno"><a href="#Uno" class="headerlink" title="Uno"></a>Uno</h2>]]></content>
   </entry>
 </search>
