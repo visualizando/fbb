@@ -163,7 +163,7 @@ var colores = d3.scaleOrdinal()
 
 
 var coloreaCategorias = d3.scaleOrdinal()
-        .range(["#4e79a7","#f28e2c","#e15759","#76b7b2","#59a14f","#af7aa1","#ff9da7","#9c755f","#bab0ab"]);
+        .range(["#4e79a7","#f28e2c","#e15759","#76b7b2","#59a14f","#af7aa1","#ff9da7","#9c755f","#8a7e78"]);
 
       </script>
 
@@ -358,6 +358,9 @@ var coloreaCategorias = d3.scaleOrdinal()
 		margin-top: 11px;
 	}
   
+	#contenedorGrafico.sticky{
+			margin-bottom: 191px;
+		}
      
     @media only screen and (min-width: 768px) {
       
@@ -368,11 +371,9 @@ var coloreaCategorias = d3.scaleOrdinal()
 
 <section id='scrolly'>
     <div class='scrolly'>
-        <div class='stepFijo'>
-            <p> Las medidas para evitar el movimiento de personas entre distritos o provincias nos permiten "desarmar" el problema grande en partes más chicas, con la esperanza de que así sea más fácil enfrentarlo.
-            </p>
+<!--         <div class='stepFijo'>
         </div>
-
+ -->
         <!-- aca va el grafico que va a quedar fijo -->
         <figure id="contenedorGrafico" class='sticky' >
         </figure>
@@ -380,9 +381,11 @@ var coloreaCategorias = d3.scaleOrdinal()
         <!-- acá van los textos de cada paso -->
         <article>
             <div class='step' data-index='0'>
-                <p>
+				<p> Las medidas para evitar el movimiento de personas entre distritos o provincias nos permiten "desarmar" el problema grande en partes más chicas, con la esperanza de que así sea más fácil enfrentarlo.
+				</p>
+	
+				<p>
                     Veamos, ¿cómo va cada provincia? La respuesta está en este gráfico, pero hay que mirarlo por partes.
-
                 </p>
             </div>
             
@@ -473,20 +476,22 @@ var coloreaCategorias = d3.scaleOrdinal()
                 </p>
 			</div>
 			
-
+			<div class='step' data-index='11'>
+				<p> 
+					Y con las ciudades, ¿será igual? Exactamente; de la misma forma que separamos en partes por provincias, también podríamos hacerlo con ciudades.
+				</p>
+					<p> Por ahora, no te olvides de seguir el ritmo de la pandemia en tu provincia.
+	
+				</p>
+			</div>
 			
 			
         </article>
 
-        <div class='stepFijo' >
-            <p> 
-				Y con las ciudades, ¿será igual? Exactamente; de la misma forma que separamos en partes por provincias, también podríamos hacerlo con ciudades.
-			</p>
-				<p> Por ahora, no te olvides de seguir el ritmo de la pandemia en tu provincia.
-
-            </p>
+<!--         <div class='stepFijo' >
+      
         </div>
-
+ -->
     </div>
 
 </section>
@@ -770,6 +775,8 @@ var clip = grafico.append("defs").append("svg:clipPath")
 
 function scrollyTelling(step){
 
+	var opacidadProvinciaApagada = 0;
+
     var cambia = {};
     switch (step) {
 		case 2: // muestra por provincia
@@ -818,20 +825,20 @@ function scrollyTelling(step){
 			
 		case 5: // duplica en menos de 5 días
 			d3.select("#dimmer").transition().duration(600).attr("width",0).attr("x",width);
-			d3.selectAll(".prov").transition().duration(600).style("opacity",d=>d.dup<5?1:0.2);
+			d3.selectAll(".prov").transition().duration(600).style("opacity",d=>d.dup<5?1:opacidadProvinciaApagada);
 			break;
 
 		case 6: // duplica en 5 a 15 días
 			d3.selectAll(".prov").transition().duration(600).style("opacity",d=>{
 				if(d.dup<15 && d.dup>5) return 1;
-				return 0.2;
+				return opacidadProvinciaApagada;
 			} );
 			break;
 
 		case 7: // duplica en 15 a 25 días
 			d3.selectAll(".prov").transition().duration(600).style("opacity",d=>{
 				if(d.dup<25 && d.dup>15) return 1;
-				return 0.2;
+				return opacidadProvinciaApagada;
 			} );
 			break;
 
@@ -839,14 +846,14 @@ function scrollyTelling(step){
 		case 8: // duplica en mas de 25
 			d3.selectAll(".prov").transition().duration(600).style("opacity",d=>{
 				if(d.dup<100 && d.dup>25) return 1;
-				return 0.2;
+				return opacidadProvinciaApagada;
 			} );
 			break;
 
 		case 9: // sin casos nuevos
 			d3.selectAll(".prov").transition().duration(600).style("opacity",d=>{
 				if(d.dup>100) return 1;
-				return 0.2;
+				return opacidadProvinciaApagada;
 			} );
 			break;
 

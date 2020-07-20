@@ -163,7 +163,7 @@ var colores = d3.scaleOrdinal()
 
 
 var coloreaCategorias = d3.scaleOrdinal()
-        .range(["#4e79a7","#f28e2c","#e15759","#76b7b2","#59a14f","#af7aa1","#ff9da7","#9c755f","#bab0ab"]);
+        .range(["#4e79a7","#f28e2c","#e15759","#76b7b2","#59a14f","#af7aa1","#ff9da7","#9c755f","#8a7e78"]);
 
       </script>
 
@@ -464,6 +464,13 @@ Sin embargo, hay más en este gráfico, mucho más, sólo que hay que hacerle un
  <!-- Scripts -->
  <script>
     
+//********************* CARGA DATOS ************
+
+Promise.all([
+    d3.csv("/datos/tablaMaestra.csv"),
+    d3.csv("/datos/Fuente_datos_historias - E1_ritmo.csv"),
+]).then(function(files) {
+
 
     // **** CODIGO DEL SCROLLY *******
 
@@ -550,12 +557,7 @@ var grafico = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
     ;
 
-//********************* CARGA DATOS ************
 
-Promise.all([
-    d3.csv("/datos/tablaMaestra.csv"),
-    d3.csv("/datos/Fuente_datos_historias - E1_ritmo.csv"),
-]).then(function(files) {
     
     var data = files[0] // datos principales;
 
@@ -671,98 +673,99 @@ Promise.all([
                 ;
                 
    
+
+
+    function scrollyTelling(step){
+
+        var cambia = {};
+        switch (step) {
+            case 0: // INICIO, ES LOG
+                cambia.tipo = "log";
+                cambia.tick = -6;
+                d3.selectAll(".tendencia").filter(d=>d.index==0).transition().delay(300).duration(300).style("opacity",100);
+                d3.selectAll(".duplicacionesTextos").filter(d=>d.index==0).transition().delay(300).duration(300).style("opacity",100);
+                d3.select("#avisoDuplicacion").transition().duration(300).style("opacity",100);
+
+            break;
+
+            case 1: // PASA A LINEAL
+                d3.selectAll(".tendencia").filter(d=>d.index==0).transition().duration(300).style("opacity",0);
+                d3.selectAll(".duplicacionesTextos").filter(d=>d.index==0).transition().duration(300).style("opacity",0);
+                d3.select("#avisoDuplicacion").transition().duration(300).style("opacity",0);
+                cambia.tipo = "lineal"
+                cambia.tick =-6
+            break;
+
+            case 2: // AGREGA FLECHAS/GRADIENTE
+                cambia.tipo = "lineal"
+                cambia.tick =-width
+            break;
+
+            case 3: // VUELVE A LOG CON FLECHAS/GRADIENTE
+                cambia.tipo = "log"
+                cambia.tick =-width
+
+                d3.selectAll(".tendencia").transition().duration(600).style("opacity",0)
+            break;
+
+            case 4: // AGREGA TENDENCIAS
+                cambia.tipo = 0
+                cambia.tick =-6
+                d3.selectAll(".tendencia").transition().delay(d=>d.index*100).duration(1100).style("opacity",100)
+                d3.selectAll(".duplicacionesTextos").transition().duration(600).style("opacity",0)
+
+            break;
+
+            case 5: // AGREGA NUMEROS A tENDECNIAS
+                cambia.tipo = 0
+                d3.selectAll(".duplicacionesTextos").transition().delay(d=>d.index*100).duration(1100).style("opacity",100)
+                d3.select("#aspo").transition().duration(600).style("opacity",0)
+            break;
+
+            case 6: // AGREGA ASPO
+                cambia.tipo = 0
+                d3.select("#aspo").transition().duration(600).style("opacity",100)
+            break;
+
+        }
+
+        if(cambia.tipo == "log"){
+            if(cambia.tick!=0) yLogAxis.tickSizeInner(cambia.tick);
+            
+            ejeY.transition().duration(600).call(yLogAxis);
+
+            tituloY.text("Casos (logarítmico)");
+
+            line.y(function(d) { return yLog(d.casos_tot); });
+            d3.selectAll(".line")
+                .transition().duration(600)
+                .attr("d", line);
+
+            d3.selectAll(".dataCircle")
+                .transition().duration(600)
+                .attr("cy", function(d) { return yLog(d.casos_tot); });
+
+        }else if (cambia.tipo == "lineal"){
+            if(cambia.tick!=0) yAxis.tickSizeInner(cambia.tick);
+            ejeY.transition().duration(600).call(yAxis);
+
+            tituloY.text("Casos (lineal)")
+
+            line.y(function(d) { return y(d.casos_tot); });
+            d3.selectAll(".line")
+                .transition().duration(600)
+                .attr("d", line);
+
+            d3.selectAll(".dataCircle")
+                .transition().duration(600)
+                .attr("cy", function(d) { return y(d.casos_tot); })
+
+        }
+            
+
+    }
+
 });
-
-function scrollyTelling(step){
-
-    var cambia = {};
-    switch (step) {
-        case 0: // INICIO, ES LOG
-            cambia.tipo = "log";
-            cambia.tick = -6;
-            d3.selectAll(".tendencia").filter(d=>d.index==0).transition().delay(300).duration(300).style("opacity",100);
-            d3.selectAll(".duplicacionesTextos").filter(d=>d.index==0).transition().delay(300).duration(300).style("opacity",100);
-            d3.select("#avisoDuplicacion").transition().duration(300).style("opacity",100);
-
-        break;
-
-        case 1: // PASA A LINEAL
-            d3.selectAll(".tendencia").filter(d=>d.index==0).transition().duration(300).style("opacity",0);
-            d3.selectAll(".duplicacionesTextos").filter(d=>d.index==0).transition().duration(300).style("opacity",0);
-            d3.select("#avisoDuplicacion").transition().duration(300).style("opacity",0);
-            cambia.tipo = "lineal"
-            cambia.tick =-6
-        break;
-
-        case 2: // AGREGA FLECHAS/GRADIENTE
-            cambia.tipo = "lineal"
-            cambia.tick =-width
-        break;
-
-        case 3: // VUELVE A LOG CON FLECHAS/GRADIENTE
-            cambia.tipo = "log"
-            cambia.tick =-width
-
-            d3.selectAll(".tendencia").transition().duration(600).style("opacity",0)
-        break;
-
-        case 4: // AGREGA TENDENCIAS
-            cambia.tipo = 0
-            cambia.tick =-6
-            d3.selectAll(".tendencia").transition().delay(d=>d.index*100).duration(1100).style("opacity",100)
-            d3.selectAll(".duplicacionesTextos").transition().duration(600).style("opacity",0)
-
-        break;
-
-        case 5: // AGREGA NUMEROS A tENDECNIAS
-            cambia.tipo = 0
-            d3.selectAll(".duplicacionesTextos").transition().delay(d=>d.index*100).duration(1100).style("opacity",100)
-            d3.select("#aspo").transition().duration(600).style("opacity",0)
-        break;
-
-        case 6: // AGREGA ASPO
-            cambia.tipo = 0
-            d3.select("#aspo").transition().duration(600).style("opacity",100)
-        break;
-
-    }
-
-    if(cambia.tipo == "log"){
-        if(cambia.tick!=0) yLogAxis.tickSizeInner(cambia.tick);
-        
-        ejeY.transition().duration(600).call(yLogAxis);
-
-        tituloY.text("Casos (logarítmico)");
-
-        line.y(function(d) { return yLog(d.casos_tot); });
-        d3.selectAll(".line")
-            .transition().duration(600)
-            .attr("d", line);
-
-        d3.selectAll(".dataCircle")
-            .transition().duration(600)
-            .attr("cy", function(d) { return yLog(d.casos_tot); });
-
-    }else if (cambia.tipo == "lineal"){
-        if(cambia.tick!=0) yAxis.tickSizeInner(cambia.tick);
-        ejeY.transition().duration(600).call(yAxis);
-
-        tituloY.text("Casos (lineal)")
-
-        line.y(function(d) { return y(d.casos_tot); });
-        d3.selectAll(".line")
-            .transition().duration(600)
-            .attr("d", line);
-
-        d3.selectAll(".dataCircle")
-            .transition().duration(600)
-            .attr("cy", function(d) { return y(d.casos_tot); })
-
-    }
-        
-
-}
-
 
 </script>
 
