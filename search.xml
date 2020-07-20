@@ -171,10 +171,6 @@ Sin embargo, hay más en este gráfico, mucho más, sólo que hay que hacerle un
 
         </article>
 
-        <div class='stepFijo' >
-            <p> Vemos gráficos, números e información sobre la pandemia todo el tiempo. Pero ¿qué debemos mirar en los datos para saber en qué situación estamos?  
-            </p>
-        </div>
 
     </div>
 
@@ -370,10 +366,10 @@ Promise.all([
         .text(d=> { return d.duplicacion + " días"});
 
 
-     d3.select("#contenedorGrafico").append("div")
+     /* d3.select("#contenedorGrafico").append("div")
             .attr("id","avisoDuplicacion")
             .html("Tiempo de duplicación última semana:<br/>"+ duplicaciones[0].duplicacion+" días")
-
+ */
 
     var aspo = grafico.append("g").attr("id","aspo")
                 .style("opacity",0)
