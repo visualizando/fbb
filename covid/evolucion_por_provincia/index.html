@@ -351,8 +351,12 @@ var coloreaCategorias = d3.scaleOrdinal()
         text-anchor: end;
         font-size: 14px;
         font-weight: 600;
-    }
-
+	}
+	
+	span.pcias{
+		display: block;
+		margin-top: 11px;
+	}
   
      
     @media only screen and (min-width: 768px) {
@@ -387,7 +391,7 @@ var coloreaCategorias = d3.scaleOrdinal()
                     Esta es la curva de todos los casos confirmados de COVID-19 en Argentina.
 				</p>
 				<p>
-					Si ya viste esta otra historia (link E1), sabés que para saber cómo está avanzando la pandemia lo importante es el ritmo. En el gráfico, el ritmo se ve en la inclinación de la curva:
+					Si ya viste <a href="/covid/el_ritmo_de_la_pandemia/">esta otra historia</a>, sabés que para saber cómo está avanzando la pandemia lo importante es el ritmo. En el gráfico, el ritmo se ve en la inclinación de la curva:
 				</p>
 				<p>
 					mayor	<-->	mayor
@@ -412,7 +416,7 @@ var coloreaCategorias = d3.scaleOrdinal()
             </div>
             <div class='step' data-index='3'>
                 <p>
-                    Para saber cómo va el ritmo de cada provincia, tenemos que mirar la inclinación de las partes rectas de cada curva (link E1), por ejemplo en los últimos días.
+                    Para saber cómo va el ritmo de cada provincia, tenemos que mirar la inclinación de las partes <a href="/covid/el_ritmo_de_la_pandemia/"> rectas de cada curva</a>, por ejemplo en los últimos días.
                 </p><p>
 					Esa inclinación nos da el tiempo de duplicación de casos, que no es el mismo en todos los lugares.
                 </p>
@@ -429,34 +433,38 @@ var coloreaCategorias = d3.scaleOrdinal()
                     Considerando los datos de las últimas dos semanas, estas son las provincias en las que el número de casos confirmados se duplica en menos de 5 días.
                 </p><p>
                     Es decir, el ritmo de la pandemia en estas provincias es muy alto
-                </p>
+					<span class="pcias"></span>
+				</p>
             </div>
             <div class='step' data-index='6'>
                 <p>
 					Estas son las provincias en las que sus casos confirmados se están duplicando con tiempos de entre 5 y 15 días.
-                </p>
+					<span class="pcias"></span>
+				</p>
             </div>
 
 			<div class='step' data-index='7'>
                 <p>
 					En éstas, la duplicación de casos se da entre 15 y 25 días.
-                </p>
+					<span class="pcias"></span>
+				</p>
 			</div>
 			
 			<div class='step' data-index='8'>
                 <p>
 					Y en estas provincias, donde los brotes parecen estar más controlados, y los casos se están duplicando muy lentamente (cada 25 días o más)...
-
-                </p>
-			</div>
-
-			<div class='step' data-index='8'>
-                <p>
-					...o también están aquellas que, directamente, no tienen casos nuevos
-                </p>
+					<span class="pcias"></span>
+				</p>
 			</div>
 
 			<div class='step' data-index='9'>
+                <p>
+					...o también están aquellas que, directamente, no tienen casos nuevos
+					<span class="pcias"></span>
+				</p>
+			</div>
+
+			<div class='step' data-index='10'>
                 <p>
 					Separar el todo en sus partes es muy importante para tomar decisiones, especialmente cuando el comportamiento de las partes difiere entre sí.
                 </p>
@@ -486,7 +494,17 @@ var coloreaCategorias = d3.scaleOrdinal()
 
  <!-- Scripts -->
  <script>
-    
+	
+	//********************* CARGA DATOS ************
+
+Promise.all([
+    d3.csv("/datos/tablaMaestra.csv"),
+	d3.csv("/datos/Fuente_datos_historias - E1_ritmo.csv"),
+	d3.csv("/datos/Fuente_datos_historias - E4_ritmo_prov.csv")
+]).then(function(files) {
+	
+
+
 
     // **** CODIGO DEL SCROLLY *******
 
@@ -532,7 +550,7 @@ verde #62BB46
 */
        
         
-var ejeY, tituloY;
+var ejeY, ejeX, tituloY, minDate, maxDate, line, linePais;
 
 var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maximo
 
@@ -564,23 +582,24 @@ var yLogAxis = d3.axisLeft(yLog);
 
 var grafico = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-    ;
-
-//********************* CARGA DATOS ************
-
-Promise.all([
-    d3.csv("/datos/tablaMaestra.csv"),
-	d3.csv("/datos/Fuente_datos_historias - E1_ritmo.csv"),
-	d3.csv("/datos/Fuente_datos_historias - E4_ritmo_prov.csv")
-]).then(function(files) {
+	;
 	
-	var line = d3.line()
+var clip = grafico.append("defs").append("svg:clipPath")
+        .attr("id", "clip")
+        .append("svg:rect")
+        .attr("width", width )
+        .attr("height", height )
+        .attr("x", 0)
+        .attr("y", 0);
+
+
+	line = d3.line()
 	.defined(d => d>0)
     .x((d,i) => x(dataParaGrafico.dates[i]))
 	.y(d => yLog(d))
 	;
 
-	var linePais = d3.line()
+	linePais = d3.line()
     .x(d => x(d.fecha))
 	.y(d => yLog(d.casos_tot))
 	;
@@ -608,6 +627,7 @@ Promise.all([
 	dataProv.forEach(function(d) {
     	d.fecha = d3.timeDay.offset(parseTime("2020-03-03"), d.dia) //transforma de numero de dia a fecha
 		d.casos_tot = +d.casos_tot;
+		d.dup = isNaN(d.dup)? 1000 : +d.dup;
 		d.prov= d.prov.replace("Santiago", "Sgo.")
 		d.prov= d.prov.replace("Tierra", "T.")
 	});
@@ -615,14 +635,13 @@ Promise.all([
 
 	dataProv = d3.nest().key(d => d.prov).entries(dataProv)
 
-	var minDate = parseTime("2020-03-01"), //fecha de inicio el primero de marzo para que aparezca marzo!
-		maxDate = d3.max(data, d => d.fecha)
-		todosLosDias = d3.timeDay.range(minDate, d3.timeDay.offset(maxDate));
-
+		minDate = parseTime("2020-03-01"); //fecha de inicio el primero de marzo para que aparezca marzo!
+		maxDate = d3.max(data, d => d.fecha);
+	
 	var dataParaGrafico = {
-		series: dataProv.map(obj => {return {"name":obj.key, "values":obj.values.map(r=>r.casos_tot)}})
+		series: dataProv.map(obj => {return {"name":obj.key,"dup":obj.values[0].dup, "values":obj.values.map(r=>r.casos_tot)}})
 						.sort((a, b) => d3.descending(a.values[a.values.length-1], b.values[b.values.length-1])),
-    	dates: todosLosDias
+    	dates: d3.timeDay.range(minDate, d3.timeDay.offset(maxDate))
 	}
 
 
@@ -630,25 +649,16 @@ Promise.all([
 	var yDomainPais = [d3.min(data, function(d) { return d.casos_tot; }), d3.max(data, function(d) { return d.casos_tot; })+20000];
 	var yDomainProv = [d3.min(dataProv, function(d) { return d.casos_tot; }), d3.max(data, function(d) { return d.casos_tot; })+20000];
 	yLog.domain(yDomainPais);
-    
-     grafico.append("g") // EJE X
+
+
+	
+
+     ejeX = grafico.append("g") // EJE X
         .attr("class", "axis axis--x")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x)
-        .ticks(d3.timeMonth.every(1)))
-        .call(g => {  // ESTO PONE LOS NOMBRES DE LOS MESES EN MEDIO DE CADA MES
-            g.selectAll(".tick:not(:last-of-type) text") // para todos los meses menos el ultimo
-                .attr("dx", x(parseTime("2020-03-16"))) 
-                .attr("dy", "0.3em") ;
-            
-            g.selectAll(".tick:last-of-type text") // el ultimo si no esta completo lo centra en los dias que haya
-                .attr("dx",  x(parseTime("2020-03-" + Math.ceil((d3.timeFormat("%-d")(d3.max(data, function(d) { return d.fecha; })))/2))))
-                .attr("dy", "0.3em") ;
-            
-            g.selectAll(".tick line") // las lineas que separan los meses, mas altas
-                .attr("y2", "1.4em") ;
-            }
-            )
+        	.ticks(d3.timeMonth.every(1)))
+        .call(ajustaMesesEjeX)
         ;
 
     ejeY = grafico.append("g") // EJE Y
@@ -671,6 +681,8 @@ Promise.all([
     	.attr("d", linePais);
 
 	  var provincias = grafico.append("g").attr("id","provincias")
+						  .attr("clip-path", "url(#clip)");
+
 
 	  provincias.selectAll("path") // AGREGA LAS LINEAS DE LAS PROVINCIAS
 				.data(dataParaGrafico.series )
@@ -679,9 +691,12 @@ Promise.all([
 				.style("stroke", d=>coloreaCategorias(d.name))
 				.attr("d", d => line(d.values));
 
+	provincias.append("rect").attr("width",0).attr("height",height).style("opacity",0.8).attr("id","dimmer").attr("x",width).style("fill","#f1f1f1");
+
 	var dataParaLabels = dataParaGrafico.series.map(r=>{  //Prepara la data para poner los labels
 					return  {"labelY": yLog(d3.max(r.values)),
 							"name": r.name,
+							"dup": r.dup,
 							"values": r.values}
 						});
 	
@@ -722,78 +737,147 @@ Promise.all([
         .text(d=> { return d.duplicacion + " días"});
 
 
+		d3.selectAll(".pcias").each( function(d){
+			var nombres = [];
+			switch (+d3.select(this.parentNode.parentNode).attr("data-index")) {
+				case 5:
+					nombres = dataParaLabels.filter(d=> d.dup < 5).map(r=>r.name);
+					break;
+
+				case 6:
+					nombres = dataParaLabels.filter(d=> d.dup > 5 && d.dup < 15).map(r=>r.name);
+					break;
+
+				case 7:
+					nombres = dataParaLabels.filter(d=> d.dup > 15 && d.dup < 25).map(r=>r.name);
+					break;
+
+				case 8:
+					nombres = dataParaLabels.filter(d=> d.dup > 25 && d.dup < 100).map(r=>r.name);
+					break;
+
+				case 9:
+					nombres = dataParaLabels.filter(d=> d.dup > 100).map(r=>r.name);
+					break;
+			
+			}
+				d3.select(this).html(nombres.length?"(" + nombres.join(', ')+ ")":"(Ninguna)")
+				
+				});
                 
    
-});
+
 
 function scrollyTelling(step){
 
     var cambia = {};
     switch (step) {
-		case 0: // muestra por provincia
 		case 2: // muestra por provincia
+		/* x.domain([minDate, maxDate]);  // POR SI HAY ZOOM
+			ejeX.transition().duration(400).call(d3.axisBottom(x).ticks(d3.timeMonth.every(1)))
+				  .call(ajustaMesesEjeX); */
+				  
+		case 0: // muestra por provincia
             d3.selectAll(".linePais").transition().duration(600).style("opacity",0);
-            d3.selectAll(".prov").transition().delay((d,i)=>i*10).duration(400).style("opacity",1);
+			d3.selectAll(".prov").transition().delay((d,i)=>i*10).duration(400)
+					.style("opacity",1)
+			//		.attr("d", d => line(d.values)) // POR SI HAY ZOOM
+					;
             d3.selectAll(".tendencia").transition().duration(300).style("opacity",0);
-            d3.selectAll(".duplicacionesTextos").transition().duration(300).style("opacity",0);
-
-		break;
+			d3.selectAll(".duplicacionesTextos").transition().duration(300).style("opacity",0);
+			break;
 
 		case 1: // muestra pais
 			d3.selectAll(".linePais").transition().duration(600).style("opacity",1);
             d3.selectAll(".prov").transition().delay((d,i)=>i*10).duration(400).style("opacity",0);
 			d3.selectAll(".tendencia").transition().delay((d,i)=>400+i*200).duration(300).style("opacity",1);
 			d3.selectAll(".duplicacionesTextos").transition().delay((d,i)=>400+i*200).duration(300).style("opacity",1);
-        break;
+        	break;
 
-        
-        case 3: // nada
-        break;
+		case 3: // zoom a los ultimos 20 dias.
+		d3.select("#dimmer").transition().duration(600).attr("width",0).attr("x",width);
+
+		/* 	x.domain([d3.timeDay.offset(maxDate,-20), maxDate]) // POR SI HAY ZOOM
+	    	ejeX.transition().duration(400).call(d3.axisBottom(x).ticks(d3.timeDay.every(1)))
+				.call(ajustaMesesEjeX);
+ 			d3.selectAll(".prov").transition().delay((d,i)=>i*10).duration(400)
+						.attr("d", d => line(d.values));;
+		*/
+        	break;
 
 		case 4: // muestra solo primera parte
-			d3.selectAll("circle").filter(d=>d.dia>30).transition().duration(400).style("opacity",0.3);
-        break;
+			d3.select("#dimmer").transition().duration(600).attr("width",width*0.7).attr("x",width*0.3);
+			d3.selectAll(".prov").transition().duration(600).style("opacity",1);
+		/* 	x.domain([minDate, maxDate]); // POR SI HAY ZOOM
+			ejeX.transition().duration(400).call(d3.axisBottom(x).ticks(d3.timeMonth.every(1)))
+			  	.call(ajustaMesesEjeX); 
+			d3.selectAll(".prov").transition().delay((d,i)=>i*10).duration(400)
+						.attr("d", d => line(d.values));;
+						*/
+			break;
+			
+		case 5: // duplica en menos de 5 días
+			d3.select("#dimmer").transition().duration(600).attr("width",0).attr("x",width);
+			d3.selectAll(".prov").transition().duration(600).style("opacity",d=>d.dup<5?1:0.2);
+			break;
 
+		case 6: // duplica en 5 a 15 días
+			d3.selectAll(".prov").transition().duration(600).style("opacity",d=>{
+				if(d.dup<15 && d.dup>5) return 1;
+				return 0.2;
+			} );
+			break;
+
+		case 7: // duplica en 15 a 25 días
+			d3.selectAll(".prov").transition().duration(600).style("opacity",d=>{
+				if(d.dup<25 && d.dup>15) return 1;
+				return 0.2;
+			} );
+			break;
+
+
+		case 8: // duplica en mas de 25
+			d3.selectAll(".prov").transition().duration(600).style("opacity",d=>{
+				if(d.dup<100 && d.dup>25) return 1;
+				return 0.2;
+			} );
+			break;
+
+		case 9: // sin casos nuevos
+			d3.selectAll(".prov").transition().duration(600).style("opacity",d=>{
+				if(d.dup>100) return 1;
+				return 0.2;
+			} );
+			break;
+
+		case 10: // sin casos nuevos
+			d3.selectAll(".prov").transition().duration(600).style("opacity",1);
+			break;
     }
 
-    if(cambia.tipo == "log"){
-        if(cambia.tick!=0) yLogAxis.tickSizeInner(cambia.tick);
-        
-        ejeY.transition().duration(600).call(yLogAxis);
-
-        tituloY.text("Casos (logarítmico)");
-
-        line.y(function(d) { return yLog(d.casos_tot); });
-        d3.selectAll(".line")
-            .transition().duration(600)
-            .attr("d", line);
-
-        d3.selectAll(".dataCircle")
-            .transition().duration(600)
-            .attr("cy", function(d) { return yLog(d.casos_tot); });
-
-    }else if (cambia.tipo == "lineal"){
-        if(cambia.tick!=0) yAxis.tickSizeInner(cambia.tick);
-        ejeY.transition().duration(600).call(yAxis);
-
-        tituloY.text("Casos (lineal)")
-
-        line.y(function(d) { return y(d.casos_tot); });
-        d3.selectAll(".line")
-            .transition().duration(600)
-            .attr("d", line);
-
-        d3.selectAll(".dataCircle")
-            .transition().duration(600)
-            .attr("cy", function(d) { return y(d.casos_tot); })
-
-    }
-        
+          
 
 }
 
 
+
 //********** funciones
+
+ 
+function ajustaMesesEjeX(g) {
+		  // ESTO PONE LOS NOMBRES DE LOS MESES EN MEDIO DE CADA MES
+            g.selectAll(".tick:not(:last-of-type) text") // para todos los meses menos el ultimo
+                .attr("dx", x(parseTime("2020-03-16"))) // mueve el equivalente a 15 dias
+                .attr("dy", "0.3em") ;
+            
+            g.selectAll(".tick:last-of-type text") // el ultimo si no esta completo lo centra en los dias que haya
+                .attr("dx",  x(parseTime("2020-03-" + Math.ceil((d3.timeFormat("%-d")(d3.max(data, function(d) { return d.fecha; })))/2))))
+                .attr("dy", "0.3em") ;
+            
+            g.selectAll(".tick line") // las lineas que separan los meses, mas altas
+                .attr("y2", "1.4em") ;
+			}
+
 
 // separa en el eje Y los datos que le lleguen con formato: 
 // d.name // d.labelY // d.values
@@ -827,6 +911,7 @@ function relax(data, spacing) {
 				}
 			}
 
+		});
 
 </script>
 
