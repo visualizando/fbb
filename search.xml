@@ -1612,8 +1612,30 @@ function relax(data, spacing) {
 ]]></content>
   </entry>
   <entry>
-    <title>¿Cuál es la curva que hay que achatar?</title>
-    <url>/covid/l1/</url>
-    <content><![CDATA[<h2 id="Uno"><a href="#Uno" class="headerlink" title="Uno"></a>Uno</h2>]]></content>
+    <title>Hay que achatar la curva… ¿qué curva?</title>
+    <url>/covid/achatar_la_curva/</url>
+    <content><![CDATA[<p>Escuchamos todo el tiempo que hay una curva que tenemos que achatar, pero en esta pandemia hay muchas curvas distintas. ¿A qué curva nos estamos refiriendo?</p>
+<p>Todo sistema de salud tiene una cierta capacidad que en esta pandemia está marcada, sobre todo, por la cantidad de camas disponibles (especialmente las camas de terapia intensiva o UTI). También hay otros factores a tener en cuenta como la cantidad de profesionales de la salud, distribución de los recursos, medicamentos, etc.</p>
+<p>Esta capacidad límite queda representada en el gráfico como un techo que nuestra curva nunca tiene que superar.</p>
+<p>Este techo puede modificarse con el tiempo si se adquieren respiradores, se montan nuevos hospitales, etc. Esto es lo que sucedió en nuestro país durante los primeros meses del Aislamiento Social Preventivo Obligatorio. </p>
+<p>Por otro lado, está la curva que estamos acostumbrados a ver en todos lados, pero no parece muy aplanada. Representa el número de casos confirmados acumulado en el tiempo. </p>
+<p>En este gráfico se representan todas las personas que alguna vez tuvieron testeo positivo. Pero no todas esas personas transcurrieron la infección al mismo tiempo…</p>
+<p>…Algunas de esas personas ya están recuperadas y otras fallecieron. Estos dos grupos ya no ocuparán camas de hospitales ni necesitarán respiradores (y además ya no transmiten el virus).</p>
+<div class="note "><p>CASOS TOTALES: ACTIVOS + RECUPERADOS + FALLECIDOS<br><img src="/images/CasosActivos.png" class="[class names]" title="Achatando la curva" alt="alt text"></p>
+</div>
+
+
+<p>Las que quedan son las personas que tienen COVID-19 en el presente: los casos activos. Son los casos que necesitan o pueden llegar a necesitar camas de algún hospital (y aún siguen contagiando). Una parte muy pequeña de esos casos activos (1%) requerirán un respirador.</p>
+<p>Mirando la curva del número total de casos perdés la distinción entre los grupos: los casos activos por un lado, y los recuperados + fallecidos por el otro.</p>
+<p>Entonces, si las personas que ya están curadas o fallecieron no van a usar camas, y si el número de camas es el que marca el límite del sistema de salud, la curva que queremos achatar es en realidad la de los casos activos.</p>
+<p>En este gráfico vemos el número de casos activos de Argentina y el número de camas disponibles de UTI en Argentina, marcando el límite del sistema de salud.</p>
+<p>Para nuestro sistema de salud, o el de cualquier otro país, es muy importante que la curva se achate lo más posible para que nunca llegue a su límite.</p>
+<p>Basándonos en la experiencia de otros países, mirá lo que probablemente habría ocurrido si no se hubiesen tomado medidas de contención/mitigación.</p>
+<p>Achatar la curva implica que, además de tener un pico más bajo, tengamos un pico más tardío.</p>
+<p>Eso nos da más tiempo para mejorar los servicios de salud (comprar más respiradores, por ejemplo) e implementar políticas como el rastreo de contactos. Pero también hace que la evolución de la pandemia se alargue en el tiempo.</p>
+<img src="/images/CurvaAnimada.gif" class="[class names]" title="Achatando la curva" alt="alt text">
+
+<p>Entender la evolución de la pandemia y qué efecto tienen las medidas nos ayuda a decidir qué camino tomar.</p>
+]]></content>
   </entry>
 </search>
