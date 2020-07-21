@@ -572,21 +572,19 @@ var grafico = svg.append("g")
 </style>
 
 
-<section id='scrolly'>
+<section id='scrolly1'>
     <div class='scrolly'>
-        <div class='stepFijo'>
-            <p>Este es otro de los gráficos que posiblemente más veces hayas visto desde que empezó el aislamiento social: el número de nuevos casos que detectamos cada día.
-            </p>
-        </div>
-
         <!-- aca va el grafico que va a quedar fijo -->
-        <figure id="contenedorGrafico" class='sticky' >
+        <figure id="grafico1" class='sticky contenedorGrafico' >
         </figure>
 
         <!-- acá van los textos de cada paso -->
         <article>
             <div class='step' data-index='0'>
-                <p>
+				<p>Este es otro de los gráficos que posiblemente más veces hayas visto desde que empezó el aislamiento social: el número de nuevos casos que detectamos cada día.
+				</p>
+	
+				<p>
                     Ahora bien, ¿ese número refleja la cantidad real de personas con COVID-19?<br />
                     La respuesta es...                    
                 </p>
@@ -597,12 +595,28 @@ var grafico = svg.append("g")
                     ...no. No conocemos el número real de personas con COVID-19. Y cuando decimos que no lo conocemos queremos decir que nadie en el mundo lo conoce.
 				</p>
 		    </div>
-            <div class='step' data-index='2'>
-                <p>
-                    ¿Por qué?
-				</p>
-            </div>
-            <div class='step' data-index='3'>
+        </article>
+		<div class='stepFijo' >
+			<p>
+				¿Por qué?
+			</p>
+		</div>
+	</div>
+
+	
+
+</section>
+
+<section id='scrolly2'>
+    <div class='scrolly'>
+ 
+        <!-- aca va el grafico que va a quedar fijo -->
+        <figure id="grafico2" class='sticky contenedorGrafico' >
+        </figure>
+
+        <!-- acá van los textos de cada paso -->
+        <article>
+            <div class='step' data-index='0'>
                 <p>
                     Para saber quién tiene coronavirus hacemos un test. Y ese test no se lo hacemos a todo el mundo.
                 </p>
@@ -613,7 +627,7 @@ var grafico = svg.append("g")
 					Entonces hay que DECIDIR a quiénes se testea.
                 </p>
             </div>
-            <div class='step' data-index='4'>
+            <div class='step' data-index='1'>
                 <p>
 					Acá entra la <a href="https://www.argentina.gob.ar/salud/coronavirus-COVID-19/definicion-de-caso" target="_blank">definición de caso sospechoso</a> a quiénes decidimos testear.
             </p>
@@ -624,7 +638,7 @@ var grafico = svg.append("g")
                     Además, como muchas personas con COVID-19 tienen algunos  síntomas pero no suficientes para ser testeadas (según la definición de caso sospechoso en ese momento), habrá algunas personas que nunca testearemos.
                     </p>
             </div>
-            <div class='step' data-index='5'>
+            <div class='step' data-index='2'>
                 <p>
                     De las personas que testeamos por ser casos sospechosos, algunas son casos confirmados de COVID-19.
                 </p>
@@ -635,14 +649,14 @@ var grafico = svg.append("g")
                     Pero ¿solo las personas que dan positivo al test son las que tienen COVID-19?
 				</p>
             </div>
-            <div class='step' data-index='6'>
+            <div class='step' data-index='3'>
                 <p>
 					Estas son las provincias en las que sus casos confirmados se están duplicando con tiempos de entre 5 y 15 días.
 					<span class="pcias"></span>
 				</p>
             </div>
 
-			<div class='step' data-index='7'>
+			<div class='step' data-index='4'>
                 <p>
 					La respuesta también es no. Hay muchas personas que tienen COVID-19 pero no tienen síntomas: los famosos casos asintomáticos
                 </p>
@@ -656,7 +670,7 @@ var grafico = svg.append("g")
 
 			</div>
 			
-			<div class='step' data-index='8'>
+			<div class='step' data-index='5'>
                 <p>
                     Además, las decisiones de a quién testear pueden cambiar a medida que la situación progresa.
                 </p>
@@ -668,7 +682,7 @@ var grafico = svg.append("g")
 				</p>
 			</div>
 
-			<div class='step' data-index='9'>
+			<div class='step' data-index='6'>
                 <p>
                     Así, vemos que siempre que miramos datos hay que preguntarse cómo fueron tomados.
                 </p>
@@ -694,7 +708,7 @@ var grafico = svg.append("g")
 	//********************* CARGA DATOS ************
 
 Promise.all([
-	d3.csv("Fuente_datos_historias - E3_contagiados_total.csv"),
+	d3.csv("/datos/Fuente_datos_historias - E3_contagiados_total.csv"),
 ]).then(function(files) {
 	
 
@@ -703,34 +717,38 @@ Promise.all([
     // **** CODIGO DEL SCROLLY *******
 
 
-    const container = d3.select('#scrolly'); //busco el container total
-    const stepSel = container.selectAll('.step'); // selecciono los "steps"
+    const container1 = d3.select('#scrolly1'); //busco el container total
+	const container2 = d3.select('#scrolly2'); //busco el container total
 
-    function updateChart(index) {  // funcion que llama cada vez que cruza un humbral
-        const sel = container.select(`[data-index='${index}']`);
-        stepSel.classed('is-active', (d, i) => i === index);
+    const stepSel1 = container1.selectAll('.step'); // selecciono los "steps"
+	const stepSel2 = container2.selectAll('.step'); // selecciono los "steps"
+
+    function updateChart(index, what,containerNumber) {  // funcion que llama cada vez que cruza un humbral
+        const sel = d3.select('#scrolly'+containerNumber).select(`[data-index='${index}']`);
+        what.classed('is-active', (d, i) => i === index);
         
-        scrollyTelling(index); // <<<<< AQUI LLAMA AL GRAFICO VERDADERO
+        scrollyTelling(containerNumber,index); // <<<<< AQUI LLAMA AL GRAFICO VERDADERO
     }
 
-    function init() { // configuracion inicial
+    function init(what,containerNumber) { // configuracion inicial
         Stickyfill.add(d3.select('.sticky').node()); // fallback para browsers sin sticky
 
         enterView({
-            selector: stepSel.nodes(),
+            selector: what.nodes(),
             offset: 0.5,
             enter: el => {
                 const index = +d3.select(el).attr('data-index');
-                updateChart(index);
+                updateChart(index,what,containerNumber);
             },
             exit: el => {
                 let index = +d3.select(el).attr('data-index');
                 index = Math.max(0, index - 1);
-                updateChart(index);
+                updateChart(index,what,containerNumber);
             }
         });
     }
-    init()
+    init(stepSel1,1)
+	init(stepSel2,2)
 
     // **** END SCROLLY *******
 
@@ -744,14 +762,14 @@ verde #62BB46
 */
        
         
-var ejeY, ejeX, tituloY, minDate, maxDate, line, linePais;
+var ejeY, ejeX, tituloY, minDate, maxDate;
 
 var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maximo
 
-var svg = d3.select("#contenedorGrafico").append("svg"),
+var svg = d3.selectAll(".contenedorGrafico").append("svg"),
     margin = isMobile ? {top: 35, right: 20, bottom: 25, left: 20} : {top: 50, right: 30, bottom: 50, left: 30},
-    width =  +d3.select('#contenedorGrafico').style('width').slice(0, -2),
-    height = +d3.select('#contenedorGrafico').style('height').slice(0, -2);
+    width =  +d3.select('#grafico1').style('width').slice(0, -2),
+    height = +d3.select('#grafico1').style('height').slice(0, -2);
 
     if (height > altoMaximo*width) {
         svg.style('margin-top', (height - altoMaximo*width)/2 + "px")
@@ -764,90 +782,60 @@ var svg = d3.select("#contenedorGrafico").append("svg"),
     width = width - margin.left - margin.right;
     
 
-var parseTime = d3.timeParse("%Y-%m-%d");
+	var parseTime = d3.timeParse("%Y-%m-%d");
 
-var x = d3.scaleTime().range([0, width]);
-var yLog = d3.scaleLog().range([height, 0]);
+///******** MANEJO DE DATOS ********
+	var data = files[0] // datos principales;
 
-var yLogAxis = d3.axisLeft(yLog);
-    yLogAxis.ticks(4).tickFormat(d3.format(",.1r")).tickSizeInner(-6);
+		data.forEach(element => {
+			element.fecha = parseTime(element.fecha);
+			element.casos_diarios = +element.casos_diarios;
+			element.casosFake = Math.round(element.casos_diarios*(Math.random()+1));
+		});
+
+		data.columns.push("casosFake")
+		
+   var series = d3.stack()
+			.keys(data.columns.slice(1))(data)
+			.map(d => (d.forEach(v => v.key = d.key), d))
+			console.log(series);
 
 
+//***************
 
-var grafico = svg.append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+	minDate = parseTime("2020-03-01"); //fecha de inicio el primero de marzo para que aparezca marzo!
+	maxDate = d3.max(data, d => d.fecha);
+
+
+	var x = d3.scaleTime()
+			.range([0, width])
+			.domain([minDate,maxDate]);
+
+	var y = d3.scaleLinear()
+			.range([height, 0])
+			.domain([0,d3.max(data,d=>d.casos_diarios)]);
+	
+	
+
+	var yAxis = d3.axisLeft(y);
+		yAxis.ticks(4).tickFormat(d3.format(",.1r")).tickSizeInner(-6);
+
+
+	svg.append("g")
+    	.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 	;
-	
-var clip = grafico.append("defs").append("svg:clipPath")
-        .attr("id", "clip")
-        .append("svg:rect")
-        .attr("width", width )
-        .attr("height", height )
-        .attr("x", 0)
-        .attr("y", 0);
+
+	svg.each(function(d,i){
+		d3.select(this).select("g").attr("id","gInterno"+i);
+	})
+
+ 
 
 
-	line = d3.line()
-	.defined(d => d>0)
-    .x((d,i) => x(dataParaGrafico.dates[i]))
-	.y(d => yLog(d))
-	;
+	var gBarras = d3.select("#gInterno0");
+	var gBubbles = d3.select("#gInterno1");
 
-	linePais = d3.line()
-    .x(d => x(d.fecha))
-	.y(d => yLog(d.casos_tot))
-	;
-
-
-    var data = files[0] // datos principales;
-
-	var duplicaciones = files[1] // funciones de duplicacion de casos;
-	
-	var dataProv = files[2] // funciones de duplicacion de casos;
-
-    data.forEach(function(d) {
-      d.fecha = parseTime(d.fecha);
-      d.casos_tot = +d.casos_tot;
-	});
-	
-    duplicaciones.forEach(function(d,i) {
-      d.desdeX = parseTime(d.desdeX);
-      d.hastaX = parseTime(d.hastaX);
-      d.desdeY = +d.desdeY;
-      d.hastaY = +d.hastaY;
-      d.index = i;
-	});
-	
-	dataProv.forEach(function(d) {
-    	d.fecha = d3.timeDay.offset(parseTime("2020-03-03"), d.dia) //transforma de numero de dia a fecha
-		d.casos_tot = +d.casos_tot;
-		d.dup = isNaN(d.dup)? 1000 : +d.dup;
-		d.prov= d.prov.replace("Santiago", "Sgo.")
-		d.prov= d.prov.replace("Tierra", "T.")
-	});
-	
-
-	dataProv = d3.nest().key(d => d.prov).entries(dataProv)
-
-		minDate = parseTime("2020-03-01"); //fecha de inicio el primero de marzo para que aparezca marzo!
-		maxDate = d3.max(data, d => d.fecha);
-	
-	var dataParaGrafico = {
-		series: dataProv.map(obj => {return {"name":obj.key,"dup":obj.values[0].dup, "values":obj.values.map(r=>r.casos_tot)}})
-						.sort((a, b) => d3.descending(a.values[a.values.length-1], b.values[b.values.length-1])),
-    	dates: d3.timeDay.range(minDate, d3.timeDay.offset(maxDate))
-	}
-
-
-	x.domain([minDate,maxDate]);
-	var yDomainPais = [d3.min(data, function(d) { return d.casos_tot; }), d3.max(data, function(d) { return d.casos_tot; })+20000];
-	var yDomainProv = [d3.min(dataProv, function(d) { return d.casos_tot; }), d3.max(data, function(d) { return d.casos_tot; })+20000];
-	yLog.domain(yDomainPais);
-
-
-	
-
-     ejeX = grafico.append("g") // EJE X
+    ejeX = gBarras.append("g") // EJE X
         .attr("class", "axis axis--x")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x)
@@ -855,199 +843,106 @@ var clip = grafico.append("defs").append("svg:clipPath")
         .call(ajustaMesesEjeX)
         ;
 
-    ejeY = grafico.append("g") // EJE Y
+    ejeY = gBarras.append("g") // EJE Y
         .attr("class", "axis axis--y")
-	   	.call(yLogAxis)
+	   	.call(yAxis)
 	        ;
     
     tituloY = ejeY.append("text")
         .attr("class", "axis-title")
         .attr("y", -8)
-        
-        .text("Casos (logarítmico)");
+        .text("Número de casos diarios confirmados en Argentina");
 
 
-    grafico.append("path") // Linea DE DATOS PAIS
-		.attr("stroke", "black")
-	 	.style("opacity",0)
-	    .datum(data)
-        .attr("class","linePais")
-    	.attr("d", linePais);
-
-	  var provincias = grafico.append("g").attr("id","provincias")
-						  .attr("clip-path", "url(#clip)");
-
-
-	  provincias.selectAll("path") // AGREGA LAS LINEAS DE LAS PROVINCIAS
-				.data(dataParaGrafico.series )
-				.join("path")
-				.attr("class", "prov line")
-				.style("stroke", d=>coloreaCategorias(d.name))
-				.attr("d", d => line(d.values));
-
-	provincias.append("rect").attr("width",0).attr("height",height).style("opacity",0.8).attr("id","dimmer").attr("x",width).style("fill","#f1f1f1");
-
-	var dataParaLabels = dataParaGrafico.series.map(r=>{  //Prepara la data para poner los labels
-					return  {"labelY": yLog(d3.max(r.values)),
-							"name": r.name,
-							"dup": r.dup,
-							"values": r.values}
-						});
 	
-	relax(dataParaLabels, 8); // Separa los labels para que no se pisen
+		gBarras.append("g")
+			.selectAll("g")
+			.data(series)
+			.join("g")
+			.attr("id", d => d[0].key)
+			.attr("fill", (d,i) => !i?"#8B6BAF":"#8B6BAF77")
+			.attr("opacity", (d,i) => !i?1:0)
+			.selectAll("rect")
+			.data(d => d)
+			.join("rect")
+			.attr("class","barrasGrafico")
+			.attr("x", (d, i) => x(d.data.fecha))
+			.attr("y", d => y(d[1]))
+			.attr("height", d => y(d[0]) - y(d[1]))
+			.attr("width",  (x(parseTime("2020-03-02"))-1)>1?(x(parseTime("2020-03-02"))-1):1)
 
-	  provincias.selectAll("text")  // AGREGA LOS LABELS
-				.data(dataParaLabels)
-				.join("text")
-					.attr("x",d=>x(dataParaGrafico.dates[d.values.length]))
-					.attr("y",d=>d.labelY)
-					.attr("dy", "3px")
-					.style("fill", d=>coloreaCategorias(d.name))
-					.attr("class", "prov nombreProvincias")
-					.text(d=>isMobile?provinciasAbreviadas[d.name]:d.name); // provinciasAbreviadas en caso de mobile (es una variable en el layout.njk)
+		;
+
+
+		const 	n=100,
+				nodes = d3.range(n).map(() => ({})),
+				radius = 5;;
+
+
+  
+		const simulation = d3.forceSimulation(nodes)
+			.force("x", d3.forceX())
+			.force("y", d3.forceY())
+			.force("collide", d3.forceCollide(d=> (radius + 2 + (Math.random()*5))))
+			.stop();
+		
+		for (let i = 0; i < 200; ++i) simulation.tick();
+
+		gBubbles.selectAll("circle")
+			.data(nodes)
+			.join("circle")
+			.attr("class","personitas")
+			.style("fill","#62BB46")
+			.attr("cy",d=>d.y+height/2)
+			.attr("cx",d=>isMobile?d.x+width/2:d.x+width/4)
+			.attr("r",radius)
+			;
+
+
+	
+
+function scrollyTelling(containerNumber,step){
+
+	if(containerNumber == 1){
+		switch (step) {
+			case 0:
+				y.domain([0,d3.max(data,d=>d.casos_diarios)]);
+			break;
+
+			case 1:
+				y.domain([0,d3.max(data,d=>(d.casos_diarios+d.casosFake))]);
+			break;
+	    }
+			ejeY.transition().duration(600).call(yAxis);
+			d3.selectAll("#casosFake").transition().duration(600).style("opacity",step);
+			d3.selectAll(".barrasGrafico").transition().duration(600)
+						.attr("y", d => y(d[1]))
+						.attr("height", d => y(d[0]) - y(d[1]));
+
+	}else{
+
+		switch (step) {
+			case 0:
+				d3.selectAll(".personitas").transition().duration(600).style("fill","#62BB46");
+			break;
+
+			case 1:
+				d3.selectAll(".personitas").filter((d,i)=>i<n/3).transition().duration(600).style("fill","#F26522");
+			break;
+
+			case 2:
+				d3.selectAll(".personitas").filter((d,i)=>i<n/5).transition().duration(600).style("fill","#8B6BAF");
+			break;
+
+			case 3:
+				d3.selectAll(".personitas").filter((d,i)=>i>n*6/7).transition().duration(600).style("fill","#00468B");
+			break;
+
+
+	    }
 
 		
-
-	var tendencias = grafico.append("g") // DUPLICACIONES
-					.attr("id", "duplicaciones")
-					;
-
-    tendencias.selectAll("path")
-     .data(duplicaciones)
-     .join("path")
-        .attr("class", "tendencia")
-        .style("opacity", 0)
-        .attr('d', d => d3.line()([[x(d.desdeX), yLog(d.desdeY)],[x(d.hastaX), yLog(d.hastaY)]]))
-        .style("stroke", d => colores(d.index+1));
-
-    tendencias.selectAll("text")
-     .data(duplicaciones)
-     .join("text")
-        .attr("class", d=>{return "duplicacionesTextos"+" duplica"+d.index})
-        .style("opacity", 0)
-        .attr('x', d => Math.abs(x(d.hastaX) - x(d.desdeX))/2+ x(d.desdeX))
-        .attr('y', d => yLog(d.desdeY) - 10 - Math.abs(yLog(d.hastaY) - yLog(d.desdeY) )/2)
-        .style("fill", d => colores(d.index+1))
-        .text(d=> { return d.duplicacion + " días"});
-
-
-		d3.selectAll(".pcias").each( function(d){
-			var nombres = [];
-			switch (+d3.select(this.parentNode.parentNode).attr("data-index")) {
-				case 5:
-					nombres = dataParaLabels.filter(d=> d.dup < 5).map(r=>r.name);
-					break;
-
-				case 6:
-					nombres = dataParaLabels.filter(d=> d.dup > 5 && d.dup < 15).map(r=>r.name);
-					break;
-
-				case 7:
-					nombres = dataParaLabels.filter(d=> d.dup > 15 && d.dup < 25).map(r=>r.name);
-					break;
-
-				case 8:
-					nombres = dataParaLabels.filter(d=> d.dup > 25 && d.dup < 100).map(r=>r.name);
-					break;
-
-				case 9:
-					nombres = dataParaLabels.filter(d=> d.dup > 100).map(r=>r.name);
-					break;
-			
-			}
-				d3.select(this).html(nombres.length?"(" + nombres.join(', ')+ ")":"(Ninguna)")
-				
-				});
-                
-   
-
-
-function scrollyTelling(step){
-
-    var cambia = {};
-    switch (step) {
-		case 2: // muestra por provincia
-		/* x.domain([minDate, maxDate]);  // POR SI HAY ZOOM
-			ejeX.transition().duration(400).call(d3.axisBottom(x).ticks(d3.timeMonth.every(1)))
-				  .call(ajustaMesesEjeX); */
-				  
-		case 0: // muestra por provincia
-            d3.selectAll(".linePais").transition().duration(600).style("opacity",0);
-			d3.selectAll(".prov").transition().delay((d,i)=>i*10).duration(400)
-					.style("opacity",1)
-			//		.attr("d", d => line(d.values)) // POR SI HAY ZOOM
-					;
-            d3.selectAll(".tendencia").transition().duration(300).style("opacity",0);
-			d3.selectAll(".duplicacionesTextos").transition().duration(300).style("opacity",0);
-			break;
-
-		case 1: // muestra pais
-			d3.selectAll(".linePais").transition().duration(600).style("opacity",1);
-            d3.selectAll(".prov").transition().delay((d,i)=>i*10).duration(400).style("opacity",0);
-			d3.selectAll(".tendencia").transition().delay((d,i)=>400+i*200).duration(300).style("opacity",1);
-			d3.selectAll(".duplicacionesTextos").transition().delay((d,i)=>400+i*200).duration(300).style("opacity",1);
-        	break;
-
-		case 3: // zoom a los ultimos 20 dias.
-		d3.select("#dimmer").transition().duration(600).attr("width",0).attr("x",width);
-
-		/* 	x.domain([d3.timeDay.offset(maxDate,-20), maxDate]) // POR SI HAY ZOOM
-	    	ejeX.transition().duration(400).call(d3.axisBottom(x).ticks(d3.timeDay.every(1)))
-				.call(ajustaMesesEjeX);
- 			d3.selectAll(".prov").transition().delay((d,i)=>i*10).duration(400)
-						.attr("d", d => line(d.values));;
-		*/
-        	break;
-
-		case 4: // muestra solo primera parte
-			d3.select("#dimmer").transition().duration(600).attr("width",width*0.7).attr("x",width*0.3);
-			d3.selectAll(".prov").transition().duration(600).style("opacity",1);
-		/* 	x.domain([minDate, maxDate]); // POR SI HAY ZOOM
-			ejeX.transition().duration(400).call(d3.axisBottom(x).ticks(d3.timeMonth.every(1)))
-			  	.call(ajustaMesesEjeX); 
-			d3.selectAll(".prov").transition().delay((d,i)=>i*10).duration(400)
-						.attr("d", d => line(d.values));;
-						*/
-			break;
-			
-		case 5: // duplica en menos de 5 días
-			d3.select("#dimmer").transition().duration(600).attr("width",0).attr("x",width);
-			d3.selectAll(".prov").transition().duration(600).style("opacity",d=>d.dup<5?1:0.2);
-			break;
-
-		case 6: // duplica en 5 a 15 días
-			d3.selectAll(".prov").transition().duration(600).style("opacity",d=>{
-				if(d.dup<15 && d.dup>5) return 1;
-				return 0.2;
-			} );
-			break;
-
-		case 7: // duplica en 15 a 25 días
-			d3.selectAll(".prov").transition().duration(600).style("opacity",d=>{
-				if(d.dup<25 && d.dup>15) return 1;
-				return 0.2;
-			} );
-			break;
-
-
-		case 8: // duplica en mas de 25
-			d3.selectAll(".prov").transition().duration(600).style("opacity",d=>{
-				if(d.dup<100 && d.dup>25) return 1;
-				return 0.2;
-			} );
-			break;
-
-		case 9: // sin casos nuevos
-			d3.selectAll(".prov").transition().duration(600).style("opacity",d=>{
-				if(d.dup>100) return 1;
-				return 0.2;
-			} );
-			break;
-
-		case 10: // sin casos nuevos
-			d3.selectAll(".prov").transition().duration(600).style("opacity",1);
-			break;
-    }
+	}
 
           
 
@@ -1056,7 +951,6 @@ function scrollyTelling(step){
 
 
 //********** funciones
-
  
 function ajustaMesesEjeX(g) {
 		  // ESTO PONE LOS NOMBRES DE LOS MESES EN MEDIO DE CADA MES
@@ -1073,39 +967,7 @@ function ajustaMesesEjeX(g) {
 			}
 
 
-// separa en el eje Y los datos que le lleguen con formato: 
-// d.name // d.labelY // d.values
-function relax(data, spacing) {
-				spacing = spacing? spacing : 8;
-				var dy = 1;
-				var repeat = false;
-				var count = 0;
-				data.forEach(function(dA, i) {
-					var yA = dA.labelY;
-					data.forEach(function(dB, j) {
-						var yB = dB.labelY;
-						if (i === j) {
-							return;
-						}
-						diff = yA - yB;
-						if (Math.abs(diff) > spacing) {
-							return;
-						}
-						repeat = true;
-						magnitude = diff > 0 ? 1 : -1;
-						adjust = magnitude * dy;
-						dA.labelY = +yA + adjust;
-						dB.labelY = +yB - adjust;
-						dB.labelY = dB.labelY > height ? height : dB.labelY
-						dA.labelY = dA.labelY > height ? height : dA.labelY
-					})
-				})
-				if (repeat) {
-					relax(data, spacing);
-				}
-			}
-
-		});
+});
 
 </script>
 ]]></content>
