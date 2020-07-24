@@ -430,7 +430,7 @@ var coloreaCategorias = d3.scaleOrdinal()
 					Acá entra la <a href="https://www.argentina.gob.ar/salud/coronavirus-COVID-19/definicion-de-caso" target="_blank">definición de caso sospechoso</a> a quiénes decidimos testear.
             </p>
             <p>
-                Lo más común es que se testee a personas con ciertos síntomas relevantes (fiebre, tos, pérdida del olfato, etc.) o que estén en riesgo claro de contagio (viaje al exterior, contactos estrechos con casos positivos, personal de salud, etc.).
+                Lo más común es que se testee a <tag class="sintomas">personas con ciertos síntomas </tag> relevantes (fiebre, tos, pérdida del olfato, etc.) o que estén en riesgo claro de contagio (viaje al exterior, contactos estrechos con casos positivos, personal de salud, etc.).
                 </p>
                 <p>
                     Además, como muchas personas con COVID-19 tienen algunos  síntomas pero no suficientes para ser testeadas (según la definición de caso sospechoso en ese momento), habrá algunas personas que nunca testearemos.
@@ -438,7 +438,7 @@ var coloreaCategorias = d3.scaleOrdinal()
             </div>
             <div class='step' data-index='2'>
                 <p>
-                    De las personas que testeamos por ser casos sospechosos, algunas son casos confirmados de COVID-19.
+                    De las personas que testeamos por ser casos sospechosos, <tag class="sintomas">algunas son casos confirmados</tag> de COVID-19.
                 </p>
                 <p>
                     Y muchas otras de esas personas dan negativo al test.
@@ -712,7 +712,6 @@ var variaRandom;
 
 function scrollyTelling(containerNumber,step){
 
-    console.log(containerNumber,step)
 
 	if(containerNumber == 1){  //GRAFICO PRIMER SCROLLY
 		switch (step) {
@@ -732,7 +731,7 @@ function scrollyTelling(containerNumber,step){
                                 .attr("height", d => y(d[0]) - y(d[1]*rand));
                         });
                     }, 305);
-                }, 600);
+                }, 300);
 
             break;
 	    }
@@ -747,34 +746,42 @@ function scrollyTelling(containerNumber,step){
 
         clearInterval(variaRandom);
 
-
-
             switch (step) { //GRAFICO SEGUNDO SCROLLY
                 case 0:
                     d3.selectAll(".personitas").transition().duration(300).style("fill","#62BB46");
+                    
                 break;
 
                 case 1:
                     d3.selectAll(".personitas").filter(d=>d.index<30).transition().duration(300).style("fill","#F26522");
+                    actualizaPersonitas(0,305)
                 break;
 
                 case 2:
-                    d3.selectAll(".personitas").filter(d=>d.index>14).transition().duration(300).style("fill","#62BB46");
+                    actualizaPersonitas(1,0);
+                    d3.selectAll(".personitas").filter(d=>d.index>14).transition().delay(800).duration(300).style("fill","#62BB46");
+                    
                 break;
 
                 case 3:
+                    //d3.selectAll(".personitas").filter(d=>d.index>80).transition().duration(300).style("fill","#00468B");
+                    actualizaPersonitas(2)
+                break;
+
+                case 4:
                     d3.selectAll(".personitas").filter(d=>d.index>80).transition().duration(300).style("fill","#00468B");
                 break;
             }
 
 
-            if(step<3){
+            function actualizaPersonitas(paso,delay){
                     d3.selectAll(".personitas")
-                        .transition().duration(600)
+                        .transition().delay(delay).duration(600)
                         .delay(e=>302+e.index)
-                        .attr("cx", d=>d.pos[step][0])
-                        .attr("cy", d=>d.pos[step][1]);
-                    }
+                        .attr("cx", d=>d.pos[paso][0])
+                        .attr("cy", d=>d.pos[paso][1]);
+                    
+                }
                     
     }
           
