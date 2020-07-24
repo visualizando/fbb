@@ -813,7 +813,7 @@ function scrollyTelling(step){
         	break;
 
 		case 4: // muestra solo primera parte
-			d3.select("#dimmer").transition().duration(600).attr("width",width*0.7).attr("x",width*0.3);
+			d3.select("#dimmer").transition().duration(600).attr("width",width*0.8).attr("x",width*0.2);
 			d3.selectAll(".prov").transition().duration(600).style("opacity",1);
 		/* 	x.domain([minDate, maxDate]); // POR SI HAY ZOOM
 			ejeX.transition().duration(400).call(d3.axisBottom(x).ticks(d3.timeMonth.every(1)))

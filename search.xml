@@ -649,14 +649,7 @@ var grafico = svg.append("g")
                     Pero ¿solo las personas que dan positivo al test son las que tienen COVID-19?
 				</p>
             </div>
-            <div class='step' data-index='3'>
-                <p>
-					Estas son las provincias en las que sus casos confirmados se están duplicando con tiempos de entre 5 y 15 días.
-					<span class="pcias"></span>
-				</p>
-            </div>
-
-			<div class='step' data-index='4'>
+			<div class='step' data-index='3'>
                 <p>
 					La respuesta también es no. Hay muchas personas que tienen COVID-19 pero no tienen síntomas: los famosos casos asintomáticos
                 </p>
@@ -670,7 +663,7 @@ var grafico = svg.append("g")
 
 			</div>
 			
-			<div class='step' data-index='5'>
+			<div class='step' data-index='4'>
                 <p>
                     Además, las decisiones de a quién testear pueden cambiar a medida que la situación progresa.
                 </p>
@@ -682,7 +675,7 @@ var grafico = svg.append("g")
 				</p>
 			</div>
 
-			<div class='step' data-index='6'>
+			<div class='step' data-index='5'>
                 <p>
                     Así, vemos que siempre que miramos datos hay que preguntarse cómo fueron tomados.
                 </p>
@@ -742,7 +735,7 @@ Promise.all([
             },
             exit: el => {
                 let index = +d3.select(el).attr('data-index');
-                index = Math.max(0, index - 1);
+                //index = Math.max(0, index - 1);
                 updateChart(index,what,containerNumber);
             }
         });
@@ -798,8 +791,6 @@ var svg = d3.selectAll(".contenedorGrafico").append("svg"),
    var series = d3.stack()
 			.keys(data.columns.slice(1))(data)
 			.map(d => (d.forEach(v => v.key = d.key), d))
-			console.log(series);
-
 
 //***************
 
@@ -874,76 +865,120 @@ var svg = d3.selectAll(".contenedorGrafico").append("svg"),
 		;
 
 
+         var posiciones = [
+            [isMobile?width/2:width/4, height/2], // posición inicial
+            [isMobile?width/2:width/4, height*3/4], // posición nueva arriba
+            [isMobile?width/2:width/4, height/4] // posición nueva abajo
+        ]
+
+
 		const 	n=100,
-				nodes = d3.range(n).map(() => ({})),
+				nodes = d3.range(n).map((d,i) => {
+                    var pos = [posiciones[0],
+                            i<n*0.3?posiciones[1]:posiciones[2],
+                            i<n*0.15?posiciones[1]:posiciones[2],
+                            ];
+                    return {"pos":pos}}),
 				radius = 5;;
 
 
-  
-		const simulation = d3.forceSimulation(nodes)
-			.force("x", d3.forceX())
-			.force("y", d3.forceY())
-			.force("collide", d3.forceCollide(d=> (radius + 2 + (Math.random()*5))))
-			.stop();
+        function simulaNodos(nodes){
+            for (let i = 0; i < 3; i++) {
+                var simulation = d3.forceSimulation(nodes)
+                    .force("x", d3.forceX(d=>d.pos[i][0]))
+                    .force("y", d3.forceY(d=>d.pos[i][1]))
+                    .force("collide", d3.forceCollide(d=> (radius + 1.5 + (Math.random()*3))))
+                    .stop();
+
+                for (let i = 0; i < 200; ++i) simulation.tick();
+                nodes.map(dd=> dd.pos[i]=[dd.x,dd.y]);                
+            }    
+
+        }
+
+       simulaNodos(nodes)
 		
-		for (let i = 0; i < 200; ++i) simulation.tick();
 
 		gBubbles.selectAll("circle")
 			.data(nodes)
 			.join("circle")
 			.attr("class","personitas")
 			.style("fill","#62BB46")
-			.attr("cy",d=>d.y+height/2)
-			.attr("cx",d=>isMobile?d.x+width/2:d.x+width/4)
+			.attr("cy",d=>d.pos[0][1])
+			.attr("cx",d=>d.pos[0][0])
 			.attr("r",radius)
 			;
 
-
+var variaRandom;
 	
 
 function scrollyTelling(containerNumber,step){
 
-	if(containerNumber == 1){
+    console.log(containerNumber,step)
+
+	if(containerNumber == 1){  //GRAFICO PRIMER SCROLLY
 		switch (step) {
 			case 0:
-				y.domain([0,d3.max(data,d=>d.casos_diarios)]);
+                y.domain([0,d3.max(data,d=>d.casos_diarios)]);
+                clearInterval(variaRandom)
 			break;
 
 			case 1:
 				y.domain([0,d3.max(data,d=>(d.casos_diarios+d.casosFake))]);
-			break;
+                setTimeout(function(){
+                    variaRandom = setInterval(function() {
+                        d3.select("#casosFake").selectAll(".barrasGrafico").each(function (p) {
+                            var rand = 1+Math.random()/10;
+                            d3.select(this).transition().ease(d3.easeSinInOut).duration(300)
+                                .attr("y", d =>y(d[1]*rand))
+                                .attr("height", d => y(d[0]) - y(d[1]*rand));
+                        });
+                    }, 305);
+                }, 600);
+
+            break;
 	    }
 			ejeY.transition().duration(600).call(yAxis);
 			d3.selectAll("#casosFake").transition().duration(600).style("opacity",step);
 			d3.selectAll(".barrasGrafico").transition().duration(600)
 						.attr("y", d => y(d[1]))
-						.attr("height", d => y(d[0]) - y(d[1]));
-
+                        .attr("height", d => y(d[0]) - y(d[1]));
+  
+  
 	}else{
 
-		switch (step) {
-			case 0:
-				d3.selectAll(".personitas").transition().duration(600).style("fill","#62BB46");
-			break;
-
-			case 1:
-				d3.selectAll(".personitas").filter((d,i)=>i<n/3).transition().duration(600).style("fill","#F26522");
-			break;
-
-			case 2:
-				d3.selectAll(".personitas").filter((d,i)=>i<n/5).transition().duration(600).style("fill","#8B6BAF");
-			break;
-
-			case 3:
-				d3.selectAll(".personitas").filter((d,i)=>i>n*6/7).transition().duration(600).style("fill","#00468B");
-			break;
+        clearInterval(variaRandom);
 
 
-	    }
 
-		
-	}
+            switch (step) { //GRAFICO SEGUNDO SCROLLY
+                case 0:
+                    d3.selectAll(".personitas").transition().duration(300).style("fill","#62BB46");
+                break;
 
+                case 1:
+                    d3.selectAll(".personitas").filter(d=>d.index<30).transition().duration(300).style("fill","#F26522");
+                break;
+
+                case 2:
+                    d3.selectAll(".personitas").filter(d=>d.index>14).transition().duration(300).style("fill","#62BB46");
+                break;
+
+                case 3:
+                    d3.selectAll(".personitas").filter(d=>d.index>80).transition().duration(300).style("fill","#00468B");
+                break;
+            }
+
+
+            if(step<3){
+                    d3.selectAll(".personitas")
+                        .transition().duration(600)
+                        .delay(e=>302+e.index)
+                        .attr("cx", d=>d.pos[step][0])
+                        .attr("cy", d=>d.pos[step][1]);
+                    }
+                    
+    }
           
 
 }
@@ -1501,7 +1536,7 @@ function scrollyTelling(step){
         	break;
 
 		case 4: // muestra solo primera parte
-			d3.select("#dimmer").transition().duration(600).attr("width",width*0.7).attr("x",width*0.3);
+			d3.select("#dimmer").transition().duration(600).attr("width",width*0.8).attr("x",width*0.2);
 			d3.selectAll(".prov").transition().duration(600).style("opacity",1);
 		/* 	x.domain([minDate, maxDate]); // POR SI HAY ZOOM
 			ejeX.transition().duration(400).call(d3.axisBottom(x).ticks(d3.timeMonth.every(1)))
@@ -1632,8 +1667,7 @@ function relax(data, spacing) {
 <p>Para nuestro sistema de salud, o el de cualquier otro país, es muy importante que la curva se achate lo más posible para que nunca llegue a su límite.</p>
 <p>Basándonos en la experiencia de otros países, mirá lo que probablemente habría ocurrido si no se hubiesen tomado medidas de contención/mitigación.</p>
 <p>Achatar la curva implica que, además de tener un pico más bajo, tengamos un pico más tardío.</p>
-<p>Eso nos da más tiempo para mejorar los servicios de salud (comprar más respiradores, por ejemplo) e implementar políticas como el rastreo de contactos. Pero también hace que la evolución de la pandemia se alargue en el tiempo.</p>
-<img src="/images/CurvaAnimada.gif" class="[class names]" title="Achatando la curva" alt="alt text">
+<h2 id="Eso-nos-da-mas-tiempo-para-mejorar-los-servicios-de-salud-comprar-mas-respiradores-por-ejemplo-e-implementar-politicas-como-el-rastreo-de-contactos-Pero-tambien-hace-que-la-evolucion-de-la-pandemia-se-alargue-en-el-tiempo"><a href="#Eso-nos-da-mas-tiempo-para-mejorar-los-servicios-de-salud-comprar-mas-respiradores-por-ejemplo-e-implementar-politicas-como-el-rastreo-de-contactos-Pero-tambien-hace-que-la-evolucion-de-la-pandemia-se-alargue-en-el-tiempo" class="headerlink" title="Eso nos da más tiempo para mejorar los servicios de salud (comprar más respiradores, por ejemplo) e implementar políticas como el rastreo de contactos. Pero también hace que la evolución de la pandemia se alargue en el tiempo."></a>Eso nos da más tiempo para mejorar los servicios de salud (comprar más respiradores, por ejemplo) e implementar políticas como el rastreo de contactos. Pero también hace que la evolución de la pandemia se alargue en el tiempo.</h2><img src="/images/CurvaAnimada.gif" class="[class names]" title="Achatando la curva" alt="alt text">
 
 <p>Entender la evolución de la pandemia y qué efecto tienen las medidas nos ayuda a decidir qué camino tomar.</p>
 ]]></content>
