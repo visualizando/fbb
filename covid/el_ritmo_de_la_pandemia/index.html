@@ -129,30 +129,82 @@
     var isMobile = document.getElementsByTagName("body")[0].clientWidth < 768 ? 1 : 0; 
     
 
-    var provinciasAbreviadas= {
-        "Buenos Aires" : "BsAs",
-        "CABA":"CABA",
-        "Chaco":"Chaco",
-        "Chubut":"Chu.",
-        "Córdoba":"Cba.",
-        "Corrientes":"Corr.",
-        "Entre Ríos":"E.Ríos",
-        "Formosa":"Form.",
-        "Jujuy":"Juj.",
-        "La Pampa":"Pampa",
-        "La Rioja":"Rioja",
-        "Mendoza":"Mdza",
-        "Misiones":"Mis.",
-        "Neuquén":"Nqn",
-        "Río Negro":"R.Negro",
-        "Salta":"Salta",
-        "San Juan":"S.Juan",
-        "San Luis":"S.Luis",
-        "Santa Cruz":"S.Cruz",
-        "Santa Fe":"S.Fe",
-        "Santiago del Estero":"SdE",
-        "Tierra del Fuego":"TdF",
-        "Tucumán":"Tuc"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    var nombresPcias = {
+            "CABA":["CABA","CABA"],
+            "Buenos_Aires":["Buenos Aires","PBA"],
+            "Catamarca":["Catamarca","CAT"],
+            "Chaco":["Chaco","CHAC"],
+            "Chubut":["Chubut","CHUB"],
+            "Cordoba":["Córdoba","CBA"],
+            "Corrientes":["Corrientes","COR"],
+            "Entre_Rios":["Entre Ríos","ER"],
+            "Formosa":["Formosa","FORM"],
+            "Jujuy":["Jujuy","JUJ"],
+            "La_Pampa":["La Pampa","PAMP"],
+            "La_Rioja":["La Rioja","RIOJ"],
+            "Mendoza":["Mendoza","MEND"],
+            "Misiones":["Misiones","MIS"],
+            "Neuquen":["Neuquén","NEU"],
+            "Rio_Negro":["Río Negro","RN"],
+            "Salta":["Salta","SAL"],
+            "San_Juan":["San Juan","SJuan"],
+            "San_Luis":["San Luis","SLuis"],
+            "Santa_Cruz":["Santa Cruz","Scruz"],
+            "Santa_Fe":["Santa Fe","SFe"],
+            "Santiago_del_Estero":["Sgo del Estero","SEst"],
+            "Tierra_del_fuego":["T. del Fuego","TFuego"],
+            "Tucuman":["Tucumán","TUC"]
+
         }
 
 
@@ -330,9 +382,21 @@ var coloreaCategorias = d3.scaleOrdinal()
       stroke-width: 1px;
     }
 
-    .aspo {
+    path.aspo {
         stroke:#222;
         stroke-dasharray: 3px 1px;   
+    }
+
+    rect.aspo {
+        stroke:none;
+        fill:rgba(184, 184, 184, 0.226)
+    }
+
+    .aspoTexto{
+        text-anchor: start;
+        font-size: 14px;
+        font-weight: 600;
+        fill: #222;
     }
 
     .tendencia{
@@ -347,12 +411,7 @@ var coloreaCategorias = d3.scaleOrdinal()
         font-weight: 600;
     }
 
-    .aspoTexto{
-        text-anchor: start;
-        font-size: 14px;
-        font-weight: 600;
-        fill: #222;
-    }
+
 
     #avisoDuplicacion {
         position: absolute;
@@ -383,10 +442,7 @@ var coloreaCategorias = d3.scaleOrdinal()
 
 <section id='scrolly'>
     <div class='scrolly'>
-        <div class='stepFijo'>
-            <p> Vemos gráficos, números e información sobre la pandemia todo el tiempo. Pero ¿qué debemos mirar en los datos para saber en qué situación estamos?  
-            </p>
-        </div>
+        
 
         <!-- aca va el grafico que va a quedar fijo -->
         <figure id="contenedorGrafico" class='sticky' >
@@ -395,6 +451,8 @@ var coloreaCategorias = d3.scaleOrdinal()
         <!-- acá van los textos de cada paso -->
         <article>
             <div class='step' data-index='0'>
+                <p> Vemos gráficos, números e información sobre la pandemia todo el tiempo. Pero ¿qué debemos mirar en los datos para saber en qué situación estamos?  
+                </p>
                 <p>
                     Una de las respuestas está en mirar el "ritmo" al cual se desarrolla el contagio (en vez de mirar cifras aisladas como el número absoluto de casos). ¿Qué es y cómo se ve el ritmo de contagio en una pandemia?
                 </p><p>                    
@@ -467,8 +525,8 @@ Sin embargo, hay más en este gráfico, mucho más, sólo que hay que hacerle un
 //********************* CARGA DATOS ************
 
 Promise.all([
-    d3.csv("/datos/tablaMaestra.csv"),
-    d3.csv("/datos/Fuente_datos_historias - E1_ritmo.csv"),
+    d3.csv("/datos/E1_ritmoBis.csv"),
+    d3.csv("/datos/E1_ritmo.csv"),
 ]).then(function(files) {
 
 
@@ -502,7 +560,7 @@ Promise.all([
             }
         });
     }
-    init()
+ 
 
     // **** END SCROLLY *******
 
@@ -663,17 +721,29 @@ var grafico = svg.append("g")
             
     aspo.append("path")
                 .attr("class", "aspo")
-                .attr('d', d3.line()([[x(parseTime("2020-03-21")), 50],[x(parseTime("2020-03-21")),height]])) ; 
+                .attr('d', d3.line()([[x(parseTime("2020-03-21")), 0],[x(parseTime("2020-03-21")),height]])) ; 
 
-    aspo.append("text")
+    aspo.append("rect")
+                .attr("class", "aspo")
+                .attr("x", x(parseTime("2020-03-21")))
+                .attr("y", 0)
+                .attr("width", x(parseTime("2020-04-25")-x(parseTime("2020-03-21"))))
+                .attr("height", height) ;
+                  
+
+    var aspoText = aspo.append("text")
                 .attr("class", "aspoTexto")
-                .attr('x', x(parseTime("2020-03-21"))+4)
-                .attr('y', 55)
-                .text("A.S.P.O")
-                ;
-                
-   
+                .attr('y', height*0.8);
 
+    aspoText.selectAll("tspan")
+            .data(["Aislamiento Social,","Preventivo y","Obligatorio"])
+            .join("tspan")
+            .text(d => d)
+            .attr("x", x(parseTime("2020-03-21"))+8)
+            .attr("dy", 16);
+
+    
+                init()
 
     function scrollyTelling(step){
 
@@ -682,9 +752,9 @@ var grafico = svg.append("g")
             case 0: // INICIO, ES LOG
                 cambia.tipo = "log";
                 cambia.tick = -6;
-                d3.selectAll(".tendencia").filter(d=>d.index==0).transition().delay(300).duration(300).style("opacity",100);
-                d3.selectAll(".duplicacionesTextos").filter(d=>d.index==0).transition().delay(300).duration(300).style("opacity",100);
-                d3.select("#avisoDuplicacion").transition().duration(300).style("opacity",100);
+                d3.selectAll(".tendencia").filter(d=>d.index==0).transition().delay(300).duration(300).style("opacity",1);
+                d3.selectAll(".duplicacionesTextos").filter(d=>d.index==0).transition().delay(300).duration(300).style("opacity",1);
+                d3.select("#avisoDuplicacion").transition().duration(300).style("opacity",1);
 
             break;
 
@@ -711,20 +781,20 @@ var grafico = svg.append("g")
             case 4: // AGREGA TENDENCIAS
                 cambia.tipo = 0
                 cambia.tick =-6
-                d3.selectAll(".tendencia").transition().delay(d=>d.index*100).duration(1100).style("opacity",100)
+                d3.selectAll(".tendencia").transition().delay(d=>d.index*100).duration(1100).style("opacity",1)
                 d3.selectAll(".duplicacionesTextos").transition().duration(600).style("opacity",0)
 
             break;
 
             case 5: // AGREGA NUMEROS A tENDECNIAS
                 cambia.tipo = 0
-                d3.selectAll(".duplicacionesTextos").transition().delay(d=>d.index*100).duration(1100).style("opacity",100)
+                d3.selectAll(".duplicacionesTextos").transition().delay(d=>d.index*100).duration(1100).style("opacity",1)
                 d3.select("#aspo").transition().duration(600).style("opacity",0)
             break;
 
             case 6: // AGREGA ASPO
                 cambia.tipo = 0
-                d3.select("#aspo").transition().duration(600).style("opacity",100)
+                d3.select("#aspo").transition().duration(600).style("opacity",1)
             break;
 
         }

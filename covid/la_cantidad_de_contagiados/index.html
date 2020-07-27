@@ -129,30 +129,82 @@
     var isMobile = document.getElementsByTagName("body")[0].clientWidth < 768 ? 1 : 0; 
     
 
-    var provinciasAbreviadas= {
-        "Buenos Aires" : "BsAs",
-        "CABA":"CABA",
-        "Chaco":"Chaco",
-        "Chubut":"Chu.",
-        "Córdoba":"Cba.",
-        "Corrientes":"Corr.",
-        "Entre Ríos":"E.Ríos",
-        "Formosa":"Form.",
-        "Jujuy":"Juj.",
-        "La Pampa":"Pampa",
-        "La Rioja":"Rioja",
-        "Mendoza":"Mdza",
-        "Misiones":"Mis.",
-        "Neuquén":"Nqn",
-        "Río Negro":"R.Negro",
-        "Salta":"Salta",
-        "San Juan":"S.Juan",
-        "San Luis":"S.Luis",
-        "Santa Cruz":"S.Cruz",
-        "Santa Fe":"S.Fe",
-        "Santiago del Estero":"SdE",
-        "Tierra del Fuego":"TdF",
-        "Tucumán":"Tuc"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    var nombresPcias = {
+            "CABA":["CABA","CABA"],
+            "Buenos_Aires":["Buenos Aires","PBA"],
+            "Catamarca":["Catamarca","CAT"],
+            "Chaco":["Chaco","CHAC"],
+            "Chubut":["Chubut","CHUB"],
+            "Cordoba":["Córdoba","CBA"],
+            "Corrientes":["Corrientes","COR"],
+            "Entre_Rios":["Entre Ríos","ER"],
+            "Formosa":["Formosa","FORM"],
+            "Jujuy":["Jujuy","JUJ"],
+            "La_Pampa":["La Pampa","PAMP"],
+            "La_Rioja":["La Rioja","RIOJ"],
+            "Mendoza":["Mendoza","MEND"],
+            "Misiones":["Misiones","MIS"],
+            "Neuquen":["Neuquén","NEU"],
+            "Rio_Negro":["Río Negro","RN"],
+            "Salta":["Salta","SAL"],
+            "San_Juan":["San Juan","SJuan"],
+            "San_Luis":["San Luis","SLuis"],
+            "Santa_Cruz":["Santa Cruz","Scruz"],
+            "Santa_Fe":["Santa Fe","SFe"],
+            "Santiago_del_Estero":["Sgo del Estero","SEst"],
+            "Tierra_del_fuego":["T. del Fuego","TFuego"],
+            "Tucuman":["Tucumán","TUC"]
+
         }
 
 
@@ -499,7 +551,7 @@ var coloreaCategorias = d3.scaleOrdinal()
 	//********************* CARGA DATOS ************
 
 Promise.all([
-	d3.csv("/datos/Fuente_datos_historias - E3_contagiados_total.csv"),
+	d3.csv("/datos/E3_contagiados_total.csv"),
 ]).then(function(files) {
 	
 
@@ -538,8 +590,7 @@ Promise.all([
             }
         });
     }
-    init(stepSel1,1)
-	init(stepSel2,2)
+  
 
     // **** END SCROLLY *******
 
@@ -708,7 +759,10 @@ var svg = d3.selectAll(".contenedorGrafico").append("svg"),
 			;
 
 var variaRandom;
-	
+    
+
+    init(stepSel1,1)
+	init(stepSel2,2)
 
 function scrollyTelling(containerNumber,step){
 
@@ -749,17 +803,16 @@ function scrollyTelling(containerNumber,step){
             switch (step) { //GRAFICO SEGUNDO SCROLLY
                 case 0:
                     d3.selectAll(".personitas").transition().duration(300).style("fill","#62BB46");
-                    
                 break;
 
                 case 1:
-                    d3.selectAll(".personitas").filter(d=>d.index<30).transition().duration(300).style("fill","#F26522");
-                    actualizaPersonitas(0,305)
+//                    d3.selectAll(".personitas").filter(d=>d.index<30).transition().duration(300).style("fill","")
+                    actualizaPersonitas(0,305,"#F26522");
                 break;
 
                 case 2:
-                    actualizaPersonitas(1,0);
-                    d3.selectAll(".personitas").filter(d=>d.index>14).transition().delay(800).duration(300).style("fill","#62BB46");
+                    //d3.selectAll(".personitas").filter(d=>d.index>14).transition().delay(800).duration(300).style("fill","#62BB46")
+                    actualizaPersonitas(1,0,"#62BB46");
                     
                 break;
 
@@ -774,10 +827,11 @@ function scrollyTelling(containerNumber,step){
             }
 
 
-            function actualizaPersonitas(paso,delay){
+            function actualizaPersonitas(paso,delay,color){
                     d3.selectAll(".personitas")
                         .transition().delay(delay).duration(600)
                         .delay(e=>302+e.index)
+                        .style("fill",color)
                         .attr("cx", d=>d.pos[paso][0])
                         .attr("cy", d=>d.pos[paso][1]);
                     

@@ -2618,6 +2618,10 @@ hr {
 .post-button .btn:hover {
   border-bottom-color: var(--btn-default-hover-border-color);
 }
+.post-thumbnail img {
+  height: auto;
+  width: 100%;
+}
 .main-inner {
   margin: 0 auto;
   width: 700px;
@@ -2689,7 +2693,7 @@ hr {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ffc669;
+  background: #5e782e;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);

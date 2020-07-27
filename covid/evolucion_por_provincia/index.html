@@ -129,30 +129,82 @@
     var isMobile = document.getElementsByTagName("body")[0].clientWidth < 768 ? 1 : 0; 
     
 
-    var provinciasAbreviadas= {
-        "Buenos Aires" : "BsAs",
-        "CABA":"CABA",
-        "Chaco":"Chaco",
-        "Chubut":"Chu.",
-        "Córdoba":"Cba.",
-        "Corrientes":"Corr.",
-        "Entre Ríos":"E.Ríos",
-        "Formosa":"Form.",
-        "Jujuy":"Juj.",
-        "La Pampa":"Pampa",
-        "La Rioja":"Rioja",
-        "Mendoza":"Mdza",
-        "Misiones":"Mis.",
-        "Neuquén":"Nqn",
-        "Río Negro":"R.Negro",
-        "Salta":"Salta",
-        "San Juan":"S.Juan",
-        "San Luis":"S.Luis",
-        "Santa Cruz":"S.Cruz",
-        "Santa Fe":"S.Fe",
-        "Santiago del Estero":"SdE",
-        "Tierra del Fuego":"TdF",
-        "Tucumán":"Tuc"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    var nombresPcias = {
+            "CABA":["CABA","CABA"],
+            "Buenos_Aires":["Buenos Aires","PBA"],
+            "Catamarca":["Catamarca","CAT"],
+            "Chaco":["Chaco","CHAC"],
+            "Chubut":["Chubut","CHUB"],
+            "Cordoba":["Córdoba","CBA"],
+            "Corrientes":["Corrientes","COR"],
+            "Entre_Rios":["Entre Ríos","ER"],
+            "Formosa":["Formosa","FORM"],
+            "Jujuy":["Jujuy","JUJ"],
+            "La_Pampa":["La Pampa","PAMP"],
+            "La_Rioja":["La Rioja","RIOJ"],
+            "Mendoza":["Mendoza","MEND"],
+            "Misiones":["Misiones","MIS"],
+            "Neuquen":["Neuquén","NEU"],
+            "Rio_Negro":["Río Negro","RN"],
+            "Salta":["Salta","SAL"],
+            "San_Juan":["San Juan","SJuan"],
+            "San_Luis":["San Luis","SLuis"],
+            "Santa_Cruz":["Santa Cruz","Scruz"],
+            "Santa_Fe":["Santa Fe","SFe"],
+            "Santiago_del_Estero":["Sgo del Estero","SEst"],
+            "Tierra_del_fuego":["T. del Fuego","TFuego"],
+            "Tucuman":["Tucumán","TUC"]
+
         }
 
 
@@ -356,12 +408,14 @@ var coloreaCategorias = d3.scaleOrdinal()
 	span.pcias{
 		display: block;
 		margin-top: 11px;
+		font-size: smaller;
 	}
   
 	#contenedorGrafico.sticky{
 			margin-bottom: 191px;
 		}
      
+	 
     @media only screen and (min-width: 768px) {
       
     }
@@ -503,9 +557,9 @@ var coloreaCategorias = d3.scaleOrdinal()
 	//********************* CARGA DATOS ************
 
 Promise.all([
-    d3.csv("/datos/tablaMaestra.csv"),
-	d3.csv("/datos/Fuente_datos_historias - E1_ritmo.csv"),
-	d3.csv("/datos/Fuente_datos_historias - E4_ritmo_prov.csv")
+    d3.csv("/datos/E1_ritmoBis.csv"),
+	d3.csv("/datos/E1_ritmo.csv"),
+	d3.csv("/datos/E4_ritmo_prov.csv")
 ]).then(function(files) {
 	
 
@@ -541,7 +595,7 @@ Promise.all([
             }
         });
     }
-    init()
+
 
     // **** END SCROLLY *******
 
@@ -560,6 +614,7 @@ var ejeY, ejeX, tituloY, minDate, maxDate, line, linePais;
 var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maximo
 
 var svg = d3.select("#contenedorGrafico").append("svg"),
+	marginTexto = isMobile ? 30:75,
     margin = isMobile ? {top: 35, right: 20, bottom: 25, left: 20} : {top: 50, right: 30, bottom: 50, left: 30},
     width =  +d3.select('#contenedorGrafico').style('width').slice(0, -2),
     height = +d3.select('#contenedorGrafico').style('height').slice(0, -2);
@@ -577,7 +632,7 @@ var svg = d3.select("#contenedorGrafico").append("svg"),
 
 var parseTime = d3.timeParse("%Y-%m-%d");
 
-var x = d3.scaleTime().range([0, width]);
+var x = d3.scaleTime().range([0, width-marginTexto]);
 var yLog = d3.scaleLog().range([height, 0]);
 
 var yLogAxis = d3.axisLeft(yLog);
@@ -614,7 +669,7 @@ var clip = grafico.append("defs").append("svg:clipPath")
 
 	var duplicaciones = files[1] // funciones de duplicacion de casos;
 	
-	var dataProv = files[2] // funciones de duplicacion de casos;
+	var dataProv = files[2] // datos provinciales;
 
     data.forEach(function(d) {
       d.fecha = parseTime(d.fecha);
@@ -630,23 +685,25 @@ var clip = grafico.append("defs").append("svg:clipPath")
 	});
 	
 	dataProv.forEach(function(d) {
-    	d.fecha = d3.timeDay.offset(parseTime("2020-03-03"), d.dia) //transforma de numero de dia a fecha
+    	d.fecha = parseTime(d.fecha);
 		d.casos_tot = +d.casos_tot;
 		d.dup = isNaN(d.dup)? 1000 : +d.dup;
-		d.prov= d.prov.replace("Santiago", "Sgo.")
-		d.prov= d.prov.replace("Tierra", "T.")
 	});
 	
-
 	dataProv = d3.nest().key(d => d.prov).entries(dataProv)
 
 		minDate = parseTime("2020-03-01"); //fecha de inicio el primero de marzo para que aparezca marzo!
 		maxDate = d3.max(data, d => d.fecha);
-	
+
 	var dataParaGrafico = {
-		series: dataProv.map(obj => {return {"name":obj.key,"dup":obj.values[0].dup, "values":obj.values.map(r=>r.casos_tot)}})
+		series: dataProv.map(obj => {
+					return {
+						"name":obj.key,
+						"dup":obj.values[obj.values.length-1].dup,
+						"values":obj.values.map(r=>r.casos_tot)}
+					})
 						.sort((a, b) => d3.descending(a.values[a.values.length-1], b.values[b.values.length-1])),
-    	dates: d3.timeDay.range(minDate, d3.timeDay.offset(maxDate))
+    	dates: d3.timeDay.range(d3.min(data, d => d.fecha), d3.timeDay.offset(maxDate))
 	}
 
 
@@ -674,7 +731,6 @@ var clip = grafico.append("defs").append("svg:clipPath")
     tituloY = ejeY.append("text")
         .attr("class", "axis-title")
         .attr("y", -8)
-        
         .text("Casos (logarítmico)");
 
 
@@ -688,36 +744,45 @@ var clip = grafico.append("defs").append("svg:clipPath")
 	  var provincias = grafico.append("g").attr("id","provincias")
 						  .attr("clip-path", "url(#clip)");
 
+	
 
-	  provincias.selectAll("path") // AGREGA LAS LINEAS DE LAS PROVINCIAS
+	provincias.selectAll("path") // AGREGA LAS LINEAS DE LAS PROVINCIAS
 				.data(dataParaGrafico.series )
 				.join("path")
 				.attr("class", "prov line")
 				.style("stroke", d=>coloreaCategorias(d.name))
 				.attr("d", d => line(d.values));
 
+		 d3.selectAll(".prov.line")
+					//.attr("stroke-dasharray", totalLength + " " + totalLength)
+					.attr("stroke-dasharray", function(d){ return this.getTotalLength()+ " " + this.getTotalLength()})	
+					.attr("stroke-dashoffset", function(d){
+						d.totalLength = this.getTotalLength();
+						return 0;
+						})	
+					;
+
 	provincias.append("rect").attr("width",0).attr("height",height).style("opacity",0.8).attr("id","dimmer").attr("x",width).style("fill","#f1f1f1");
 
 	var dataParaLabels = dataParaGrafico.series.map(r=>{  //Prepara la data para poner los labels
-					return  {"labelY": yLog(d3.max(r.values)),
+					return  {"labelY": yLog(r.values[r.values.length-1]),
 							"name": r.name,
 							"dup": r.dup,
 							"values": r.values}
 						});
-	
-	relax(dataParaLabels, 8); // Separa los labels para que no se pisen
+	relax(dataParaLabels, 9); // Separa los labels para que no se pisen
 
 	  provincias.selectAll("text")  // AGREGA LOS LABELS
 				.data(dataParaLabels)
 				.join("text")
-					.attr("x",d=>x(dataParaGrafico.dates[d.values.length]))
+					.attr("x",d=>x(dataParaGrafico.dates[d.values.length-1]))
 					.attr("y",d=>d.labelY)
 					.attr("dy", "3px")
+					.attr("dx", "3px")
 					.style("fill", d=>coloreaCategorias(d.name))
 					.attr("class", "prov nombreProvincias")
-					.text(d=>isMobile?provinciasAbreviadas[d.name]:d.name); // provinciasAbreviadas en caso de mobile (es una variable en el layout.njk)
+					.text(d=>isMobile?nombresPcias[d.name][1]:nombresPcias[d.name][0]); // provinciasAbreviadas en caso de mobile (es una variable en el layout.njk)
 
-		
 
 	var tendencias = grafico.append("g") // DUPLICACIONES
 					.attr("id", "duplicaciones")
@@ -742,53 +807,53 @@ var clip = grafico.append("defs").append("svg:clipPath")
         .text(d=> { return d.duplicacion + " días"});
 
 
+
+		// Carga los nombres en modo texto en el Step
 		d3.selectAll(".pcias").each( function(d){
 			var nombres = [];
 			switch (+d3.select(this.parentNode.parentNode).attr("data-index")) {
 				case 5:
-					nombres = dataParaLabels.filter(d=> d.dup < 5).map(r=>r.name);
+					nombres = dataParaLabels.filter(d=> d.dup < 5).map(r=>nombresPcias[r.name][0]);
 					break;
 
 				case 6:
-					nombres = dataParaLabels.filter(d=> d.dup > 5 && d.dup < 15).map(r=>r.name);
+					nombres = dataParaLabels.filter(d=> d.dup > 5 && d.dup < 15).map(r=>nombresPcias[r.name][0]);
 					break;
 
 				case 7:
-					nombres = dataParaLabels.filter(d=> d.dup > 15 && d.dup < 25).map(r=>r.name);
+					nombres = dataParaLabels.filter(d=> d.dup > 15 && d.dup < 25).map(r=>nombresPcias[r.name][0]);
 					break;
 
 				case 8:
-					nombres = dataParaLabels.filter(d=> d.dup > 25 && d.dup < 100).map(r=>r.name);
+					nombres = dataParaLabels.filter(d=> d.dup > 25 && d.dup < 100).map(r=>nombresPcias[r.name][0]);
 					break;
 
 				case 9:
-					nombres = dataParaLabels.filter(d=> d.dup > 100).map(r=>r.name);
+					nombres = dataParaLabels.filter(d=> d.dup > 100).map(r=>nombresPcias[r.name][0]);
 					break;
 			
 			}
-				d3.select(this).html(nombres.length?"(" + nombres.join(', ')+ ")":"(Ninguna)")
+				d3.select(this)
+						.html(nombres.length?"Al <b>" + d3.timeFormat("%d de %B")(maxDate) +  "</b> son: " + nombres.join(', '):"(Ninguna)")
 				
-				});
+			});
                 
    
+
+				init() // setea los scrollys
 
 
 function scrollyTelling(step){
 
-	var opacidadProvinciaApagada = 0;
+	var opacidadProvinciaApagada = 0.2;
 
-    var cambia = {};
-    switch (step) {
+   switch (step) {
 		case 2: // muestra por provincia
-		/* x.domain([minDate, maxDate]);  // POR SI HAY ZOOM
-			ejeX.transition().duration(400).call(d3.axisBottom(x).ticks(d3.timeMonth.every(1)))
-				  .call(ajustaMesesEjeX); */
 				  
 		case 0: // muestra por provincia
             d3.selectAll(".linePais").transition().duration(600).style("opacity",0);
-			d3.selectAll(".prov").transition().delay((d,i)=>i*10).duration(400)
+			d3.selectAll(".prov").transition().duration(400)
 					.style("opacity",1)
-			//		.attr("d", d => line(d.values)) // POR SI HAY ZOOM
 					;
             d3.selectAll(".tendencia").transition().duration(300).style("opacity",0);
 			d3.selectAll(".duplicacionesTextos").transition().duration(300).style("opacity",0);
@@ -796,72 +861,82 @@ function scrollyTelling(step){
 
 		case 1: // muestra pais
 			d3.selectAll(".linePais").transition().duration(600).style("opacity",1);
-            d3.selectAll(".prov").transition().delay((d,i)=>i*10).duration(400).style("opacity",0);
+            d3.selectAll(".prov").transition().duration(400).style("opacity",0);
 			d3.selectAll(".tendencia").transition().delay((d,i)=>400+i*200).duration(300).style("opacity",1);
 			d3.selectAll(".duplicacionesTextos").transition().delay((d,i)=>400+i*200).duration(300).style("opacity",1);
         	break;
 
-		case 3: // zoom a los ultimos 20 dias.
-		d3.select("#dimmer").transition().duration(600).attr("width",0).attr("x",width);
-
-		/* 	x.domain([d3.timeDay.offset(maxDate,-20), maxDate]) // POR SI HAY ZOOM
-	    	ejeX.transition().duration(400).call(d3.axisBottom(x).ticks(d3.timeDay.every(1)))
-				.call(ajustaMesesEjeX);
- 			d3.selectAll(".prov").transition().delay((d,i)=>i*10).duration(400)
-						.attr("d", d => line(d.values));;
-		*/
-        	break;
+		case 3: // 
+			d3.selectAll(".prov.line").transition().duration(300).attr("stroke-dashoffset",0)
+		        break;
 
 		case 4: // muestra solo primera parte
-			d3.select("#dimmer").transition().duration(600).attr("width",width*0.8).attr("x",width*0.2);
-			d3.selectAll(".prov").transition().duration(600).style("opacity",1);
-		/* 	x.domain([minDate, maxDate]); // POR SI HAY ZOOM
-			ejeX.transition().duration(400).call(d3.axisBottom(x).ticks(d3.timeMonth.every(1)))
-			  	.call(ajustaMesesEjeX); 
-			d3.selectAll(".prov").transition().delay((d,i)=>i*10).duration(400)
-						.attr("d", d => line(d.values));;
-						*/
+			d3.selectAll(".prov.line").transition().duration(600).attr("stroke-dashoffset",d=>d.totalLength*0.7)
+			.on("end", d=>apagaProvincias(0,2000))
 			break;
 			
 		case 5: // duplica en menos de 5 días
-			d3.select("#dimmer").transition().duration(600).attr("width",0).attr("x",width);
-			d3.selectAll(".prov").transition().duration(600).style("opacity",d=>d.dup<5?1:opacidadProvinciaApagada);
+			d3.selectAll(".prov.line").transition().duration(300).attr("stroke-dashoffset",0)
+			.on("end", d=>apagaProvincias(0,5))
+			;
 			break;
 
 		case 6: // duplica en 5 a 15 días
-			d3.selectAll(".prov").transition().duration(600).style("opacity",d=>{
-				if(d.dup<15 && d.dup>5) return 1;
-				return opacidadProvinciaApagada;
-			} );
+			apagaProvincias(5,15);
 			break;
 
 		case 7: // duplica en 15 a 25 días
-			d3.selectAll(".prov").transition().duration(600).style("opacity",d=>{
-				if(d.dup<25 && d.dup>15) return 1;
-				return opacidadProvinciaApagada;
-			} );
+			apagaProvincias(15,25);
 			break;
 
 
 		case 8: // duplica en mas de 25
-			d3.selectAll(".prov").transition().duration(600).style("opacity",d=>{
-				if(d.dup<100 && d.dup>25) return 1;
-				return opacidadProvinciaApagada;
-			} );
+			apagaProvincias(25,100);
 			break;
 
 		case 9: // sin casos nuevos
-			d3.selectAll(".prov").transition().duration(600).style("opacity",d=>{
-				if(d.dup>100) return 1;
-				return opacidadProvinciaApagada;
-			} );
+			apagaProvincias(100,2000);
 			break;
 
 		case 10: // sin casos nuevos
-			d3.selectAll(".prov").transition().duration(600).style("opacity",1);
+			apagaProvincias(0,2000);
 			break;
     }
 
+	function apagaProvincias(min, max){  // Apaga los nombres y grisea las lineas
+
+			d3.selectAll(".prov.line").transition().duration(600)
+				.style("opacity",d=>{
+						if(d.dup<max && d.dup>min) return 1;
+						return opacidadProvinciaApagada;
+					} )
+				.style("stroke",d=>{
+						if(d.dup<max && d.dup>min) return coloreaCategorias(d.name);
+						return "silver";
+					} )
+					;
+
+					// construyo un dataset temporal para posicionar los textos filtrados
+			var dataParaLabelsTemp = dataParaGrafico.series.filter(d=>d.dup<max && d.dup>min).map(r=>{  //Prepara la data para poner los labels
+						return  {"labelY": yLog(r.values[r.values.length-1]),
+								"name": r.name}
+							});
+
+							// relajo lo anterior para que no se superpongan
+			relax(dataParaLabelsTemp,9);
+
+							// apago provincias que no estan y posicion las que si
+			d3.selectAll(".prov.nombreProvincias").transition().duration(600)
+				.style("opacity",d=>{
+						if(d.dup<max && d.dup>min) return 1;
+						return 0;
+					} )
+				.attr("y",d=>{
+						if(d.dup<max && d.dup>min) return dataParaLabelsTemp.filter(r=>r.name==d.name)[0].labelY;
+						return d.labelY;
+					} )
+					;
+		}
           
 
 }
@@ -888,14 +963,14 @@ function ajustaMesesEjeX(g) {
 
 // separa en el eje Y los datos que le lleguen con formato: 
 // d.name // d.labelY // d.values
-function relax(data, spacing) {
+function relax(dataInterna, spacing) {
 				spacing = spacing? spacing : 8;
 				var dy = 1;
 				var repeat = false;
 				var count = 0;
-				data.forEach(function(dA, i) {
+				dataInterna.forEach(function(dA, i) {
 					var yA = dA.labelY;
-					data.forEach(function(dB, j) {
+					dataInterna.forEach(function(dB, j) {
 						var yB = dB.labelY;
 						if (i === j) {
 							return;
@@ -914,7 +989,7 @@ function relax(data, spacing) {
 					})
 				})
 				if (repeat) {
-					relax(data, spacing);
+					relax(dataInterna, spacing);
 				}
 			}
 
