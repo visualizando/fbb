@@ -321,9 +321,7 @@ var coloreaCategorias = d3.scaleOrdinal()
       <meta itemprop="name" content="Decodificar: COVID19">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          Hay que achatar la curva… ¿qué curva?
-        </h1>
+      
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -335,12 +333,16 @@ var coloreaCategorias = d3.scaleOrdinal()
             </span>
 
           
-            <div class="post-description">El sistema de salud tiene un límite para dar respuesta ante la pandemia. ¿Cuál es ese límite y cómo sabemos si estamos cerca o no? ¿Cuál de todos los números tengo que mirar para entender esto?</div>
 
          
-
-          
         </div>
+
+
+          <h1 class="post-title" itemprop="name headline">
+          Hay que achatar la curva… ¿qué curva?
+        </h1>
+            <div class="post-description">El sistema de salud tiene un límite para dar respuesta ante la pandemia. ¿Cuál es ese límite y cómo sabemos si estamos cerca o no? ¿Cuál de todos los números tengo que mirar para entender esto?</div>
+
       </header>
 
 
@@ -597,9 +599,13 @@ var flechita = 'M88 166.059V468c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12
 
 var svg = d3.select("#contenedorGrafico").append("svg"),
 	marginTexto = isMobile ? 30:45,
-    margin = isMobile ? {top: 35, right: 20, bottom: 25, left: 20} : {top: 50, right: 30, bottom: 50, left: 30},
+    margin = isMobile ? {top: 35, right: 20, bottom: 15, left: 20} : {top: 50, right: 30, bottom: 25, left: 30},
     width =  +d3.select('#contenedorGrafico').style('width').slice(0, -2),
-    height = +d3.select('#contenedorGrafico').style('height').slice(0, -2);
+    height = +d3.select('#contenedorGrafico').style('height').slice(0, -2)-25;
+
+d3.select("#contenedorGrafico").append("div").attr("class","epigrafe")
+            .html("www.decodificar.org - " );
+
 
     if (height > altoMaximo*width) {
         svg.style('margin-top', (height - altoMaximo*width)/2 + "px")
@@ -907,6 +913,7 @@ function relax(dataInterna, spacing) {
         }
 
     });
+
 
 </script>
 
