@@ -29,13 +29,13 @@
 <meta property="og:site_name" content="Decodificar: COVID19">
 <meta property="og:description" content="El sistema de salud tiene un límite para dar respuesta ante la pandemia. ¿Cuál es ese límite y cómo sabemos si estamos cerca o no? ¿Cuál de todos los números tengo que mirar para entender esto?">
 <meta property="og:locale" content="es_ES">
-<meta property="og:image" content="http://decodificar.org/images/CasosActivos.svg">
+<meta property="og:image" content="http://decodificar.org/images/CasosActivos.png">
 <meta property="og:image" content="http://decodificar.org/images/CurvaAnimada.gif">
 <meta property="article:published_time" content="2020-07-22T13:15:04.536Z">
 <meta property="article:modified_time" content="2020-07-22T13:15:04.536Z">
 <meta property="article:author" content="Fundacion Bunge y Born">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://decodificar.org/images/CasosActivos.svg">
+<meta name="twitter:image" content="http://decodificar.org/images/CasosActivos.png">
 
 <link rel="canonical" href="http://decodificar.org/covid/achatar_la_curva/">
 
@@ -477,14 +477,14 @@ var coloreaCategorias = d3.scaleOrdinal()
             <div class='step' data-index='1'>
                 <p>
                     Todo sistema de salud tiene una cierta capacidad que en esta pandemia está marcada, sobre todo, por la cantidad de camas disponibles (especialmente las camas de terapia intensiva o UTI). Sería interesante conocer el número total de camas del país, pero no es un dato disponible. Sí contamos con el número de camas de UTI, que es lo que vemos en este gráfico. 
-                </p><p>
+                    <br/><br/>
                     También hay otros factores a tener en cuenta como la cantidad de profesionales de la salud, distribución de los recursos, medicamentos, etc.
                 </p>
             </div>
             <div class='step' data-index='2'>
                 <p>
                     Esta capacidad límite queda representada en el gráfico como un techo que nuestra curva nunca tiene que superar.
-                </p><p>
+                    <br/><br/>
                     Este techo puede modificarse con el tiempo si se adquieren respiradores, se montan nuevos hospitales, etc. Esto es lo que sucedió en nuestro país cuando se aumentaron las camas de UTI durante los primeros meses del Aislamiento Social Preventivo Obligatorio que 
                 </p>
             </div>
@@ -496,14 +496,14 @@ var coloreaCategorias = d3.scaleOrdinal()
             <div class='step' data-index='4'>
                 <p>
                     … sabemos que algunas de esas personas ya están recuperadas y otras fallecieron. (se pinta la línea verde, fallecidos + recuperados). Estas ya no ocuparán camas de hospitales ni necesitarán respiradores (y además ya no transmiten el virus).
-            </p><p>
+                    <br/><br/>
                 Las que quedan son las personas que tienen COVID-19 en el presente: los casos activos.
                 </p>
             </div>
             <div class='step' data-index='5'>
                 <p>
                     Los casos activos son los que necesitan o pueden llegar a necesitar camas de algún hospital (y aún siguen contagiando). Una parte muy pequeña de esos casos activos (1 -2%) requerirán un respirador.
-                    <img src="/images/CasosActivos.svg">
+                    <img src="/images/CasosActivos.png">
                 </p>
                 
             </div>
@@ -522,7 +522,7 @@ var coloreaCategorias = d3.scaleOrdinal()
             <div class='step' data-index='8'>
                 <p>
                     Y más crítico aún es que los casos activos internados en UTI estén por debajo de la línea de camas disponibles de UTI. 
-                </p><p>
+                    <br/><br/>
                     Este es el escenario a nivel nacional. Si hay  brotes locales, el techo es el número de cama UTI de ese lugar. Y por eso, la situación en cada lugar puede ser distinta.
                 </p>
             </div>
@@ -539,7 +539,7 @@ var coloreaCategorias = d3.scaleOrdinal()
 
  <!-- Scripts -->
  <script>
-    
+
 //********************* CARGA DATOS ************
 
 Promise.all([
@@ -604,7 +604,7 @@ var svg = d3.select("#contenedorGrafico").append("svg"),
     height = +d3.select('#contenedorGrafico').style('height').slice(0, -2)-25;
 
 d3.select("#contenedorGrafico").append("div").attr("class","epigrafe")
-            .html("www.decodificar.org - " );
+            .html("www.decodificar.org - 28/7/20 - Fuente: reportes diarios del Ministerio de Salud de la Nación - Argentina");
 
 
     if (height > altoMaximo*width) {
@@ -987,23 +987,24 @@ function relax(dataInterna, spacing) {
         
 
         
-
-
-
-<div class="copyright">
+<div class="firma">
 Un proyecto de la <a href="https://www.fundacionbyb.org/" target="_blank">Fundación Bunge y Born</a>, en alianza con  <a href="http://expedicionciencia.org.ar/" target="_blank">Expedición Ciencia</a>
-<br/>
-<small><a href="https://www.fundacionbyb.org/politica-de-privacidad" target="_blank">Política de privacidad</a></small>
+</div>
+
+<div class="reporte">
+<a href="https://docs.google.com/forms/d/e/1FAIpQLSep2P37Le6YQnp3zgMwTAv1B9HlZBA0Yu5ieVBxCg8GB2QRrQ/viewform" target="_blank">¿Encontraste un error?</a>
 </div>
 
 <div class="copyright">
-  
-  &copy; 
   <span itemprop="copyrightYear">2020</span>
-  
+  <small>&copy;</small>
   <span class="author" itemprop="copyrightHolder">Fundacion Bunge y Born</span>
+ <small><a href="https://www.fundacionbyb.org/politica-de-privacidad" target="_blank">Política de privacidad</a></small>
 </div>
-  <div class="powered-by">Creado mediante <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+
+<div class="powered-by">
+Creado con <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a>
+&amp; <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
   </div>
 
         

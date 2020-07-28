@@ -473,10 +473,9 @@ var coloreaCategorias = d3.scaleOrdinal()
         <article>
             <div class='step' data-index='0'>
                 <p> Vemos gráficos, números e información sobre la pandemia todo el tiempo. Pero ¿qué debemos mirar en los datos para saber en qué situación estamos?  
-                </p>
-                <p>
+                    <br/><br/>
                     Una de las respuestas está en mirar el "ritmo" al cual se desarrolla el contagio (en vez de mirar cifras aisladas como el número absoluto de casos). ¿Qué es y cómo se ve el ritmo de contagio en una pandemia?
-                </p><p>                    
+                    <br/><br/>                    
                     Para responder, tenemos que mirar el detrás de escena de este gráfico.
                 </p>
             </div>
@@ -484,9 +483,9 @@ var coloreaCategorias = d3.scaleOrdinal()
             <div class='step' data-index='1'>
                 <p>
                     El detrás de escena comienza con este gráfico, que encontramos habitualmente en las noticias.
-                </p><p>
+                    <br/><br/>
                     Se ve claramente una cosa, pero no mucho más: que la cantidad de casos confirmados es cada vez más y más grande. Y esto es porque la curva crece de forma "aproximadamente exponencial”, como se oye por ahí.
-                </p><p>
+                    <br/><br/>
                     Sin embargo, esto no nos dice mucho sobre la pandemia salvo que se está expandiendo, algo que ya sabíamos.
 
 Sin embargo, hay más en este gráfico, mucho más, sólo que hay que hacerle un cambio…
@@ -504,21 +503,21 @@ Sin embargo, hay más en este gráfico, mucho más, sólo que hay que hacerle un
             <div class='step' data-index='3'>
                 <p>
                     Aclaramos antes de que sospeches: no estamos modificando los datos, sólo estamos cambiando astutamente la escala del eje vertical del gráfico. ¿Para qué?
-                </p><p>
+                    <br/><br/>
                     Para que eso que parecía una curva empinadísima ahora nos revele otras cosas.
                 </p>
             </div>
             <div class='step' data-index='4'>
                 <p>
                 En este tipo de escala, llamada “semi-log” por los expertos, vemos mucho más que antes.
-            </p><p>
+                <br/><br/>
                 Por ejemplo, se ve que la evolución está formada por partes aproximadamente rectas. Y se ve un gran cambio en la inclinación después de los primeros 20 días.
                 </p>
             </div>
             <div class='step' data-index='5'>
                 <p>
                     La inclinación de cada parte recta nos dice cuál es el ritmo de la pandemia. Ese ritmo se mide por la cantidad de días que el número total de casos tarda en duplicarse. Por ejemplo, al comienzo pasamos de 10 a 20 casos en tres días. Y en los siguientes tres días ya teníamos 40 casos.
-                </p><p>
+                    <br/><br/>
                     mayor inclinación <--> mayor ritmo<br/>
                     (tiempo de duplicación más corto)
                     
@@ -527,7 +526,7 @@ Sin embargo, hay más en este gráfico, mucho más, sólo que hay que hacerle un
             <div class='step' data-index='6'>
                 <p>
                     Vemos que al comienzo, el tiempo de duplicación era de aproximadamente 3 días. Luego del primer mes, el ritmo disminuyó mucho y el tiempo de duplicación pasó a 20 días.
-                </p><p>
+                    <br/><br/>
                     Mostrar los datos así nos permite asociar esa gran disminución del ritmo al efecto de medidas drásticas como el aislamiento social (que tardan unos 15 días en reflejarse en el número de casos confirmados).
                 </p>
             </div>
@@ -603,6 +602,10 @@ var svg = d3.select("#contenedorGrafico").append("svg"),
     margin = isMobile ? {top: 35, right: 20, bottom: 25, left: 20} : {top: 50, right: 30, bottom: 50, left: 30},
     width =  +d3.select('#contenedorGrafico').style('width').slice(0, -2),
     height = +d3.select('#contenedorGrafico').style('height').slice(0, -2);
+
+    d3.select("#contenedorGrafico").append("div").attr("class","epigrafe")
+            .html("www.decodificar.org - 28/7/20 - Fuente: reportes diarios del Ministerio de Salud de la Nación - Argentina");
+
 
     if (height > altoMaximo*width) {
         svg.style('margin-top', (height - altoMaximo*width)/2 + "px")
@@ -957,23 +960,24 @@ var grafico = svg.append("g")
         
 
         
-
-
-
-<div class="copyright">
+<div class="firma">
 Un proyecto de la <a href="https://www.fundacionbyb.org/" target="_blank">Fundación Bunge y Born</a>, en alianza con  <a href="http://expedicionciencia.org.ar/" target="_blank">Expedición Ciencia</a>
-<br/>
-<small><a href="https://www.fundacionbyb.org/politica-de-privacidad" target="_blank">Política de privacidad</a></small>
+</div>
+
+<div class="reporte">
+<a href="https://docs.google.com/forms/d/e/1FAIpQLSep2P37Le6YQnp3zgMwTAv1B9HlZBA0Yu5ieVBxCg8GB2QRrQ/viewform" target="_blank">¿Encontraste un error?</a>
 </div>
 
 <div class="copyright">
-  
-  &copy; 
   <span itemprop="copyrightYear">2020</span>
-  
+  <small>&copy;</small>
   <span class="author" itemprop="copyrightHolder">Fundacion Bunge y Born</span>
+ <small><a href="https://www.fundacionbyb.org/politica-de-privacidad" target="_blank">Política de privacidad</a></small>
 </div>
-  <div class="powered-by">Creado mediante <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+
+<div class="powered-by">
+Creado con <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a>
+&amp; <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
   </div>
 
         

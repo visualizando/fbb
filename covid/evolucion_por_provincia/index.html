@@ -448,9 +448,7 @@ var coloreaCategorias = d3.scaleOrdinal()
         <article>
             <div class='step' data-index='0'>
 				<p> Las medidas para evitar el movimiento de personas entre distritos o provincias nos permiten "desarmar" el problema grande en partes más chicas, con la esperanza de que así sea más fácil enfrentarlo.
-				</p>
-	
-				<p>
+					<br/><br/>
                     Veamos, ¿cómo va cada provincia? La respuesta está en este gráfico, pero hay que mirarlo por partes.
                 </p>
             </div>
@@ -458,11 +456,9 @@ var coloreaCategorias = d3.scaleOrdinal()
             <div class='step' data-index='1'>
                 <p>
                     Esta es la curva de todos los casos confirmados de COVID-19 en Argentina.
-				</p>
-				<p>
+					<br/><br/>
 					Si ya viste <a href="/covid/el_ritmo_de_la_pandemia/">esta otra historia</a>, sabés que para saber cómo está avanzando la pandemia lo importante es el ritmo. En el gráfico, el ritmo se ve en la inclinación de la curva:
-				</p>
-				<p>
+					<br/><br/>
 					mayor	<-->	mayor
 					inclinación		ritmo
 							(tiempo de
@@ -476,31 +472,30 @@ var coloreaCategorias = d3.scaleOrdinal()
             <div class='step' data-index='2'>
                 <p>
                     Dentro de la curva de Argentina están los datos de cada provincia, y podemos comparar la inclinación de cada una por separado.
-				</p>
-				<p>
+					<br/><br/>
 
-¡No es igual para todas!
+						¡No es igual para todas!
 
                 </p>
             </div>
             <div class='step' data-index='3'>
                 <p>
                     Para saber cómo va el ritmo de cada provincia, tenemos que mirar la inclinación de las partes <a href="/covid/el_ritmo_de_la_pandemia/"> rectas de cada curva</a>, por ejemplo en los últimos días.
-                </p><p>
+					<br/><br/>
 					Esa inclinación nos da el tiempo de duplicación de casos, que no es el mismo en todos los lugares.
                 </p>
             </div>
             <div class='step' data-index='4'>
                 <p>
 					El comienzo de la pandemia en Argentina estuvo marcado por curvas muy empinadas en todos los distritos que tenían casos.
-            </p><p>
+					<br/><br/>
                 El ritmo era muy alto, es decir, el número de casos se duplicaba en pocos días (tiempo de duplicación muy corto) y todo el país estaba en fase 1 (aislamiento estricto).
                 </p>
             </div>
             <div class='step' data-index='5'>
                 <p>
                     Considerando los datos de las últimas dos semanas, estas son las provincias en las que el número de casos confirmados se duplica en menos de 5 días.
-                </p><p>
+					<br/><br/>
                     Es decir, el ritmo de la pandemia en estas provincias es muy alto
 					<span class="pcias"></span>
 				</p>
@@ -536,8 +531,7 @@ var coloreaCategorias = d3.scaleOrdinal()
 			<div class='step' data-index='10'>
                 <p>
 					Separar el todo en sus partes es muy importante para tomar decisiones, especialmente cuando el comportamiento de las partes difiere entre sí.
-                </p>
-				<p>
+					<br/><br/>
 					En algunos lugares fue y es posible flexibilizar las medidas de aislamiento social antes que en otros. Pero, más importante aún,  ¡la evolución local de la pandemia puede ir cambiando! Y, por lo tanto, las medidas también.
                 </p>
 			</div>
@@ -545,8 +539,7 @@ var coloreaCategorias = d3.scaleOrdinal()
 			<div class='step' data-index='11'>
 				<p> 
 					Y con las ciudades, ¿será igual? Exactamente; de la misma forma que separamos en partes por provincias, también podríamos hacerlo con ciudades.
-				</p>
-					<p> Por ahora, no te olvides de seguir el ritmo de la pandemia en tu provincia.
+					<br/><br/> Por ahora, no te olvides de seguir el ritmo de la pandemia en tu provincia.
 	
 				</p>
 			</div>
@@ -631,6 +624,10 @@ var svg = d3.select("#contenedorGrafico").append("svg"),
     width =  +d3.select('#contenedorGrafico').style('width').slice(0, -2),
     height = +d3.select('#contenedorGrafico').style('height').slice(0, -2);
 
+	d3.select("#contenedorGrafico").append("div").attr("class","epigrafe")
+            .html("www.decodificar.org - 28/7/20 - Fuente: reportes diarios del Ministerio de Salud de la Nación - Argentina");
+
+			
     if (height > altoMaximo*width) {
         svg.style('margin-top', (height - altoMaximo*width)/2 + "px")
         height = altoMaximo*width;
@@ -1073,23 +1070,24 @@ function relax(dataInterna, spacing) {
         
 
         
-
-
-
-<div class="copyright">
+<div class="firma">
 Un proyecto de la <a href="https://www.fundacionbyb.org/" target="_blank">Fundación Bunge y Born</a>, en alianza con  <a href="http://expedicionciencia.org.ar/" target="_blank">Expedición Ciencia</a>
-<br/>
-<small><a href="https://www.fundacionbyb.org/politica-de-privacidad" target="_blank">Política de privacidad</a></small>
+</div>
+
+<div class="reporte">
+<a href="https://docs.google.com/forms/d/e/1FAIpQLSep2P37Le6YQnp3zgMwTAv1B9HlZBA0Yu5ieVBxCg8GB2QRrQ/viewform" target="_blank">¿Encontraste un error?</a>
 </div>
 
 <div class="copyright">
-  
-  &copy; 
   <span itemprop="copyrightYear">2020</span>
-  
+  <small>&copy;</small>
   <span class="author" itemprop="copyrightHolder">Fundacion Bunge y Born</span>
+ <small><a href="https://www.fundacionbyb.org/politica-de-privacidad" target="_blank">Política de privacidad</a></small>
 </div>
-  <div class="powered-by">Creado mediante <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+
+<div class="powered-by">
+Creado con <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a>
+&amp; <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
   </div>
 
         
