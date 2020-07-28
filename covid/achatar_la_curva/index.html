@@ -30,6 +30,7 @@
 <meta property="og:description" content="El sistema de salud tiene un límite para dar respuesta ante la pandemia. ¿Cuál es ese límite y cómo sabemos si estamos cerca o no? ¿Cuál de todos los números tengo que mirar para entender esto?">
 <meta property="og:locale" content="es_ES">
 <meta property="og:image" content="http://decodificar.org/images/CasosActivos.svg">
+<meta property="og:image" content="http://decodificar.org/images/CurvaAnimada.gif">
 <meta property="article:published_time" content="2020-07-22T13:15:04.536Z">
 <meta property="article:modified_time" content="2020-07-22T13:15:04.536Z">
 <meta property="article:author" content="Fundacion Bunge y Born">
@@ -801,7 +802,7 @@ var data = files[0] // datos principales;
                              case 7: // totales en log
                                  d3.selectAll(".prov").transition().duration(400)
                                         .style("opacity",d=>{
-                                            if(d.name=="Total") return 1;
+                                            if(d.name=="Activos") return 1;
                                             return 0;
                                         }).on("end", d=>cambiaTipo("log"))    
                                 break; 
@@ -910,10 +911,9 @@ function relax(dataInterna, spacing) {
 </script>
 
 
-
-<div class="note info"><p>Para nuestro sistema de salud, o el de cualquier otro país, es muy importante que la curva se achate lo más posible para que nunca llegue a su límite.</p>
-<p>Basándonos en la experiencia de otros países, mirá lo que probablemente habría ocurrido si no se hubiesen tomado medidas de contención/mitigación.</p>
-<p>Achatar la curva implica que, además de tener un pico más bajo, tengamos un pico más tardío.</p>
+<p>Para nuestro sistema de salud, o el de cualquier otro país, es muy importante que la curva se achate lo más posible para que nunca llegue a su límite.</p>
+<p>Basándonos en la experiencia de otros países, mirá lo que probablemente habría ocurrido si no se hubiesen tomado medidas de contención/mitigación.<br><img src="/images/CurvaAnimada.gif" alt="Image of Yaktocat"></p>
+<div class="note info"><p>Achatar la curva implica que, además de tener un pico más bajo, tengamos un pico más tardío.</p>
 <p>Eso nos da más tiempo para mejorar los servicios de salud (comprar más respiradores, por ejemplo) e implementar políticas como el rastreo de contactos. Pero también hace que la evolución de la pandemia se alargue en el tiempo.</p>
 <p>Entender la evolución de la pandemia y qué efecto tienen las medidas nos ayuda a decidir qué camino tomar.</p>
 </div>

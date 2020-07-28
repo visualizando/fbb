@@ -494,9 +494,9 @@ Sin embargo, hay más en este gráfico, mucho más, sólo que hay que hacerle un
             <div class='step' data-index='2'>
                 <p>
                     Para que estos datos muestren su verdadera naturaleza tenemos que hacer un zoom combinado en el eje vertical:
-                    <mark class="label res0">ampliar la parte de números chicos</mark>
+                    <mark class="label res1">comprimir la parte de números grandes</mark>
                      y 
-                     <mark class="label res1">comprimir la parte de números grandes.</mark>
+                     <mark class="label res0">ampliar la parte de números chicos.</mark>                     
                 </p>
             </div>
             <div class='step' data-index='3'>
@@ -526,10 +526,7 @@ Sin embargo, hay más en este gráfico, mucho más, sólo que hay que hacerle un
                 <p>
                     Vemos que al comienzo, el tiempo de duplicación era de aproximadamente 3 días. Luego del primer mes, el ritmo disminuyó mucho y el tiempo de duplicación pasó a 20 días.
                 </p><p>
-                    Para evaluar la situación conviene, entonces, mirar la inclinación de la curva (¡en escala semi-log!): menor inclinación significa menor ritmo de contagio, es decir situación más controlada.
-                </p><p>
-                    En resumen, el ritmo de la curva es uno de los termómetros que tenemos para evaluar la situación actual, y nos da mayor información que la cifra aislada del número total de casos.
-                    
+                    Mostrar los datos así nos permite asociar esa gran disminución del ritmo al efecto de medidas drásticas como el aislamiento social (que tardan unos 15 días en reflejarse en el número de casos confirmados).
                 </p>
             </div>
 
@@ -623,7 +620,7 @@ var y = d3.scaleLinear().range([height, 0]);
 var yLog = d3.scaleLog().range([height, 0]);
 
 var yAxis = d3.axisLeft(y);
-    yAxis.ticks(8).tickFormat(d3.format(",.1r")).tickSizeInner(-6)
+    yAxis.ticks(8).tickFormat(d3.format(",.2r")).tickSizeInner(-6)
 ;
 
 var yLogAxis = d3.axisLeft(yLog);
@@ -757,12 +754,12 @@ var grafico = svg.append("g")
                 .attr("class", "aspo")
                 .attr('d', d3.line()([[x(parseTime("2020-03-21")), 0],[x(parseTime("2020-03-21")),height]])) ; 
 
-    aspo.append("rect")
+    /* aspo.append("rect")
                 .attr("class", "aspo")
                 .attr("x", x(parseTime("2020-03-21")))
                 .attr("y", 0)
                 .attr("width", x(parseTime("2020-04-25")-x(parseTime("2020-03-21"))))
-                .attr("height", height) ;
+                .attr("height", height) ; */
                   
 
     var aspoText = aspo.append("text")
@@ -892,6 +889,11 @@ var grafico = svg.append("g")
 
 </script>
 
+
+
+<div class="note info"><p>Para evaluar la situación conviene, entonces, mirar la inclinación de la curva (¡en escala semi-log!): menor inclinación significa menor ritmo de contagio, es decir situación más controlada.</p>
+<p>En resumen, el ritmo de la curva es uno de los termómetros que tenemos para evaluar la situación actual, y nos da mayor información que la cifra aislada del número total de casos.</p>
+</div>
     </div>
 
     

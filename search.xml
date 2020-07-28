@@ -148,9 +148,9 @@ Sin embargo, hay más en este gráfico, mucho más, sólo que hay que hacerle un
             <div class='step' data-index='2'>
                 <p>
                     Para que estos datos muestren su verdadera naturaleza tenemos que hacer un zoom combinado en el eje vertical:
-                    <mark class="label res0">ampliar la parte de números chicos</mark>
+                    <mark class="label res1">comprimir la parte de números grandes</mark>
                      y 
-                     <mark class="label res1">comprimir la parte de números grandes.</mark>
+                     <mark class="label res0">ampliar la parte de números chicos.</mark>                     
                 </p>
             </div>
             <div class='step' data-index='3'>
@@ -180,10 +180,7 @@ Sin embargo, hay más en este gráfico, mucho más, sólo que hay que hacerle un
                 <p>
                     Vemos que al comienzo, el tiempo de duplicación era de aproximadamente 3 días. Luego del primer mes, el ritmo disminuyó mucho y el tiempo de duplicación pasó a 20 días.
                 </p><p>
-                    Para evaluar la situación conviene, entonces, mirar la inclinación de la curva (¡en escala semi-log!): menor inclinación significa menor ritmo de contagio, es decir situación más controlada.
-                </p><p>
-                    En resumen, el ritmo de la curva es uno de los termómetros que tenemos para evaluar la situación actual, y nos da mayor información que la cifra aislada del número total de casos.
-                    
+                    Mostrar los datos así nos permite asociar esa gran disminución del ritmo al efecto de medidas drásticas como el aislamiento social (que tardan unos 15 días en reflejarse en el número de casos confirmados).
                 </p>
             </div>
 
@@ -277,7 +274,7 @@ var y = d3.scaleLinear().range([height, 0]);
 var yLog = d3.scaleLog().range([height, 0]);
 
 var yAxis = d3.axisLeft(y);
-    yAxis.ticks(8).tickFormat(d3.format(",.1r")).tickSizeInner(-6)
+    yAxis.ticks(8).tickFormat(d3.format(",.2r")).tickSizeInner(-6)
 ;
 
 var yLogAxis = d3.axisLeft(yLog);
@@ -411,12 +408,12 @@ var grafico = svg.append("g")
                 .attr("class", "aspo")
                 .attr('d', d3.line()([[x(parseTime("2020-03-21")), 0],[x(parseTime("2020-03-21")),height]])) ; 
 
-    aspo.append("rect")
+    /* aspo.append("rect")
                 .attr("class", "aspo")
                 .attr("x", x(parseTime("2020-03-21")))
                 .attr("y", 0)
                 .attr("width", x(parseTime("2020-04-25")-x(parseTime("2020-03-21"))))
-                .attr("height", height) ;
+                .attr("height", height) ; */
                   
 
     var aspoText = aspo.append("text")
@@ -545,7 +542,12 @@ var grafico = svg.append("g")
 });
 
 </script>
-]]></content>
+
+
+
+<div class="note info"><p>Para evaluar la situación conviene, entonces, mirar la inclinación de la curva (¡en escala semi-log!): menor inclinación significa menor ritmo de contagio, es decir situación más controlada.</p>
+<p>En resumen, el ritmo de la curva es uno de los termómetros que tenemos para evaluar la situación actual, y nos da mayor información que la cifra aislada del número total de casos.</p>
+</div>]]></content>
   </entry>
   <entry>
     <title>¿Cuántos contagiados hay realmente?</title>
@@ -2192,7 +2194,7 @@ var data = files[0] // datos principales;
                              case 7: // totales en log
                                  d3.selectAll(".prov").transition().duration(400)
                                         .style("opacity",d=>{
-                                            if(d.name=="Total") return 1;
+                                            if(d.name=="Activos") return 1;
                                             return 0;
                                         }).on("end", d=>cambiaTipo("log"))    
                                 break; 
@@ -2301,10 +2303,9 @@ function relax(dataInterna, spacing) {
 </script>
 
 
-
-<div class="note info"><p>Para nuestro sistema de salud, o el de cualquier otro país, es muy importante que la curva se achate lo más posible para que nunca llegue a su límite.</p>
-<p>Basándonos en la experiencia de otros países, mirá lo que probablemente habría ocurrido si no se hubiesen tomado medidas de contención/mitigación.</p>
-<p>Achatar la curva implica que, además de tener un pico más bajo, tengamos un pico más tardío.</p>
+<p>Para nuestro sistema de salud, o el de cualquier otro país, es muy importante que la curva se achate lo más posible para que nunca llegue a su límite.</p>
+<p>Basándonos en la experiencia de otros países, mirá lo que probablemente habría ocurrido si no se hubiesen tomado medidas de contención/mitigación.<br><img src="/images/CurvaAnimada.gif" alt="Image of Yaktocat"></p>
+<div class="note info"><p>Achatar la curva implica que, además de tener un pico más bajo, tengamos un pico más tardío.</p>
 <p>Eso nos da más tiempo para mejorar los servicios de salud (comprar más respiradores, por ejemplo) e implementar políticas como el rastreo de contactos. Pero también hace que la evolución de la pandemia se alargue en el tiempo.</p>
 <p>Entender la evolución de la pandemia y qué efecto tienen las medidas nos ayuda a decidir qué camino tomar.</p>
 </div>
