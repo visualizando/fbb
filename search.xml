@@ -1830,6 +1830,10 @@ function relax(dataInterna, spacing) {
         text-align: right;
     }
 
+    #flechita{
+        /* fill: #62BB46; */
+        opacity: 0;
+    }
      
     @media only screen and (min-width: 768px) {
         #avisoDuplicacion {
@@ -1887,7 +1891,9 @@ function relax(dataInterna, spacing) {
             <div class='step' data-index='5'>
                 <p>
                     Los casos activos son los que necesitan o pueden llegar a necesitar camas de algún hospital (y aún siguen contagiando). Una parte muy pequeña de esos casos activos (1 -2%) requerirán un respirador.
+                    <img src="/images/CasosActivos.svg">
                 </p>
+                
             </div>
             <div class='step' data-index='6'>
                 <p>
@@ -1912,7 +1918,7 @@ function relax(dataInterna, spacing) {
 
         </article>
 
-
+        
 
     </div>
 
@@ -1971,12 +1977,13 @@ rojo #F04E53
 naranja #F26522
 verde #62BB46
 */
-       
+colores.domain(["Total","Camas UTI","En UTI","Activos","No Activos"]);
         
 var ejeY, tituloY;
 
 var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maximo
 
+var flechita = 'M88 166.059V468c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12V166.059h46.059c21.382 0 32.09-25.851 16.971-40.971l-86.059-86.059c-9.373-9.373-24.569-9.373-33.941 0l-86.059 86.059c-15.119 15.119-4.411 40.971 16.971 40.971H88z';
 
 var svg = d3.select("#contenedorGrafico").append("svg"),
 	marginTexto = isMobile ? 30:45,
@@ -2002,7 +2009,7 @@ var y = d3.scaleLinear().range([height, 0]);
 var yLog = d3.scaleLog().range([height, 0]);
 
 var yAxis = d3.axisLeft(y);
-    yAxis.ticks(8).tickFormat(d3.format(",.1r")).tickSizeInner(-6);
+    yAxis.ticks(8).tickFormat(d3.format(",.2r")).tickSizeInner(-6);
 
 var yLogAxis = d3.axisLeft(yLog);
     yLogAxis.ticks(4).tickFormat(d3.format(",.1r")).tickSizeInner(-6);
@@ -2084,7 +2091,6 @@ var data = files[0] // datos principales;
     tituloY = ejeY.append("text")
         .attr("class", "axis-title")
         .attr("y", -8)
-        
         .text("Casos (logarítmico)");
 
         grafico.append("g").attr("id","series")
@@ -2094,7 +2100,7 @@ var data = files[0] // datos principales;
                 .attr("class", "prov line")
                 .attr("id", d=>d.name)
                 .style("opacity",(d,i)=>i<2||i==4?1:0)
-				.style("stroke", d=>coloreaCategorias(d.name))
+				.style("stroke", d=>colores(d.name))
                 .attr("d", d => line(d.values));
                 
                 var dataParaLabels = dataParaGrafico.series.map(r=>{  //Prepara la data para poner los labels
@@ -2112,13 +2118,19 @@ var data = files[0] // datos principales;
 					.attr("y",d=>yLog(d.labelY))
 					.attr("dy", "3px")
 					.attr("dx", "3px")
-					.style("fill", d=>coloreaCategorias(d.name))
+					.style("fill", d=>colores(d.name))
                     .attr("class", "prov nombreserie")
                     .style("opacity",(d,i)=>i<2||i==4?1:0)
 					.text(d=>d.name); 
 
+    var flechita = grafico.append("g").attr("id","flechita")
+                        .attr("transform","translate("+x(parseTime("2020-03-22"))+","+y(11517)+")")
+                        .append("path")
+                        .attr("d", flechita)
+                        .style("fill",colores("Camas UTI"))
+                        .attr("transform","translate(-3,-3) scale(0.08) rotate(135)")
 
-
+                        ;
 
                 init();
 
@@ -2129,34 +2141,45 @@ var data = files[0] // datos principales;
 
                         switch (step) {
                             case 0: // muestra activos y UTI y camas
+                                y.domain([1,d3.max(data, d=> d.casos_tot)+20000]);
                                     cambiaTipo("log")        
                                 break;
 
                             case 1: // resalta cambio en camas
+                                y.domain([1,d3.max(data, d=> d.casos_activos_Arg)+5000]);
+                                cambiaTipo("linear")        
+                                d3.select("#flechita").transition().duration(600).style("opacity",0)
+                                         
+                                break;
+                                
+
                             case 2:
-                               cambia.tipo = "linear";
-                               d3.selectAll(".prov").transition().duration(400)
+                            y.domain([1,d3.max(data, d=> d.casos_activos_Arg)+5000]);
+                                d3.selectAll(".prov").transition().duration(400)
                                         .style("opacity",d=>{
                                             if(d.name=="Activos") return 1;
                                             if(d.name=="En UTI") return 1;
                                             if(d.name=="Camas UTI") return 1;
                                             return 0;
-                                        }).on("end", d=>cambiaTipo("linear"))            
+                                        }).on("end", d=>cambiaTipo("linear"))   
+                                d3.select("#flechita")
+                                    .attr("transform","translate("+x(parseTime("2020-03-22"))+","+y(11517)+")")        
+                                    .transition().duration(600).style("opacity",1)
                                 break;
 
                              case 3: // muestra pais
-                               cambia.tipo = 0;
+                                y.domain([1,d3.max(data, d=> d.casos_tot)+20000]);
+                               d3.select("#flechita").transition().duration(600).style("opacity",0)
                                d3.selectAll(".prov").transition().duration(400)
                                         .style("opacity",d=>{
                                             if(d.name=="Total") return 1;
                                             return 0;
-                                        })  
+                                        }).on("end", d=>cambiaTipo("linear"))          
                                 break;
                            
                             case 4: // muestra activos totales y no activos
                             case 5:
                             case 6:
-                              cambia.tipo = "linear";
                               d3.selectAll(".prov").transition().duration(400)
                                         .style("opacity",d=>{
                                             if(d.name=="Total") return 1;
@@ -2167,8 +2190,7 @@ var data = files[0] // datos principales;
                                 break; 
 
                              case 7: // totales en log
-                              cambia.tipo = "log";
-                              d3.selectAll(".prov").transition().duration(400)
+                                 d3.selectAll(".prov").transition().duration(400)
                                         .style("opacity",d=>{
                                             if(d.name=="Total") return 1;
                                             return 0;
@@ -2198,7 +2220,8 @@ var data = files[0] // datos principales;
         
                 d3.selectAll(".prov.nombreserie").transition().duration(600)
                 .attr("y",d=>yLog(d.labelY))
-					;
+                    ;
+           
             
         }else if (tipo == "linear"){
             ejeY.transition().duration(600).call(yAxis);
@@ -2210,8 +2233,11 @@ var data = files[0] // datos principales;
 
             d3.selectAll(".prov.nombreserie").transition().duration(600)
                 .attr("y",d=>y(d.labelY))
-					;
-        }
+                    ;
+            //d3.select("#flechita").transition().duration(600).attr("transform","translate("+x(parseTime("2020-03-22"))+","+y(11517)+")")        
+            
+            }
+
         
     }
       
