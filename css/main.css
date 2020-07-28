@@ -183,7 +183,7 @@ body {
   color: var(--text-color);
   font-family: 'Merriweather', "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: 1em;
-  line-height: 2;
+  line-height: 1.5;
   transition: all 0.2s ease-in-out;
 }
 h1,
@@ -1839,7 +1839,7 @@ pre code {
   border: 1px solid #fff;
   left: -4px;
   position: absolute;
-  top: 0.75em;
+  top: 0.65em;
   transition: background 0.2s ease-in-out;
   border-radius: 50%;
   content: ' ';
@@ -1854,7 +1854,7 @@ pre code {
 }
 .posts-collapse .post-meta {
   display: inline;
-  font-size: 0.75em;
+  font-size: 0.65em;
   margin-right: 10px;
 }
 .posts-collapse .post-title {
@@ -2018,7 +2018,9 @@ pre code {
   font-weight: normal;
   margin: initial;
   text-align: center;
+  font-weight: 700;
   overflow-wrap: break-word;
+  margin-bottom: 8px;
 }
 .posts-expand .post-title-link {
   border-bottom: none;
@@ -2026,6 +2028,7 @@ pre code {
   display: inline-block;
   position: relative;
   vertical-align: top;
+  font-weight: 600;
 }
 .posts-expand .post-title-link::before {
   background: var(--link-color);
@@ -2047,8 +2050,9 @@ pre code {
 .posts-expand .post-meta {
   color: #999;
   font-family: 'Merriweather', "PingFang SC", "Microsoft YaHei", sans-serif;
-  font-size: 0.75em;
-  margin: 3px 0 60px 0;
+  font-size: 0.65em;
+  font-weight: 100;
+  margin: 3px 0 5px 0;
   text-align: center;
 }
 @media (max-width: 767px) {
@@ -2063,6 +2067,21 @@ pre code {
 }
 @media (max-width: 767px) {
   .posts-expand .post-meta .post-description {
+    line-height: 1.3em;
+  }
+}
+.post-header .post-description {
+  color: #999;
+  font-family: 'Merriweather', "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 0.9em;
+  line-height: 1.5em;
+  margin-top: 2px;
+  margin: 3px 5px 60px 0;
+  margin-top: 2px;
+}
+@media (max-width: 767px) {
+  .post-header .post-description {
+    margin: 3px 0 20px 0;
     line-height: 1.3em;
   }
 }
@@ -2106,7 +2125,7 @@ pre code {
   top: 2px;
 }
 .post-nav-item .fa {
-  font-size: 0.75em;
+  font-size: 0.65em;
 }
 .post-nav-item:first-child {
   margin-right: 15px;
@@ -2388,7 +2407,7 @@ pre code {
   }
 }
 ul.breadcrumb {
-  font-size: 0.75em;
+  font-size: 0.65em;
   list-style: none;
   margin: 1em 0;
   padding: 0 2em;
@@ -2599,7 +2618,7 @@ hr {
   }
 }
 .posts-expand.index .post-meta {
-  margin: 5px 0 20px 0;
+  margin: 5px 0 0px 0;
 }
 .posts-expand .post-eof {
   display: none;
@@ -2609,7 +2628,13 @@ hr {
 }
 .posts-expand .post-title,
 .posts-expand .post-meta {
-  text-align: center;
+  text-align: left;
+}
+@media (max-width: 767px) {
+  .posts-expand .post-title,
+  .posts-expand .post-meta {
+    text-align: center;
+  }
 }
 .posts-expand .post-tags {
   text-align: left;
@@ -2639,9 +2664,11 @@ hr {
 .post-button .btn:hover {
   border-bottom-color: var(--btn-default-hover-border-color);
 }
-.post-thumbnail img {
+.post-thumbnail a img {
   height: auto;
   width: 100%;
+  border-radius: 3px;
+  margin-bottom: 10px;
 }
 .main-inner {
   margin: 0 auto;
@@ -2714,7 +2741,7 @@ hr {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ffe5ff;
+  background: #ee7482;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
