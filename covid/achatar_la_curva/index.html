@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather:300,300italic,400,400italic,700,700italic|Oswald:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"decodificar.org","root":"/","scheme":"Mist","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"remove","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeIn","post_body":"none","coll_header":"fadeIn","sidebar":"fadeInUp"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="El sistema de salud tiene un límite para dar respuesta ante la pandemia. ¿Cuál es ese límite y cómo sabemos si estamos cerca o no? ¿Cuál de todos los números tengo que mirar para entender esto?">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hay que achatar la curva… ¿qué curva?">
+<meta property="og:url" content="http://decodificar.org/covid/achatar_la_curva/index.html">
+<meta property="og:site_name" content="Decodificar: COVID19">
+<meta property="og:description" content="El sistema de salud tiene un límite para dar respuesta ante la pandemia. ¿Cuál es ese límite y cómo sabemos si estamos cerca o no? ¿Cuál de todos los números tengo que mirar para entender esto?">
+<meta property="og:locale" content="es_ES">
+<meta property="article:published_time" content="2020-07-22T13:15:04.536Z">
+<meta property="article:modified_time" content="2020-07-22T13:15:04.536Z">
+<meta property="article:author" content="Fundacion Bunge y Born">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://decodificar.org/covid/achatar_la_curva/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'es'
+  };
+</script>
+
+  <title>Hay que achatar la curva… ¿qué curva? | Decodificar: COVID19</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132699662-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-132699662-2');
+      }
+    </script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PWMSB36');</script>
+<!-- End Google Tag Manager -->
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+      <script src="https://d3js.org/d3.v5.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/stickyfill/2.1.0/stickyfill.js"></script>
+      <script src="https://unpkg.com/enter-view"></script>
+      <link rel="stylesheet" href="/styles/scrolly.css">
+  
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+      <script>
+      var es_ES = {
+        "decimal": ",",
+        "thousands": ".",
+        "grouping": [3],
+        "currency": ["$", ""],
+        "dateTime": "%a %b %e %X %Y",
+        "date": "%d/%m/%Y",
+        "time": "%H:%M:%S",
+        "periods": ["AM", "PM"],
+        "days": ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+        "shortDays": ["Dom", "Lun", "Mar", "Mi", "Jue", "Vie", "Sab"],
+        "months": ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+        "shortMonths": ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
+    };
+
+    d3.timeFormatDefaultLocale(es_ES);
+    d3.formatDefaultLocale(es_ES);
+
+    var isMobile = document.getElementsByTagName("body")[0].clientWidth < 768 ? 1 : 0; 
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    var nombresPcias = {
+            "CABA":["CABA","CABA"],
+            "Buenos_Aires":["Buenos Aires","PBA"],
+            "Catamarca":["Catamarca","CAT"],
+            "Chaco":["Chaco","CHAC"],
+            "Chubut":["Chubut","CHUB"],
+            "Cordoba":["Córdoba","CBA"],
+            "Corrientes":["Corrientes","COR"],
+            "Entre_Rios":["Entre Ríos","ER"],
+            "Formosa":["Formosa","FORM"],
+            "Jujuy":["Jujuy","JUJ"],
+            "La_Pampa":["La Pampa","PAMP"],
+            "La_Rioja":["La Rioja","RIOJ"],
+            "Mendoza":["Mendoza","MEND"],
+            "Misiones":["Misiones","MIS"],
+            "Neuquen":["Neuquén","NEU"],
+            "Rio_Negro":["Río Negro","RN"],
+            "Salta":["Salta","SAL"],
+            "San_Juan":["San Juan","SJuan"],
+            "San_Luis":["San Luis","SLuis"],
+            "Santa_Cruz":["Santa Cruz","Scruz"],
+            "Santa_Fe":["Santa Fe","SFe"],
+            "Santiago_del_Estero":["Sgo del Estero","SEst"],
+            "Tierra_del_fuego":["T. del Fuego","TFuego"],
+            "Tucuman":["Tucumán","TUC"]
+
+        }
+
+
+
+var colores = d3.scaleOrdinal()
+        .domain([0,5])
+        .range(["#00468B","#8B6BAF","#F04E53","#F26522","#62BB46"]);
+
+
+var coloreaCategorias = d3.scaleOrdinal()
+        .range(["#4e79a7","#f28e2c","#e15759","#76b7b2","#59a14f","#af7aa1","#ff9da7","#9c755f","#8a7e78"]);
+
+      </script>
+
+  
+
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Cambiar a barra de navegación">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <img src="/images/logo-web.png">
+<!--       <i class="logo-line"></i>
+      <h1 class="site-title">Decodificar: COVID19</h1>
+      <i class="logo-line"></i> -->
+    </a>
+      <p class="site-subtitle" itemprop="description">Entendiendo la pandemia</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-inicio">
+
+    <a href="/" rel="section">Inicio</a>
+
+  </li>
+        <li class="menu-item menu-item-acerca-del-proyecto">
+
+    <a href="/about/" rel="section">Acerca del proyecto</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+      <div class="main-inner">
+        
+
+        <div class="content post posts-expand">
+          
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="es">
+    <link itemprop="mainEntityOfPage" href="http://decodificar.org/covid/achatar_la_curva/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fundacion Bunge y Born">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Decodificar: COVID19">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hay que achatar la curva… ¿qué curva?
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar-check"></i>
+              </span>
+              <!-- <span class="post-meta-item-text">Editado el</span> -->
+              <time title="Modificado por: 22 de julio de 2020 10" itemprop="dateModified" datetime="2020-07-22T10:15:04-03:00">Actualizado 22 de julio de 2020</time>
+            </span>
+
+          
+            <div class="post-description">El sistema de salud tiene un límite para dar respuesta ante la pandemia. ¿Cuál es ese límite y cómo sabemos si estamos cerca o no? ¿Cuál de todos los números tengo que mirar para entender esto?</div>
+
+         
+
+          
+        </div>
+      </header>
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+<!-- imagen destacada -->
+        
+      
+        
+
+
+<style>
+
+
+    .axis path, .axis line {
+      fill: none;
+      stroke: #D4D8DA;
+      stroke-width: 1px;
+     
+    }
+
+    .axis--y .domain, .axis--x .domain{
+        display: none;
+    }
+    
+    
+    .axis--y .tick{
+        stroke-width: 1px;
+        stroke-dasharray: 3px 2px;
+    }
+
+    .axis--x .tick line{
+        stroke-width: 2px;
+    }
+    
+    .axis--y .tick text{
+        text-anchor: start;
+    }
+
+    .axis-title {
+      fill: #222;
+        font-size: 16px;
+        text-anchor: start;
+    }
+    
+    .line, .aspo {
+      fill: none;
+      stroke: #a3a3a3;
+      stroke-width: 1px;
+    }
+
+    .aspo {
+        stroke:#222;
+        stroke-dasharray: 3px 1px;   
+    }
+
+    .tendencia{
+        fill: none;
+        stroke-width: 3px;
+        stroke-linecap: round;
+    }
+
+    .duplicacionesTextos{
+        text-anchor: end;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .aspoTexto{
+        text-anchor: start;
+        font-size: 14px;
+        font-weight: 600;
+        fill: #222;
+    }
+
+    text.nombreserie{
+		font-size: 11px;
+	}
+
+
+
+    #avisoDuplicacion {
+        position: absolute;
+        top: 38%;
+        right: 5%;
+        width: 34%;
+        background-color: #ffd1d3;
+        line-height: 21px;
+        font-size: 15px;
+        padding: 8px 10px;
+        border-radius: 5px;
+        color: rgb(240, 78, 83);
+        font-weight: bold;
+        text-align: right;
+    }
+
+     
+    @media only screen and (min-width: 768px) {
+        #avisoDuplicacion {
+            top: 28%;
+            right: 5%;
+            width: 24%;
+        }
+    }
+    
+</style>
+
+
+<section id='scrolly'>
+    <div class='scrolly'>
+
+
+        <!-- aca va el grafico que va a quedar fijo -->
+        <figure id="contenedorGrafico" class='sticky' >
+        </figure>
+
+        <!-- acá van los textos de cada paso -->
+        <article>
+            <div class='step' data-index='0'>
+                <p>
+                    Escuchamos todo el tiempo que hay una curva que tenemos que achatar, pero en esta pandemia hay muchas curvas distintas. ¿A qué curva nos estamos refiriendo?
+                </p>
+            </div>
+            
+            <div class='step' data-index='1'>
+                <p>
+                    Todo sistema de salud tiene una cierta capacidad que en esta pandemia está marcada, sobre todo, por la cantidad de camas disponibles (especialmente las camas de terapia intensiva o UTI). Sería interesante conocer el número total de camas del país, pero no es un dato disponible. Sí contamos con el número de camas de UTI, que es lo que vemos en este gráfico. 
+                </p><p>
+                    También hay otros factores a tener en cuenta como la cantidad de profesionales de la salud, distribución de los recursos, medicamentos, etc.
+                </p>
+            </div>
+            <div class='step' data-index='2'>
+                <p>
+                    Esta capacidad límite queda representada en el gráfico como un techo que nuestra curva nunca tiene que superar.
+                </p><p>
+                    Este techo puede modificarse con el tiempo si se adquieren respiradores, se montan nuevos hospitales, etc. Esto es lo que sucedió en nuestro país cuando se aumentaron las camas de UTI durante los primeros meses del Aislamiento Social Preventivo Obligatorio que 
+                </p>
+            </div>
+            <div class='step' data-index='3'>
+                <p>
+                    Por otro lado, está la curva que estamos acostumbrados a ver en todos lados, y que no parece muy aplanada. Representa el número de casos confirmados acumulado en el tiempo, es decir que muestra todas las personas que alguna vez tuvieron testeo positivo. Pero ...
+                </p>
+            </div>
+            <div class='step' data-index='4'>
+                <p>
+                    … sabemos que algunas de esas personas ya están recuperadas y otras fallecieron. (se pinta la línea verde, fallecidos + recuperados). Estas ya no ocuparán camas de hospitales ni necesitarán respiradores (y además ya no transmiten el virus).
+            </p><p>
+                Las que quedan son las personas que tienen COVID-19 en el presente: los casos activos.
+                </p>
+            </div>
+            <div class='step' data-index='5'>
+                <p>
+                    Los casos activos son los que necesitan o pueden llegar a necesitar camas de algún hospital (y aún siguen contagiando). Una parte muy pequeña de esos casos activos (1 -2%) requerirán un respirador.
+                </p>
+            </div>
+            <div class='step' data-index='6'>
+                <p>
+                    Mirando la curva del número total de casos perdés la distinción entre los grupos: los casos activos por un lado, y los recuperados + fallecidos por el otro.
+                </p>
+            </div>
+
+            <div class='step' data-index='7'>
+                <p>
+                    Entonces, si las personas que ya están curadas o fallecieron no van a usar camas, y si el número de camas marca el límite del sistema de salud, el número de casos activos debe estar siempre debajo de las camas totales. Por eso, la curva que queremos achatar es en realidad la de los casos activos (que te mostramos acá). 
+                </p>
+            </div>
+
+            <div class='step' data-index='8'>
+                <p>
+                    Y más crítico aún es que los casos activos internados en UTI estén por debajo de la línea de camas disponibles de UTI. 
+                </p><p>
+                    Este es el escenario a nivel nacional. Si hay  brotes locales, el techo es el número de cama UTI de ese lugar. Y por eso, la situación en cada lugar puede ser distinta.
+                </p>
+            </div>
+
+
+        </article>
+
+
+
+    </div>
+
+</section>
+
+
+ <!-- Scripts -->
+ <script>
+    
+//********************* CARGA DATOS ************
+
+Promise.all([
+    d3.csv("https://datos.decodificar.org/I2_achatar_curva.csv")
+]).then(function(files) {
+
+
+    // **** CODIGO DEL SCROLLY *******
+
+
+    const container = d3.select('#scrolly'); //busco el container total
+    const stepSel = container.selectAll('.step'); // selecciono los "steps"
+
+    function updateChart(index) {  // funcion que llama cada vez que cruza un humbral
+        const sel = container.select(`[data-index='${index}']`);
+        stepSel.classed('is-active', (d, i) => i === index);
+        
+        scrollyTelling(index); // <<<<< AQUI LLAMA AL GRAFICO VERDADERO
+    }
+
+    function init() { // configuracion inicial
+        Stickyfill.add(d3.select('.sticky').node()); // fallback para browsers sin sticky
+
+        enterView({
+            selector: stepSel.nodes(),
+            offset: 0.5,
+            enter: el => {
+                const index = +d3.select(el).attr('data-index');
+                updateChart(index);
+            },
+            exit: el => {
+                let index = +d3.select(el).attr('data-index');
+                index = Math.max(0, index - 1);
+                updateChart(index);
+            }
+        });
+    }
+ 
+
+    // **** END SCROLLY *******
+
+
+/* COLORES
+azul #00468B
+violeta #8B6BAF
+rojo #F04E53
+naranja #F26522
+verde #62BB46
+*/
+       
+        
+var ejeY, tituloY;
+
+var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maximo
+
+
+var svg = d3.select("#contenedorGrafico").append("svg"),
+	marginTexto = isMobile ? 30:45,
+    margin = isMobile ? {top: 35, right: 20, bottom: 25, left: 20} : {top: 50, right: 30, bottom: 50, left: 30},
+    width =  +d3.select('#contenedorGrafico').style('width').slice(0, -2),
+    height = +d3.select('#contenedorGrafico').style('height').slice(0, -2);
+
+    if (height > altoMaximo*width) {
+        svg.style('margin-top', (height - altoMaximo*width)/2 + "px")
+        height = altoMaximo*width;
+    }
+
+    svg.attr("viewBox", [0, 0, width, height]);
+
+    height = height - margin.top - margin.bottom;
+    width = width - margin.left - margin.right;
+    
+
+var parseTime = d3.timeParse("%Y-%m-%d");
+
+var x = d3.scaleTime().range([0, width-marginTexto]);
+var y = d3.scaleLinear().range([height, 0]);
+var yLog = d3.scaleLog().range([height, 0]);
+
+var yAxis = d3.axisLeft(y);
+    yAxis.ticks(8).tickFormat(d3.format(",.1r")).tickSizeInner(-6);
+
+var yLogAxis = d3.axisLeft(yLog);
+    yLogAxis.ticks(4).tickFormat(d3.format(",.1r")).tickSizeInner(-6);
+
+var line = d3.line()
+	.defined(d => d>0)
+    .x((d,i) => x(dataParaGrafico.dates[i]))
+    .y(d => yLog(d))
+    
+
+var grafico = svg.append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+ 
+var data = files[0] // datos principales;
+
+    data.forEach(function(d) {
+      d.fecha = parseTime(d.fecha);
+      d.casos_tot = isNaN(+d.casos_tot)?0:+d.casos_tot;
+      d.casos_recuperados = isNaN(+d.casos_recuperados)?0:+d.casos_recuperados;
+      d.casos_fallecidos = isNaN(+d.casos_fallecidos)?0:+d.casos_fallecidos;
+      d.casos_activos_Arg = isNaN(+d.casos_activos_Arg)?0:+d.casos_activos_Arg;
+      d.casos_recup_fall = isNaN(+d.casos_recup_fall)?0:+d.casos_recup_fall;
+      d.casos_UTI_Arg = isNaN(+d.casos_UTI_Arg)?0:+d.casos_UTI_Arg;
+      d.camas_UTIARG = isNaN(+d.camas_UTIARG)?0:+d.camas_UTIARG;
+    });
+
+    var series = [
+                    {"name":"Activos" , "values": data.map(r=>r.casos_activos_Arg)},
+                    {"name":"En UTI", "values": data.map(r=>r.casos_UTI_Arg)},
+                    {"name":"Total" , "values": data.map(r=>r.casos_tot)},
+                    {"name":"No Activos" , "values": data.map(r=>r.casos_recup_fall)},
+                    {"name":"Camas UTI" , "values": data.map(r=>r.camas_UTIARG)}
+                ];
+
+
+    
+
+		minDate = parseTime("2020-03-01"); //fecha de inicio el primero de marzo para que aparezca marzo!
+		maxDate = d3.max(data, d => d.fecha);
+
+	var dataParaGrafico = {
+		series: series,
+    	dates: d3.timeDay.range(d3.min(data, d => d.fecha), d3.timeDay.offset(maxDate))
+	}
+    console.log(dataParaGrafico);
+
+
+    x.domain([parseTime("2020-03-01"),d3.max(data, function(d) { return d.fecha; })]);
+    y.domain([d3.min(data, function(d) { return d.casos_tot; }), d3.max(data, function(d) { return d.casos_tot; })+20000]);
+    yLog.domain(y.domain());
+
+
+     grafico.append("g") // EJE X
+        .attr("class", "axis axis--x")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x)
+        .ticks(d3.timeMonth.every(1)))
+        .call(g => {  // ESTO PONE LOS NOMBRES DE LOS MESES EN MEDIO DE CADA MES
+            g.selectAll(".tick:not(:last-of-type) text") // para todos los meses menos el ultimo
+                .attr("dx", x(parseTime("2020-03-16"))) 
+                .attr("dy", "0.3em") ;
+            
+            g.selectAll(".tick:last-of-type text") // el ultimo si no esta completo lo centra en los dias que haya
+                .attr("dx",  x(parseTime("2020-03-" + Math.ceil((d3.timeFormat("%-d")(d3.max(data, function(d) { return d.fecha; })))/2))))
+                .attr("dy", "0.3em") ;
+            
+            g.selectAll(".tick line") // las lineas que separan los meses, mas altas
+                .attr("y2", "1.4em") ;
+            }
+            )
+        ;
+
+    ejeY = grafico.append("g") // EJE Y
+        .attr("class", "axis axis--y")
+       .call(yLogAxis)
+       ;
+    
+    tituloY = ejeY.append("text")
+        .attr("class", "axis-title")
+        .attr("y", -8)
+        
+        .text("Casos (logarítmico)");
+
+        grafico.append("g").attr("id","series")
+                .selectAll("path") // AGREGA LAS LINEAS
+				.data(dataParaGrafico.series)
+				.join("path")
+                .attr("class", "prov line")
+                .attr("id", d=>d.name)
+                .style("opacity",(d,i)=>i<2||i==4?1:0)
+				.style("stroke", d=>coloreaCategorias(d.name))
+                .attr("d", d => line(d.values));
+                
+                var dataParaLabels = dataParaGrafico.series.map(r=>{  //Prepara la data para poner los labels
+					return  {"labelY": r.values[r.values.length-1],
+							"name": r.name,
+							"values": r.values}
+						});
+	relax(dataParaLabels, 9); // Separa los labels para que no se pisen
+
+      grafico.append("g").attr("id","labels")
+                .selectAll("text")  // AGREGA LOS LABELS
+				.data(dataParaLabels)
+				.join("text")
+					.attr("x",d=>x(dataParaGrafico.dates[d.values.length-1]))
+					.attr("y",d=>yLog(d.labelY))
+					.attr("dy", "3px")
+					.attr("dx", "3px")
+					.style("fill", d=>coloreaCategorias(d.name))
+                    .attr("class", "prov nombreserie")
+                    .style("opacity",(d,i)=>i<2||i==4?1:0)
+					.text(d=>d.name); 
+
+
+
+
+                init();
+
+
+                function scrollyTelling(step){
+                        var cambia = {};
+                        var opacidadProvinciaApagada = 0.2;
+
+                        switch (step) {
+                            case 0: // muestra activos y UTI y camas
+                                    cambiaTipo("log")        
+                                break;
+
+                            case 1: // resalta cambio en camas
+                            case 2:
+                               cambia.tipo = "linear";
+                               d3.selectAll(".prov").transition().duration(400)
+                                        .style("opacity",d=>{
+                                            if(d.name=="Activos") return 1;
+                                            if(d.name=="En UTI") return 1;
+                                            if(d.name=="Camas UTI") return 1;
+                                            return 0;
+                                        }).on("end", d=>cambiaTipo("linear"))            
+                                break;
+
+                             case 3: // muestra pais
+                               cambia.tipo = 0;
+                               d3.selectAll(".prov").transition().duration(400)
+                                        .style("opacity",d=>{
+                                            if(d.name=="Total") return 1;
+                                            return 0;
+                                        })  
+                                break;
+                           
+                            case 4: // muestra activos totales y no activos
+                            case 5:
+                            case 6:
+                              cambia.tipo = "linear";
+                              d3.selectAll(".prov").transition().duration(400)
+                                        .style("opacity",d=>{
+                                            if(d.name=="Total") return 1;
+                                            if(d.name=="Activos") return 1;
+                                            if(d.name=="No Activos") return 1;
+                                            return 0;
+                                        }).on("end", d=>cambiaTipo("linear"))        
+                                break; 
+
+                             case 7: // totales en log
+                              cambia.tipo = "log";
+                              d3.selectAll(".prov").transition().duration(400)
+                                        .style("opacity",d=>{
+                                            if(d.name=="Total") return 1;
+                                            return 0;
+                                        }).on("end", d=>cambiaTipo("log"))    
+                                break; 
+                            
+                            case 8: // resalta cambio en camas
+                              d3.selectAll(".prov").transition().duration(400)
+                                        .style("opacity",d=>{
+                                            if(d.name=="Activos") return 1;
+                                            if(d.name=="En UTI") return 1;
+                                            if(d.name=="Camas UTI") return 1;
+                                            return 0;
+                                        })    
+                                break;
+
+                        }
+        function cambiaTipo(tipo){
+        if(tipo == "log"){
+            ejeY.transition().duration(600).call(yLogAxis);
+            tituloY.text("(logarítmico)");
+            line.y(function(d) { return yLog(d); });
+
+            d3.selectAll(".prov.line")
+                .transition().duration(600)
+                .attr("d", d => line(d.values));
+        
+                d3.selectAll(".prov.nombreserie").transition().duration(600)
+                .attr("y",d=>yLog(d.labelY))
+					;
+            
+        }else if (tipo == "linear"){
+            ejeY.transition().duration(600).call(yAxis);
+            tituloY.text("(lineal)")
+            line.y(function(d) { return y(d); });
+            d3.selectAll(".prov.line")
+                .transition().duration(600)
+                .attr("d", d => line(d.values));
+
+            d3.selectAll(".prov.nombreserie").transition().duration(600)
+                .attr("y",d=>y(d.labelY))
+					;
+        }
+        
+    }
+      
+
+}
+
+
+
+//********** funciones
+
+
+function ajustaMesesEjeX(g) {
+      // ESTO PONE LOS NOMBRES DE LOS MESES EN MEDIO DE CADA MES
+        g.selectAll(".tick:not(:last-of-type) text") // para todos los meses menos el ultimo
+            .attr("dx", x(parseTime("2020-03-16"))) // mueve el equivalente a 15 dias
+            .attr("dy", "0.3em") ;
+        
+        g.selectAll(".tick:last-of-type text") // el ultimo si no esta completo lo centra en los dias que haya
+            .attr("dx",  x(parseTime("2020-03-" + Math.ceil((d3.timeFormat("%-d")(d3.max(data, function(d) { return d.fecha; })))/2))))
+            .attr("dy", "0.3em") ;
+        
+        g.selectAll(".tick line") // las lineas que separan los meses, mas altas
+            .attr("y2", "1.4em") ;
+        }
+
+
+// separa en el eje Y los datos que le lleguen con formato: 
+// d.name // d.labelY // d.values
+function relax(dataInterna, spacing) {
+            spacing = spacing? spacing : 8;
+            var dy = 1;
+            var repeat = false;
+            var count = 0;
+            dataInterna.forEach(function(dA, i) {
+                var yA = dA.labelY;
+                dataInterna.forEach(function(dB, j) {
+                    var yB = dB.labelY;
+                    if (i === j) {
+                        return;
+                    }
+                    diff = yA - yB;
+                    if (Math.abs(diff) > spacing) {
+                        return;
+                    }
+                    repeat = true;
+                    magnitude = diff > 0 ? 1 : -1;
+                    adjust = magnitude * dy;
+                    dA.labelY = +yA + adjust;
+                    dB.labelY = +yB - adjust;
+                    dB.labelY = dB.labelY > height ? height : dB.labelY
+                    dA.labelY = dA.labelY > height ? height : dA.labelY
+                })
+            })
+            if (repeat) {
+                relax(dataInterna, spacing);
+            }
+        }
+
+    });
+
+</script>
+
+
+
+<div class="note info"><p>Para nuestro sistema de salud, o el de cualquier otro país, es muy importante que la curva se achate lo más posible para que nunca llegue a su límite.</p>
+<p>Basándonos en la experiencia de otros países, mirá lo que probablemente habría ocurrido si no se hubiesen tomado medidas de contención/mitigación.</p>
+<p>Achatar la curva implica que, además de tener un pico más bajo, tengamos un pico más tardío.</p>
+<p>Eso nos da más tiempo para mejorar los servicios de salud (comprar más respiradores, por ejemplo) e implementar políticas como el rastreo de contactos. Pero también hace que la evolución de la pandemia se alargue en el tiempo.</p>
+<p>Entender la evolución de la pandemia y qué efecto tienen las medidas nos ayuda a decidir qué camino tomar.</p>
+</div>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/covid/evolucion_por_provincia/" rel="prev" title="¿Cómo evoluciona mi provincia?">
+      <i class="fa fa-chevron-left"></i> ¿Cómo evoluciona mi provincia?
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+        </div>
+        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+
+
+<div class="copyright">
+Un proyecto de la <a href="https://www.fundacionbyb.org/" target="_blank">Fundación Bunge y Born</a>, en alianza con  <a href="http://expedicionciencia.org.ar/" target="_blank">Expedición Ciencia</a>
+<br/>
+<small><a href="https://www.fundacionbyb.org/politica-de-privacidad" target="_blank">Política de privacidad</a></small>
+</div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  
+  <span class="author" itemprop="copyrightHolder">Fundacion Bunge y Born</span>
+</div>
+  <div class="powered-by">Creado mediante <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

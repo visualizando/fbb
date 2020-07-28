@@ -1503,7 +1503,7 @@ var clip = grafico.append("defs").append("svg:clipPath")
 						})	
 					;
 
-	provincias.append("rect").attr("width",0).attr("height",height).style("opacity",0.8).attr("id","dimmer").attr("x",width).style("fill","#f1f1f1");
+	//provincias.append("rect").attr("width",0).attr("height",height).style("opacity",0.8).attr("id","dimmer").attr("x",width).style("fill","#f1f1f1");
 
 	var dataParaLabels = dataParaGrafico.series.map(r=>{  //Prepara la data para poner los labels
 					return  {"labelY": yLog(r.values[r.values.length-1]),
@@ -1809,6 +1809,12 @@ function relax(dataInterna, spacing) {
         fill: #222;
     }
 
+    text.nombreserie{
+		font-size: 11px;
+	}
+
+
+
     #avisoDuplicacion {
         position: absolute;
         top: 38%;
@@ -1971,7 +1977,9 @@ var ejeY, tituloY;
 
 var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maximo
 
+
 var svg = d3.select("#contenedorGrafico").append("svg"),
+	marginTexto = isMobile ? 30:45,
     margin = isMobile ? {top: 35, right: 20, bottom: 25, left: 20} : {top: 50, right: 30, bottom: 50, left: 30},
     width =  +d3.select('#contenedorGrafico').style('width').slice(0, -2),
     height = +d3.select('#contenedorGrafico').style('height').slice(0, -2);
@@ -1989,7 +1997,7 @@ var svg = d3.select("#contenedorGrafico").append("svg"),
 
 var parseTime = d3.timeParse("%Y-%m-%d");
 
-var x = d3.scaleTime().range([0, width]);
+var x = d3.scaleTime().range([0, width-marginTexto]);
 var y = d3.scaleLinear().range([height, 0]);
 var yLog = d3.scaleLog().range([height, 0]);
 
@@ -2000,8 +2008,10 @@ var yLogAxis = d3.axisLeft(yLog);
     yLogAxis.ticks(4).tickFormat(d3.format(",.1r")).tickSizeInner(-6);
 
 var line = d3.line()
-    .x(function(d) { return x(d.fecha); })
-    .y(function(d) { return yLog(d.casos_tot); });
+	.defined(d => d>0)
+    .x((d,i) => x(dataParaGrafico.dates[i]))
+    .y(d => yLog(d))
+    
 
 var grafico = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -2011,34 +2021,40 @@ var data = files[0] // datos principales;
 
     data.forEach(function(d) {
       d.fecha = parseTime(d.fecha);
-      d.casos_tot = +d.casos_tot;
-      d.casos_recuperados = +d.casos_recuperados;
-      d.casos_fallecidos = +d.casos_fallecidos;
-      d.casos_activos_Arg = +d.casos_activos_Arg;
-      d.casos_recup_fall = +d.casos_recup_fall;
-      d.casos_UTI_Arg = +d.casos_UTI_Arg;
-      d.camas_UTIARG = +d.camas_UTIARG;
+      d.casos_tot = isNaN(+d.casos_tot)?0:+d.casos_tot;
+      d.casos_recuperados = isNaN(+d.casos_recuperados)?0:+d.casos_recuperados;
+      d.casos_fallecidos = isNaN(+d.casos_fallecidos)?0:+d.casos_fallecidos;
+      d.casos_activos_Arg = isNaN(+d.casos_activos_Arg)?0:+d.casos_activos_Arg;
+      d.casos_recup_fall = isNaN(+d.casos_recup_fall)?0:+d.casos_recup_fall;
+      d.casos_UTI_Arg = isNaN(+d.casos_UTI_Arg)?0:+d.casos_UTI_Arg;
+      d.camas_UTIARG = isNaN(+d.camas_UTIARG)?0:+d.camas_UTIARG;
     });
 
-    var series = {"activos":data.casos_activos_Arg, ""}
-	
+    var series = [
+                    {"name":"Activos" , "values": data.map(r=>r.casos_activos_Arg)},
+                    {"name":"En UTI", "values": data.map(r=>r.casos_UTI_Arg)},
+                    {"name":"Total" , "values": data.map(r=>r.casos_tot)},
+                    {"name":"No Activos" , "values": data.map(r=>r.casos_recup_fall)},
+                    {"name":"Camas UTI" , "values": data.map(r=>r.camas_UTIARG)}
+                ];
+
+
+    
 
 		minDate = parseTime("2020-03-01"); //fecha de inicio el primero de marzo para que aparezca marzo!
 		maxDate = d3.max(data, d => d.fecha);
 
 	var dataParaGrafico = {
-		series: data.map(obj => {
-					return {
-						"name":obj.key,
-						"values":obj.values.map(r=>r.casos_tot)}
-					}),
+		series: series,
     	dates: d3.timeDay.range(d3.min(data, d => d.fecha), d3.timeDay.offset(maxDate))
 	}
-    
+    console.log(dataParaGrafico);
+
 
     x.domain([parseTime("2020-03-01"),d3.max(data, function(d) { return d.fecha; })]);
     y.domain([d3.min(data, function(d) { return d.casos_tot; }), d3.max(data, function(d) { return d.casos_tot; })+20000]);
     yLog.domain(y.domain());
+
 
      grafico.append("g") // EJE X
         .attr("class", "axis axis--x")
@@ -2071,111 +2087,193 @@ var data = files[0] // datos principales;
         
         .text("Casos (logarítmico)");
 
-        grafico.selectAll("path") // AGREGA LAS LINEAS DE LAS PROVINCIAS
-				.data(dataParaGrafico.series )
+        grafico.append("g").attr("id","series")
+                .selectAll("path") // AGREGA LAS LINEAS
+				.data(dataParaGrafico.series)
 				.join("path")
-				.attr("class", "prov line")
+                .attr("class", "prov line")
+                .attr("id", d=>d.name)
+                .style("opacity",(d,i)=>i<2||i==4?1:0)
 				.style("stroke", d=>coloreaCategorias(d.name))
                 .attr("d", d => line(d.values));
                 
-   
+                var dataParaLabels = dataParaGrafico.series.map(r=>{  //Prepara la data para poner los labels
+					return  {"labelY": r.values[r.values.length-1],
+							"name": r.name,
+							"values": r.values}
+						});
+	relax(dataParaLabels, 9); // Separa los labels para que no se pisen
+
+      grafico.append("g").attr("id","labels")
+                .selectAll("text")  // AGREGA LOS LABELS
+				.data(dataParaLabels)
+				.join("text")
+					.attr("x",d=>x(dataParaGrafico.dates[d.values.length-1]))
+					.attr("y",d=>yLog(d.labelY))
+					.attr("dy", "3px")
+					.attr("dx", "3px")
+					.style("fill", d=>coloreaCategorias(d.name))
+                    .attr("class", "prov nombreserie")
+                    .style("opacity",(d,i)=>i<2||i==4?1:0)
+					.text(d=>d.name); 
+
+
+
 
                 init();
 
 
-    function scrollyTelling(step){
+                function scrollyTelling(step){
+                        var cambia = {};
+                        var opacidadProvinciaApagada = 0.2;
 
-        var cambia = {};
-        switch (step) {
-            case 0: // INICIO, ES LOG
-                cambia.tipo = "log";
-                cambia.tick = -6;
-                d3.selectAll(".tendencia").filter(d=>d.index==0).transition().delay(300).duration(300).style("opacity",100);
-                d3.selectAll(".duplicacionesTextos").filter(d=>d.index==0).transition().delay(300).duration(300).style("opacity",100);
-                d3.select("#avisoDuplicacion").transition().duration(300).style("opacity",100);
+                        switch (step) {
+                            case 0: // muestra activos y UTI y camas
+                                    cambiaTipo("log")        
+                                break;
 
-            break;
+                            case 1: // resalta cambio en camas
+                            case 2:
+                               cambia.tipo = "linear";
+                               d3.selectAll(".prov").transition().duration(400)
+                                        .style("opacity",d=>{
+                                            if(d.name=="Activos") return 1;
+                                            if(d.name=="En UTI") return 1;
+                                            if(d.name=="Camas UTI") return 1;
+                                            return 0;
+                                        }).on("end", d=>cambiaTipo("linear"))            
+                                break;
 
-            case 1: // PASA A LINEAL
-                d3.selectAll(".tendencia").filter(d=>d.index==0).transition().duration(300).style("opacity",0);
-                d3.selectAll(".duplicacionesTextos").filter(d=>d.index==0).transition().duration(300).style("opacity",0);
-                d3.select("#avisoDuplicacion").transition().duration(300).style("opacity",0);
-                cambia.tipo = "lineal"
-                cambia.tick =-6
-            break;
+                             case 3: // muestra pais
+                               cambia.tipo = 0;
+                               d3.selectAll(".prov").transition().duration(400)
+                                        .style("opacity",d=>{
+                                            if(d.name=="Total") return 1;
+                                            return 0;
+                                        })  
+                                break;
+                           
+                            case 4: // muestra activos totales y no activos
+                            case 5:
+                            case 6:
+                              cambia.tipo = "linear";
+                              d3.selectAll(".prov").transition().duration(400)
+                                        .style("opacity",d=>{
+                                            if(d.name=="Total") return 1;
+                                            if(d.name=="Activos") return 1;
+                                            if(d.name=="No Activos") return 1;
+                                            return 0;
+                                        }).on("end", d=>cambiaTipo("linear"))        
+                                break; 
 
-            case 2: // AGREGA FLECHAS/GRADIENTE
-                cambia.tipo = "lineal"
-                cambia.tick =-width
-            break;
+                             case 7: // totales en log
+                              cambia.tipo = "log";
+                              d3.selectAll(".prov").transition().duration(400)
+                                        .style("opacity",d=>{
+                                            if(d.name=="Total") return 1;
+                                            return 0;
+                                        }).on("end", d=>cambiaTipo("log"))    
+                                break; 
+                            
+                            case 8: // resalta cambio en camas
+                              d3.selectAll(".prov").transition().duration(400)
+                                        .style("opacity",d=>{
+                                            if(d.name=="Activos") return 1;
+                                            if(d.name=="En UTI") return 1;
+                                            if(d.name=="Camas UTI") return 1;
+                                            return 0;
+                                        })    
+                                break;
 
-            case 3: // VUELVE A LOG CON FLECHAS/GRADIENTE
-                cambia.tipo = "log"
-                cambia.tick =-width
-
-                d3.selectAll(".tendencia").transition().duration(600).style("opacity",0)
-            break;
-
-            case 4: // AGREGA TENDENCIAS
-                cambia.tipo = 0
-                cambia.tick =-6
-                d3.selectAll(".tendencia").transition().delay(d=>d.index*100).duration(1100).style("opacity",100)
-                d3.selectAll(".duplicacionesTextos").transition().duration(600).style("opacity",0)
-
-            break;
-
-            case 5: // AGREGA NUMEROS A tENDECNIAS
-                cambia.tipo = 0
-                d3.selectAll(".duplicacionesTextos").transition().delay(d=>d.index*100).duration(1100).style("opacity",100)
-                d3.select("#aspo").transition().duration(600).style("opacity",0)
-            break;
-
-            case 6: // AGREGA ASPO
-                cambia.tipo = 0
-                d3.select("#aspo").transition().duration(600).style("opacity",100)
-            break;
-
-        }
-
-        if(cambia.tipo == "log"){
-            if(cambia.tick!=0) yLogAxis.tickSizeInner(cambia.tick);
-            
+                        }
+        function cambiaTipo(tipo){
+        if(tipo == "log"){
             ejeY.transition().duration(600).call(yLogAxis);
+            tituloY.text("(logarítmico)");
+            line.y(function(d) { return yLog(d); });
 
-            tituloY.text("Casos (logarítmico)");
-
-            line.y(function(d) { return yLog(d.casos_tot); });
-            d3.selectAll(".line")
+            d3.selectAll(".prov.line")
                 .transition().duration(600)
-                .attr("d", line);
-
-            d3.selectAll(".dataCircle")
-                .transition().duration(600)
-                .attr("cy", function(d) { return yLog(d.casos_tot); });
-
-        }else if (cambia.tipo == "lineal"){
-            if(cambia.tick!=0) yAxis.tickSizeInner(cambia.tick);
-            ejeY.transition().duration(600).call(yAxis);
-
-            tituloY.text("Casos (lineal)")
-
-            line.y(function(d) { return y(d.casos_tot); });
-            d3.selectAll(".line")
-                .transition().duration(600)
-                .attr("d", line);
-
-            d3.selectAll(".dataCircle")
-                .transition().duration(600)
-                .attr("cy", function(d) { return y(d.casos_tot); })
-
-        }
+                .attr("d", d => line(d.values));
+        
+                d3.selectAll(".prov.nombreserie").transition().duration(600)
+                .attr("y",d=>yLog(d.labelY))
+					;
             
+        }else if (tipo == "linear"){
+            ejeY.transition().duration(600).call(yAxis);
+            tituloY.text("(lineal)")
+            line.y(function(d) { return y(d); });
+            d3.selectAll(".prov.line")
+                .transition().duration(600)
+                .attr("d", d => line(d.values));
 
+            d3.selectAll(".prov.nombreserie").transition().duration(600)
+                .attr("y",d=>y(d.labelY))
+					;
+        }
+        
     }
+      
 
-});
+}
+
+
+
+//********** funciones
+
+
+function ajustaMesesEjeX(g) {
+      // ESTO PONE LOS NOMBRES DE LOS MESES EN MEDIO DE CADA MES
+        g.selectAll(".tick:not(:last-of-type) text") // para todos los meses menos el ultimo
+            .attr("dx", x(parseTime("2020-03-16"))) // mueve el equivalente a 15 dias
+            .attr("dy", "0.3em") ;
+        
+        g.selectAll(".tick:last-of-type text") // el ultimo si no esta completo lo centra en los dias que haya
+            .attr("dx",  x(parseTime("2020-03-" + Math.ceil((d3.timeFormat("%-d")(d3.max(data, function(d) { return d.fecha; })))/2))))
+            .attr("dy", "0.3em") ;
+        
+        g.selectAll(".tick line") // las lineas que separan los meses, mas altas
+            .attr("y2", "1.4em") ;
+        }
+
+
+// separa en el eje Y los datos que le lleguen con formato: 
+// d.name // d.labelY // d.values
+function relax(dataInterna, spacing) {
+            spacing = spacing? spacing : 8;
+            var dy = 1;
+            var repeat = false;
+            var count = 0;
+            dataInterna.forEach(function(dA, i) {
+                var yA = dA.labelY;
+                dataInterna.forEach(function(dB, j) {
+                    var yB = dB.labelY;
+                    if (i === j) {
+                        return;
+                    }
+                    diff = yA - yB;
+                    if (Math.abs(diff) > spacing) {
+                        return;
+                    }
+                    repeat = true;
+                    magnitude = diff > 0 ? 1 : -1;
+                    adjust = magnitude * dy;
+                    dA.labelY = +yA + adjust;
+                    dB.labelY = +yB - adjust;
+                    dB.labelY = dB.labelY > height ? height : dB.labelY
+                    dA.labelY = dA.labelY > height ? height : dA.labelY
+                })
+            })
+            if (repeat) {
+                relax(dataInterna, spacing);
+            }
+        }
+
+    });
 
 </script>
+
 
 
 <div class="note info"><p>Para nuestro sistema de salud, o el de cualquier otro país, es muy importante que la curva se achate lo más posible para que nunca llegue a su límite.</p>

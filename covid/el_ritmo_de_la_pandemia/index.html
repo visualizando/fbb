@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather:300,300italic,400,400italic,700,700italic|Oswald:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"decodificar.org","root":"/","scheme":"Mist","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"remove","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeIn","post_body":"none","coll_header":"fadeIn","sidebar":"fadeInUp"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Entender cómo evoluciona la pandemia nos permite tomar mejores decisiones. ¿Qué miramos, o qué deberíamos mirar, para entender esa evolución? Sobre tendencias y cómo interpretar si estamos mejor, igua">
+<meta property="og:type" content="article">
+<meta property="og:title" content="¿Cuál es el ritmo de la pandemia?">
+<meta property="og:url" content="http://decodificar.org/covid/el_ritmo_de_la_pandemia/index.html">
+<meta property="og:site_name" content="Decodificar: COVID19">
+<meta property="og:description" content="Entender cómo evoluciona la pandemia nos permite tomar mejores decisiones. ¿Qué miramos, o qué deberíamos mirar, para entender esa evolución? Sobre tendencias y cómo interpretar si estamos mejor, igua">
+<meta property="og:locale" content="es_ES">
+<meta property="article:published_time" content="2020-07-07T04:35:00.343Z">
+<meta property="article:modified_time" content="2020-07-07T04:35:00.343Z">
+<meta property="article:author" content="Fundacion Bunge y Born">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://decodificar.org/covid/el_ritmo_de_la_pandemia/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'es'
+  };
+</script>
+
+  <title>¿Cuál es el ritmo de la pandemia? | Decodificar: COVID19</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132699662-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-132699662-2');
+      }
+    </script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PWMSB36');</script>
+<!-- End Google Tag Manager -->
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+      <script src="https://d3js.org/d3.v5.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/stickyfill/2.1.0/stickyfill.js"></script>
+      <script src="https://unpkg.com/enter-view"></script>
+      <link rel="stylesheet" href="/styles/scrolly.css">
+  
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+      <script>
+      var es_ES = {
+        "decimal": ",",
+        "thousands": ".",
+        "grouping": [3],
+        "currency": ["$", ""],
+        "dateTime": "%a %b %e %X %Y",
+        "date": "%d/%m/%Y",
+        "time": "%H:%M:%S",
+        "periods": ["AM", "PM"],
+        "days": ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+        "shortDays": ["Dom", "Lun", "Mar", "Mi", "Jue", "Vie", "Sab"],
+        "months": ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+        "shortMonths": ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
+    };
+
+    d3.timeFormatDefaultLocale(es_ES);
+    d3.formatDefaultLocale(es_ES);
+
+    var isMobile = document.getElementsByTagName("body")[0].clientWidth < 768 ? 1 : 0; 
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    var nombresPcias = {
+            "CABA":["CABA","CABA"],
+            "Buenos_Aires":["Buenos Aires","PBA"],
+            "Catamarca":["Catamarca","CAT"],
+            "Chaco":["Chaco","CHAC"],
+            "Chubut":["Chubut","CHUB"],
+            "Cordoba":["Córdoba","CBA"],
+            "Corrientes":["Corrientes","COR"],
+            "Entre_Rios":["Entre Ríos","ER"],
+            "Formosa":["Formosa","FORM"],
+            "Jujuy":["Jujuy","JUJ"],
+            "La_Pampa":["La Pampa","PAMP"],
+            "La_Rioja":["La Rioja","RIOJ"],
+            "Mendoza":["Mendoza","MEND"],
+            "Misiones":["Misiones","MIS"],
+            "Neuquen":["Neuquén","NEU"],
+            "Rio_Negro":["Río Negro","RN"],
+            "Salta":["Salta","SAL"],
+            "San_Juan":["San Juan","SJuan"],
+            "San_Luis":["San Luis","SLuis"],
+            "Santa_Cruz":["Santa Cruz","Scruz"],
+            "Santa_Fe":["Santa Fe","SFe"],
+            "Santiago_del_Estero":["Sgo del Estero","SEst"],
+            "Tierra_del_fuego":["T. del Fuego","TFuego"],
+            "Tucuman":["Tucumán","TUC"]
+
+        }
+
+
+
+var colores = d3.scaleOrdinal()
+        .domain([0,5])
+        .range(["#00468B","#8B6BAF","#F04E53","#F26522","#62BB46"]);
+
+
+var coloreaCategorias = d3.scaleOrdinal()
+        .range(["#4e79a7","#f28e2c","#e15759","#76b7b2","#59a14f","#af7aa1","#ff9da7","#9c755f","#8a7e78"]);
+
+      </script>
+
+  
+
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Cambiar a barra de navegación">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <img src="/images/logo-web.png">
+<!--       <i class="logo-line"></i>
+      <h1 class="site-title">Decodificar: COVID19</h1>
+      <i class="logo-line"></i> -->
+    </a>
+      <p class="site-subtitle" itemprop="description">Entendiendo la pandemia</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-inicio">
+
+    <a href="/" rel="section">Inicio</a>
+
+  </li>
+        <li class="menu-item menu-item-acerca-del-proyecto">
+
+    <a href="/about/" rel="section">Acerca del proyecto</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+      <div class="main-inner">
+        
+
+        <div class="content post posts-expand">
+          
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="es">
+    <link itemprop="mainEntityOfPage" href="http://decodificar.org/covid/el_ritmo_de_la_pandemia/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fundacion Bunge y Born">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Decodificar: COVID19">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ¿Cuál es el ritmo de la pandemia?
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar-check"></i>
+              </span>
+              <!-- <span class="post-meta-item-text">Editado el</span> -->
+              <time title="Modificado por: 7 de julio de 2020 01" itemprop="dateModified" datetime="2020-07-07T01:35:00-03:00">Actualizado 7 de julio de 2020</time>
+            </span>
+
+          
+            <div class="post-description">Entender cómo evoluciona la pandemia nos permite tomar mejores decisiones. ¿Qué miramos, o qué deberíamos mirar, para entender esa evolución? Sobre tendencias y cómo interpretar si estamos mejor, igual o peor que ayer.</div>
+
+         
+
+          
+        </div>
+      </header>
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+<!-- imagen destacada -->
+        
+      
+        
+
+
+<style>
+
+
+    .axis path, .axis line {
+      fill: none;
+      stroke: #D4D8DA;
+      stroke-width: 1px;
+     
+    }
+
+    .axis--y .domain, .axis--x .domain{
+        display: none;
+    }
+    
+    
+    .axis--y .tick{
+        stroke-width: 1px;
+        stroke-dasharray: 3px 2px;
+    }
+
+    .axis--x .tick line{
+        stroke-width: 2px;
+    }
+    
+    .axis--y .tick text{
+        text-anchor: start;
+    }
+
+    .axis-title {
+      fill: #222;
+        font-size: 16px;
+        text-anchor: start;
+    }
+    
+    .line, .aspo {
+      fill: none;
+      stroke: #a3a3a3;
+      stroke-width: 1px;
+    }
+
+    path.aspo {
+        stroke:#222;
+        stroke-dasharray: 3px 1px;   
+    }
+
+    rect.aspo {
+        stroke:none;
+        fill:rgba(184, 184, 184, 0.226)
+    }
+
+    .aspoTexto{
+        text-anchor: start;
+        font-size: 14px;
+        font-weight: 600;
+        fill: #222;
+    }
+
+    .tendencia{
+        fill: none;
+        stroke-width: 3px;
+        stroke-linecap: round;
+    }
+
+    .duplicacionesTextos{
+        text-anchor: end;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+
+
+    #avisoDuplicacion {
+        position: absolute;
+        top: 38%;
+        right: 5%;
+        width: 34%;
+        background-color: #ffd1d3;
+        line-height: 21px;
+        font-size: 15px;
+        padding: 8px 10px;
+        border-radius: 5px;
+        color: rgb(240, 78, 83);
+        font-weight: bold;
+        text-align: right;
+    }
+     
+    .res1{
+        fill: #8b6baf46;
+        background: #8b6baf46;
+    }
+
+    .res0{
+        fill: #62BB4646;
+        background: #62BB4646;
+    }
+
+    @media only screen and (min-width: 768px) {
+        #avisoDuplicacion {
+            top: 28%;
+            right: 5%;
+            width: 24%;
+        }
+    }
+    
+</style>
+
+
+<section id='scrolly'>
+    <div class='scrolly'>
+        
+
+        <!-- aca va el grafico que va a quedar fijo -->
+        <figure id="contenedorGrafico" class='sticky' >
+        </figure>
+
+        <!-- acá van los textos de cada paso -->
+        <article>
+            <div class='step' data-index='0'>
+                <p> Vemos gráficos, números e información sobre la pandemia todo el tiempo. Pero ¿qué debemos mirar en los datos para saber en qué situación estamos?  
+                </p>
+                <p>
+                    Una de las respuestas está en mirar el "ritmo" al cual se desarrolla el contagio (en vez de mirar cifras aisladas como el número absoluto de casos). ¿Qué es y cómo se ve el ritmo de contagio en una pandemia?
+                </p><p>                    
+                    Para responder, tenemos que mirar el detrás de escena de este gráfico.
+                </p>
+            </div>
+            
+            <div class='step' data-index='1'>
+                <p>
+                    El detrás de escena comienza con este gráfico, que encontramos habitualmente en las noticias.
+                </p><p>
+                    Se ve claramente una cosa, pero no mucho más: que la cantidad de casos confirmados es cada vez más y más grande. Y esto es porque la curva crece de forma "aproximadamente exponencial”, como se oye por ahí.
+                </p><p>
+                    Sin embargo, esto no nos dice mucho sobre la pandemia salvo que se está expandiendo, algo que ya sabíamos.
+
+Sin embargo, hay más en este gráfico, mucho más, sólo que hay que hacerle un cambio…
+
+                </p>
+            </div>
+            <div class='step' data-index='2'>
+                <p>
+                    Para que estos datos muestren su verdadera naturaleza tenemos que hacer un zoom combinado en el eje vertical:
+                    <mark class="label res0">ampliar la parte de números chicos</mark>
+                     y 
+                     <mark class="label res1">comprimir la parte de números grandes.</mark>
+                </p>
+            </div>
+            <div class='step' data-index='3'>
+                <p>
+                    Aclaramos antes de que sospeches: no estamos modificando los datos, sólo estamos cambiando astutamente la escala del eje vertical del gráfico. ¿Para qué?
+                </p><p>
+                    Para que eso que parecía una curva empinadísima ahora nos revele otras cosas.
+                </p>
+            </div>
+            <div class='step' data-index='4'>
+                <p>
+                En este tipo de escala, llamada “semi-log” por los expertos, vemos mucho más que antes.
+            </p><p>
+                Por ejemplo, se ve que la evolución está formada por partes aproximadamente rectas. Y se ve un gran cambio en la inclinación después de los primeros 20 días.
+                </p>
+            </div>
+            <div class='step' data-index='5'>
+                <p>
+                    La inclinación de cada parte recta nos dice cuál es el ritmo de la pandemia. Ese ritmo se mide por la cantidad de días que el número total de casos tarda en duplicarse. Por ejemplo, al comienzo pasamos de 10 a 20 casos en tres días. Y en los siguientes tres días ya teníamos 40 casos.
+                </p><p>
+                    mayor inclinación <--> mayor ritmo<br/>
+                    (tiempo de duplicación más corto)
+                    
+                </p>
+            </div>
+            <div class='step' data-index='6'>
+                <p>
+                    Vemos que al comienzo, el tiempo de duplicación era de aproximadamente 3 días. Luego del primer mes, el ritmo disminuyó mucho y el tiempo de duplicación pasó a 20 días.
+                </p><p>
+                    Para evaluar la situación conviene, entonces, mirar la inclinación de la curva (¡en escala semi-log!): menor inclinación significa menor ritmo de contagio, es decir situación más controlada.
+                </p><p>
+                    En resumen, el ritmo de la curva es uno de los termómetros que tenemos para evaluar la situación actual, y nos da mayor información que la cifra aislada del número total de casos.
+                    
+                </p>
+            </div>
+
+        </article>
+
+
+    </div>
+
+</section>
+
+
+ <!-- Scripts -->
+ <script>
+    
+//********************* CARGA DATOS ************
+
+Promise.all([
+    d3.csv("https://datos.decodificar.org/E1_ritmoBis.csv"),
+    d3.csv("https://datos.decodificar.org/E1_ritmo.csv"),
+]).then(function(files) {
+
+
+    // **** CODIGO DEL SCROLLY *******
+
+
+    const container = d3.select('#scrolly'); //busco el container total
+    const stepSel = container.selectAll('.step'); // selecciono los "steps"
+
+    function updateChart(index) {  // funcion que llama cada vez que cruza un humbral
+        const sel = container.select(`[data-index='${index}']`);
+        stepSel.classed('is-active', (d, i) => i === index);
+        
+        scrollyTelling(index); // <<<<< AQUI LLAMA AL GRAFICO VERDADERO
+    }
+
+    function init() { // configuracion inicial
+        Stickyfill.add(d3.select('.sticky').node()); // fallback para browsers sin sticky
+
+        enterView({
+            selector: stepSel.nodes(),
+            offset: 0.5,
+            enter: el => {
+                const index = +d3.select(el).attr('data-index');
+                updateChart(index);
+            },
+            exit: el => {
+                let index = +d3.select(el).attr('data-index');
+                index = Math.max(0, index - 1);
+                updateChart(index);
+            }
+        });
+    }
+ 
+
+    // **** END SCROLLY *******
+
+
+/* COLORES
+azul #00468B
+violeta #8B6BAF
+rojo #F04E53
+naranja #F26522
+verde #62BB46
+*/
+       
+        
+var ejeY, tituloY;
+
+var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maximo
+
+var svg = d3.select("#contenedorGrafico").append("svg"),
+    margin = isMobile ? {top: 35, right: 20, bottom: 25, left: 20} : {top: 50, right: 30, bottom: 50, left: 30},
+    width =  +d3.select('#contenedorGrafico').style('width').slice(0, -2),
+    height = +d3.select('#contenedorGrafico').style('height').slice(0, -2);
+
+    if (height > altoMaximo*width) {
+        svg.style('margin-top', (height - altoMaximo*width)/2 + "px")
+        height = altoMaximo*width;
+    }
+
+    svg.attr("viewBox", [0, 0, width, height]);
+
+    height = height - margin.top - margin.bottom;
+    width = width - margin.left - margin.right;
+    
+
+var parseTime = d3.timeParse("%Y-%m-%d");
+
+var x = d3.scaleTime().range([0, width]);
+var y = d3.scaleLinear().range([height, 0]);
+var yLog = d3.scaleLog().range([height, 0]);
+
+var yAxis = d3.axisLeft(y);
+    yAxis.ticks(8).tickFormat(d3.format(",.1r")).tickSizeInner(-6)
+;
+
+var yLogAxis = d3.axisLeft(yLog);
+    yLogAxis.ticks(4).tickFormat(d3.format(",.1r")).tickSizeInner(-6);
+
+var line = d3.line()
+    .x(function(d) { return x(d.fecha); })
+    .y(function(d) { return yLog(d.casos_tot); });
+
+var grafico = svg.append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    ;
+
+
+    
+    var data = files[0] // datos principales;
+
+    var duplicaciones = files[1] // funciones de duplicacion de casos;
+
+    data.forEach(function(d) {
+      d.fecha = parseTime(d.fecha);
+      d.casos_tot = +d.casos_tot;
+    });
+
+    duplicaciones.forEach(function(d,i) {
+      d.desdeX = parseTime(d.desdeX);
+      d.hastaX = parseTime(d.hastaX);
+      d.desdeY = +d.desdeY;
+      d.hastaY = +d.hastaY;
+      d.index = i;
+    });
+
+    x.domain([parseTime("2020-03-01"),d3.max(data, function(d) { return d.fecha; })]);
+    y.domain([d3.min(data, function(d) { return d.casos_tot; }), d3.max(data, function(d) { return d.casos_tot; })+20000]);
+    yLog.domain(y.domain());
+
+
+     grafico.append("g") // EJE X
+        .attr("class", "axis axis--x")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x)
+        .ticks(d3.timeMonth.every(1)))
+        .call(g => {  // ESTO PONE LOS NOMBRES DE LOS MESES EN MEDIO DE CADA MES
+            g.selectAll(".tick:not(:last-of-type) text") // para todos los meses menos el ultimo
+                .attr("dx", x(parseTime("2020-03-16"))) 
+                .attr("dy", "0.3em") ;
+            
+            g.selectAll(".tick:last-of-type text") // el ultimo si no esta completo lo centra en los dias que haya
+                .attr("dx",  x(parseTime("2020-03-" + Math.ceil((d3.timeFormat("%-d")(d3.max(data, function(d) { return d.fecha; })))/2))))
+                .attr("dy", "0.3em") ;
+            
+            g.selectAll(".tick line") // las lineas que separan los meses, mas altas
+                .attr("y2", "1.4em") ;
+            }
+            )
+        ;
+
+    ejeY = grafico.append("g") // EJE Y
+        .attr("class", "axis axis--y")
+       .call(yLogAxis)
+       ;
+    
+    tituloY = ejeY.append("text")
+        .attr("class", "axis-title")
+        .attr("y", -8)
+        .text("Casos (logarítmico)");
+
+
+        
+    grafico.append("path") // LINEA DE FONDO
+        .datum(data)
+        .attr("class", "line")
+        .attr("d", line);
+
+    grafico.append("g") // CIRCULITOS DE DATOS
+      .attr("fill", "#00468B")
+      .attr("stroke", "none")
+    .selectAll("circle")
+    .data(data)
+    .join("circle")
+      .attr("class","dataCircle")
+      .attr("cx", i => x(i.fecha))
+      .attr("cy", i => yLog(i.casos_tot))
+      .attr("r", 3);
+
+
+    grafico.selectAll("rect")
+                    .data([[1,10000],[10000,y.domain()[1]]])
+                    .join("rect")
+                        .attr("class", (d,i)=>"resaltados "+"res"+i)
+                        .attr("x", 0)
+                        .attr("y", d=>yLog(d[1]))
+                        .attr("width", width)
+                        .attr("height", d=>yLog(d[0])-yLog(d[1]))
+                        .style("opacity",0) ;
+
+    
+    
+
+    var tendencias = grafico.append("g"); // DUPLICACIONES
+
+    tendencias.selectAll("path")
+     .data(duplicaciones)
+     .join("path")
+        .attr("class", "tendencia")
+        .style("opacity", d=> { return d.index==0 ? 100 : 0})
+        .attr('d', d => d3.line()([[x(d.desdeX), yLog(d.desdeY)],[x(d.hastaX), yLog(d.hastaY)]]))
+        .style("stroke", d => colores(d.index+1));
+
+    tendencias.selectAll("text")
+     .data(duplicaciones)
+     .join("text")
+        .attr("class", d=>{return "duplicacionesTextos"+" duplica"+d.index})
+        .style("opacity", d=> { return d.index==0 ? 100 : 0})
+        .attr('x', d => Math.abs(x(d.hastaX) - x(d.desdeX))/2+ x(d.desdeX))
+        .attr('y', d => yLog(d.desdeY) - 10 - Math.abs(yLog(d.hastaY) - yLog(d.desdeY) )/2)
+        .style("fill", d => colores(d.index+1))
+        .text(d=> { return d.duplicacion + " días"});
+
+
+     /* d3.select("#contenedorGrafico").append("div")
+            .attr("id","avisoDuplicacion")
+            .html("Tiempo de duplicación última semana:<br/>"+ duplicaciones[0].duplicacion+" días")
+ */
+
+    var aspo = grafico.append("g").attr("id","aspo")
+                .style("opacity",0)
+    ;// ASPO
+            
+    aspo.append("path")
+                .attr("class", "aspo")
+                .attr('d', d3.line()([[x(parseTime("2020-03-21")), 0],[x(parseTime("2020-03-21")),height]])) ; 
+
+    aspo.append("rect")
+                .attr("class", "aspo")
+                .attr("x", x(parseTime("2020-03-21")))
+                .attr("y", 0)
+                .attr("width", x(parseTime("2020-04-25")-x(parseTime("2020-03-21"))))
+                .attr("height", height) ;
+                  
+
+    var aspoText = aspo.append("text")
+                .attr("class", "aspoTexto")
+                .attr('y', height*0.8);
+
+    aspoText.selectAll("tspan")
+            .data(["Aislamiento Social,","Preventivo y","Obligatorio"])
+            .join("tspan")
+            .text(d => d)
+            .attr("x", x(parseTime("2020-03-21"))+8)
+            .attr("dy", 16);
+
+    
+                init()
+
+    function scrollyTelling(step){
+
+        var cambia = {};
+        switch (step) {
+            case 0: // INICIO, ES LOG
+                cambia.tipo = "log";
+                cambia.tick = -6;
+                d3.selectAll(".tendencia").filter(d=>d.index==0).transition().delay(300).duration(300).style("opacity",1);
+                d3.selectAll(".duplicacionesTextos").filter(d=>d.index==0).transition().delay(300).duration(300).style("opacity",1);
+                d3.select("#avisoDuplicacion").transition().duration(300).style("opacity",1);
+                cambia.resalta = 0;
+            break;
+
+            case 1: // PASA A LINEAL
+                d3.selectAll(".tendencia").filter(d=>d.index==0).transition().duration(300).style("opacity",0);
+                d3.selectAll(".duplicacionesTextos").filter(d=>d.index==0).transition().duration(300).style("opacity",0);
+                d3.select("#avisoDuplicacion").transition().duration(300).style("opacity",0);
+                cambia.tipo = "lineal"
+                cambia.tick =-6
+                cambia.resalta = 0;
+                break;
+
+            case 2: // AGREGA FLECHAS/GRADIENTE
+                cambia.tipo = "lineal"
+                cambia.tick =-width
+                cambia.resalta = 1;
+            break;
+
+            case 3: // VUELVE A LOG CON FLECHAS/GRADIENTE
+                cambia.tipo = "log"
+                cambia.tick =-width;
+                cambia.resalta = 1;
+                d3.selectAll(".tendencia").transition().duration(600).style("opacity",0)
+            break;
+
+            case 4: // AGREGA TENDENCIAS
+                cambia.tipo = 0
+                cambia.tick =-6
+                cambia.resalta= 0;
+                d3.selectAll(".resaltados").transition().duration(600).style("opacity", 0);
+                d3.selectAll(".tendencia").transition().delay(d=>d.index*100).duration(1100).style("opacity",1)
+                d3.selectAll(".duplicacionesTextos").transition().duration(600).style("opacity",0)
+
+            break;
+
+            case 5: // AGREGA NUMEROS A tENDECNIAS
+                cambia.tipo = 0
+                cambia.resalta = 0;
+                d3.selectAll(".duplicacionesTextos").transition().delay(d=>d.index*100).duration(1100).style("opacity",1)
+                d3.select("#aspo").transition().duration(600).style("opacity",0)
+            break;
+
+            case 6: // AGREGA ASPO
+                cambia.tipo = 0
+                cambia.resalta = 0;
+                d3.select("#aspo").transition().duration(600).style("opacity",1)
+            break;
+
+        }
+
+        if(cambia.tipo == "log"){
+            if(cambia.tick!=0) yLogAxis.tickSizeInner(cambia.tick);
+            
+            ejeY.transition().duration(600).call(yLogAxis);
+
+            tituloY.text("Casos (logarítmico)");
+
+            line.y(function(d) { return yLog(d.casos_tot); });
+            d3.selectAll(".line")
+                .transition().duration(600)
+                .attr("d", line);
+
+            d3.selectAll(".dataCircle")
+                .transition().duration(600)
+                .attr("cy", function(d) { return yLog(d.casos_tot); });
+
+            d3.selectAll(".resaltados")
+                .transition().duration(600)
+                        .attr("y", d=>yLog(d[1]))
+                        .attr("height", d=>yLog(d[0])-yLog(d[1]))
+                        .style("opacity", cambia.resalta) ;
+            
+        }else if (cambia.tipo == "lineal"){
+            if(cambia.tick!=0) yAxis.tickSizeInner(cambia.tick);
+            ejeY.transition().duration(600).call(yAxis);
+
+            tituloY.text("Casos (lineal)")
+
+            line.y(function(d) { return y(d.casos_tot); });
+            d3.selectAll(".line")
+                .transition().duration(600)
+                .attr("d", line);
+
+            d3.selectAll(".dataCircle")
+                .transition().duration(600)
+                .attr("cy", function(d) { return y(d.casos_tot); })
+
+                d3.selectAll(".resaltados")
+                .transition().duration(600)
+                        .attr("y", d=>y(d[1]))
+                        .attr("height", d=>y(d[0])-y(d[1]))
+                        .style("opacity", cambia.resalta)
+                         ;
+
+        }
+            
+
+    }
+
+});
+
+</script>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/covid/la_cantidad_de_contagiados/" rel="next" title="¿Cuántos contagiados hay realmente?">
+      ¿Cuántos contagiados hay realmente? <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+        </div>
+        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+
+
+<div class="copyright">
+Un proyecto de la <a href="https://www.fundacionbyb.org/" target="_blank">Fundación Bunge y Born</a>, en alianza con  <a href="http://expedicionciencia.org.ar/" target="_blank">Expedición Ciencia</a>
+<br/>
+<small><a href="https://www.fundacionbyb.org/politica-de-privacidad" target="_blank">Política de privacidad</a></small>
+</div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  
+  <span class="author" itemprop="copyrightHolder">Fundacion Bunge y Born</span>
+</div>
+  <div class="powered-by">Creado mediante <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
