@@ -170,8 +170,7 @@ Sin embargo, hay más en este gráfico, mucho más, sólo que hay que hacerle un
                 <p>
                     La inclinación de cada parte recta nos dice cuál es el ritmo de la pandemia. Ese ritmo se mide por la cantidad de días que el número total de casos tarda en duplicarse. Por ejemplo, al comienzo pasamos de 10 a 20 casos en tres días. Y en los siguientes tres días ya teníamos 40 casos.
                     <br/><br/>
-                    mayor inclinación <--> mayor ritmo<br/>
-                    (tiempo de duplicación más corto)
+                    <img src="/images/ritmo.png">
                     
                 </p>
             </div>
@@ -662,11 +661,7 @@ var grafico = svg.append("g")
 				</p>
 		    </div>
         </article>
-		<div class='stepFijo' >
-			<p>
-				¿Por qué?
-			</p>
-		</div>
+		
 	</div>
 
 	
@@ -1184,13 +1179,8 @@ function ajustaMesesEjeX(g) {
 					<br/><br/>
 					Si ya viste <a href="/covid/el_ritmo_de_la_pandemia/">esta otra historia</a>, sabés que para saber cómo está avanzando la pandemia lo importante es el ritmo. En el gráfico, el ritmo se ve en la inclinación de la curva:
 					<br/><br/>
-					mayor	<-->	mayor
-					inclinación		ritmo
-							(tiempo de
-							duplicación
-							más corto)
-						</p>
-						<p>
+					<img src="/images/ritmo.png">
+					<br/><br/>
 					Ahora bien, la curva de la Argentina tiene un ritmo como país. Pero eso no quiere decir que todas las provincias estén igual.
                 </p>
             </div>
@@ -1349,7 +1339,7 @@ var svg = d3.select("#contenedorGrafico").append("svg"),
     width =  +d3.select('#contenedorGrafico').style('width').slice(0, -2),
     height = +d3.select('#contenedorGrafico').style('height').slice(0, -2);
 
-	d3.select("#contenedorGrafico").append("div").attr("class","epigrafe")
+	d3.selectAll(".contenedorGrafico").append("div").attr("class","epigrafe")
             .html("www.decodificar.org - 28/7/20 - Fuente: reportes diarios del Ministerio de Salud de la Nación - Argentina");
 
 			

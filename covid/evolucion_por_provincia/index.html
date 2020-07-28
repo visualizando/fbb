@@ -29,10 +29,12 @@
 <meta property="og:site_name" content="Decodificar: COVID19">
 <meta property="og:description" content="La evolución de la pandemia puede verse distinta si miramos los números nacionales o los provinciales. Entender cómo evoluciona en cada región nos permite tomar decisiones más focalizadas y específica">
 <meta property="og:locale" content="es_ES">
+<meta property="og:image" content="http://decodificar.org/images/ritmo.png">
 <meta property="article:published_time" content="2020-07-07T04:59:42.639Z">
 <meta property="article:modified_time" content="2020-07-07T04:59:42.639Z">
 <meta property="article:author" content="Fundacion Bunge y Born">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://decodificar.org/images/ritmo.png">
 
 <link rel="canonical" href="http://decodificar.org/covid/evolucion_por_provincia/">
 
@@ -459,13 +461,8 @@ var coloreaCategorias = d3.scaleOrdinal()
 					<br/><br/>
 					Si ya viste <a href="/covid/el_ritmo_de_la_pandemia/">esta otra historia</a>, sabés que para saber cómo está avanzando la pandemia lo importante es el ritmo. En el gráfico, el ritmo se ve en la inclinación de la curva:
 					<br/><br/>
-					mayor	<-->	mayor
-					inclinación		ritmo
-							(tiempo de
-							duplicación
-							más corto)
-						</p>
-						<p>
+					<img src="/images/ritmo.png">
+					<br/><br/>
 					Ahora bien, la curva de la Argentina tiene un ritmo como país. Pero eso no quiere decir que todas las provincias estén igual.
                 </p>
             </div>
@@ -624,7 +621,7 @@ var svg = d3.select("#contenedorGrafico").append("svg"),
     width =  +d3.select('#contenedorGrafico').style('width').slice(0, -2),
     height = +d3.select('#contenedorGrafico').style('height').slice(0, -2);
 
-	d3.select("#contenedorGrafico").append("div").attr("class","epigrafe")
+	d3.selectAll(".contenedorGrafico").append("div").attr("class","epigrafe")
             .html("www.decodificar.org - 28/7/20 - Fuente: reportes diarios del Ministerio de Salud de la Nación - Argentina");
 
 			
@@ -1071,18 +1068,26 @@ function relax(dataInterna, spacing) {
 
         
 <div class="firma">
+<img src="/images/logo_small.png">
 Un proyecto de la <a href="https://www.fundacionbyb.org/" target="_blank">Fundación Bunge y Born</a>, en alianza con  <a href="http://expedicionciencia.org.ar/" target="_blank">Expedición Ciencia</a>
 </div>
 
+<div class="redes">
+<a href="https://www.facebook.com/fundacionbungeyborn/" target="_blank"><i class="fab fa-facebook-square"></i></a>
+<a href="https://www.instagram.com/fundacionbungeyborn/" target="_blank"><i class="fab fa-instagram-square"></i></a>
+<a href="https://www.linkedin.com/company/fundacion-bunge-y-born/" target="_blank"><i class="fab fa-linkedin"></i></a>
+</div>
+
+
 <div class="reporte">
-<a href="https://docs.google.com/forms/d/e/1FAIpQLSep2P37Le6YQnp3zgMwTAv1B9HlZBA0Yu5ieVBxCg8GB2QRrQ/viewform" target="_blank">¿Encontraste un error?</a>
+<a href="https://docs.google.com/forms/d/e/1FAIpQLSep2P37Le6YQnp3zgMwTAv1B9HlZBA0Yu5ieVBxCg8GB2QRrQ/viewform" target="_blank">
+¿Encontraste un error?</a>
 </div>
 
 <div class="copyright">
-  <span itemprop="copyrightYear">2020</span>
-  <small>&copy;</small>
+  <span itemprop="copyrightYear">&copy; 2020</span>
   <span class="author" itemprop="copyrightHolder">Fundacion Bunge y Born</span>
- <small><a href="https://www.fundacionbyb.org/politica-de-privacidad" target="_blank">Política de privacidad</a></small>
+ / <a href="https://www.fundacionbyb.org/politica-de-privacidad" target="_blank">Política de privacidad</a>
 </div>
 
 <div class="powered-by">
