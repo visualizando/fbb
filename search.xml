@@ -35,8 +35,8 @@
     }
 
     .axis-title {
-      fill: #222;
-        font-size: 16px;
+        fill: #222;
+        font-size: 14px;
         text-anchor: start;
     }
     
@@ -102,6 +102,17 @@
         background: #62BB4646;
     }
 
+    .label.etapa1{
+        background: #F2652246;
+    }
+    .label.etapa2{
+        background: #62BB4646;
+    }
+    .label.etapa3{
+        background: #00468B46;
+    }
+
+
     @media only screen and (min-width: 768px) {
         #avisoDuplicacion {
             top: 28%;
@@ -138,7 +149,7 @@
                     <br/><br/>
                     Se ve claramente una cosa, pero no mucho más: que la cantidad de casos confirmados es cada vez más y más grande. Y esto es porque la curva crece de forma "aproximadamente exponencial”, como se oye por ahí.
                     <br/><br/>
-                    Sin embargo, esto no nos dice mucho sobre la pandemia salvo que se está expandiendo, algo que ya sabíamos.
+                    Esto no nos dice mucho sobre la pandemia salvo que se está expandiendo, algo que ya sabíamos.
 
 Sin embargo, hay más en este gráfico, mucho más, sólo que hay que hacerle un cambio…
 
@@ -163,12 +174,19 @@ Sin embargo, hay más en este gráfico, mucho más, sólo que hay que hacerle un
                 <p>
                 En este tipo de escala, llamada “semi-log” por los expertos, vemos mucho más que antes.
                 <br/><br/>
-                Por ejemplo, se ve que la evolución está formada por partes aproximadamente rectas. Y se ve un gran cambio en la inclinación después de los primeros 20 días.
+                Por ejemplo, se ve que la evolución está formada por partes aproximadamente rectas. Y se ve un gran cambio en la inclinación después de los 
+                <mark class="label etapa1">primeros primeros 20 días </mark>
+                de la pandemia,
+                a diferencia de lo que sucede en los 
+                <mark class="label etapa2">30 días siguientes </mark>
+                o entre los 
+                <mark class="label etapa3">días 80 y 120 </mark>
+                desde el primer caso.
                 </p>
             </div>
             <div class='step' data-index='5'>
                 <p>
-                    La inclinación de cada parte recta nos dice cuál es el ritmo de la pandemia. Ese ritmo se mide por la cantidad de días que el número total de casos tarda en duplicarse. Por ejemplo, al comienzo pasamos de 10 a 20 casos en tres días. Y en los siguientes tres días ya teníamos 40 casos.
+                    La <b>inclinación</b> de cada parte recta nos dice cuál es el <b>ritmo</b> de la pandemia. Ese ritmo se mide por la cantidad de días que el número total de casos tarda en duplicarse. Por ejemplo, al comienzo pasamos de 10 a 20 casos en tres días. Y en los siguientes tres días ya teníamos 40 casos.
                     <br/><br/>
                     <img src="/images/ritmo.png">
                     
@@ -250,9 +268,10 @@ var ejeY, tituloY;
 var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maximo
 
 var svg = d3.select("#contenedorGrafico").append("svg"),
-    margin = isMobile ? {top: 35, right: 20, bottom: 25, left: 20} : {top: 50, right: 30, bottom: 50, left: 30},
+    marginTexto = isMobile ? 30:45,
+    margin = isMobile ? {top: 35, right: 20, bottom: 15, left: 20} : {top: 50, right: 30, bottom: 25, left: 30},
     width =  +d3.select('#contenedorGrafico').style('width').slice(0, -2),
-    height = +d3.select('#contenedorGrafico').style('height').slice(0, -2);
+    height = +d3.select('#contenedorGrafico').style('height').slice(0, -2)-25;
 
     d3.select("#contenedorGrafico").append("div").attr("class","epigrafe")
             .html("www.decodificar.org - 28/7/20 - Fuente: reportes diarios del Ministerio de Salud de la Nación - Argentina");
@@ -280,7 +299,7 @@ var yAxis = d3.axisLeft(y);
 ;
 
 var yLogAxis = d3.axisLeft(yLog);
-    yLogAxis.ticks(4).tickFormat(d3.format(",.1r")).tickSizeInner(-6);
+    yLogAxis.ticks(5).tickFormat(d3.format(",.1r")).tickSizeInner(-6);
 
 var line = d3.line()
     .x(function(d) { return x(d.fecha); })
@@ -291,6 +310,13 @@ var grafico = svg.append("g")
     ;
 
 
+    var tituloGrafico = 
+        ["Número total de casos confirmados en Argentina (escala lineal)",
+        "Número total de casos confirmados en Argentina (escala logarítmica)"];
+        tituloGrafico = isMobile?
+        ["Total de casos confirmados (escala lineal)",
+        "Total de casos confirmados (escala logarítmica)"]
+        : tituloGrafico;
     
     var data = files[0] // datos principales;
 
@@ -310,8 +336,8 @@ var grafico = svg.append("g")
     });
 
     x.domain([parseTime("2020-03-01"),d3.max(data, function(d) { return d.fecha; })]);
-    y.domain([d3.min(data, function(d) { return d.casos_tot; }), d3.max(data, function(d) { return d.casos_tot; })+20000]);
-    yLog.domain(y.domain());
+    y.domain([d3.min(data, function(d) { return d.casos_tot; }), d3.max(data, function(d) { return d.casos_tot; })+10000]);
+    yLog.domain([d3.min(data, function(d) { return d.casos_tot; }), d3.max(data, function(d) { return d.casos_tot; })+300000]);
 
 
      grafico.append("g") // EJE X
@@ -342,7 +368,7 @@ var grafico = svg.append("g")
     tituloY = ejeY.append("text")
         .attr("class", "axis-title")
         .attr("y", -8)
-        .text("Casos (logarítmico)");
+        .text(tituloGrafico[1]);
 
 
         
@@ -367,9 +393,9 @@ var grafico = svg.append("g")
                     .data([[1,10000],[10000,y.domain()[1]]])
                     .join("rect")
                         .attr("class", (d,i)=>"resaltados "+"res"+i)
-                        .attr("x", 0)
+                        .attr("x", -5)
                         .attr("y", d=>yLog(d[1]))
-                        .attr("width", width)
+                        .attr("width", width+5)
                         .attr("height", d=>yLog(d[0])-yLog(d[1]))
                         .style("opacity",0) ;
 
@@ -497,7 +523,7 @@ var grafico = svg.append("g")
             
             ejeY.transition().duration(600).call(yLogAxis);
 
-            tituloY.text("Casos (logarítmico)");
+            tituloY.text(tituloGrafico[1]);
 
             line.y(function(d) { return yLog(d.casos_tot); });
             d3.selectAll(".line")
@@ -518,7 +544,7 @@ var grafico = svg.append("g")
             if(cambia.tick!=0) yAxis.tickSizeInner(cambia.tick);
             ejeY.transition().duration(600).call(yAxis);
 
-            tituloY.text("Casos (lineal)")
+            tituloY.text(tituloGrafico[0])
 
             line.y(function(d) { return y(d.casos_tot); });
             d3.selectAll(".line")
@@ -628,7 +654,11 @@ var grafico = svg.append("g")
   
 	#contenedorGrafico.sticky{
 			margin-bottom: 191px;
-		}
+        }
+        
+    .label.desconocido{
+        background: #8B6BAF46;
+    }
      
     @media only screen and (min-width: 768px) {
       
@@ -657,7 +687,8 @@ var grafico = svg.append("g")
             
             <div class='step' data-index='1'>
                 <p>
-                    ...no. No conocemos el número real de personas con COVID-19. Y cuando decimos que no lo conocemos queremos decir que nadie en el mundo lo conoce.
+                    ...no. <mark class="label desconocido">No conocemos el número real</mark> de personas con COVID-19.
+                     Y cuando decimos que no lo conocemos queremos decir <b>que nadie en el mundo</b> lo conoce.
 				</p>
 		    </div>
         </article>
@@ -688,7 +719,7 @@ var grafico = svg.append("g")
             </div>
             <div class='step' data-index='1'>
                 <p>
-					Acá entra la <a href="https://www.argentina.gob.ar/salud/coronavirus-COVID-19/definicion-de-caso" target="_blank">definición de caso sospechoso</a> a quiénes decidimos testear.
+					Acá entra la <a href="https://www.argentina.gob.ar/salud/coronavirus-COVID-19/definicion-de-caso" target="_blank">definición de caso sospechoso</a>: a quiénes decidimos testear.
                     <br/><br/>
                 Lo más común es que se testee a <tag class="sintomas">personas con ciertos síntomas </tag> relevantes (fiebre, tos, pérdida del olfato, etc.) o que estén en riesgo claro de contagio (viaje al exterior, contactos estrechos con casos positivos, personal de salud, etc.).
                 <br/><br/>
@@ -724,18 +755,6 @@ var grafico = svg.append("g")
                     Esta persona no aparecía en nuestro gráfico inicial de casos confirmados y ahora sí.
 				</p>
 			</div>
-
-			<div class='step' data-index='5'>
-                <p>
-                    Así, vemos que siempre que miramos datos hay que preguntarse cómo fueron tomados.
-                    <br/><br/>
-                    Las decisiones de testeo dependen de muchas cosas: lo que sabemos de la enfermedad, los recursos que tenemos y cómo decidimos administrarlos. Si tenemos en cuenta estas cosas, deberíamos comparar solo entre los días donde se testeaba con el mismo criterio.
-                    <br/><br/>
-                    Además, sabemos que el número real de personas con COVID-19 es probablemente mucho mayor que el número registrado de casos confirmados. Aun así, conocer el número de confirmados y su ritmo de crecimiento nos permite tomar mejores decisiones para frenar la pandemia.
-                </p>
-    
-			</div>
-
 			
         </article>
     </div>
@@ -1066,7 +1085,12 @@ function ajustaMesesEjeX(g) {
 });
 
 </script>
-]]></content>
+
+
+<div class="note info"><p>Así, vemos que siempre que miramos datos hay que preguntarse cómo fueron tomados.</p>
+<p>Las decisiones de testeo dependen de muchas cosas: lo que sabemos de la enfermedad, los recursos que tenemos y cómo decidimos administrarlos. Si tenemos en cuenta estas cosas, deberíamos comparar solo entre los días donde se testeaba con el mismo criterio.</p>
+<p>Además, sabemos que el número real de personas con COVID-19 es probablemente mucho mayor que el número registrado de casos confirmados. Aun así, conocer el número de confirmados y su ritmo de crecimiento nos permite tomar mejores decisiones para frenar la pandemia.</p>
+</div>]]></content>
   </entry>
   <entry>
     <title>¿Cómo evoluciona mi provincia?</title>
@@ -1103,7 +1127,7 @@ function ajustaMesesEjeX(g) {
 	}
 	
 	text.nombreProvincias{
-		font-size: 11px;
+		font-size: 10px;
 	}
 
 
@@ -1146,7 +1170,12 @@ function ajustaMesesEjeX(g) {
 	#contenedorGrafico.sticky{
 			margin-bottom: 191px;
 		}
-     
+    .pcias{
+		background: #ffc20e21;
+		padding: 3px 7px;
+		line-height: 1.6em;
+		border-radius: 5px;
+	}
 	 
     @media only screen and (min-width: 768px) {
       
@@ -1198,6 +1227,8 @@ function ajustaMesesEjeX(g) {
                     Para saber cómo va el ritmo de cada provincia, tenemos que mirar la inclinación de las partes <a href="/covid/el_ritmo_de_la_pandemia/"> rectas de cada curva</a>, por ejemplo en los últimos días.
 					<br/><br/>
 					Esa inclinación nos da el tiempo de duplicación de casos, que no es el mismo en todos los lugares.
+					<br/><br/>
+					El tiempo de duplicación es un criterio para definir <a href="https://www.argentina.gob.ar/coronavirus/aislamiento/fases" target="_blank" rel="noopener">las fases del aislamiento social</a>
                 </p>
             </div>
             <div class='step' data-index='4'>
@@ -1238,26 +1269,19 @@ function ajustaMesesEjeX(g) {
 
 			<div class='step' data-index='9'>
                 <p>
-					...o también están aquellas que, directamente, no tienen casos nuevos
+					...o también están aquellas que, directamente, no tienen casos nuevos.
 					<span class="pcias"></span>
 				</p>
 			</div>
 
 			<div class='step' data-index='10'>
                 <p>
-					Separar el todo en sus partes es muy importante para tomar decisiones, especialmente cuando el comportamiento de las partes difiere entre sí.
+					Separar el <b>todo</b> en sus <b>partes</b> es muy importante para tomar decisiones, especialmente cuando el comportamiento de las partes difiere entre sí.
 					<br/><br/>
-					En algunos lugares fue y es posible flexibilizar las medidas de aislamiento social antes que en otros. Pero, más importante aún,  ¡la evolución local de la pandemia puede ir cambiando! Y, por lo tanto, las medidas también.
+					Y con las ciudades, ¿será igual? Exactamente; de la misma forma que separamos en partes por provincias, también podríamos hacerlo con ciudades.
                 </p>
 			</div>
 			
-			<div class='step' data-index='11'>
-				<p> 
-					Y con las ciudades, ¿será igual? Exactamente; de la misma forma que separamos en partes por provincias, también podríamos hacerlo con ciudades.
-					<br/><br/> Por ahora, no te olvides de seguir el ritmo de la pandemia en tu provincia.
-	
-				</p>
-			</div>
 			
 			
         </article>
@@ -1334,7 +1358,7 @@ var ejeY, ejeX, tituloY, minDate, maxDate, line, linePais;
 var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maximo
 
 var svg = d3.select("#contenedorGrafico").append("svg"),
-	marginTexto = isMobile ? 30:75,
+	marginTexto = isMobile ? 35:75,
     margin = isMobile ? {top: 35, right: 20, bottom: 25, left: 20} : {top: 50, right: 30, bottom: 50, left: 30},
     width =  +d3.select('#contenedorGrafico').style('width').slice(0, -2),
     height = +d3.select('#contenedorGrafico').style('height').slice(0, -2);
@@ -1388,6 +1412,14 @@ var clip = grafico.append("defs").append("svg:clipPath")
 	.y(d => yLog(d.casos_tot))
 	;
 
+	var tituloGrafico = 
+        ["Número total de casos confirmados en cada distrito"
+       ];
+        tituloGrafico = isMobile?
+        ["Total de casos confirmados por distrito"
+        ]
+		: tituloGrafico;
+		
 
     var data = files[0] // datos principales;
 
@@ -1455,7 +1487,7 @@ var clip = grafico.append("defs").append("svg:clipPath")
     tituloY = ejeY.append("text")
         .attr("class", "axis-title")
         .attr("y", -8)
-        .text("Casos (logarítmico)");
+        .text(tituloGrafico[0]);
 
 
     grafico.append("path") // Linea DE DATOS PAIS
@@ -1569,7 +1601,7 @@ var clip = grafico.append("defs").append("svg:clipPath")
 
 function scrollyTelling(step){
 
-	var opacidadProvinciaApagada = 0.2;
+	var opacidadProvinciaApagada = 0.3;
 
    switch (step) {
 		case 2: // muestra por provincia
@@ -1720,7 +1752,11 @@ function relax(dataInterna, spacing) {
 		});
 
 </script>
-]]></content>
+
+
+<div class="note info"><p>En algunos lugares fue y es posible flexibilizar las medidas de aislamiento social antes que en otros. Pero, más importante aún,  ¡la evolución local de la pandemia puede ir cambiando! Y, por lo tanto, las medidas también. </p>
+<p>Por ahora, no te olvides de seguir el ritmo de la pandemia en tu provincia.</p>
+</div>]]></content>
   </entry>
   <entry>
     <title>Hay que achatar la curva… ¿qué curva?</title>

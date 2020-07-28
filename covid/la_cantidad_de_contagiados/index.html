@@ -425,7 +425,11 @@ var coloreaCategorias = d3.scaleOrdinal()
   
 	#contenedorGrafico.sticky{
 			margin-bottom: 191px;
-		}
+        }
+        
+    .label.desconocido{
+        background: #8B6BAF46;
+    }
      
     @media only screen and (min-width: 768px) {
       
@@ -454,7 +458,8 @@ var coloreaCategorias = d3.scaleOrdinal()
             
             <div class='step' data-index='1'>
                 <p>
-                    ...no. No conocemos el número real de personas con COVID-19. Y cuando decimos que no lo conocemos queremos decir que nadie en el mundo lo conoce.
+                    ...no. <mark class="label desconocido">No conocemos el número real</mark> de personas con COVID-19.
+                     Y cuando decimos que no lo conocemos queremos decir <b>que nadie en el mundo</b> lo conoce.
 				</p>
 		    </div>
         </article>
@@ -485,7 +490,7 @@ var coloreaCategorias = d3.scaleOrdinal()
             </div>
             <div class='step' data-index='1'>
                 <p>
-					Acá entra la <a href="https://www.argentina.gob.ar/salud/coronavirus-COVID-19/definicion-de-caso" target="_blank">definición de caso sospechoso</a> a quiénes decidimos testear.
+					Acá entra la <a href="https://www.argentina.gob.ar/salud/coronavirus-COVID-19/definicion-de-caso" target="_blank">definición de caso sospechoso</a>: a quiénes decidimos testear.
                     <br/><br/>
                 Lo más común es que se testee a <tag class="sintomas">personas con ciertos síntomas </tag> relevantes (fiebre, tos, pérdida del olfato, etc.) o que estén en riesgo claro de contagio (viaje al exterior, contactos estrechos con casos positivos, personal de salud, etc.).
                 <br/><br/>
@@ -521,18 +526,6 @@ var coloreaCategorias = d3.scaleOrdinal()
                     Esta persona no aparecía en nuestro gráfico inicial de casos confirmados y ahora sí.
 				</p>
 			</div>
-
-			<div class='step' data-index='5'>
-                <p>
-                    Así, vemos que siempre que miramos datos hay que preguntarse cómo fueron tomados.
-                    <br/><br/>
-                    Las decisiones de testeo dependen de muchas cosas: lo que sabemos de la enfermedad, los recursos que tenemos y cómo decidimos administrarlos. Si tenemos en cuenta estas cosas, deberíamos comparar solo entre los días donde se testeaba con el mismo criterio.
-                    <br/><br/>
-                    Además, sabemos que el número real de personas con COVID-19 es probablemente mucho mayor que el número registrado de casos confirmados. Aun así, conocer el número de confirmados y su ritmo de crecimiento nos permite tomar mejores decisiones para frenar la pandemia.
-                </p>
-    
-			</div>
-
 			
         </article>
     </div>
@@ -864,6 +857,11 @@ function ajustaMesesEjeX(g) {
 
 </script>
 
+
+<div class="note info"><p>Así, vemos que siempre que miramos datos hay que preguntarse cómo fueron tomados.</p>
+<p>Las decisiones de testeo dependen de muchas cosas: lo que sabemos de la enfermedad, los recursos que tenemos y cómo decidimos administrarlos. Si tenemos en cuenta estas cosas, deberíamos comparar solo entre los días donde se testeaba con el mismo criterio.</p>
+<p>Además, sabemos que el número real de personas con COVID-19 es probablemente mucho mayor que el número registrado de casos confirmados. Aun así, conocer el número de confirmados y su ritmo de crecimiento nos permite tomar mejores decisiones para frenar la pandemia.</p>
+</div>
     </div>
 
     

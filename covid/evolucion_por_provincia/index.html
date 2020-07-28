@@ -385,7 +385,7 @@ var coloreaCategorias = d3.scaleOrdinal()
 	}
 	
 	text.nombreProvincias{
-		font-size: 11px;
+		font-size: 10px;
 	}
 
 
@@ -428,7 +428,12 @@ var coloreaCategorias = d3.scaleOrdinal()
 	#contenedorGrafico.sticky{
 			margin-bottom: 191px;
 		}
-     
+    .pcias{
+		background: #ffc20e21;
+		padding: 3px 7px;
+		line-height: 1.6em;
+		border-radius: 5px;
+	}
 	 
     @media only screen and (min-width: 768px) {
       
@@ -480,6 +485,8 @@ var coloreaCategorias = d3.scaleOrdinal()
                     Para saber cómo va el ritmo de cada provincia, tenemos que mirar la inclinación de las partes <a href="/covid/el_ritmo_de_la_pandemia/"> rectas de cada curva</a>, por ejemplo en los últimos días.
 					<br/><br/>
 					Esa inclinación nos da el tiempo de duplicación de casos, que no es el mismo en todos los lugares.
+					<br/><br/>
+					El tiempo de duplicación es un criterio para definir <a href="https://www.argentina.gob.ar/coronavirus/aislamiento/fases" target="_blank" rel="noopener">las fases del aislamiento social</a>
                 </p>
             </div>
             <div class='step' data-index='4'>
@@ -520,26 +527,19 @@ var coloreaCategorias = d3.scaleOrdinal()
 
 			<div class='step' data-index='9'>
                 <p>
-					...o también están aquellas que, directamente, no tienen casos nuevos
+					...o también están aquellas que, directamente, no tienen casos nuevos.
 					<span class="pcias"></span>
 				</p>
 			</div>
 
 			<div class='step' data-index='10'>
                 <p>
-					Separar el todo en sus partes es muy importante para tomar decisiones, especialmente cuando el comportamiento de las partes difiere entre sí.
+					Separar el <b>todo</b> en sus <b>partes</b> es muy importante para tomar decisiones, especialmente cuando el comportamiento de las partes difiere entre sí.
 					<br/><br/>
-					En algunos lugares fue y es posible flexibilizar las medidas de aislamiento social antes que en otros. Pero, más importante aún,  ¡la evolución local de la pandemia puede ir cambiando! Y, por lo tanto, las medidas también.
+					Y con las ciudades, ¿será igual? Exactamente; de la misma forma que separamos en partes por provincias, también podríamos hacerlo con ciudades.
                 </p>
 			</div>
 			
-			<div class='step' data-index='11'>
-				<p> 
-					Y con las ciudades, ¿será igual? Exactamente; de la misma forma que separamos en partes por provincias, también podríamos hacerlo con ciudades.
-					<br/><br/> Por ahora, no te olvides de seguir el ritmo de la pandemia en tu provincia.
-	
-				</p>
-			</div>
 			
 			
         </article>
@@ -616,7 +616,7 @@ var ejeY, ejeX, tituloY, minDate, maxDate, line, linePais;
 var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maximo
 
 var svg = d3.select("#contenedorGrafico").append("svg"),
-	marginTexto = isMobile ? 30:75,
+	marginTexto = isMobile ? 35:75,
     margin = isMobile ? {top: 35, right: 20, bottom: 25, left: 20} : {top: 50, right: 30, bottom: 50, left: 30},
     width =  +d3.select('#contenedorGrafico').style('width').slice(0, -2),
     height = +d3.select('#contenedorGrafico').style('height').slice(0, -2);
@@ -670,6 +670,14 @@ var clip = grafico.append("defs").append("svg:clipPath")
 	.y(d => yLog(d.casos_tot))
 	;
 
+	var tituloGrafico = 
+        ["Número total de casos confirmados en cada distrito"
+       ];
+        tituloGrafico = isMobile?
+        ["Total de casos confirmados por distrito"
+        ]
+		: tituloGrafico;
+		
 
     var data = files[0] // datos principales;
 
@@ -737,7 +745,7 @@ var clip = grafico.append("defs").append("svg:clipPath")
     tituloY = ejeY.append("text")
         .attr("class", "axis-title")
         .attr("y", -8)
-        .text("Casos (logarítmico)");
+        .text(tituloGrafico[0]);
 
 
     grafico.append("path") // Linea DE DATOS PAIS
@@ -851,7 +859,7 @@ var clip = grafico.append("defs").append("svg:clipPath")
 
 function scrollyTelling(step){
 
-	var opacidadProvinciaApagada = 0.2;
+	var opacidadProvinciaApagada = 0.3;
 
    switch (step) {
 		case 2: // muestra por provincia
@@ -1003,6 +1011,10 @@ function relax(dataInterna, spacing) {
 
 </script>
 
+
+<div class="note info"><p>En algunos lugares fue y es posible flexibilizar las medidas de aislamiento social antes que en otros. Pero, más importante aún,  ¡la evolución local de la pandemia puede ir cambiando! Y, por lo tanto, las medidas también. </p>
+<p>Por ahora, no te olvides de seguir el ritmo de la pandemia en tu provincia.</p>
+</div>
     </div>
 
     
