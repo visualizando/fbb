@@ -1892,6 +1892,9 @@ pre code {
   top: 1.25em;
   width: 4px;
 }
+.post-footer {
+  margin-top: 140px;
+}
 .post-eof {
   background: #ccc;
   height: 1px;
@@ -2742,7 +2745,7 @@ hr {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #afffcc;
+  background: #3b47e7;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);

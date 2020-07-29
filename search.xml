@@ -912,7 +912,7 @@ var svg = d3.selectAll(".contenedorGrafico").append("svg"),
     tituloY = ejeY.append("text")
         .attr("class", "axis-title")
         .attr("y", -8)
-        .text("Número de casos diarios confirmados en Argentina");
+        .text("Casos diarios confirmados");
 
 
 	
@@ -1798,7 +1798,7 @@ function relax(dataInterna, spacing) {
 
     .axis-title {
       fill: #222;
-        font-size: 16px;
+        font-size: 14px;
         text-anchor: start;
     }
     
@@ -1835,6 +1835,11 @@ function relax(dataInterna, spacing) {
     text.nombreserie{
         font-size: 11px;
         text-anchor: end;
+        paint-order: stroke;
+        stroke: #f1f1f1;
+        stroke-width: 5px;
+        stroke-linecap: butt;
+        stroke-linejoin: round;
 	}
 
 
@@ -1938,7 +1943,7 @@ function relax(dataInterna, spacing) {
 
             <div class='step' data-index='8'>
                 <p>
-                    Y más crítico aún es que los casos activos internados Internados en UTI estén por debajo de la línea de camas disponibles de UTI. 
+                    Y más crítico aún es que los casos activos internados en UTI estén por debajo de la línea de camas disponibles de UTI. 
                     <br/><br/>
                     Este es el escenario a nivel nacional. Si hay  brotes locales, el techo es el número de cama UTI de ese lugar. Y por eso, la situación en cada lugar puede ser distinta.
                 </p>
@@ -2034,6 +2039,19 @@ d3.select("#contenedorGrafico").append("div").attr("class","epigrafe")
     height = height - margin.top - margin.bottom;
     width = width - margin.left - margin.right;
     
+
+    
+	var tituloGrafico = 
+        ["Casos activos, internados UTI y camas UT", "Camas UTI a lo largo del tiempo", "Total de casos confirmados (Arg)",
+        "Totales, Activos y Fallecidos + recuperados (Arg)", "Casos activos (Arg)", "Activos, internados UTI y camas UTI (Arg)"
+       ];
+    
+       tituloGrafico = isMobile?
+        ["Activos, internados UTI y camas UT", "Camas UTI a lo largo del tiempo", "Total de casos confirmados",
+        "Totales, Activos y Fallecidos + recuperados", "Casos activos (Arg)", "Activos, internados UTI y camas UTI"
+       ]: tituloGrafico;
+        
+        
 
 var parseTime = d3.timeParse("%Y-%m-%d");
 
@@ -2132,7 +2150,7 @@ var data = files[0] // datos principales;
     tituloY = ejeY.append("text")
         .attr("class", "axis-title")
         .attr("y", -8)
-        .text("Casos (logarítmico)");
+        .text(tituloGrafico[0]);
 
         grafico.append("g").attr("id","series")
                 .selectAll("path") // AGREGA LAS LINEAS
@@ -2182,6 +2200,8 @@ var data = files[0] // datos principales;
 
                         switch (step) {
                             case 0: // muestra activos y UTI y camas
+                            tituloY.text(tituloGrafico[0])
+
                                 y.domain([1,d3.max(data, d=> d.casos_tot)+20000]);
                                     cambiaTipo("log")        
                                 break;
@@ -2190,11 +2210,12 @@ var data = files[0] // datos principales;
                                 y.domain([1,d3.max(data, d=> d.casos_activos_Arg)+5000]);
                                 cambiaTipo("linear")        
                                 d3.select("#flechita").transition().duration(600).style("opacity",0)
-                                         
+                                tituloY.text(tituloGrafico[1])
                                 break;
                                 
 
                             case 2:
+                            tituloY.text(tituloGrafico[1])
                             y.domain([1,d3.max(data, d=> d.casos_activos_Arg)+5000]);
                                 d3.selectAll(".prov").transition().duration(400)
                                         .style("opacity",d=>{
@@ -2209,6 +2230,7 @@ var data = files[0] // datos principales;
                                 break;
 
                              case 3: // muestra pais
+                             tituloY.text(tituloGrafico[2])
                                 y.domain([1,d3.max(data, d=> d.casos_tot)+20000]);
                                d3.select("#flechita").transition().duration(600).style("opacity",0)
                                d3.selectAll(".prov").transition().duration(400)
@@ -2221,6 +2243,7 @@ var data = files[0] // datos principales;
                             case 4: // muestra activos totales y Recuperados + fallecidos
                             case 5:
                             case 6:
+                            tituloY.text(tituloGrafico[3])
                               d3.selectAll(".prov").transition().duration(400)
                                         .style("opacity",d=>{
                                             if(d.name=="Total") return 1;
@@ -2231,6 +2254,7 @@ var data = files[0] // datos principales;
                                 break; 
 
                              case 7: // totales en log
+                             tituloY.text(tituloGrafico[4])
                                  d3.selectAll(".prov").transition().duration(400)
                                         .style("opacity",d=>{
                                             if(d.name=="Activos") return 1;
@@ -2239,6 +2263,7 @@ var data = files[0] // datos principales;
                                 break; 
                             
                             case 8: // resalta cambio en camas
+                            tituloY.text(tituloGrafico[0])
                               d3.selectAll(".prov").transition().duration(400)
                                         .style("opacity",d=>{
                                             if(d.name=="Activos") return 1;
@@ -2252,7 +2277,6 @@ var data = files[0] // datos principales;
         function cambiaTipo(tipo){
         if(tipo == "log"){
             ejeY.transition().duration(600).call(yLogAxis);
-            tituloY.text("(logarítmico)");
             line.y(function(d) { return yLog(d); });
 
             d3.selectAll(".prov.line")
@@ -2266,7 +2290,6 @@ var data = files[0] // datos principales;
             
         }else if (tipo == "linear"){
             ejeY.transition().duration(600).call(yAxis);
-            tituloY.text("(lineal)")
             line.y(function(d) { return y(d); });
             d3.selectAll(".prov.line")
                 .transition().duration(600)
