@@ -1166,10 +1166,7 @@ function ajustaMesesEjeX(g) {
 		margin-top: 11px;
 		font-size: smaller;
 	}
-  
-	#contenedorGrafico.sticky{
-			margin-bottom: 191px;
-		}
+
     .pcias{
 		background: #ffc20e21;
 		padding: 3px 7px;
@@ -1303,7 +1300,8 @@ function ajustaMesesEjeX(g) {
 Promise.all([
     d3.csv("https://datos.decodificar.org/E1_ritmoBis.csv"),
 	d3.csv("https://datos.decodificar.org/E1_ritmo.csv"),
-	d3.csv("https://datos.decodificar.org/E4_ritmo_prov.csv")
+	d3.csv("https://datos.decodificar.org/E4_ritmo_prov.csv"),
+	d3.csv("https://datos.decodificar.org/E4_Rango_Fecha.csv", d3.autoType)
 ]).then(function(files) {
 	
 
@@ -1359,11 +1357,11 @@ var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maxim
 
 var svg = d3.select("#contenedorGrafico").append("svg"),
 	marginTexto = isMobile ? 35:75,
-    margin = isMobile ? {top: 35, right: 20, bottom: 25, left: 20} : {top: 50, right: 30, bottom: 50, left: 30},
+    margin = isMobile ? {top: 35, right: 20, bottom: 15, left: 20} : {top: 50, right: 30, bottom: 25, left: 30},
     width =  +d3.select('#contenedorGrafico').style('width').slice(0, -2),
-    height = +d3.select('#contenedorGrafico').style('height').slice(0, -2);
+    height = +d3.select('#contenedorGrafico').style('height').slice(0, -2)-25;;
 
-	d3.selectAll(".contenedorGrafico").append("div").attr("class","epigrafe")
+	d3.selectAll("#contenedorGrafico").append("div").attr("class","epigrafe")
             .html("www.decodificar.org - 28/7/20 - Fuente: reportes diarios del Ministerio de Salud de la Nación - Argentina");
 
 			
@@ -1426,6 +1424,10 @@ var clip = grafico.append("defs").append("svg:clipPath")
 	var duplicaciones = files[1] // funciones de duplicacion de casos;
 	
 	var dataProv = files[2] // datos provinciales;
+	
+	var rangosProv = files[3] // rangos de la primera curva;
+
+		rangosProv = rangosProv.map(d=>{return {"name":d.prov, "porcentaje":d.porcentaje/100}});
 
     data.forEach(function(d) {
       d.fecha = parseTime(d.fecha);
@@ -1446,6 +1448,7 @@ var clip = grafico.append("defs").append("svg:clipPath")
 		d.dup = isNaN(d.dup)? 1000 : +d.dup;
 	});
 	
+	console.log(rangosProv);
 	dataProv = d3.nest().key(d => d.prov).entries(dataProv)
 
 		minDate = parseTime("2020-03-01"); //fecha de inicio el primero de marzo para que aparezca marzo!
@@ -1627,7 +1630,8 @@ function scrollyTelling(step){
 		        break;
 
 		case 4: // muestra solo primera parte
-			d3.selectAll(".prov.line").transition().duration(600).attr("stroke-dashoffset",d=>d.totalLength*0.7)
+			d3.selectAll(".prov.line").transition().duration(600).attr("stroke-dashoffset",d=>{
+				return d.totalLength*(1-rangosProv.filter(r=>r.name==d.name)[0].porcentaje)})
 			.on("end", d=>apagaProvincias(0,2000))
 			break;
 			
@@ -1853,6 +1857,11 @@ function relax(dataInterna, spacing) {
         /* fill: #62BB46; */
         opacity: 0;
     }
+
+    .label.activos{
+        background: #F2652246;
+    }
+     
      
     @media only screen and (min-width: 768px) {
         #avisoDuplicacion {
@@ -1883,16 +1892,16 @@ function relax(dataInterna, spacing) {
             
             <div class='step' data-index='1'>
                 <p>
-                    Todo sistema de salud tiene una cierta capacidad que en esta pandemia está marcada, sobre todo, por la cantidad de camas disponibles (especialmente las camas de terapia intensiva o UTI). Sería interesante conocer el número total de camas del país, pero no es un dato disponible. Sí contamos con el número de camas de UTI, que es lo que vemos en este gráfico. 
+                    Todo sistema de salud tiene una cierta <b>capacidad</b> que en esta pandemia está marcada, sobre todo, por la cantidad de camas disponibles (especialmente las camas de terapia intensiva o UTI). Sería interesante conocer el número total de camas del país, pero no es un dato disponible. Sí contamos con el número de camas de UTI, que es lo que vemos en este gráfico. 
                     <br/><br/>
                     También hay otros factores a tener en cuenta como la cantidad de profesionales de la salud, distribución de los recursos, medicamentos, etc.
                 </p>
             </div>
             <div class='step' data-index='2'>
                 <p>
-                    Esta capacidad límite queda representada en el gráfico como un techo que nuestra curva nunca tiene que superar.
+                    Esta capacidad límite queda representada en el gráfico como un <b>techo</b> que nuestra curva nunca tiene que superar.
                     <br/><br/>
-                    Este techo puede modificarse con el tiempo si se adquieren respiradores, se montan nuevos hospitales, etc. Esto es lo que sucedió en nuestro país cuando se aumentaron las camas de UTI durante los primeros meses del Aislamiento Social Preventivo Obligatorio que 
+                    Este techo puede modificarse con el tiempo si se adquieren respiradores, se montan nuevos hospitales, etc. Esto es lo que sucedió en nuestro país cuando se aumentaron las camas de UTI durante los primeros meses del Aislamiento Social Preventivo Obligatorio. 
                 </p>
             </div>
             <div class='step' data-index='3'>
@@ -1902,9 +1911,9 @@ function relax(dataInterna, spacing) {
             </div>
             <div class='step' data-index='4'>
                 <p>
-                    … sabemos que algunas de esas personas ya están recuperadas y otras fallecieron. (se pinta la línea verde, fallecidos + recuperados). Estas ya no ocuparán camas de hospitales ni necesitarán respiradores (y además ya no transmiten el virus).
+                    … sabemos que algunas de esas personas ya están recuperadas y otras fallecieron. Estas ya no ocuparán camas de hospitales ni necesitarán respiradores (y además ya no transmiten el virus).
                     <br/><br/>
-                Las que quedan son las personas que tienen COVID-19 en el presente: los casos activos.
+                Las que quedan son las personas que tienen COVID-19 en el presente: <mark class="label activos">los casos activos</mark>.
                 </p>
             </div>
             <div class='step' data-index='5'>
@@ -1922,7 +1931,7 @@ function relax(dataInterna, spacing) {
 
             <div class='step' data-index='7'>
                 <p>
-                    Entonces, si las personas que ya están curadas o fallecieron no van a usar camas, y si el número de camas marca el límite del sistema de salud, el número de casos activos debe estar siempre debajo de las camas totales. Por eso, la curva que queremos achatar es en realidad la de los casos activos (que te mostramos acá). 
+                    Entonces, si las personas que ya están curadas o fallecieron no van a usar camas, y si el número de camas marca el límite del sistema de salud, el número de casos activos debe estar siempre debajo de las camas totales. Por eso, <b>la curva que queremos achatar</b> es en realidad la de <mark class="label activos">los casos activos</mark> (que te mostramos acá). 
                 </p>
             </div>
 
@@ -1950,7 +1959,7 @@ function relax(dataInterna, spacing) {
 //********************* CARGA DATOS ************
 
 Promise.all([
-    d3.csv("https://datos.decodificar.org/I2_achatar_curva.csv")
+    d3.csv("https://datos.decodificar.org/I2_achatar_curva.csv"),
 ]).then(function(files) {
 
 
@@ -2327,7 +2336,7 @@ function relax(dataInterna, spacing) {
 
 <p>Para nuestro sistema de salud, o el de cualquier otro país, es muy importante que la curva se achate lo más posible para que nunca llegue a su límite.</p>
 <p>Basándonos en la experiencia de otros países, mirá lo que probablemente habría ocurrido si no se hubiesen tomado medidas de contención/mitigación.<br><img src="/images/CurvaAnimada.gif" alt="Image of Yaktocat"></p>
-<div class="note info"><p>Achatar la curva implica que, además de tener un pico más bajo, tengamos un pico más tardío.</p>
+<div class="note info"><p>Achatar la curva implica que, además de tener un pico más bajo, tengamos un pico más <strong>tardío</strong>.</p>
 <p>Eso nos da más tiempo para mejorar los servicios de salud (comprar más respiradores, por ejemplo) e implementar políticas como el rastreo de contactos. Pero también hace que la evolución de la pandemia se alargue en el tiempo.</p>
 <p>Entender la evolución de la pandemia y qué efecto tienen las medidas nos ayuda a decidir qué camino tomar.</p>
 </div>

@@ -446,6 +446,11 @@ var coloreaCategorias = d3.scaleOrdinal()
         /* fill: #62BB46; */
         opacity: 0;
     }
+
+    .label.activos{
+        background: #F2652246;
+    }
+     
      
     @media only screen and (min-width: 768px) {
         #avisoDuplicacion {
@@ -476,16 +481,16 @@ var coloreaCategorias = d3.scaleOrdinal()
             
             <div class='step' data-index='1'>
                 <p>
-                    Todo sistema de salud tiene una cierta capacidad que en esta pandemia está marcada, sobre todo, por la cantidad de camas disponibles (especialmente las camas de terapia intensiva o UTI). Sería interesante conocer el número total de camas del país, pero no es un dato disponible. Sí contamos con el número de camas de UTI, que es lo que vemos en este gráfico. 
+                    Todo sistema de salud tiene una cierta <b>capacidad</b> que en esta pandemia está marcada, sobre todo, por la cantidad de camas disponibles (especialmente las camas de terapia intensiva o UTI). Sería interesante conocer el número total de camas del país, pero no es un dato disponible. Sí contamos con el número de camas de UTI, que es lo que vemos en este gráfico. 
                     <br/><br/>
                     También hay otros factores a tener en cuenta como la cantidad de profesionales de la salud, distribución de los recursos, medicamentos, etc.
                 </p>
             </div>
             <div class='step' data-index='2'>
                 <p>
-                    Esta capacidad límite queda representada en el gráfico como un techo que nuestra curva nunca tiene que superar.
+                    Esta capacidad límite queda representada en el gráfico como un <b>techo</b> que nuestra curva nunca tiene que superar.
                     <br/><br/>
-                    Este techo puede modificarse con el tiempo si se adquieren respiradores, se montan nuevos hospitales, etc. Esto es lo que sucedió en nuestro país cuando se aumentaron las camas de UTI durante los primeros meses del Aislamiento Social Preventivo Obligatorio que 
+                    Este techo puede modificarse con el tiempo si se adquieren respiradores, se montan nuevos hospitales, etc. Esto es lo que sucedió en nuestro país cuando se aumentaron las camas de UTI durante los primeros meses del Aislamiento Social Preventivo Obligatorio. 
                 </p>
             </div>
             <div class='step' data-index='3'>
@@ -495,9 +500,9 @@ var coloreaCategorias = d3.scaleOrdinal()
             </div>
             <div class='step' data-index='4'>
                 <p>
-                    … sabemos que algunas de esas personas ya están recuperadas y otras fallecieron. (se pinta la línea verde, fallecidos + recuperados). Estas ya no ocuparán camas de hospitales ni necesitarán respiradores (y además ya no transmiten el virus).
+                    … sabemos que algunas de esas personas ya están recuperadas y otras fallecieron. Estas ya no ocuparán camas de hospitales ni necesitarán respiradores (y además ya no transmiten el virus).
                     <br/><br/>
-                Las que quedan son las personas que tienen COVID-19 en el presente: los casos activos.
+                Las que quedan son las personas que tienen COVID-19 en el presente: <mark class="label activos">los casos activos</mark>.
                 </p>
             </div>
             <div class='step' data-index='5'>
@@ -515,7 +520,7 @@ var coloreaCategorias = d3.scaleOrdinal()
 
             <div class='step' data-index='7'>
                 <p>
-                    Entonces, si las personas que ya están curadas o fallecieron no van a usar camas, y si el número de camas marca el límite del sistema de salud, el número de casos activos debe estar siempre debajo de las camas totales. Por eso, la curva que queremos achatar es en realidad la de los casos activos (que te mostramos acá). 
+                    Entonces, si las personas que ya están curadas o fallecieron no van a usar camas, y si el número de camas marca el límite del sistema de salud, el número de casos activos debe estar siempre debajo de las camas totales. Por eso, <b>la curva que queremos achatar</b> es en realidad la de <mark class="label activos">los casos activos</mark> (que te mostramos acá). 
                 </p>
             </div>
 
@@ -543,7 +548,7 @@ var coloreaCategorias = d3.scaleOrdinal()
 //********************* CARGA DATOS ************
 
 Promise.all([
-    d3.csv("https://datos.decodificar.org/I2_achatar_curva.csv")
+    d3.csv("https://datos.decodificar.org/I2_achatar_curva.csv"),
 ]).then(function(files) {
 
 
@@ -920,7 +925,7 @@ function relax(dataInterna, spacing) {
 
 <p>Para nuestro sistema de salud, o el de cualquier otro país, es muy importante que la curva se achate lo más posible para que nunca llegue a su límite.</p>
 <p>Basándonos en la experiencia de otros países, mirá lo que probablemente habría ocurrido si no se hubiesen tomado medidas de contención/mitigación.<br><img src="/images/CurvaAnimada.gif" alt="Image of Yaktocat"></p>
-<div class="note info"><p>Achatar la curva implica que, además de tener un pico más bajo, tengamos un pico más tardío.</p>
+<div class="note info"><p>Achatar la curva implica que, además de tener un pico más bajo, tengamos un pico más <strong>tardío</strong>.</p>
 <p>Eso nos da más tiempo para mejorar los servicios de salud (comprar más respiradores, por ejemplo) e implementar políticas como el rastreo de contactos. Pero también hace que la evolución de la pandemia se alargue en el tiempo.</p>
 <p>Entender la evolución de la pandemia y qué efecto tienen las medidas nos ayuda a decidir qué camino tomar.</p>
 </div>
