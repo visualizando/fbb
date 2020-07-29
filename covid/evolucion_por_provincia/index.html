@@ -851,7 +851,7 @@ var clip = grafico.append("defs").append("svg:clipPath")
 			
 			}
 				d3.select(this)
-						.html(nombres.length?"Al <b>" + d3.timeFormat("%d de %B")(maxDate) +  "</b> son:<br> " + nombres.join(', '):"Al <b>" + d3.timeFormat("%d de %B")(maxDate) +  "</b> no hay ninguna.")
+						.html(nombres.length?"Al <b>" + d3.timeFormat("%d de %B")(maxDate) +  "</b> son:<br> " + nombres.join(', ')+".":"Al <b>" + d3.timeFormat("%d de %B")(maxDate) +  "</b> no hay ninguna.")
 				
 			});
                 

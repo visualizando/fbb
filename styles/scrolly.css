@@ -48,7 +48,12 @@
             font-weight: 100
                 }
 
-        
+        .step mark.label{
+                color: white;
+                font-weight: 100;
+                padding: 1px;
+            }
+                
         @media only screen and (min-width: 768px) {
             .scrolly .step p, .scrolly .stepFijo p{
                 margin-left: auto;
