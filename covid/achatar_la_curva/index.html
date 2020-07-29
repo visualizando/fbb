@@ -288,10 +288,6 @@ var coloreaCategorias = d3.scaleOrdinal()
       </header>
 
       
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
   <div class="reading-progress-bar"></div>
 
 <noscript>
@@ -553,9 +549,15 @@ var coloreaCategorias = d3.scaleOrdinal()
 
 //********************* CARGA DATOS ************
 
+
+
 Promise.all([
     d3.csv("https://datos.decodificar.org/I2_achatar_curva.csv"),
+    d3.csv("https://datos.decodificar.org/metaData_tablas.csv")
 ]).then(function(files) {
+
+    var epigrafeData = files[1].filter(d=>d.file=="I2_achatar_curva.csv")[0];
+        epigrafeData.fecha = d3.timeFormat("%-d/%b/%Y")(d3.timeParse("%Y-%m-%d")(epigrafeData.fecha));
 
 
     // **** CODIGO DEL SCROLLY *******
@@ -615,7 +617,7 @@ var svg = d3.select("#contenedorGrafico").append("svg"),
     height = +d3.select('#contenedorGrafico').style('height').slice(0, -2)-25;
 
 d3.select("#contenedorGrafico").append("div").attr("class","epigrafe")
-            .html("www.decodificar.org - 28/7/20 - Fuente: reportes diarios del Ministerio de Salud de la Nación - Argentina");
+            .html("www.decodificar.org - "+epigrafeData.fecha+" - Fuente: "+ epigrafeData.fuente);
 
 
     if (height > altoMaximo*width) {
@@ -764,7 +766,7 @@ var data = files[0] // datos principales;
 				.join("text")
 					.attr("x",d=>x(dataParaGrafico.dates[d.values.length-1]))
 					.attr("y",d=>yLog(d.labelY))
-					.attr("dy", "-3px")
+					.attr("dy", "-4px")
 					.attr("dx", "-3px")
 					.style("fill", d=>colores(d.name))
                     .attr("class", "prov nombreserie")

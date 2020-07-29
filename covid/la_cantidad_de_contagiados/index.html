@@ -285,10 +285,6 @@ var coloreaCategorias = d3.scaleOrdinal()
       </header>
 
       
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
   <div class="reading-progress-bar"></div>
 
 <noscript>
@@ -448,9 +444,7 @@ var coloreaCategorias = d3.scaleOrdinal()
         <article>
             <div class='step' data-index='0'>
 				<p>Este es otro de los gráficos que posiblemente más veces hayas visto desde que empezó el aislamiento social: el número de nuevos casos que detectamos cada día.
-				</p>
-	
-				<p>
+                    <br/><br/>
                     Ahora bien, ¿ese número refleja la cantidad real de personas con COVID-19?<br />
                     La respuesta es...                    
                 </p>
@@ -539,9 +533,12 @@ var coloreaCategorias = d3.scaleOrdinal()
 	//********************* CARGA DATOS ************
 
 Promise.all([
-	d3.csv("https://datos.decodificar.org/E3_contagiados_total.csv"),
+    d3.csv("https://datos.decodificar.org/E3_contagiados_total.csv"),
+    d3.csv("https://datos.decodificar.org/metaData_tablas.csv")
+
 ]).then(function(files) {
-	
+    var epigrafeData = files[1].filter(d=>d.file=="E3_contagiados_total.csv")[0];
+        epigrafeData.fecha = d3.timeFormat("%-d/%b/%Y")(d3.timeParse("%Y-%m-%d")(epigrafeData.fecha));
 
 
 
@@ -597,18 +594,19 @@ var ejeY, ejeX, tituloY, minDate, maxDate;
 var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maximo
 
 var svg = d3.selectAll(".contenedorGrafico").append("svg"),
-    margin = isMobile ? {top: 35, right: 20, bottom: 25, left: 20} : {top: 50, right: 30, bottom: 50, left: 30},
+    margin = isMobile ? {top: 35, right: 20, bottom: 15, left: 20} : {top: 50, right: 30, bottom: 25, left: 30},
     width =  +d3.select('#grafico1').style('width').slice(0, -2),
-    height = +d3.select('#grafico1').style('height').slice(0, -2);
+    height = +d3.select('#grafico1').style('height').slice(0, -2)-25;
 
-    d3.select("#contenedorGrafico").append("div").attr("class","epigrafe")
-            .html("www.decodificar.org - 28/7/20 - Fuente: reportes diarios del Ministerio de Salud de la Nación - Argentina");
-
+    d3.selectAll(".contenedorGrafico").append("div").attr("class","epigrafe")
+            .html("www.decodificar.org - "+epigrafeData.fecha+" - Fuente: "+ epigrafeData.fuente);
 
     if (height > altoMaximo*width) {
         svg.style('margin-top', (height - altoMaximo*width)/2 + "px")
         height = altoMaximo*width;
     }
+
+     var signodepregunta = "M202.021 0C122.202 0 70.503 32.703 29.914 91.026c-7.363 10.58-5.093 25.086 5.178 32.874l43.138 32.709c10.373 7.865 25.132 6.026 33.253-4.148 25.049-31.381 43.63-49.449 82.757-49.449 30.764 0 68.816 19.799 68.816 49.631 0 22.552-18.617 34.134-48.993 51.164-35.423 19.86-82.299 44.576-82.299 106.405V320c0 13.255 10.745 24 24 24h72.471c13.255 0 24-10.745 24-24v-5.773c0-42.86 125.268-44.645 125.268-160.627C377.504 66.256 286.902 0 202.021 0zM192 373.459c-38.196 0-69.271 31.075-69.271 69.271 0 38.195 31.075 69.27 69.271 69.27s69.271-31.075 69.271-69.271-31.075-69.27-69.271-69.27z"
 
     svg.attr("viewBox", [0, 0, width, height]);
 
@@ -703,7 +701,17 @@ var svg = d3.selectAll(".contenedorGrafico").append("svg"),
 			.attr("height", d => y(d[0]) - y(d[1]))
 			.attr("width",  (x(parseTime("2020-03-02"))-1)>1?(x(parseTime("2020-03-02"))-1):1)
 
-		;
+        ;
+        
+        var pregunta = gBarras.append("g").attr("id","signodepregunta").style("opacity",0)
+                        .attr("transform","translate("+width*0.8+","+height*0.2+")")
+                        .append("path")
+                        .attr("d", signodepregunta)
+                        .style("fill","#8B6BAF77")
+                        .attr("transform","scale(0.08)")
+                        ;
+
+
 
 
          var posiciones = [
@@ -763,6 +771,7 @@ function scrollyTelling(containerNumber,step){
 		switch (step) {
 			case 0:
                 y.domain([0,d3.max(data,d=>d.casos_diarios)]);
+                d3.select("#signodepregunta").transition().duration(300).style("opacity",0)
                 clearInterval(variaRandom)
 			break;
 
@@ -778,6 +787,7 @@ function scrollyTelling(containerNumber,step){
                         });
                     }, 305);
                 }, 300);
+                d3.select("#signodepregunta").transition().delay(300).duration(300).style("opacity",1)
 
             break;
 	    }
