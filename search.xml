@@ -1833,7 +1833,8 @@ function relax(dataInterna, spacing) {
     }
 
     text.nombreserie{
-		font-size: 11px;
+        font-size: 11px;
+        text-anchor: end;
 	}
 
 
@@ -1937,7 +1938,7 @@ function relax(dataInterna, spacing) {
 
             <div class='step' data-index='8'>
                 <p>
-                    Y más crítico aún es que los casos activos internados en UTI estén por debajo de la línea de camas disponibles de UTI. 
+                    Y más crítico aún es que los casos activos internados Internados en UTI estén por debajo de la línea de camas disponibles de UTI. 
                     <br/><br/>
                     Este es el escenario a nivel nacional. Si hay  brotes locales, el techo es el número de cama UTI de ese lugar. Y por eso, la situación en cada lugar puede ser distinta.
                 </p>
@@ -2005,7 +2006,7 @@ rojo #F04E53
 naranja #F26522
 verde #62BB46
 */
-colores.domain(["Total","Camas UTI","En UTI","Activos","No Activos"]);
+colores.domain(["Total","Camas UTI","Internados en UTI","Activos","Recuperados + fallecidos"]);
         
 var ejeY, tituloY;
 
@@ -2014,7 +2015,7 @@ var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maxim
 var flechita = 'M88 166.059V468c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12V166.059h46.059c21.382 0 32.09-25.851 16.971-40.971l-86.059-86.059c-9.373-9.373-24.569-9.373-33.941 0l-86.059 86.059c-15.119 15.119-4.411 40.971 16.971 40.971H88z';
 
 var svg = d3.select("#contenedorGrafico").append("svg"),
-	marginTexto = isMobile ? 30:45,
+	marginTexto = isMobile ? 0:0,
     margin = isMobile ? {top: 35, right: 20, bottom: 15, left: 20} : {top: 50, right: 30, bottom: 25, left: 30},
     width =  +d3.select('#contenedorGrafico').style('width').slice(0, -2),
     height = +d3.select('#contenedorGrafico').style('height').slice(0, -2)-25;
@@ -2071,12 +2072,20 @@ var data = files[0] // datos principales;
 
     var series = [
                     {"name":"Activos" , "values": data.map(r=>r.casos_activos_Arg)},
-                    {"name":"En UTI", "values": data.map(r=>r.casos_UTI_Arg)},
+                    {"name":"Internados en UTI", "values": data.map(r=>r.casos_UTI_Arg)},
                     {"name":"Total" , "values": data.map(r=>r.casos_tot)},
-                    {"name":"No Activos" , "values": data.map(r=>r.casos_recup_fall)},
+                    {"name":"Recuperados + fallecidos" , "values": data.map(r=>r.casos_recup_fall)},
                     {"name":"Camas UTI" , "values": data.map(r=>r.camas_UTIARG)}
                 ];
 
+                series.forEach(element => {
+                    console.log( );
+                    if (element.values[element.values.length-1] == 0){
+                        element.values[element.values.length-1] = element.values[element.values.length-2]
+                    }
+                    
+                 });
+        
 
     
 
@@ -2148,8 +2157,8 @@ var data = files[0] // datos principales;
 				.join("text")
 					.attr("x",d=>x(dataParaGrafico.dates[d.values.length-1]))
 					.attr("y",d=>yLog(d.labelY))
-					.attr("dy", "3px")
-					.attr("dx", "3px")
+					.attr("dy", "-3px")
+					.attr("dx", "-3px")
 					.style("fill", d=>colores(d.name))
                     .attr("class", "prov nombreserie")
                     .style("opacity",(d,i)=>i<2||i==4?1:0)
@@ -2190,7 +2199,7 @@ var data = files[0] // datos principales;
                                 d3.selectAll(".prov").transition().duration(400)
                                         .style("opacity",d=>{
                                             if(d.name=="Activos") return 1;
-                                            if(d.name=="En UTI") return 1;
+                                            if(d.name=="Internados en UTI") return 1;
                                             if(d.name=="Camas UTI") return 1;
                                             return 0;
                                         }).on("end", d=>cambiaTipo("linear"))   
@@ -2209,14 +2218,14 @@ var data = files[0] // datos principales;
                                         }).on("end", d=>cambiaTipo("linear"))          
                                 break;
                            
-                            case 4: // muestra activos totales y no activos
+                            case 4: // muestra activos totales y Recuperados + fallecidos
                             case 5:
                             case 6:
                               d3.selectAll(".prov").transition().duration(400)
                                         .style("opacity",d=>{
                                             if(d.name=="Total") return 1;
                                             if(d.name=="Activos") return 1;
-                                            if(d.name=="No Activos") return 1;
+                                            if(d.name=="Recuperados + fallecidos") return 1;
                                             return 0;
                                         }).on("end", d=>cambiaTipo("linear"))        
                                 break; 
@@ -2233,7 +2242,7 @@ var data = files[0] // datos principales;
                               d3.selectAll(".prov").transition().duration(400)
                                         .style("opacity",d=>{
                                             if(d.name=="Activos") return 1;
-                                            if(d.name=="En UTI") return 1;
+                                            if(d.name=="Internados en UTI") return 1;
                                             if(d.name=="Camas UTI") return 1;
                                             return 0;
                                         })    
