@@ -2118,12 +2118,12 @@ d3.select("#contenedorGrafico").append("div").attr("class","epigrafe")
 
     
 	var tituloGrafico = 
-        ["Casos activos, internados UTI y camas UT", "Camas UTI a lo largo del tiempo", "Total de casos confirmados (Arg)",
+        ["Activos, internados UTI y camas UTI (Arg)",  "Total de casos confirmados (Arg)",
         "Totales, Activos y Fallecidos + recuperados (Arg)", "Casos activos (Arg)", "Activos, internados UTI y camas UTI (Arg)"
        ];
     
        tituloGrafico = isMobile?
-        ["Activos, internados UTI y camas UT", "Camas UTI a lo largo del tiempo", "Total de casos confirmados",
+        ["Activos, internados UTI y camas UTI (Arg)", "Total de casos confirmados (Arg)",
         "Totales, Activos y Fallecidos + recuperados", "Casos activos (Arg)", "Activos, internados UTI y camas UTI"
        ]: tituloGrafico;
         
@@ -2286,12 +2286,12 @@ var data = files[0] // datos principales;
                                 y.domain([1,d3.max(data, d=> d.casos_activos_Arg)+5000]);
                                 cambiaTipo("linear")        
                                 d3.select("#flechita").transition().duration(600).style("opacity",0)
-                                tituloY.text(tituloGrafico[1])
+                                tituloY.text(tituloGrafico[0])
                                 break;
                                 
 
                             case 2:
-                            tituloY.text(tituloGrafico[1])
+                            tituloY.text(tituloGrafico[0])
                             y.domain([1,d3.max(data, d=> d.casos_activos_Arg)+5000]);
                                 d3.selectAll(".prov").transition().duration(400)
                                         .style("opacity",d=>{
@@ -2306,7 +2306,7 @@ var data = files[0] // datos principales;
                                 break;
 
                              case 3: // muestra pais
-                             tituloY.text(tituloGrafico[2])
+                             tituloY.text(tituloGrafico[1])
                                 y.domain([1,d3.max(data, d=> d.casos_tot)+20000]);
                                d3.select("#flechita").transition().duration(600).style("opacity",0)
                                d3.selectAll(".prov").transition().duration(400)
@@ -2319,7 +2319,7 @@ var data = files[0] // datos principales;
                             case 4: // muestra activos totales y Recuperados + fallecidos
                             case 5:
                             case 6:
-                            tituloY.text(tituloGrafico[3])
+                            tituloY.text(tituloGrafico[2])
                               d3.selectAll(".prov").transition().duration(400)
                                         .style("opacity",d=>{
                                             if(d.name=="Total") return 1;
@@ -2330,7 +2330,7 @@ var data = files[0] // datos principales;
                                 break; 
 
                              case 7: // totales en log
-                             tituloY.text(tituloGrafico[4])
+                             tituloY.text(tituloGrafico[3])
                                  d3.selectAll(".prov").transition().duration(400)
                                         .style("opacity",d=>{
                                             if(d.name=="Activos") return 1;

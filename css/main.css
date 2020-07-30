@@ -1002,6 +1002,7 @@ pre code {
     margin-bottom: 5px;
     display: block;
     text-align: center;
+    top: 0px;
   }
 }
 .post-body .note.default {
@@ -2124,7 +2125,7 @@ pre code {
   font-size: 0.9em;
   line-height: 1.5em;
   margin-top: 2px;
-  margin: 3px 5px 60px 0;
+  margin: 3px 5px 15px 0;
   margin-top: 2px;
 }
 @media (max-width: 767px) {
@@ -2632,7 +2633,7 @@ hr {
 @media (max-width: 767px) {
   .menu .menu-item a,
   .menu .menu-item span.exturl {
-    text-align: left;
+    text-align: right;
   }
 }
 .menu .menu-item .badge {
@@ -2671,6 +2672,23 @@ hr {
     text-align: center;
   }
 }
+.posts-expand .compartir {
+  font-size: 0.7em;
+  color: #999;
+  margin-bottom: 45px;
+}
+.posts-expand .compartir a {
+  text-decoration: none;
+  border: none;
+  color: #999;
+  padding: 2px 25px;
+  border-radius: 3px;
+  background: #efefef;
+}
+.posts-expand .compartir a:hover {
+  background: #fff;
+  color: #414141;
+}
 .posts-expand .post-tags {
   text-align: left;
 }
@@ -2689,10 +2707,16 @@ hr {
   margin-top: 20px;
   text-align: left;
 }
+@media (max-width: 767px) {
+  .post-button {
+    text-align: center;
+  }
+}
 .post-button .btn {
   background: none;
   border: 0;
-  border-bottom: 2px solid var(--btn-default-border-color);
+/*     border-bottom: 2px solid var(--btn-default-border-color);
+ */
   padding: 0;
   transition-property: border;
 }
@@ -2776,7 +2800,7 @@ hr {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #7a9146;
+  background: #e26f8a;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);

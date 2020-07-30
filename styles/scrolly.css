@@ -20,12 +20,17 @@
             margin-bottom: 120px;
         }
     
+
+        .scrolly article{
+            transform: translate3d(0,0,0);
+            z-index: 3;
+        }
+
         .scrolly .step{
             width: 90%;
             margin:auto;
             height: 110vh;
             z-index: 100;
-
         }
     
         .scrolly .step p, .scrolly .stepFijo p{
