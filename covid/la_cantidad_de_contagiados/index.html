@@ -114,7 +114,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
+<body itemscope  class="white" itemtype="http://schema.org/WebPage">
       <script>
       var es_ES = {
         "decimal": ",",
@@ -135,59 +135,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     d3.formatDefaultLocale(es_ES);
 
     var isMobile = document.getElementsByTagName("body")[0].clientWidth < 768 ? 1 : 0; 
-    
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    var nombresPcias = {
+  var nombresPcias = {
             "CABA":["CABA","CABA"],
             "Buenos_Aires":["Buenos Aires","PBA"],
             "Catamarca":["Catamarca","CAT"],
@@ -303,7 +252,8 @@ var coloreaCategorias = d3.scaleOrdinal()
     
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="es">
+      
+ <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="es">
     <link itemprop="mainEntityOfPage" href="https://decodificar.org/covid/la_cantidad_de_contagiados/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -335,10 +285,13 @@ var coloreaCategorias = d3.scaleOrdinal()
           ¿Cuántos contagiados hay realmente?
         </h1>
             <div class="post-description">El número de nuevos casos confirmados de COVID-19 inunda pantallas y portadas de diarios en todo el mundo, y lo esperamos cada día con las noticias. ¿Cuál es el número real de personas que tienen la enfermedad?</div>
+
+           
                       <div class="compartir">Compartir:
                         <a  href="https://www.facebook.com/sharer/sharer.php?u=https://decodificar.org/covid/la_cantidad_de_contagiados/&quote=¿Cuántos contagiados hay realmente?" target="_blank" title="Share on Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURI(https://decodificar.org/covid/la_cantidad_de_contagiados/) + '&quote=' + encodeURI(¿Cuántos contagiados hay realmente?); return false;"><i class="fab fa-facebook" aria-hidden="true"></i></a>
                         <a href="https://twitter.com/intent/tweet?text=¿Cuántos contagiados hay realmente?%20&url=https://decodificar.org/covid/la_cantidad_de_contagiados/" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURI(¿Cuántos contagiados hay realmente?) + '&url='+ encodeURI(https://decodificar.org/covid/la_cantidad_de_contagiados/) ; return false;"><i class="fab fa-twitter" aria-hidden="true"></i></a>
                       </div>
+           
 
       </header>
 
@@ -443,6 +396,11 @@ var coloreaCategorias = d3.scaleOrdinal()
         background: #5badd4;
 
     }
+
+    .label.violeta{
+        background: #8B6BAF;
+
+    }
      
     
 /* COLORES
@@ -513,7 +471,7 @@ verde #62BB46
                 <p>
 					Acá entra la <a href="https://www.argentina.gob.ar/salud/coronavirus-COVID-19/definicion-de-caso" target="_blank">definición de caso sospechoso</a>: a quiénes decidimos testear.
                     <br/><br/>
-                Lo más común es que se testee a <mark class="label naranja">personas con ciertos síntomas relevantes</mark> (fiebre, tos, pérdida del olfato, etc.) o <mark class="label naranja">que estén en riesgo claro de contagio</mark> (viaje al exterior, contactos estrechos con casos positivos, personal de salud, etc.).
+                Lo más común es que se testee a <mark class="label violeta">personas con ciertos síntomas relevantes</mark> (fiebre, tos, pérdida del olfato, etc.) o <mark class="label violeta">que estén en riesgo claro de contagio</mark> (viaje al exterior, contactos estrechos con casos positivos, personal de salud, etc.).
                 <br/><br/>
                     Además, como muchas personas con COVID-19 tienen algunos  síntomas pero no suficientes para ser testeadas (según la definición de caso sospechoso en ese momento), habrá algunas personas que nunca testearemos.
                     </p>
@@ -529,7 +487,7 @@ verde #62BB46
             </div>
 			<div class='step' data-index='3'>
                 <p>
-					La respuesta también es no. Hay muchas personas que tienen COVID-19 pero no tienen síntomas: los famosos <mark class="label celeste">casos asintomáticos</mark>
+					La respuesta también es no. Hay muchas personas que tienen COVID-19 pero no tienen síntomas: los famosos <mark class="label celeste">casos asintomáticos.</mark>
                     <br/><br/>
 					Como no cumplen con la definición de caso sospechoso, estas personas no son testeadas y por lo tanto no forman parte del número de casos diarios confirmados, aunque realmente tengan o hayan tenido COVID-19.
                     <br/><br/>
@@ -544,7 +502,7 @@ verde #62BB46
                     <br/><br/>
                     Por ejemplo, en el inicio de la pandemia una persona que había perdido el olfato y tenía tos no era testeada. Pero, después del 8 de junio, sí.
                     <br/><br/>
-                    Esta persona no aparecía en nuestro gráfico inicial de casos confirmados y <mark class="label naranja">ahora sí.</mark>
+                    Esta persona no aparecía en nuestro gráfico inicial de casos sospechosos y <mark class="label violeta">ahora sí.</mark>
 				</p>
 			</div>
 			
@@ -755,10 +713,10 @@ var svg = d3.selectAll(".contenedorGrafico").append("svg"),
                             i<n*0.15?posiciones[1]:posiciones[2],
                             ];
                     var color = ["#62BB46",
-                            i<n*0.3?"#F26522":"#62BB46",
+                            i<n*0.3?"#8B6BAF":"#62BB46",
                             i<n*0.15?"#F26522":"#62BB46",
                             i<n*0.15?"#F26522":i>n*0.8?"#5badd4":"#62BB46",
-                            i<n*0.25?"#F26522":i>n*0.8?"#5badd4":"#62BB46",
+                            i<n*0.15?"#F26522":i<n*0.25?"#8B6BAF":i>n*0.8?"#5badd4":"#62BB46",
                             ];
                     return {"pos":pos, "color":color}}),
 				radius = 5;;
@@ -924,6 +882,10 @@ function ajustaMesesEjeX(g) {
 <p>Además, sabemos que el número real de personas con COVID-19 es probablemente mucho mayor que el número registrado de casos confirmados. Aun así, conocer el número de confirmados y su ritmo de crecimiento nos permite tomar mejores decisiones para frenar la pandemia.</p>
 </div>
     </div>
+                      <div class="compartir">Compartir:
+                        <a  href="https://www.facebook.com/sharer/sharer.php?u=https://decodificar.org/covid/la_cantidad_de_contagiados/&quote=¿Cuántos contagiados hay realmente?" target="_blank" title="Share on Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURI(https://decodificar.org/covid/la_cantidad_de_contagiados/) + '&quote=' + encodeURI(¿Cuántos contagiados hay realmente?); return false;"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+                        <a href="https://twitter.com/intent/tweet?text=¿Cuántos contagiados hay realmente?%20&url=https://decodificar.org/covid/la_cantidad_de_contagiados/" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURI(¿Cuántos contagiados hay realmente?) + '&url='+ encodeURI(https://decodificar.org/covid/la_cantidad_de_contagiados/) ; return false;"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                      </div>
 
     
     
