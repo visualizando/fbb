@@ -752,14 +752,14 @@ verde #62BB46
                 <p>
 					Acá entra la <a href="https://www.argentina.gob.ar/salud/coronavirus-COVID-19/definicion-de-caso" target="_blank">definición de caso sospechoso</a>: a quiénes decidimos testear.
                     <br/><br/>
-                Lo más común es que se testee a <mark class="label violeta">personas con ciertos síntomas relevantes</mark> (fiebre, tos, pérdida del olfato, etc.) o <mark class="label violeta">que estén en riesgo claro de contagio</mark> (viaje al exterior, contactos estrechos con casos positivos, personal de salud, etc.).
+                Lo más común es que se testee a <mark class="label naranja">personas con ciertos síntomas relevantes</mark> (fiebre, tos, pérdida del olfato, etc.) o <mark class="label naranja">que estén en riesgo claro de contagio</mark> (viaje al exterior, contactos estrechos con casos positivos, personal de salud, etc.).
                 <br/><br/>
                     Además, como muchas personas con COVID-19 tienen algunos  síntomas pero no suficientes para ser testeadas (según la definición de caso sospechoso en ese momento), habrá algunas personas que nunca testearemos.
                     </p>
             </div>
             <div class='step' data-index='2'>
                 <p>
-                    De las personas que testeamos por ser casos sospechosos, <mark class="label naranja">algunas son casos confirmados</mark> de COVID-19.
+                    De las personas que testeamos por ser casos sospechosos, <mark class="label violeta">algunas son casos confirmados</mark> de COVID-19.
                     <br/><br/>
                     Y muchas otras de esas personas dan negativo al test.
                     <br/><br/>
@@ -783,7 +783,7 @@ verde #62BB46
                     <br/><br/>
                     Por ejemplo, en el inicio de la pandemia una persona que había perdido el olfato y tenía tos no era testeada. Pero, después del 8 de junio, sí.
                     <br/><br/>
-                    Esta persona no aparecía en nuestro gráfico inicial de casos sospechosos y <mark class="label violeta">ahora sí.</mark>
+                    Esta persona no aparecía en nuestro universo de casos sospechosos y <mark class="label naranja">ahora sí.</mark>
 				</p>
 			</div>
 			
@@ -994,10 +994,10 @@ var svg = d3.selectAll(".contenedorGrafico").append("svg"),
                             i<n*0.15?posiciones[1]:posiciones[2],
                             ];
                     var color = ["#62BB46",
-                            i<n*0.3?"#8B6BAF":"#62BB46",
-                            i<n*0.15?"#F26522":"#62BB46",
-                            i<n*0.15?"#F26522":i>n*0.8?"#5badd4":"#62BB46",
-                            i<n*0.15?"#F26522":i<n*0.25?"#8B6BAF":i>n*0.8?"#5badd4":"#62BB46",
+                            i<n*0.3?"#F26522":"#62BB46",
+                            i<n*0.15?"#8B6BAF":"#62BB46",
+                            i<n*0.15?"#8B6BAF":i>n*0.8?"#5badd4":"#62BB46",
+                            i<n*0.15?"#8B6BAF":i<n*0.25?"#F26522":i>n*0.8?"#5badd4":"#62BB46",
                             ];
                     return {"pos":pos, "color":color}}),
 				radius = 5;;
