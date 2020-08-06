@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather:300,300italic,400,400italic,700,700italic|Oswald:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"decodificar.org","root":"/","scheme":"Mist","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"remove","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeIn","post_body":"none","coll_header":"fadeIn","sidebar":"fadeInUp"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="El modo en que se propaga una enfermedad infecciosa como COVID-19 hace que nuestra intuición choque de frente con los datos. ¿Récord de casos diarios significa que estamos mal? Sí… y no.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="¿Es esperable que cada día haya récord de contagios?">
+<meta property="og:url" content="https://decodificar.org/covid/record_de_contagios/index.html">
+<meta property="og:site_name" content="Decodificar: COVID19">
+<meta property="og:description" content="El modo en que se propaga una enfermedad infecciosa como COVID-19 hace que nuestra intuición choque de frente con los datos. ¿Récord de casos diarios significa que estamos mal? Sí… y no.">
+<meta property="og:locale" content="es_ES">
+<meta property="og:image" content="https://decodificar.org/images/05_record_small.png">
+<meta property="article:published_time" content="2020-08-06T20:30:58.775Z">
+<meta property="article:modified_time" content="2020-08-06T20:30:58.775Z">
+<meta property="article:author" content="Fundacion Bunge y Born">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://decodificar.org/images/05_record_small.png">
+
+<link rel="canonical" href="https://decodificar.org/covid/record_de_contagios/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'es'
+  };
+</script>
+
+  <title>¿Es esperable que cada día haya récord de contagios? | Decodificar: COVID19</title><meta name="robots" content="noindex">
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132699662-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-132699662-2');
+      }
+    </script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PWMSB36');</script>
+<!-- End Google Tag Manager -->
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+      <script src="https://d3js.org/d3.v5.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/stickyfill/2.1.0/stickyfill.js"></script>
+      <script src="https://unpkg.com/enter-view"></script>
+      <link rel="stylesheet" href="/styles/scrolly.css">
+  
+</head>
+
+<body itemscope  class="white" itemtype="http://schema.org/WebPage">
+      <script>
+      var es_ES = {
+        "decimal": ",",
+        "thousands": ".",
+        "grouping": [3],
+        "currency": ["$", ""],
+        "dateTime": "%a %b %e %X %Y",
+        "date": "%d/%m/%Y",
+        "time": "%H:%M:%S",
+        "periods": ["AM", "PM"],
+        "days": ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+        "shortDays": ["Dom", "Lun", "Mar", "Mi", "Jue", "Vie", "Sab"],
+        "months": ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+        "shortMonths": ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
+    };
+
+    d3.timeFormatDefaultLocale(es_ES);
+    d3.formatDefaultLocale(es_ES);
+
+    var isMobile = document.getElementsByTagName("body")[0].clientWidth < 768 ? 1 : 0; 
+
+  var nombresPcias = {
+            "CABA":["CABA","CABA"],
+            "Buenos_Aires":["Buenos Aires","PBA"],
+            "Catamarca":["Catamarca","CAT"],
+            "Chaco":["Chaco","CHAC"],
+            "Chubut":["Chubut","CHUB"],
+            "Cordoba":["Córdoba","CBA"],
+            "Corrientes":["Corrientes","COR"],
+            "Entre_Rios":["Entre Ríos","ER"],
+            "Formosa":["Formosa","FORM"],
+            "Jujuy":["Jujuy","JUJ"],
+            "La_Pampa":["La Pampa","PAMP"],
+            "La_Rioja":["La Rioja","RIOJ"],
+            "Mendoza":["Mendoza","MEND"],
+            "Misiones":["Misiones","MIS"],
+            "Neuquen":["Neuquén","NEU"],
+            "Rio_Negro":["Río Negro","RN"],
+            "Salta":["Salta","SAL"],
+            "San_Juan":["San Juan","SJuan"],
+            "San_Luis":["San Luis","SLuis"],
+            "Santa_Cruz":["Santa Cruz","Scruz"],
+            "Santa_Fe":["Santa Fe","SFe"],
+            "Santiago_del_Estero":["Sgo del Estero","SEst"],
+            "Tierra_del_fuego":["T. del Fuego","TFuego"],
+            "Tucuman":["Tucumán","TUC"]
+
+        }
+
+
+
+var colores = d3.scaleOrdinal()
+        .domain([0,5])
+        //azul -  violeta - rojo  - naranja - verde
+        .range(["#00468B","#8B6BAF","#F04E53","#F26522","#62BB46"]);
+
+
+var coloreaCategorias = d3.scaleOrdinal()
+        .range(["#4e79a7","#f28e2c","#e15759","#76b7b2","#59a14f","#af7aa1","#ff9da7","#9c755f","#8a7e78"]);
+
+      </script>
+
+  
+
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <img src="/images/logo-web.png">
+<!--       <i class="logo-line"></i>
+      <h1 class="site-title">Decodificar: COVID19</h1>
+      <i class="logo-line"></i> -->
+    </a>
+      <p class="site-subtitle" itemprop="description">Entendiendo la pandemia</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+
+    <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Cambiar a barra de navegación">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-inicio">
+
+    <a href="/" rel="section">Inicio</a>
+
+  </li>
+        <li class="menu-item menu-item-acerca-del-proyecto">
+
+    <a href="/about/" rel="section">Acerca del proyecto</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+      </header>
+
+      
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+      <div class="main-inner">
+        
+
+        <div class="content post posts-expand">
+          
+
+    
+  
+  
+      
+ <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="es">
+    <link itemprop="mainEntityOfPage" href="https://decodificar.org/covid/record_de_contagios/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fundacion Bunge y Born">
+      <meta itemprop="description" content="Decodificar es un sitio para que todos, sin importar cuánto sepamos de datos, tengamos herramientas que nos ayuden a entender lo que pasa a nuestro alrededor. En esta edición especial te acercamos herramientas simples y potentes para leer noticias y otros contenidos relacionados con la pandemia del COVID-19">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Decodificar: COVID19">
+    </span>
+      <header class="post-header">
+      <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar-check"></i>
+              </span>
+              <!-- <span class="post-meta-item-text">Editado el</span> -->
+              <time title="Modificado por: 6 de agosto de 2020 17" itemprop="dateModified" datetime="2020-08-06T17:30:58-03:00">Actualizado 6 de agosto de 2020</time>
+            </span>
+
+          
+
+         
+        </div>
+
+
+          <h1 class="post-title" itemprop="name headline">
+          ¿Es esperable que cada día haya récord de contagios?
+        </h1>
+            <div class="post-description">El modo en que se propaga una enfermedad infecciosa como COVID-19 hace que nuestra intuición choque de frente con los datos. ¿Récord de casos diarios significa que estamos mal? Sí… y no.</div>
+
+           
+                      <div class="compartir">Compartir:
+                        <a  href="https://www.facebook.com/sharer/sharer.php?u=https://decodificar.org/covid/record_de_contagios/&quote=¿Es esperable que cada día haya récord de contagios?" target="_blank" title="Share on Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURI(https://decodificar.org/covid/record_de_contagios/) + '&quote=' + encodeURI(¿Es esperable que cada día haya récord de contagios?); return false;"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+                        <a href="https://twitter.com/intent/tweet?text=¿Es esperable que cada día haya récord de contagios?%20&url=https://decodificar.org/covid/record_de_contagios/" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURI(¿Es esperable que cada día haya récord de contagios?) + '&url='+ encodeURI(https://decodificar.org/covid/record_de_contagios/) ; return false;"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                      </div>
+           
+
+      </header>
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+<!-- imagen destacada -->
+        
+      
+        
+
+
+
+<style>
+
+
+    .axis path, .axis line {
+      fill: none;
+      stroke: #D4D8DA;
+      stroke-width: 1px;
+     
+    }
+
+    .axis--y .domain, .axis--x .domain{
+        display: none;
+    }
+    
+    
+    .axis--y .tick{
+        stroke-width: 1px;
+        stroke-dasharray: 3px 2px;
+    }
+
+    .axis--x .tick line{
+        stroke-width: 2px;
+    }
+    
+    .axis--y .tick text{
+        text-anchor: start;
+	}
+	
+	text.nombreProvincias{
+		font-size: 11px;
+	}
+
+
+    .axis-title {
+      fill: #222;
+        font-size: 16px;
+        text-anchor: start;
+    }
+    
+    .line {
+      fill: none;
+      stroke: #a3a3a3;
+      stroke-width: 1px;
+    }
+    .linePais {
+      fill: none;
+      stroke: #00468B;
+      stroke-width: 2px;
+	}
+	
+	
+    .tendencia{
+        fill: none;
+        stroke-width: 3px;
+        stroke-linecap: round;
+    }
+
+    .duplicacionesTextos{
+        text-anchor: end;
+        font-size: 14px;
+        font-weight: 600;
+	}
+	
+	span.pcias{
+		display: block;
+		margin-top: 11px;
+	}
+  
+	#contenedorGrafico.sticky{
+			margin-bottom: 191px;
+        }
+        
+    .label.desconocido{
+        background: #8B6BAF45;
+        color:rgb(58, 58, 58) !important;
+        font-weight: 400 !important;
+    }
+     
+    
+    .label.naranja{
+        background: #F26522;
+
+    }
+
+    .label.celeste{
+        background: #5badd4;
+
+    }
+
+    .label.violeta{
+        background: #8B6BAF;
+
+    }
+     
+    
+/* COLORES
+azul #00468B
+violeta #8B6BAF
+rojo #F04E53
+naranja #F26522
+verde #62BB46
+*/
+       
+     
+    @media only screen and (min-width: 768px) {
+      
+    }
+    
+</style>
+
+
+<section id='scrolly1'>
+    <div class='scrolly'>
+        <!-- aca va el grafico que va a quedar fijo -->
+        <figure id="grafico1" class='sticky contenedorGrafico' >
+        </figure>
+
+        <!-- acá van los textos de cada paso -->
+        <article>
+            <div class='step' data-index='0'>
+				<p>Varias veces por semana encontramos en las noticias el anuncio de un nuevo récord de casos diarios. En este gráfico esos días están marcados con asteriscos. La pregunta surge inmediatamente: ¿significa que estamos peor?
+                <br/><br/>
+                Dado que se trata de una pandemia, te proponemos cambiar de pregunta: ¿es esperable quebrar el récord cada día?
+                </p>
+            </div>
+            
+     </article>
+		
+	</div>
+
+	
+
+</section>
+
+<section id='scrolly2'>
+    <div class='scrolly'>
+ 
+        <!-- aca va el grafico que va a quedar fijo -->
+        <figure id="grafico2" class='sticky contenedorGrafico' >
+        </figure>
+
+        <!-- acá van los textos de cada paso -->
+        <article>
+            <div class='step' data-index='0'>
+                <p>
+                    Para entender, arranquemos con casos más simples:<br/>
+                    &bull; Un libro que es prestado de persona en persona.<br/>
+                    &bull; Una enfermedad imaginaria que se transmite de persona a persona.<br/>
+                    <br/><br/>
+                    ¿Qué pasa con el número total de personas que han leído el libro o que se han contagiado de la enfermedad? En ambos casos crece, pero los resultados son diferentes porque los mecanismos son diferentes.
+                </p>
+            </div>
+            <div class='step' data-index='1'>
+                <p>
+					En el caso del libro prestado, es imposible prestarlo a más de una persona al mismo tiempo y entonces el número de personas crece de a uno.
+                    <br/><br/>
+                    En el caso de esta enfermedad imaginaria, cada persona puede transmitirla involuntariamente a otras dos personas, y cada una de estas a su vez a otras dos, y así sucesivamente. El número de personas con la enfermedad crece mucho más rápido: se dice que crece de forma geométrica o exponencial.
+                    </p>
+            </div>
+            <div class='step' data-index='2'>
+                <p>
+                    ¿Qué pasa con el número de personas nuevas en cada etapa? El ejemplo del libro prestado, como dijimos, agrega una persona cada vez.
+                    <br/><br/>
+                    El ejemplo de la enfermedad, en cambio... no solo crece más rápido que el libro prestado, sino que además crece cada vez más rápido: el número de casos nuevos es cada día mayor que el día anterior.
+				</p>
+            </div>
+			<div class='step' data-index='3'>
+                <p>
+					La dinámica del libro prestado suma un número fijo de personas nuevas en cada etapa.
+                    <br/><br/>
+En cambio, la propagación de la enfermedad multiplica el número de casos nuevos en cada etapa (en este ejemplo simplificado se multiplica por dos).
+<br/><br/>
+Fijate que, sin importar cuántos casos haya, tarda lo mismo en duplicar de 1 a 2 casos (un día) que en duplicar de 4 a 8 (un día). En este ejemplo muy simple el <a href="covid/el_ritmo_de_la_pandemia" target="_blank">tiempo de duplicación</a> es de un día.
+<br/><br/>
+Y si tratamos de evitar los contagios… ¿cambia algo?
+				</p>
+
+			</div>
+			
+			<div class='step' data-index='4'>
+                <p>
+                    Evitar o reducir el número de contagios es el objetivo de las medidas de mitigación/contención: que la chance de contagiarse sea menor. Pero no es tan fácil... 
+Si las medidas no logran reducir lo suficiente la tasa de contagio, el número de casos nuevos seguirá aumentando día a día.
+<br/><br/>
+Y a esto hay que agregarle que los efectos de cualquier medida tardan muchos días en verse, por ejemplo, por el tiempo que hay entre el momento del contagio y la aparición de síntomas o la <a href="covid/la_cantidad_de_contagiados" target="_blank">detección por test</a>.
+				</p>
+			</div>
+			
+        </article>
+    </div>
+
+</section>
+
+
+<section id='scrolly3'>
+    <div class='scrolly'>
+ 
+        <!-- aca va el grafico que va a quedar fijo -->
+        <figure id="grafico3" class='sticky contenedorGrafico' >
+        </figure>
+
+        <!-- acá van los textos de cada paso -->
+        <article>
+            <div class='step' data-index='0'>
+                <p>
+                    Entonces, durante el inicio de una pandemia es esperable que rompamos cada día el récord de casos nuevos (más allá de fluctuaciones normales como las que vemos en los datos reales).
+                    <br/><br/>
+                    Y no solo eso. Además es esperable romperlo inclusive en presencia de medidas de mitigación/contención, aunque quizás con un <a href="covid/el_ritmo_de_la_pandemia" target="_blank">ritmo</a> menor.
+                    <br/><br/>                    
+                    La novedad debería ser, en todo caso, que durante varios días no se haya roto el récord, lo que podría apuntar al éxito de las medidas.
+                </p>
+            </div>
+            
+			
+        </article>
+    </div>
+
+</section>
+
+ <!-- Scripts -->
+ <script>
+	
+	//********************* CARGA DATOS ************
+
+Promise.all([
+    d3.csv("https://datos.decodificar.org/E3_contagiados_total.csv"),
+    d3.csv("https://datos.decodificar.org/metaData_tablas.csv")
+
+]).then(function(files) {
+    var epigrafeData = files[1].filter(d=>d.file=="E3_contagiados_total.csv")[0];
+        epigrafeData.fecha = d3.timeFormat("%-d/%b/%Y")(d3.timeParse("%Y-%m-%d")(epigrafeData.fecha));
+
+
+
+    // **** CODIGO DEL SCROLLY *******
+
+
+    const container1 = d3.select('#scrolly1'); //busco el container total
+	const container2 = d3.select('#scrolly2'); //busco el container total
+    const container3 = d3.select('#scrolly3'); //busco el container total
+
+    const stepSel1 = container1.selectAll('.step'); // selecciono los "steps"
+	const stepSel2 = container2.selectAll('.step'); // selecciono los "steps"
+	const stepSel3 = container3.selectAll('.step'); // selecciono los "steps"
+
+    function updateChart(index, what,containerNumber) {  // funcion que llama cada vez que cruza un humbral
+        const sel = d3.select('#scrolly'+containerNumber).select(`[data-index='${index}']`);
+        what.classed('is-active', (d, i) => i === index);
+        
+        scrollyTelling(containerNumber,index); // <<<<< AQUI LLAMA AL GRAFICO VERDADERO
+    }
+
+    function init(what,containerNumber) { // configuracion inicial
+        Stickyfill.add(d3.select('.sticky').node()); // fallback para browsers sin sticky
+
+        enterView({
+            selector: what.nodes(),
+            offset: 0.5,
+            enter: el => {
+                const index = +d3.select(el).attr('data-index');
+                updateChart(index,what,containerNumber);
+            },
+            exit: el => {
+                let index = +d3.select(el).attr('data-index');
+                index = Math.max(0, index - 1);
+                updateChart(index,what,containerNumber);
+            }
+        });
+    }
+  
+
+    // **** END SCROLLY *******
+
+
+/* COLORES
+azul #00468B
+violeta #8B6BAF
+rojo #F04E53
+naranja #F26522
+verde #62BB46
+*/
+       
+        
+var ejeY, ejeX, tituloY, minDate, maxDate;
+
+var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maximo
+
+var svg = d3.selectAll(".contenedorGrafico").append("svg"),
+    margin = isMobile ? {top: 35, right: 20, bottom: 15, left: 20} : {top: 50, right: 30, bottom: 25, left: 30},
+    width =  +d3.select('#grafico1').style('width').slice(0, -2),
+    height = +d3.select('#grafico1').style('height').slice(0, -2)-25;
+
+    d3.selectAll(".contenedorGrafico").append("div").attr("class","epigrafe")
+            .html("www.decodificar.org - "+epigrafeData.fecha+" - Fuente: "+ epigrafeData.fuente);
+
+    if (height > altoMaximo*width) {
+        svg.style('margin-top', (height - altoMaximo*width)/2 + "px")
+        height = altoMaximo*width;
+    }
+
+    svg.attr("viewBox", [0, 0, width, height]);
+
+    height = height - margin.top - margin.bottom;
+    width = width - margin.left - margin.right;
+    
+
+	var parseTime = d3.timeParse("%Y-%m-%d");
+
+///******** MANEJO DE DATOS ********
+	var data = files[0] // datos principales;
+
+    var record=1;
+		data.forEach(element => {
+			element.fecha = parseTime(element.fecha);
+            element.casos_diarios = +element.casos_diarios;
+            if(+element.casos_diarios>record){
+            element.record = 1;
+            record = +element.casos_diarios;
+            }
+            
+		});
+
+		
+
+//***************
+
+	minDate = parseTime("2020-03-01"); //fecha de inicio el primero de marzo para que aparezca marzo!
+	maxDate = d3.max(data, d => d.fecha);
+
+
+	var x = d3.scaleTime()
+			.range([0, width])
+			.domain([minDate,maxDate]);
+
+	var y = d3.scaleLinear()
+			.range([height,0])
+			.domain([0,d3.max(data,d=>d.casos_diarios)]);
+	
+	
+
+	var yAxis = d3.axisLeft(y);
+		yAxis.ticks(4).tickFormat(d3.format(",.1r")).tickSizeInner(-6);
+
+
+	svg.append("g")
+    	.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+	;
+
+	svg.each(function(d,i){
+        d3.select(this).select("g").attr("class",()=>{
+        if(i==0||i==2) return "gInterno0"
+        return "gInterno1"});
+
+	})
+
+ 
+	var gBarras = d3.selectAll(".gInterno0");
+	var gGifs = d3.select(".gInterno1");
+
+    ejeX = gBarras.append("g") // EJE X
+        .attr("class", "axis axis--x")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x)
+        	.ticks(d3.timeMonth.every(1)))
+        .call(ajustaMesesEjeX)
+        ;
+
+    ejeY = gBarras.append("g") // EJE Y
+        .attr("class", "axis axis--y")
+	   	.call(yAxis)
+	        ;
+    
+    tituloY = ejeY.append("text")
+        .attr("class", "axis-title")
+        .attr("y", -8)
+        .text("Casos diarios confirmados");
+
+	
+		gBarras.append("g")
+               .selectAll("rect")
+                .data(data)
+                    .join("rect")
+                    .attr("class","barrasGrafico")
+                    .attr("fill", d => d.record?"#8B6BAF":"#8B6BAF77")
+                    //.attr("fill", "#8B6BAF")
+                    .attr("x", (d, i) => x(d.fecha))
+                    .attr("y", d => y(d.casos_diarios))
+                    .attr("height", d => y(0) - y(d.casos_diarios))
+                    .attr("width",  (x(parseTime("2020-03-02"))-1)>1?(x(parseTime("2020-03-02"))-1):1)
+        ;
+        
+
+
+
+    init(stepSel1,1)
+    init(stepSel2,2)
+    init(stepSel3,3)
+    
+
+
+function scrollyTelling(containerNumber,step){
+
+    if(containerNumber == 1){  //GRAFICO PRIMER SCROLLY
+		switch (step) {
+			case 0:
+			break;
+
+			case 1:
+
+            break;
+	    }
+ 
+  
+	}else{
+
+            switch (step) { //GAFICO SEGUNDO SCROLLY
+                case 0: // todos verdes
+                  break;
+
+                case 1: //separo los sospechosos
+                break;
+
+                case 2:
+               break;
+
+                case 3:
+                break;
+
+                case 4:
+                break;
+            }
+
+
+                    
+    }
+          
+
+}
+
+
+
+//********** funciones
+function ajustaMesesEjeX(g) {
+		  // ESTO PONE LOS NOMBRES DE LOS MESES EN MEDIO DE CADA MES
+            g.selectAll(".tick:not(:last-of-type) text") // para todos los meses menos el ultimo
+                .attr("dx", x(parseTime("2020-03-16"))) // mueve el equivalente a 15 dias
+                .attr("dy", "0.3em") ;
+            
+            g.selectAll(".tick:last-of-type text") // el ultimo si no esta completo lo centra en los dias que haya
+                .attr("dx",  x(parseTime("2020-03-" + Math.ceil((d3.timeFormat("%-d")(d3.max(data, function(d) { return d.fecha; })))/2))))
+                .attr("dy", "0.3em") ;
+            
+            g.selectAll(".tick line") // las lineas que separan los meses, mas altas
+                .attr("y2", "1.4em") ;
+			}
+
+
+//*****
+});
+
+</script>
+
+
+<div class="note info"><p>Esta pandemia, como todos los fenómenos con crecimiento exponencial, desafía nuestra intuición. Entender cómo funciona y cuál es el patrón que la gobierna nos ayuda a prestar atención a lo importante y tomar mejores decisiones en función de eso.</p>
+</div><!-- flag of hidden posts -->
+    </div>
+                      <div class="compartir">Compartir:
+                        <a  href="https://www.facebook.com/sharer/sharer.php?u=https://decodificar.org/covid/record_de_contagios/&quote=¿Es esperable que cada día haya récord de contagios?" target="_blank" title="Share on Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURI(https://decodificar.org/covid/record_de_contagios/) + '&quote=' + encodeURI(¿Es esperable que cada día haya récord de contagios?); return false;"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+                        <a href="https://twitter.com/intent/tweet?text=¿Es esperable que cada día haya récord de contagios?%20&url=https://decodificar.org/covid/record_de_contagios/" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURI(¿Es esperable que cada día haya récord de contagios?) + '&url='+ encodeURI(https://decodificar.org/covid/record_de_contagios/) ; return false;"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                      </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+        </div>
+        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+<div class="firma">
+<img src="/images/logo_small.png">
+Un proyecto de la <a href="https://www.fundacionbyb.org/" target="_blank">Fundación Bunge y Born</a>, en alianza con  <a href="http://expedicionciencia.org.ar/" target="_blank">Expedición Ciencia</a>
+</div>
+
+<div class="redes">
+<a href="https://www.facebook.com/fundacionbungeyborn/" target="_blank"><i class="fab fa-facebook-square"></i></a>
+<a href="https://www.instagram.com/fundacionbungeyborn/" target="_blank"><i class="fab fa-instagram-square"></i></a>
+<a href="https://www.linkedin.com/company/fundacion-bunge-y-born/" target="_blank"><i class="fab fa-linkedin"></i></a>
+</div>
+
+
+<div class="reporte">
+<a href="https://docs.google.com/forms/d/e/1FAIpQLSep2P37Le6YQnp3zgMwTAv1B9HlZBA0Yu5ieVBxCg8GB2QRrQ/viewform" target="_blank">
+¿Encontraste un error?</a>
+</div>
+
+<div class="copyright">
+  <span itemprop="copyrightYear">&copy; 2020</span>
+  <span class="author" itemprop="copyrightHolder">Fundación Bunge y Born</span>
+ / <a href="https://www.fundacionbyb.org/politica-de-privacidad" target="_blank">Política de privacidad</a>
+</div>
+
+<div class="powered-by">
+Creado con <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a>
+&amp; <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
