@@ -394,6 +394,10 @@ var coloreaCategorias = d3.scaleOrdinal()
 
     }
 
+    .label.naranjaclaro{
+        background: #F2652277;
+
+    }
     .label.celeste{
         background: #5badd4;
 
@@ -403,20 +407,38 @@ var coloreaCategorias = d3.scaleOrdinal()
         background: #8B6BAF;
 
     }
+
+    .label.gris{
+        background: #696969;
+
+    }
      
     #grafico2{
         padding-top: 1px;
     }
     
-    #grafico2 img{
-        margin: 60px 20px 10px 10px;
-
+    #grafico2 #gifHolder{
+        margin: 5vh 6px;
+        position: relative;
     }
 
-    #grafico2 .epigrafe{
-        bottom: -50px;
-    position: relative;
+    #gifHolder img{
+        top: 0px;
+        left:0px;
+        position: absolute;
     }
+
+    .epigrafe{
+        margin-top: -5px;
+    margin-left: 30px;
+    position: absolute;
+    bottom: 9px;
+    }
+
+    #gifHolder #img02,#gifHolder #img03{
+        opacity: 0;
+    }
+
 
 /* COLORES
 azul #00468B
@@ -428,7 +450,10 @@ verde #62BB46
        
      
     @media only screen and (min-width: 768px) {
-      
+        #grafico2 #gifHolder{
+                margin: 5vh 30px;
+            }
+
     }
     
 </style>
@@ -443,7 +468,9 @@ verde #62BB46
         <!-- acá van los textos de cada paso -->
         <article>
             <div class='step' data-index='0'>
-				<p>Varias veces por semana encontramos en las noticias el anuncio de un nuevo récord de casos diarios. En este gráfico esos días están marcados con asteriscos. La pregunta surge inmediatamente: ¿significa que estamos peor?
+				<p>Varias veces por semana encontramos en las noticias el anuncio de 
+                    <mark class="label naranja">cada nuevo récord de casos diarios</mark>
+                    , rompiendo el récord de los <mark class="label naranjaclaro">días anteriores</mark>. La pregunta surge inmediatamente: ¿significa que estamos peor?
                 <br/><br/>
                 Dado que se trata de una pandemia, te proponemos cambiar de pregunta: ¿es esperable quebrar el récord cada día?
                 </p>
@@ -462,55 +489,69 @@ verde #62BB46
  
         <!-- aca va el grafico que va a quedar fijo -->
         <figure id="grafico2" class='sticky contenedorGrafico' >
-            <img src="/images/contagios_graf.png">
+            <div id="gifHolder">
+                <img id="img01" src="/images/contagios-b01.gif">
+                <img id="img02" src="/images/contagios-b02.gif">
+                <img id="img03" src="/images/contagios-b03.gif">
+            </div>
         </figure>
 
         <!-- acá van los textos de cada paso -->
         <article>
             <div class='step' data-index='0'>
                 <p>
-                    Para entender, arranquemos con casos más simples:<br/>
-                    &bull; Un libro que es prestado de persona en persona.<br/>
-                    &bull; Una enfermedad imaginaria que se transmite de persona a persona.<br/>
+                    Para entender, arranquemos con estos dos ejemplos más simples.
                     <br/><br/>
-                    ¿Qué pasa con el número total de personas que han leído el libro o que se han contagiado de la enfermedad? En ambos casos crece, pero los resultados son diferentes porque los mecanismos son diferentes.
+                    ¿Qué pasa con el número total de personas que se han <mark class="label gris">prestado un libro</mark> o que han <mark class="label naranja">contraído la enfermedad</mark>?
+                     En ambos casos crece, pero <b>los resultados son diferentes</b> porque <b>los mecanismos son diferentes</b>.
                 </p>
             </div>
             <div class='step' data-index='1'>
                 <p>
-					En el caso del libro prestado, es imposible prestarlo a más de una persona al mismo tiempo y entonces el número de personas crece de a uno.
+					En el caso del libro prestado, es imposible prestarlo a más de una persona al mismo tiempo y entonces el número de personas <mark class="label gris">crece de a uno</mark>.
                     <br/><br/>
-                    En el caso de esta enfermedad imaginaria, cada persona puede transmitirla involuntariamente a otras dos personas, y cada una de estas a su vez a otras dos, y así sucesivamente. El número de personas con la enfermedad crece mucho más rápido: se dice que crece de forma geométrica o exponencial.
+                    En el caso de esta enfermedad imaginaria, cada persona puede transmitirla involuntariamente a otras dos personas, y cada una de estas a su vez a otras dos, y así sucesivamente. El número de personas con la enfermedad crece mucho más rápido: se dice que 
+                    <mark class="label naranja">crece de forma geométrica o exponencial</mark>.
                     </p>
             </div>
             <div class='step' data-index='2'>
                 <p>
-                    ¿Qué pasa con el número de personas nuevas en cada etapa? El ejemplo del libro prestado, como dijimos, agrega una persona cada vez.
-                    <br/><br/>
-                    El ejemplo de la enfermedad, en cambio... no solo crece más rápido que el libro prestado, sino que además crece cada vez más rápido: el número de casos nuevos es cada día mayor que el día anterior.
+                    ¿Qué pasa con el número de personas nuevas cada día? El <mark class="label naranja">ejemplo de la enfermedad</mark> 
+                    no solo crece más rápido que el <mark class="label gris">libro prestado</mark>, sino que además crece <b>cada vez más rápido: el número de casos nuevos es cada día mayor</b> que el día anterior.
 				</p>
-            </div>
-			<div class='step' data-index='3'>
+                <div class='step' data-index='3'>
+                </div>
                 <p>
-					La dinámica del libro prestado suma un número fijo de personas nuevas en cada etapa.
+					La dinámica del <mark class="label gris">libro prestado</mark> suma un número fijo de personas nuevas en cada día.
                     <br/><br/>
-En cambio, la propagación de la enfermedad multiplica el número de casos nuevos en cada etapa (en este ejemplo simplificado se multiplica por dos).
-<br/><br/>
-Fijate que, sin importar cuántos casos haya, tarda lo mismo en duplicar de 1 a 2 casos (un día) que en duplicar de 4 a 8 (un día). En este ejemplo muy simple el <a href="covid/el_ritmo_de_la_pandemia" target="_blank">tiempo de duplicación</a> es de un día.
-<br/><br/>
-Y si tratamos de evitar los contagios… ¿cambia algo?
+                    En cambio, la <mark class="label naranja">propagación de la enfermedad</mark> multiplica el número de casos nuevos en cada día (en este ejemplo simplificado se multiplica por dos).
 				</p>
 
 			</div>
 			
 			<div class='step' data-index='4'>
                 <p>
-                    Evitar o reducir el número de contagios es el objetivo de las medidas de mitigación/contención: que la chance de contagiarse sea menor. Pero no es tan fácil... 
-Si las medidas no logran reducir lo suficiente la tasa de contagio, el número de casos nuevos seguirá aumentando día a día.
-<br/><br/>
-Y a esto hay que agregarle que los efectos de cualquier medida tardan muchos días en verse, por ejemplo, por el tiempo que hay entre el momento del contagio y la aparición de síntomas o la <a href="covid/la_cantidad_de_contagiados" target="_blank">detección por test</a>.
+                    Fijate que, sin importar cuántos casos haya, la enfermedad tarda lo mismo en duplicar de 1 a 2 casos (un día) que en duplicar de 4 a 8 (un día). En este ejemplo muy simple el <a href="/covid/el_ritmo_de_la_pandemia/">tiempo de duplicación</a> es de un día.
+    <br/><br/>
+    Y si tratamos de evitar los contagios… ¿cambia algo?
 				</p>
-			</div>
+            </div>
+            
+            <div class='step' data-index='5'>
+                <p>
+                    Evitar o reducir el número de contagios es el objetivo de las medidas de mitigación/contención: que la chance de contagiarse sea menor. Pero no es tan fácil... 
+                    <br>
+                    Si las medidas <b>no logran reducir lo suficiente</b> la tasa de contagio, el número de casos nuevos <b>seguirá aumentando día a día.</b>
+    <br/><br/>
+				</p>
+            </div>
+            
+            <div class='step' data-index='6'>
+                <p>
+                    Y a esto hay que agregarle que los efectos de cualquier medida tardan muchos días en verse, por ejemplo, por el tiempo que hay entre el momento del contagio y la aparición de síntomas o la  <a href="/covid/la_cantidad_de_contagiados">detección por test</a>.
+				</p>
+            </div>
+            
 			
         </article>
     </div>
@@ -529,11 +570,14 @@ Y a esto hay que agregarle que los efectos de cualquier medida tardan muchos dí
         <article>
             <div class='step' data-index='0'>
                 <p>
-                    Entonces, durante el inicio de una pandemia es esperable que rompamos cada día el récord de casos nuevos (más allá de fluctuaciones normales como las que vemos en los datos reales).
-                    <br/><br/>
-                    Y no solo eso. Además es esperable romperlo inclusive en presencia de medidas de mitigación/contención, aunque quizás con un <a href="covid/el_ritmo_de_la_pandemia" target="_blank">ritmo</a> menor.
+                    Entonces, durante las etapas iniciales de una pandemia <b>es esperable</b> que rompamos cada día el récord de casos nuevos (más allá de fluctuaciones normales como las que vemos en los datos reales).
+                </p>
+            </div>
+            <div class='step' data-index='1'>
+                <p>
+                    Y no solo eso. Además es esperable romperlo inclusive en presencia de medidas de mitigación/contención, aunque quizás con un <a href="/covid/el_ritmo_de_la_pandemia">ritmo</a> menor.
                     <br/><br/>                    
-                    La novedad debería ser, en todo caso, que durante varios días no se haya roto el récord, lo que podría apuntar al éxito de las medidas.
+                    La novedad debería ser, en todo caso, que durante varios días <b>no se haya roto el récord</b>, lo que podría apuntar al éxito de las medidas.
                 </p>
             </div>
             
@@ -607,7 +651,8 @@ verde #62BB46
 */
        
         
-var ejeY, ejeX, tituloY, minDate, maxDate;
+var ejeY, ejeX, tituloY, minDate, maxDate, imagenAMostrar, actualImagen;
+;
 
 var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maximo
 
@@ -699,7 +744,7 @@ var svg = d3.selectAll(".contenedorGrafico").filter((d,i)=>i==1?0:1).append("svg
     tituloY = ejeY.append("text")
         .attr("class", "axis-title")
         .attr("y", -8)
-        .text("Casos diarios confirmados");
+        .text("Número de casos nuevos diarios (Arg)");
 
 	
 		gBarras.append("g")
@@ -707,7 +752,7 @@ var svg = d3.selectAll(".contenedorGrafico").filter((d,i)=>i==1?0:1).append("svg
                 .data(data)
                     .join("rect")
                     .attr("class","barrasGrafico")
-                    .attr("fill", d => d.record?"#8B6BAF":"#8B6BAF77")
+                    .attr("fill", d => d.record?"#F26522":"#F2652277")
                     //.attr("fill", "#8B6BAF")
                     .attr("x", (d, i) => x(d.fecha))
                     .attr("y", d => y(d.casos_diarios))
@@ -721,7 +766,6 @@ var svg = d3.selectAll(".contenedorGrafico").filter((d,i)=>i==1?0:1).append("svg
     init(stepSel1,1)
     init(stepSel2,2)
     init(stepSel3,3)
-    
 
 
 function scrollyTelling(containerNumber,step){
@@ -739,23 +783,30 @@ function scrollyTelling(containerNumber,step){
   
 	}else{
 
+        
             switch (step) { //GAFICO SEGUNDO SCROLLY
-                case 0: // todos verdes
+                case 0: 
+                case 1: 
+                imagenAMostrar = "#img01";
                   break;
 
-                case 1: //separo los sospechosos
-                break;
-
-                case 2:
-               break;
-
+                case 2: 
                 case 3:
-                break;
-
                 case 4:
+                imagenAMostrar = "#img02";
                 break;
-            }
 
+                case 5:
+                case 6:
+                imagenAMostrar = "#img03";
+                break;
+
+           }
+           if (actualImagen!=imagenAMostrar){
+               actualImagen = imagenAMostrar;
+                d3.select("#gifHolder").selectAll("img").transition().duration(300).style("opacity",0);
+                d3.select(imagenAMostrar).transition().delay(303).duration(300).style("opacity",1);
+                }
 
                     
     }
