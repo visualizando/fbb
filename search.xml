@@ -2178,7 +2178,6 @@ var data = files[0] // datos principales;
                 ];
 
                 series.forEach(element => {
-                    console.log( );
                     if (element.values[element.values.length-1] == 0){
                         element.values[element.values.length-1] = element.values[element.values.length-2]
                     }

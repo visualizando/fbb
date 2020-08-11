@@ -136,7 +136,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     d3.timeFormatDefaultLocale(es_ES);
     d3.formatDefaultLocale(es_ES);
 
-    var isMobile = document.getElementsByTagName("body")[0].clientWidth < 768 ? 1 : 0; 
+    var anchoDiv = document.getElementsByTagName("body")[0].clientWidth;
+    var isMobile = anchoDiv < 768 ? 1 : 0; 
 
   var nombresPcias = {
             "CABA":["CABA","CABA"],
@@ -173,6 +174,7 @@ var colores = d3.scaleOrdinal()
         //azul -  violeta - rojo  - naranja - verde
         .range(["#00468B","#8B6BAF","#F04E53","#F26522","#62BB46"]);
 
+window.onresize = function(){ location.reload(); }
 
 var coloreaCategorias = d3.scaleOrdinal()
         .range(["#4e79a7","#f28e2c","#e15759","#76b7b2","#59a14f","#af7aa1","#ff9da7","#9c755f","#8a7e78"]);
@@ -469,10 +471,9 @@ verde #62BB46
         <article>
             <div class='step' data-index='0'>
 				<p>Varias veces por semana encontramos en las noticias el anuncio de 
-                    <mark class="label naranja">cada nuevo récord de casos diarios</mark>
-                    , rompiendo el récord de los <mark class="label naranjaclaro">días anteriores</mark>. La pregunta surge inmediatamente: ¿significa que estamos peor?
+                    <mark class="label naranja">cada nuevo récord de casos diarios</mark>, rompiendo el récord de los <mark class="label naranjaclaro">días anteriores</mark>. La pregunta surge inmediatamente: ¿significa que estamos peor?
                 <br/><br/>
-                Dado que se trata de una pandemia, te proponemos cambiar de pregunta: ¿es esperable quebrar el récord cada día?
+                Dado que se trata de una pandemia, te proponemos cambiar de pregunta: ¿es <b>esperable</b> quebrar el récord cada día?
                 </p>
             </div>
             
@@ -516,33 +517,31 @@ verde #62BB46
             </div>
             <div class='step' data-index='2'>
                 <p>
-                    ¿Qué pasa con el número de personas nuevas cada día? El <mark class="label naranja">ejemplo de la enfermedad</mark> 
+                    ¿Qué pasa con el número de personas <b>nuevas</b> cada día? El <mark class="label naranja">ejemplo de la enfermedad</mark> 
                     no solo crece más rápido que el <mark class="label gris">libro prestado</mark>, sino que además crece <b>cada vez más rápido: el número de casos nuevos es cada día mayor</b> que el día anterior.
 				</p>
-                <div class='step' data-index='3'>
-                </div>
+            </div>
+            <div class='step' data-index='3'>
                 <p>
 					La dinámica del <mark class="label gris">libro prestado</mark> suma un número fijo de personas nuevas en cada día.
                     <br/><br/>
                     En cambio, la <mark class="label naranja">propagación de la enfermedad</mark> multiplica el número de casos nuevos en cada día (en este ejemplo simplificado se multiplica por dos).
 				</p>
-
 			</div>
 			
 			<div class='step' data-index='4'>
                 <p>
                     Fijate que, sin importar cuántos casos haya, la enfermedad tarda lo mismo en duplicar de 1 a 2 casos (un día) que en duplicar de 4 a 8 (un día). En este ejemplo muy simple el <a href="/covid/el_ritmo_de_la_pandemia/">tiempo de duplicación</a> es de un día.
-    <br/><br/>
-    Y si tratamos de evitar los contagios… ¿cambia algo?
+                <br/><br/>
+                Y si tratamos de evitar los contagios… ¿cambia algo?
 				</p>
             </div>
             
             <div class='step' data-index='5'>
                 <p>
                     Evitar o reducir el número de contagios es el objetivo de las medidas de mitigación/contención: que la chance de contagiarse sea menor. Pero no es tan fácil... 
-                    <br>
+                    <br/><br/>
                     Si las medidas <b>no logran reducir lo suficiente</b> la tasa de contagio, el número de casos nuevos <b>seguirá aumentando día a día.</b>
-    <br/><br/>
 				</p>
             </div>
             
@@ -575,7 +574,7 @@ verde #62BB46
             </div>
             <div class='step' data-index='1'>
                 <p>
-                    Y no solo eso. Además es esperable romperlo inclusive en presencia de medidas de mitigación/contención, aunque quizás con un <a href="/covid/el_ritmo_de_la_pandemia">ritmo</a> menor.
+                    Y no solo eso. Además es esperable romperlo <b>inclusive en presencia de medidas</b> de mitigación/contención, aunque quizás con un <a href="/covid/el_ritmo_de_la_pandemia">ritmo</a> menor.
                     <br/><br/>                    
                     La novedad debería ser, en todo caso, que durante varios días <b>no se haya roto el récord</b>, lo que podría apuntar al éxito de las medidas.
                 </p>
@@ -598,7 +597,7 @@ Promise.all([
 
 ]).then(function(files) {
     var epigrafeData = files[1].filter(d=>d.file=="E3_contagiados_total.csv")[0];
-        epigrafeData.fecha = d3.timeFormat("%-d/%b/%Y")(d3.timeParse("%Y-%m-%d")(epigrafeData.fecha));
+        epigrafeData.fecha = d3.timeFormat("%-d/%b/%y")(d3.timeParse("%Y-%m-%d")(epigrafeData.fecha)).toLowerCase();
 
 
 
@@ -651,7 +650,7 @@ verde #62BB46
 */
        
         
-var ejeY, ejeX, tituloY, minDate, maxDate, imagenAMostrar, actualImagen;
+var ejeY, ejeX, tituloY, minDate, maxDate, imagenAMostrar=1, actualImagen=0;
 ;
 
 var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maximo
@@ -661,7 +660,7 @@ var svg = d3.selectAll(".contenedorGrafico").filter((d,i)=>i==1?0:1).append("svg
     width =  +d3.select('#grafico1').style('width').slice(0, -2),
     height = +d3.select('#grafico1').style('height').slice(0, -2)-25;
 
-    d3.selectAll(".contenedorGrafico").append("div").attr("class","epigrafe")
+    d3.selectAll(".contenedorGrafico").append("div").attr("class","epigrafe").filter((d,i)=>i!=1)
             .html("www.decodificar.org - "+epigrafeData.fecha+" - Fuente: "+ epigrafeData.fuente);
 
     if (height > altoMaximo*width) {
@@ -744,7 +743,7 @@ var svg = d3.selectAll(".contenedorGrafico").filter((d,i)=>i==1?0:1).append("svg
     tituloY = ejeY.append("text")
         .attr("class", "axis-title")
         .attr("y", -8)
-        .text("Número de casos nuevos diarios (Arg)");
+        .text("Número de casos diarios confirmados (Arg.)");
 
 	
 		gBarras.append("g")
@@ -802,6 +801,7 @@ function scrollyTelling(containerNumber,step){
                 break;
 
            }
+           if (actualImagen == 0) actualImagen = imagenAMostrar;
            if (actualImagen!=imagenAMostrar){
                actualImagen = imagenAMostrar;
                 d3.select("#gifHolder").selectAll("img").transition().duration(300).style("opacity",0);
