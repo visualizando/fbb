@@ -325,7 +325,17 @@ var coloreaCategorias = d3.scaleOrdinal()
         background: #00468B;
     }
 
+    svg text{
+        font-size: 12px;
+    }
 
+ 
+    .flechitas{
+        fill:none;
+        stroke-width: 1px;
+        shape-rendering: crispEdges;
+        stroke: silver;
+    }
     @media only screen and (min-width: 768px) {
 
     }
@@ -472,7 +482,7 @@ var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maxim
 
 var svg = d3.select("#contenedorGrafico").append("svg"),
     marginTexto = isMobile ? 30:45,
-    margin = isMobile ? {top: 35, right: 20, bottom: 15, left: 20} : {top: 50, right: 30, bottom: 25, left: 30},
+    margin = isMobile ? {top: 25, right: 10, bottom: 15, left: 40} : {top: 25, right: 10, bottom: 25, left: 75},
     width =  +d3.select('#contenedorGrafico').style('width').slice(0, -2),
     height = +d3.select('#contenedorGrafico').style('height').slice(0, -2)-25;
 
@@ -496,9 +506,9 @@ var grafico = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
     ;
 
-    var arrowPoints = [[0, 0], [0, 10], [20, 5]];
+    var arrowPoints = [[0, 0], [5, 5], [0, 10]];
 
-    var markerBoxWidth = 20, markerBoxHeight = 10;
+    var markerBoxWidth = 6, markerBoxHeight = 10;
 
     var data = [{'state':"infeccion","distance":0,"color":"green", "vector":""},
                 {'state':"aparición de síntomas - diagnóstico","distance":0.3,"color":"red", "vector":"incubación"},
@@ -506,8 +516,8 @@ var grafico = svg.append("g")
                 ];
 
     // Agrego tipito como symbolo
-    svg.append("symbol").attr("id","tipito").attr("width",15).attr("y",-248).attr("x",-8).attr("viewBox","0 0 192 512")
-        .append("path").attr("d","M96 0c35.346 0 64 28.654 64 64s-28.654 64-64 64-64-28.654-64-64S60.654 0 96 0m48 144h-11.36c-22.711 10.443-49.59 10.894-73.28 0H48c-26.51 0-48 21.49-48 48v136c0 13.255 10.745 24 24 24h16v136c0 13.255 10.745 24 24 24h64c13.255 0 24-10.745 24-24V352h16c13.255 0 24-10.745 24-24V192c0-26.51-21.49-48-48-48z");
+    svg.append("symbol").attr("id","tipito").attr("y",-20).attr("x",-10)
+        .append("path").attr("d","M10,3C7.8,3,5.9,4.8,5.9,7.1s1.8,4.1,4.1,4.1s4.1-1.8,4.1-4.1S12.2,3,10,3 M16.1,15.2v8.6c0,0.8-0.7,1.5-1.5,1.5h-1v8.6c0,0.8-0.7,1.5-1.5,1.5H8c-0.8,0-1.5-0.7-1.5-1.5v-8.6h-1c-0.8,0-1.5-0.7-1.5-1.5v-8.6c0-1.7,1.4-3,3-3h0.7c1.5,0.7,3.2,0.7,4.6,0H13C14.7,12.1,16.1,13.5,16.1,15.2z");
     
     // agrego punta de flecha
 
@@ -515,35 +525,149 @@ var grafico = svg.append("g")
     .append('defs')
     .append('marker')
     .attr('id', 'arrow')
-    .attr('viewBox', [0, 0, markerBoxWidth, markerBoxHeight])
-    .attr('refX', 10)
-    .attr('refY', 5)
-    .attr('markerWidth', markerBoxWidth/2)
-    .attr('markerHeight', markerBoxHeight/2)
+    .attr('refX', markerBoxWidth/2)
+    .attr('refY', markerBoxHeight/2)
+    .attr('markerWidth', markerBoxWidth)
+    .attr('markerHeight', markerBoxHeight)
     .attr('orient', 'auto-start-reverse')
     .append('path')
     .attr('d', d3.line()(arrowPoints))
-    .attr('stroke', 'black');
+    .attr("class","flechitas");
 
 
-    var treeLink = d3.linkHorizontal().x(d => d.y).y(d => d.x);
-    var tree = d3.tree().size([height*0.4, width*0.7]);
+    var treeLink = d3.linkHorizontal().x(d => d.pos*width).y(0);
+    var tree = d3.tree().size([height*0.9, width*0.7]);
 
     
-    var family = d3.hierarchy({
-                    name: "Infección",
-                    children: [
-                        {
-                        name: "Aparición de síntomas (diagnóstico)",
-                        children: [
-                            {name: "Desenlace (Cura)"},
-                            {name: "Desenlace (Fallecimiento)"},
-                        ]
-                        }
+    var family = d3.hierarchy(
+        {name: "Persona sana", children: [
+                    {name: "Infección", children: [
+                                {name: "Aparición de síntomas (diagnóstico)", children: [
+                                        {name: "Desenlace (Cura o Fallecimiento)"},
+                                ]
+                                }]},
+                    {name: "Infección", children: [
+                                {name: "Sin síntomas (asintomático)", children: [
+                                        {name: "Desenlace (Cura)"},
+                                ]
+                                }]},
+                    {name: "Infección", children: [
+                                {name: "Sintomas leves", children: [
+                                        {name: "Desenlace (Cura)"},
+                                ]
+                                }]},
+                    {name: "Infección", children: [
+                                {name: "Sintomas graves", children: [
+                                        {name: "Hospitalización",children: [{name:"Desenlace (Cura)"}]},
+                                ]
+                                }]},
+                    {name: "Infección", children: [
+                                {name: "Sintomas graves", children: [
+                                        {name: "Hospitalización",children: [{name:"Desenlace (Muerte)"}]},
+                                ]
+                                }]},
+                                     
                     ]
                     });
 
-                    var familyChart = graph(grafico, family, {label: d => d.data.name});
+
+                    var padding = 15, anchoGrafico = width*0.8;
+
+
+        var casos = [
+             {name:"general", subitems:[
+                 {label:"Infección", color:"", pos:0, labelLink:""},
+                 {label:"Aparición de síntomas (diagnóstico)", color:"", pos:0.5,labelLink:"Incubación"},
+                 {label:"Desenlace (Cura o Fallecimiento)", color:"", pos:1, labelLink:"curso de la enfermedad"}
+             ]},
+             {name:"asintomatico", subitems:[
+                 {label:"Infección", color:"", pos:0},
+                 {label:"Desenlace (Cura)", color:"", pos:1,labelLink:"Sin síntomas (Asintomático)"}
+             ]},
+             {name:"sintomas leves", subitems:[
+                 {label:"Infección", color:"", pos:0},
+                 {label:"Aparición de síntomas (diagnóstico)", color:"", pos:0.5,labelLink:"Incubación"},
+                 {label:"Desenlace (Cura)", color:"", pos:1,labelLink:"Síntomas leves"}
+             ]},
+             {name:"internado", subitems:[
+                 {label:"Infección", color:"", pos:0},
+                 {label:"Aparición de síntomas (diagnóstico)", color:"", pos:0.4,labelLink:"Incubación"},
+                 {label:"Internación", color:"", pos:0.7,labelLink:"Síntomas graves"},
+                 {label:"Desenlace (Cura)", color:"", pos:1,labelLink:"Asistencia médica"}
+             ]},
+             {name:"fallecido", subitems:[
+                 {label:"Infección", color:"", pos:0},
+                 {label:"Aparición de síntomas (diagnóstico)", color:"", pos:0.4,labelLink:"Incubación"},
+                 {label:"Internación", color:"", pos:0.7,labelLink:"Síntomas graves"},
+                 {label:"Desenlace (Fallecimiento)", color:"", pos:1,labelLink:"Asistencia médica"}
+             ]}
+        ];
+
+        var links = casos.map(function (p) {
+            var o = [];
+            for (let i = 1; i < p.subitems.length; i++) {
+                o[i-1] = {x0:p.subitems[i-1].pos*anchoGrafico+padding,x1:p.subitems[i].pos*anchoGrafico-padding,label:p.subitems[i].labelLink}
+            }
+            return o;
+        })
+
+        dibujaRenglon(0,height/2,grafico,"g1");
+        dibujaRenglon(1,height/5,grafico,"g2");
+        dibujaRenglon(2,height*2/5,grafico,"g2");
+        dibujaRenglon(3,height*3/5,grafico,"g2");
+        dibujaRenglon(4,height*4/5,grafico,"g2");
+
+
+        function dibujaRenglon(index,altura,root,clase) {
+            const tempRoot = root.append("g").attr("class",clase)
+                    .attr("opacity",d=>!index?1:0)
+                    .attr("transform", d => `translate(0,${altura})`);
+
+            const node = tempRoot.append("g")
+                    .attr("stroke-linejoin", "round")
+                    .attr("stroke-width", 3)
+                    .selectAll("g")
+                    .data(casos[index].subitems)
+                    .join("g")
+                    .attr("transform", d => `translate(${d.pos*anchoGrafico},0)`);
+
+                node.append("use")
+                    .attr("xlink:href","#tipito")
+                    ;
+
+                node.append("text")
+                    .attr("y", 25)
+                    .attr("text-anchor", "middle") 
+                    .text(d=>d.label)
+                    .call(wrap, 100, 1)
+                    ;
+
+            const link = tempRoot.append("g")
+                    .selectAll("g")
+                    .data(links[index])
+                    .join("g");
+
+                link.append("path")
+                    .attr("fill", "none")
+                    .attr("stroke", "#555")
+                    .attr("stroke-width", 1.5)
+                    .attr("marker-end","url(#arrow)")
+                    .attr("d", d=>d3.line()([[d.x0,0],[d.x1,0]]));
+
+                link.append("text")
+                    .attr("y", -5)
+                    .attr("x", d=>{
+                        console.log(d);
+                        return (d.x1-d.x0)/2+d.x0})
+                    .attr("text-anchor", "middle") 
+                    .text(d=>d.label)                    ;
+        }
+
+            
+                    
+
+                    
+                    //var familyChart = graph(grafico, family, {label: d => d.data.name});
 
     function graph(rootNode, root, {label = d => d.data.id, highlight = () => false, marginLeft = 40} = {}) 
             {
@@ -555,12 +679,13 @@ var grafico = svg.append("g")
                     if (d.x > x1) x1 = d.x;
                     if (d.x < x0) x0 = d.x;
                 });
+                console.log(root);
 
                 var padding = 20;
                 
                 const g = rootNode.append("g")
                     .attr("font-size", 13)
-                    .attr("transform", `translate(20,100)`);
+                    .attr("transform", `translate(0,0)`);
                     
                 const link = g.append("g")
                     .attr("fill", "none")
@@ -568,7 +693,7 @@ var grafico = svg.append("g")
                     .attr("stroke-opacity", 0.4)
                     .attr("stroke-width", 1.5)
                 .selectAll("path")
-                    .data(root.links())
+                    .data(root.links().filter(d=>d.source.parent))
                     .join("path")
                     .attr("marker-end","url(#arrow)")
                     .attr("stroke", d => highlight(d.source) && highlight(d.target) ? "red" : null)
@@ -584,7 +709,7 @@ var grafico = svg.append("g")
                     .attr("stroke-linejoin", "round")
                     .attr("stroke-width", 3)
                     .selectAll("g")
-                    .data(root.descendants())
+                    .data(root.descendants().filter(d=>d.parent))
                     .join("g")
                     .attr("transform", d => `translate(${d.y},${d.x})`);
 
@@ -616,7 +741,31 @@ var grafico = svg.append("g")
 
         switch (step) {
                 case 0:
+                d3.selectAll(".g2").transition().duration(300).attr("opacity",0);
+                d3.selectAll(".g1").transition().duration(300).attr("opacity",1);
                 break;
+
+                case 1:
+                d3.selectAll(".g2").transition().duration(300).attr("opacity",(d,i)=>i<1?1:0);
+                d3.selectAll(".g1").transition().duration(300).attr("opacity",0);
+                break;
+
+                case 2:
+                d3.selectAll(".g2").transition().duration(300).attr("opacity",(d,i)=>i<2?1:0);
+                d3.selectAll(".g1").transition().duration(300).attr("opacity",0);
+                break;
+
+                case 3:
+                case 4:
+                d3.selectAll(".g2").transition().duration(300).attr("opacity",(d,i)=>i<3?1:0);
+                d3.selectAll(".g1").transition().duration(300).attr("opacity",0);
+                break;
+
+                case 5:
+                d3.selectAll(".g2").transition().duration(300).attr("opacity",(d,i)=>i<4?1:0);
+                d3.selectAll(".g1").transition().duration(300).attr("opacity",0);
+                break;
+
 
             }
 
@@ -657,7 +806,7 @@ function wrap(text, width, dy) {
 
 
 <div class="note info"><p>Ahora que conocemos mejor cómo se comporta esta enfermedad y cuál es su historia, podemos tener una visión más amplia de lo que está pasando.</p>
-<p><img src="/images/historiaDeUnCaso_venn.svg" alt="Diagrama de venn de casos covid"></p>
+<p><img src="/images/historiaDeUnCaso_venn.png" alt="Diagrama de venn de casos covid"></p>
 <p>Así, vemos que en una población conviven al mismo tiempo varios subgrupos muy distintos en cuanto a la probabilidad de ser testeado y detectado, a la capacidad de transmitir o no el virus, a la posibilidad de requerir o no internación o respirador, etc. </p>
 <p>Entender qué subgrupo es el que conforma, por ejemplo, el número total de casos o el número de casos activos es uno de los primeros pasos para interpretar correctamente las noticias.</p>
 </div><!-- flag of hidden posts -->
