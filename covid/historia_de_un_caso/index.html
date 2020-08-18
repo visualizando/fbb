@@ -332,9 +332,10 @@ var coloreaCategorias = d3.scaleOrdinal()
  
     .flechitas{
         fill:none;
-        stroke-width: 1px;
-        shape-rendering: crispEdges;
-        stroke: silver;
+        
+        stroke: rgb(0, 0, 0);
+        stroke-linecap: round;
+        stroke-linejoin: round;
     }
     @media only screen and (min-width: 768px) {
 
@@ -506,9 +507,7 @@ var grafico = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
     ;
 
-    var arrowPoints = [[0, 0], [5, 5], [0, 10]];
-
-    var markerBoxWidth = 6, markerBoxHeight = 10;
+    
 
     var data = [{'state':"infeccion","distance":0,"color":"green", "vector":""},
                 {'state':"aparición de síntomas - diagnóstico","distance":0.3,"color":"red", "vector":"incubación"},
@@ -521,55 +520,24 @@ var grafico = svg.append("g")
     
     // agrego punta de flecha
 
+    var arrowPoints = [[1, 1], [4, 4], [1, 7]];
+
+    var markerBoxWidth = 5, markerBoxHeight = 8;
     svg
     .append('defs')
     .append('marker')
     .attr('id', 'arrow')
-    .attr('refX', markerBoxWidth/2)
+    .attr('refX', 3)
+    .attr('stroke-width', 1.2)
     .attr('refY', markerBoxHeight/2)
     .attr('markerWidth', markerBoxWidth)
     .attr('markerHeight', markerBoxHeight)
-    .attr('orient', 'auto-start-reverse')
     .append('path')
     .attr('d', d3.line()(arrowPoints))
     .attr("class","flechitas");
 
-
-    var treeLink = d3.linkHorizontal().x(d => d.pos*width).y(0);
-    var tree = d3.tree().size([height*0.9, width*0.7]);
-
+ 
     
-    var family = d3.hierarchy(
-        {name: "Persona sana", children: [
-                    {name: "Infección", children: [
-                                {name: "Aparición de síntomas (diagnóstico)", children: [
-                                        {name: "Desenlace (Cura o Fallecimiento)"},
-                                ]
-                                }]},
-                    {name: "Infección", children: [
-                                {name: "Sin síntomas (asintomático)", children: [
-                                        {name: "Desenlace (Cura)"},
-                                ]
-                                }]},
-                    {name: "Infección", children: [
-                                {name: "Sintomas leves", children: [
-                                        {name: "Desenlace (Cura)"},
-                                ]
-                                }]},
-                    {name: "Infección", children: [
-                                {name: "Sintomas graves", children: [
-                                        {name: "Hospitalización",children: [{name:"Desenlace (Cura)"}]},
-                                ]
-                                }]},
-                    {name: "Infección", children: [
-                                {name: "Sintomas graves", children: [
-                                        {name: "Hospitalización",children: [{name:"Desenlace (Muerte)"}]},
-                                ]
-                                }]},
-                                     
-                    ]
-                    });
-
 
                     var padding = 15, anchoGrafico = width*0.8;
 
@@ -586,7 +554,7 @@ var grafico = svg.append("g")
              ]},
              {name:"sintomas leves", subitems:[
                  {label:"Infección", color:"", pos:0},
-                 {label:"Aparición de síntomas (diagnóstico)", color:"", pos:0.5,labelLink:"Incubación"},
+                 {label:"Aparición de síntomas (diagnóstico)", color:"", pos:0.4,labelLink:"Incubación"},
                  {label:"Desenlace (Cura)", color:"", pos:1,labelLink:"Síntomas leves"}
              ]},
              {name:"internado", subitems:[
@@ -624,8 +592,6 @@ var grafico = svg.append("g")
                     .attr("transform", d => `translate(0,${altura})`);
 
             const node = tempRoot.append("g")
-                    .attr("stroke-linejoin", "round")
-                    .attr("stroke-width", 3)
                     .selectAll("g")
                     .data(casos[index].subitems)
                     .join("g")
@@ -648,9 +614,8 @@ var grafico = svg.append("g")
                     .join("g");
 
                 link.append("path")
-                    .attr("fill", "none")
-                    .attr("stroke", "#555")
-                    .attr("stroke-width", 1.5)
+                    .attr("class", "flechitas")
+                    .attr('stroke-width', 1.5)
                     .attr("marker-end","url(#arrow)")
                     .attr("d", d=>d3.line()([[d.x0,0],[d.x1,0]]));
 
@@ -663,107 +628,39 @@ var grafico = svg.append("g")
                     .text(d=>d.label)                    ;
         }
 
-            
+        
                     
 
-                    
-                    //var familyChart = graph(grafico, family, {label: d => d.data.name});
-
-    function graph(rootNode, root, {label = d => d.data.id, highlight = () => false, marginLeft = 40} = {}) 
-            {
-
-            root = tree(root);
-                let x0 = Infinity;
-                let x1 = -x0;
-                root.each(d => {
-                    if (d.x > x1) x1 = d.x;
-                    if (d.x < x0) x0 = d.x;
-                });
-                console.log(root);
-
-                var padding = 20;
-                
-                const g = rootNode.append("g")
-                    .attr("font-size", 13)
-                    .attr("transform", `translate(0,0)`);
-                    
-                const link = g.append("g")
-                    .attr("fill", "none")
-                    .attr("stroke", "#555")
-                    .attr("stroke-opacity", 0.4)
-                    .attr("stroke-width", 1.5)
-                .selectAll("path")
-                    .data(root.links().filter(d=>d.source.parent))
-                    .join("path")
-                    .attr("marker-end","url(#arrow)")
-                    .attr("stroke", d => highlight(d.source) && highlight(d.target) ? "red" : null)
-                    .attr("stroke-opacity", d => highlight(d.source) && highlight(d.target) ? 1 : null)
-                    .attr("d", d=>{
-                         return "M" + (d.source.y + padding) + "," + d.source.x
-                            + "C" + (d.source.y + d.target.y) / 2 + "," + d.source.x
-                            + " " + (d.source.y  + d.target.y) / 2 + "," + d.target.x
-                            + " " + (d.target.y - padding) + "," + d.target.x;
-                    });
-                
-                const node = g.append("g")
-                    .attr("stroke-linejoin", "round")
-                    .attr("stroke-width", 3)
-                    .selectAll("g")
-                    .data(root.descendants().filter(d=>d.parent))
-                    .join("g")
-                    .attr("transform", d => `translate(${d.y},${d.x})`);
-
-                node.append("use")
-                    .attr("xlink:href","#tipito")
-                    .attr("fill", d => highlight(d) ? "red" : d.children ? "#555" : "#999")
-                    ;
-
-                node.append("text")
-                    .attr("fill", d => highlight(d) ? "red" : null)
-                    .attr("y", 25)
-                    //.attr("x", 10)//d => d.children ? -6 : 6)
-                    .attr("text-anchor", "middle") //d => d.children ? "end" : "start")
-                    .text(label)
-                    .call(wrap, 100, 1)
-                    //.clone(true).lower()
-                    //.attr("stroke", "white")
-                    ;
-                
-                return g.node();
-                }
-
-
-
-    
+     
                 init()
 
     function scrollyTelling(step){
 
         switch (step) {
                 case 0:
-                d3.selectAll(".g2").transition().duration(300).attr("opacity",0);
-                d3.selectAll(".g1").transition().duration(300).attr("opacity",1);
+                d3.selectAll(".g2").transition().duration(600).attr("opacity",0);
+                d3.selectAll(".g1").transition().duration(600).attr("opacity",1);
                 break;
 
                 case 1:
-                d3.selectAll(".g2").transition().duration(300).attr("opacity",(d,i)=>i<1?1:0);
-                d3.selectAll(".g1").transition().duration(300).attr("opacity",0);
+                d3.selectAll(".g2").transition().duration(600).attr("opacity",(d,i)=>i<1?1:0);
+                d3.selectAll(".g1").transition().duration(600).attr("opacity",0);
                 break;
 
                 case 2:
-                d3.selectAll(".g2").transition().duration(300).attr("opacity",(d,i)=>i<2?1:0);
-                d3.selectAll(".g1").transition().duration(300).attr("opacity",0);
+                d3.selectAll(".g2").transition().duration(600).attr("opacity",(d,i)=>i<2?1:0);
+                d3.selectAll(".g1").transition().duration(600).attr("opacity",0);
                 break;
 
                 case 3:
                 case 4:
-                d3.selectAll(".g2").transition().duration(300).attr("opacity",(d,i)=>i<3?1:0);
-                d3.selectAll(".g1").transition().duration(300).attr("opacity",0);
+                d3.selectAll(".g2").transition().duration(600).attr("opacity",(d,i)=>i<3?1:0);
+                d3.selectAll(".g1").transition().duration(600).attr("opacity",0);
                 break;
 
                 case 5:
-                d3.selectAll(".g2").transition().duration(300).attr("opacity",(d,i)=>i<4?1:0);
-                d3.selectAll(".g1").transition().duration(300).attr("opacity",0);
+                d3.selectAll(".g2").transition().duration(600).attr("opacity",(d,i)=>i<4?1:0);
+                d3.selectAll(".g1").transition().duration(600).attr("opacity",0);
                 break;
 
 
