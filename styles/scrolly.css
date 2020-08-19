@@ -59,7 +59,23 @@
                 padding: 1px;
             }
                 
+        img.imgMobile{
+                display: block;
+            }
+        
+        img.imgDesktop{
+                display: none;
+            }
         @media only screen and (min-width: 768px) {
+
+            img.imgMobile{
+                display: none;
+            }
+
+            img.imgDesktop{
+                display: block;
+            }
+
             .scrolly .step p, .scrolly .stepFijo p{
                 margin-left: auto;
                 background-color: #ffffffdf;
