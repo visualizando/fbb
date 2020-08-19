@@ -320,20 +320,15 @@ var coloreaCategorias = d3.scaleOrdinal()
 
 
 
-    .label.etapa1{
-        background: #F26522;
-    }
-    .label.etapa2{
-        background: #62BB46;
-    }
-    .label.etapa3{
-        background: #00468B;
-    }
+  
 
     svg text{
-        font-size: 12px;
+        font-size: 11px;
     }
     
+    .epigrafe{
+        margin-top: 0;
+    }     
  
     .flechitas{
         fill:none;
@@ -342,8 +337,37 @@ var coloreaCategorias = d3.scaleOrdinal()
         stroke-linecap: round;
         stroke-linejoin: round;
     }
-    @media only screen and (min-width: 768px) {
+    .label.naranja{
+        background: #F26522;
 
+    }
+
+    .label.celeste{
+        background: #5badd4;
+
+    }
+
+    
+    .label.celeste{
+        background: gray;
+
+    }
+
+
+    .label.violeta{
+        background: #8B6BAF;
+
+    }
+
+    @media only screen and (min-width: 768px) {
+        .epigrafe{
+            margin-top: inherit;
+        }     
+        
+        svg text{
+            font-size: 12px;
+        }
+        
     }
     
 </style>
@@ -375,16 +399,17 @@ var coloreaCategorias = d3.scaleOrdinal()
             </div>
             <div class='step' data-index='2'>
                 <p>
-                    Algunas de esas personas (aproximadamente 15%), aunque tengan COVID-19, nunca van a desarrollar ningún síntoma. Son las que denominamos  “casos asintomáticos”.
+                    Algunas de esas personas (aproximadamente 15%), aunque tengan COVID-19, <b>nunca van a desarrollar ningún síntoma</b>. Son las que denominamos  “casos asintomáticos”.
                     <br/><br/>
-                    El grupo de asintomáticos es especialmente importante porque difícilmente se los testea (y por ende nunca formarán parte de lo que consideramos “casos confirmados” link{historiaE3},) pero tienen capacidad de transmitir el virus. Una forma de detectar a los asintomáticos es haciendo testeos masivos, que son complicados y caros. Pasado un determinado tiempo, van a recuperarse y dejar de transmitir el virus.
+                    El grupo de asintomáticos es especialmente importante porque difícilmente se los testea (y por ende nunca formarán parte de lo que consideramos 
+                    <a href="/covid/la_cantidad_de_contagiados/">“casos confirmados”</a>) pero tienen capacidad de transmitir el virus. Una forma de detectar a los asintomáticos es haciendo testeos masivos, que son complicados y caros. Pasado un determinado tiempo, van a recuperarse y dejar de transmitir el virus.
                 </p>
             </div>
             <div class='step' data-index='3'>
                 <p>
-                    La historia continúa, porque la otra gran parte de las personas que tienen COVID-19 sí van a tener síntomas (aproximadamente 85%). Estas son capaces de transmitir el virus y tienen más probabilidades de que, por sus síntomas, se las testee.
+                    La historia continúa, porque la otra gran parte de las personas que tienen COVID-19 <b>sí van a tener síntomas</b> (aproximadamente 85%). Estas son capaces de transmitir el virus y tienen más probabilidades de que, por sus síntomas, se las testee.
                     <br/><br/>
-                    A diferencia de los asintomáticos, este grupo de “sintomáticos” es conocido para nosotros porque, en general los testeamos y, cuando dan positivo, van a figurar en los casos confirmados.
+                    A diferencia de los asintomáticos, este <mark class="label violeta">grupo de “sintomáticos”</mark> es conocido para nosotros porque, en general los testeamos y, cuando dan positivo, van a figurar en los casos confirmados.
                 </p>
             </div>
             <div class='step' data-index='4'>
@@ -396,12 +421,12 @@ var coloreaCategorias = d3.scaleOrdinal()
                 <p>
                     Los casos leves deben cumplir el aislamiento y esperar la recuperación en sus domicilios.
                 <br/><br/>
-                Las personas que tienen síntomas más graves requerirán hospitalización. Una vez internadas en el hospital, la mayoría irá mejorando de a poco hasta la recuperación completa. Un grupo muy pequeño, lamentablemente, morirá por COVID-19 en el hospital (1% de los casos totales).
+                Las <mark class="label naranja">personas que tienen síntomas más graves</mark> requerirán hospitalización. Una vez internadas en el hospital, la mayoría irá mejorando de a poco hasta la recuperación completa. Un <mark class="label gris">grupo muy pequeño, lamentablemente, morirá</mark> por COVID-19 en el hospital (1% de los casos totales).
                 </p>
             </div>
             <div class='step' data-index='6'>
                 <p>
-                    Los que hemos detectado con el test y aún no se han recuperado ni han fallecido son los que denominamos casos activos . Los casos activos y los asintomáticos son los que pueden contagiar el virus y podrían requerir asistencia del sistema de salud {link a “Aplanar la curva”}
+                    Los que hemos detectado con el test y aún no se han recuperado ni han fallecido son los que denominamos <a href="/covid/achatar_la_curva/">casos activos</a>. Los casos activos y los asintomáticos son los que pueden contagiar el virus y podrían requerir asistencia del sistema de salud
                     <br/><br/>
                     Los casos activos tienen una dinámica que es muy importante para el sistema de salud. ¿A qué nos referimos con esto? 
                 </p>
@@ -466,7 +491,7 @@ Promise.all([
 
         enterView({
             selector: stepSel.nodes(),
-            offset: 0.5,
+            offset: 0,
             enter: el => {
                 const index = +d3.select(el).attr('data-index');
                 updateChart(index);
@@ -497,7 +522,7 @@ var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maxim
 
 var svg = d3.select("#contenedorGrafico").append("svg"),
     marginTexto = isMobile ? 30:45,
-    margin = isMobile ? {top: 25, right: 10, bottom: 15, left: 40} : {top: 25, right: 40, bottom: 25, left: 65},
+    margin = isMobile ? {top: 15, right: 30, bottom: 15, left: 40} : {top: 25, right: 40, bottom: 15, left: 65},
     width =  +d3.select('#contenedorGrafico').style('width').slice(0, -2),
     height = +d3.select('#contenedorGrafico').style('height').slice(0, -2)-25;
 
@@ -505,7 +530,7 @@ var svg = d3.select("#contenedorGrafico").append("svg"),
             .html("www.decodificar.org");
 
 
-    if (height > altoMaximo*width) {
+    if (!isMobile && height > altoMaximo*width) {
         svg.style('margin-top', (height - altoMaximo*width)/2 + "px")
         height = altoMaximo*width;
     }
@@ -557,7 +582,7 @@ var grafico = svg.append("g")
              {name:"general", subitems:[
                  {label:"Infección", color:codigoColor("verde"), pos:0, labelLink:""},
                  {label:"Aparición de síntomas", color:codigoColor("violeta"), pos:0.5,labelLink:"Incubación"},
-                 {label:"Recuperación o Fallecimiento", color:"gray", pos:1, labelLink:"curso de la enfermedad"}
+                 {label:"Recuperación o Fallecimiento", color:"gray", pos:1, labelLink:"Curso de la enfermedad"}
              ]},
              {name:"asintomatico", subitems:[
                  {label:"Infección", color:codigoColor("verde"), pos:0},
@@ -609,7 +634,7 @@ var grafico = svg.append("g")
         
         dibujaRenglon(4,height*4/5,grafico,"g2");
             
-        var divisionEnAlto = 8; // esto es lo que define el alto de los clones
+        var divisionEnAlto = isMobile?7:8; // esto es lo que define el alto de los clones
         for (let i = 1; i < 6; i++) {
             if(i!=3) dibujaRenglon(3,height*i/(divisionEnAlto),grafico,"clones"); // este va duplicado
         }
@@ -641,7 +666,7 @@ var grafico = svg.append("g")
                     .attr("text-anchor", "middle")
                     .attr("class","item labels")
                     .text(d=>d.label)
-                    .call(wrap, 100, 1)
+                    .call(wrap, 100, 1, false)
                     ;
             
                 node.filter(d=>d.hasOwnProperty("flecha")).append("path")
@@ -657,7 +682,9 @@ var grafico = svg.append("g")
                     .attr("x", d=>{
                         return (d.flecha.x1-d.flecha.x0)/2+d.flecha.x0})
                     .attr("text-anchor", "middle") 
-                    .text(d=>d.flecha.label) ;
+                    .text(d=>d.flecha.label);
+                if(isMobile) node.selectAll(".texts").call(wrap, 70, 1,true) ;
+                    
                 }
                    d3.selectAll(".g2").selectAll(".item").style("opacity",0);
         }
@@ -684,9 +711,6 @@ var grafico = svg.append("g")
       .attr("opacity",0)
       .call(d3.axisBottom(xScale).ticks(8))
       .selectAll(".tick").selectAll("text").remove();
-    
- 
-    
 
     const line = d3.line()
       //.defined(d => !isNaN(d.value))
@@ -702,17 +726,18 @@ var grafico = svg.append("g")
       .join("rect")
         .attr("opacity",0)
         .attr("fill",d=>!d[2]?codigoColor("violeta"):codigoColor("naranja"))
-        .attr('x', d => xScale(d[1])-anchoGrafico/64)
+        .attr('x', d => xScale(d[1])-anchoGrafico/64*(isMobile?2:1))
         .attr("y",d=> height - margin.bottom - yScale(d[0]+(d[1]>5?0:d[2])))
-        .attr("width", anchoGrafico/32)
+        .attr("width", anchoGrafico/32*(isMobile?2:1))
         .attr("height", d=> yScale(d[0]));
      
 
         grafico
                 .append("text")
+                .attr("opacity",0)
                 .attr("id","tituloGrafico")
-                .attr("x",anchoGrafico/2)
-                .attr("y",height-5)
+                .attr("x",0)
+                .attr("y",height*(isMobile?5.5:6.5)/divisionEnAlto)
                 .style("fill","black")
                 .style("text-anchor","middle")
                 .text("Casos diarios");
@@ -773,11 +798,12 @@ var grafico = svg.append("g")
                 break;
 
                 case 7:// dejo solo el caso 3 y apago el resto y duplico el caso 3
-                d3.select("#titulos").transition().duration(600).style("opacity",0);
 
+                d3.select("#titulos").transition().duration(300).style("opacity",0);
                 d3.selectAll(".g2").selectAll(".item").transition().duration(300).style("opacity",1);
                 d3.selectAll(".g2").selectAll(".texts").transition().duration(300).style("opacity",0);
-                d3.selectAll(".g2:not(.clones)").transition().duration(600).style("opacity",0);
+
+                d3.selectAll(".g2:not(.clones)").transition().duration(300).style("opacity",0);
 
                 d3.selectAll(".clones").selectAll("use,.labels").transition().delay(301).duration(600)
                                             .attr("font-size","9px")
@@ -785,24 +811,25 @@ var grafico = svg.append("g")
 
                 d3.selectAll(".clones").selectAll(".flechitas").transition().delay(301).duration(600)
                                             .attr("d", d=>d3.line()([[d.flecha.x0,0],[d.flecha.x1,0]]));
-                d3.select(".g2.clones").transition().duration(300)
+
+                d3.select(".g2.clones").transition().delay(301).duration(600)
                                             .style("opacity",1)
                                             .attr("transform", d => `translate(0,${height*3/divisionEnAlto})`);
-                d3.selectAll(".clones").transition().delay(301).duration(600).delay((d,i)=>600+(Math.abs(i-2)*140))
+
+                d3.selectAll(".clones").transition().delay(901).duration(300).delay((d,i)=>600+(Math.abs(i-2)*140))
                                                 .style("opacity",1);
+
                 d3.selectAll(".g1").transition().duration(600).style("opacity",0);
 
-                d3.selectAll(".clones g").transition().duration(600)
+                d3.selectAll(".clones g").transition().delay(301).duration(600)
                             .attr("transform", (d,i) => `translate(0,0)`);
 
-                d3.selectAll("#eje, #tituloGrafico").transition().duration(300)
-                            .style("opacity",0);
-                
-                d3.selectAll("#barras").selectAll("rect").transition().duration(300)
-                            .style("opacity",0);
+                if(isMobile)  d3.selectAll(".clones").selectAll(".labels").transition().duration(300)
+                            .style("opacity",1);    
+
                 break;
                 
-                case 8://
+                case 8:// angosto y distribuyo
                 d3.selectAll(".clones").selectAll("use,.labels").transition().duration(600)
                                     .attr("x",d=>d.pos*angostamiento*anchoGrafico);
                                    
@@ -810,17 +837,23 @@ var grafico = svg.append("g")
                             .attr("d", d=>d3.line()([[d.flecha.x0*angostamiento+padding/2,0],[d.flecha.x1*angostamiento-padding/2,0]]));
                 d3.selectAll(".clones>g").transition().duration(600)
                             .attr("transform", (d,i) => `translate(${i*anchoGrafico/7},0)`);
+                        
+                            d3.selectAll("#eje, #tituloGrafico").transition().duration(300)
+                            .style("opacity",0);
+                
+                d3.selectAll("#barras").selectAll("rect").transition().duration(300)
+                            .style("opacity",0);    
+                if(isMobile)  d3.selectAll(".clones").selectAll(".labels").transition().duration(300)
+                            .style("opacity",0);    
+                break;
+                
+                case 9://
 
                 d3.selectAll("#eje, #tituloGrafico").transition().delay(600).duration(300)
                             .style("opacity",1);
                 
                 d3.selectAll("#barras").selectAll("rect").transition().delay(d=>800+d[1]*100).duration(300)
                             .style("opacity",1);
-                            
-                            
-                break;
-                
-                case 9://
                 break;
 
                 case 10://
@@ -837,35 +870,43 @@ var grafico = svg.append("g")
 });
 
 
-function wrap(text, width, dy) {
+function wrap(text, width, dy, alignBottom) {
   text.each(function() {
     var text = d3.select(this),
         words = text.text().split(/\s+/).reverse(),
         word,
         line = [],
-        lineNumber = 0,
+        lineNumber = 1,
         lineHeight = dy, // ems
         y = text.attr("y"),
         clase = text.attr("class"),
         x = parseFloat(text.attr("x")),
-        tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+        tspan = text.text(null).append("tspan").attr("x", 0)
+                    .attr("dy", dy + "em");
     while (word = words.pop()) {
       line.push(word);
-      tspan.text(line.join(" ")).attr("x", x).attr("class",clase);
+      tspan.text(line.join(" "))
+            .attr("x", x).attr("class",clase);
       if (tspan.node().getComputedTextLength() > width) {
+        lineNumber++;
+
         line.pop();
         tspan.text(line.join(" "));
         line = [word];
-        tspan = text.append("tspan").attr("x", x).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word).attr("class",clase);
+        tspan = text.append("tspan")
+                .attr("x", x)
+                .attr("dy", dy + "em").text(word).attr("class",clase);
       }
     }
+    console.log(y,lineNumber)
+    if(alignBottom) d3.select(this).attr("y",y-lineNumber*10-5)
   });
 }
 
 </script>
 
 
-<div class="note info"><p>hora que conocemos mejor cómo se comporta esta enfermedad y cuál es su historia, podemos tener una visión más amplia de lo que está pasando. Así, vemos que en una población conviven al mismo tiempo varios subgrupos muy distintos en cuanto a la probabilidad de ser testeado y detectado, a la capacidad de transmitir o no el virus, a la posibilidad de requerir o no internación o respirador, etc.</p>
+<div class="note info"><p>Ahora que conocemos mejor cómo se comporta esta enfermedad y cuál es su historia, podemos tener una visión más amplia de lo que está pasando. Así, vemos que en una población conviven al mismo tiempo varios subgrupos muy distintos en cuanto a la probabilidad de ser testeado y detectado, a la capacidad de transmitir o no el virus, a la posibilidad de requerir o no internación o respirador, etc.</p>
 <img src="/images/historiaDeUnCaso_venn.png" class="imgDesktop">
 <img src="/images/historiaDeUnCaso_venn_mobile.png" class="imgMobile">
 

@@ -981,18 +981,19 @@ pre code {
   margin-bottom: 0;
 }
 .post-body .note:not(.no-icon) {
-  padding-left: 4.5em;
-  padding-right: 2em;
+  padding-left: 3em;
+  padding-right: 3em;
 }
 @media (max-width: 413px) {
   .post-body .note:not(.no-icon) {
     padding-left: 1em;
+    padding-right: 1em;
     border: none;
   }
 }
 .post-body .note:not(.no-icon)::before {
   font-size: 1.5em;
-  left: 1em;
+  left: 0.5em;
   position: absolute;
   top: 1.3em;
 }
@@ -2822,7 +2823,7 @@ hr {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ff21ff;
+  background: #d188fb;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
