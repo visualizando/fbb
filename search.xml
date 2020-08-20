@@ -2993,4 +2993,608 @@ function ajustaMesesEjeX(g) {
 <div class="note info"><p>Esta pandemia, como todos los fenómenos con crecimiento exponencial, desafía nuestra intuición. Entender cómo funciona y cuál es el patrón que la gobierna nos ayuda a prestar atención a lo importante y tomar mejores decisiones en función de eso.</p>
 </div>]]></content>
   </entry>
+  <entry>
+    <title>Historia de un caso</title>
+    <url>/covid/historia_de_un_caso/</url>
+    <content><![CDATA[
+
+
+<style>
+
+
+
+  
+
+    svg text{
+        font-size: 11px;
+    }
+    
+    .epigrafe{
+        margin-top: 0;
+    }     
+ 
+    .flechitas{
+        fill:none;
+        
+        stroke: rgb(0, 0, 0);
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+    .label.naranja{
+        background: #F26522;
+
+    }
+
+    .label.celeste{
+        background: #5badd4;
+
+    }
+
+    
+    .label.gris{
+        background: gray;
+
+    }
+
+
+    .label.violeta{
+        background: #8B6BAF;
+
+    }
+
+    @media only screen and (min-width: 768px) {
+        .epigrafe{
+            margin-top: inherit;
+        }     
+        
+        svg text{
+            font-size: 12px;
+        }
+        
+    }
+    
+</style>
+
+
+<section id='scrolly'>
+    <div class='scrolly'>
+        
+
+        <!-- aca va el grafico que va a quedar fijo -->
+        <figure id="contenedorGrafico" class='sticky' >
+        </figure>
+
+        <!-- acá van los textos de cada paso -->
+        <article>
+            <div class='step' data-index='0'>
+                <p> Todas las enfermedades infecciosas tienen una forma de inicio, un período de incubación, seguido de una etapa de aparición de síntomas, un curso de la enfermedad que puede ser corto o largo y finalmente un determinado desenlace. A eso le llamamos “historia de la enfermedad”.
+                    <br/><br/>
+                    Resulta que la enfermedad por infección por COVID-19 también tiene una historia particular, y ahora te la vamos a contar…
+                </p>
+            </div>
+            
+            <div class='step' data-index='1'>
+                <p>
+                    La historia de la enfermedad por COVID-19 comienza cuando una persona toma contacto con el virus y lo contrae.
+                    <br/><br/>
+                    Supongamos que todas las personas en este grupo adquirieron la enfermedad. ¿Cómo sigue esto?
+                </p>
+            </div>
+            <div class='step' data-index='2'>
+                <p>
+                    Algunas de esas personas (aproximadamente 15%), aunque tengan COVID-19, <b>nunca van a desarrollar ningún síntoma</b>. Son las que denominamos  “casos asintomáticos”.
+                    <br/><br/>
+                    El grupo de asintomáticos es especialmente importante porque difícilmente se los testea (y por ende nunca formarán parte de lo que consideramos 
+                    <a href="/covid/la_cantidad_de_contagiados/">“casos confirmados”</a>) pero tienen capacidad de transmitir el virus. Una forma de detectar a los asintomáticos es haciendo testeos masivos, que son complicados y caros. Pasado un determinado tiempo, van a recuperarse y dejar de transmitir el virus.
+                </p>
+            </div>
+            <div class='step' data-index='3'>
+                <p>
+                    La historia continúa, porque la otra gran parte de las personas que tienen COVID-19 <b>sí van a tener síntomas</b> (aproximadamente 85%). Estas son capaces de transmitir el virus y tienen más probabilidades de que, por sus síntomas, se las testee.
+                    <br/><br/>
+                    A diferencia de los asintomáticos, este <mark class="label violeta">grupo de “sintomáticos”</mark> es conocido para nosotros porque, en general los testeamos y, cuando dan positivo, van a figurar en los casos confirmados.
+                </p>
+            </div>
+            <div class='step' data-index='4'>
+                <p>
+                    Aquí la historia empieza a complejizarse porque dentro del grupo de “sintomáticos” vamos a encontrar que los síntomas pueden ser más bien leves, similares a una gripe común, en la gran mayoría de los casos (80%) y más graves en los demás.
+                </p>
+            </div>
+            <div class='step' data-index='5'>
+                <p>
+                    Los casos leves deben cumplir el aislamiento y esperar la recuperación en sus domicilios.
+                <br/><br/>
+                Las <mark class="label naranja">personas que tienen síntomas más graves</mark> requerirán hospitalización. Una vez internadas en el hospital, la mayoría irá mejorando de a poco hasta la recuperación completa. Un <mark class="label gris">grupo muy pequeño, lamentablemente, morirá</mark> por COVID-19 en el hospital (1% de los casos totales).
+                </p>
+            </div>
+            <div class='step' data-index='6'>
+                <p>
+                    Los que hemos detectado con el test y aún no se han recuperado ni han fallecido son los que denominamos <a href="/covid/achatar_la_curva/">casos activos</a>. Los casos activos y los asintomáticos son los que pueden contagiar el virus y podrían requerir asistencia del sistema de salud.
+                    <br/><br/>
+                    Los casos activos tienen una dinámica que es muy importante para el sistema de salud. ¿A qué nos referimos con esto? 
+                </p>
+            </div>
+            <div class='step' data-index='7'>
+                <p>
+                    Tomemos el conjunto de personas que contrajeron la enfermedad y se recuperaron. Es importante tener en cuenta que, en la realidad, no todas las personas adquieren la enfermedad al mismo tiempo sino que cada una se contagia, transita la enfermedad y se recupera en distintos momentos.
+                </p>
+            </div>
+
+            <div class='step' data-index='8'>
+                <p>
+                    Para simplificar, acá estamos considerando por ejemplo que la duración de la enfermedad en todas las personas es la misma. Y que todas las personas tienen historias similares. La realidad es más diversa y compleja, pero la idea es la misma: no todas las personas transcurren la enfermedad en los mismos tiempos.
+                </p>
+            </div>
+
+            <div class='step' data-index='9'>
+                <p>
+                    Si quisiéramos "tomar una foto" del estado del COVID-19 en un determinado día en nuestro país, encontraríamos que cada caso está atravesando en realidad un momento distinto de su historia. Lo más parecido que tenemos a esa foto es el registro detallado de los casos activos.
+                </p>
+            </div>
+
+            <div class='step' data-index='10'>
+                <p>
+            Además debemos tener en cuenta que, con el fin de facilitar el análisis, dejamos de lado algunas condiciones como los casos descartados y los falsos negativos, y simplificamos otras (por ejemplo, hay algunos casos recuperados que han vuelto a contagiarse, y hay casos que comenzaron leves y que pasaron a graves antes de su recuperación).
+                </p>
+            </div>
+        </article>
+
+
+    </div>
+
+</section>
+
+
+ <!-- Scripts -->
+ <script>
+    
+//********************* CARGA DATOS ************
+
+Promise.all([
+/*     d3.csv("https://datos.decodificar.org/E1_ritmoBis.csv"),
+    d3.csv("https://datos.decodificar.org/E1_ritmo.csv"),
+    d3.csv("https://datos.decodificar.org/metaData_tablas.csv")
+ */
+]).then(function(files) {
+
+    // **** CODIGO DEL SCROLLY *******
+
+    const container = d3.select('#scrolly'); //busco el container total
+    const stepSel = container.selectAll('.step'); // selecciono los "steps"
+
+    function updateChart(index) {  // funcion que llama cada vez que cruza un humbral
+        const sel = container.select(`[data-index='${index}']`);
+        stepSel.classed('is-active', (d, i) => i === index);
+        
+        scrollyTelling(index); // <<<<< AQUI LLAMA AL GRAFICO VERDADERO
+    }
+
+    function init() { // configuracion inicial
+        Stickyfill.add(d3.select('.sticky').node()); // fallback para browsers sin sticky
+
+        enterView({
+            selector: stepSel.nodes(),
+            offset: 0,
+            enter: el => {
+                const index = +d3.select(el).attr('data-index');
+                updateChart(index);
+            },
+            exit: el => {
+                let index = +d3.select(el).attr('data-index');
+                index = Math.max(0, index - 1);
+                updateChart(index);
+            }
+        });
+    }
+ 
+
+    // **** END SCROLLY *******
+
+
+/* COLORES
+azul #00468B
+violeta #8B6BAF
+rojo #F04E53
+naranja #F26522
+verde #62BB46
+*/
+       
+        
+
+var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maximo
+
+var svg = d3.select("#contenedorGrafico").append("svg"),
+    marginTexto = isMobile ? 30:45,
+    margin = isMobile ? {top: 15, right: 30, bottom: 15, left: 40} : {top: 25, right: 40, bottom: 5, left: 65},
+    width =  +d3.select('#contenedorGrafico').style('width').slice(0, -2),
+    height = +d3.select('#contenedorGrafico').style('height').slice(0, -2)-25;
+
+    d3.select("#contenedorGrafico").append("div").attr("class","epigrafe")
+            .html("www.decodificar.org");
+
+
+    if (!isMobile && height > altoMaximo*width) {
+        svg.style('margin-top', (height - altoMaximo*width)/2 + "px")
+        height = altoMaximo*width;
+    }
+
+    svg.attr("viewBox", [0, 0, width, height]);
+
+    height = height - margin.top - margin.bottom;
+    width = width - margin.left - margin.right;
+    
+
+
+var grafico = svg.append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    ;
+
+    
+    // Agrego tipito como symbolo
+    svg.append("symbol").attr("id","tipito").attr("y",-20).attr("x",-10)
+        .append("path").attr("d","M10,3C7.8,3,5.9,4.8,5.9,7.1s1.8,4.1,4.1,4.1s4.1-1.8,4.1-4.1S12.2,3,10,3 M16.1,15.2v8.6c0,0.8-0.7,1.5-1.5,1.5h-1v8.6c0,0.8-0.7,1.5-1.5,1.5H8c-0.8,0-1.5-0.7-1.5-1.5v-8.6h-1c-0.8,0-1.5-0.7-1.5-1.5v-8.6c0-1.7,1.4-3,3-3h0.7c1.5,0.7,3.2,0.7,4.6,0H13C14.7,12.1,16.1,13.5,16.1,15.2z");
+    
+
+    
+    // agrego punta de flecha
+
+    var arrowPoints = [[1, 1], [4, 4], [1, 7]];
+
+    var markerBoxWidth = 5, markerBoxHeight = 8;
+    svg
+    .append('defs')
+    .append('marker')
+    .attr('id', 'arrow')
+    .attr('refX', 3)
+    .attr('stroke-width', 1.2)
+    .attr('refY', markerBoxHeight/2)
+    .attr('markerWidth', markerBoxWidth)
+    .attr('markerHeight', markerBoxHeight)
+    .append('path')
+    .attr('d', d3.line()(arrowPoints))
+    .attr("class","flechitas");
+
+ 
+    
+
+                    var padding = 15, anchoGrafico = width-margin.right;
+
+     
+
+        var casos = [
+             {name:"general", subitems:[
+                 {label:"Infección", color:codigoColor("verde"), pos:0, labelLink:""},
+                 {label:"Aparición de síntomas", color:codigoColor("violeta"), pos:0.5,labelLink:"Incubación"},
+                 {label:"Recuperación o Fallecimiento", color:"gray", pos:1, labelLink:"Curso de la enfermedad"}
+             ]},
+             {name:"asintomatico", subitems:[
+                 {label:"Infección", color:codigoColor("verde"), pos:0},
+                 {label:"Recuperación", color:codigoColor("verde"), pos:1,labelLink:"Sin síntomas (Asintomático)"}
+             ]},
+             {name:"sintomas leves", subitems:[
+                 {label:"Infección", color:codigoColor("verde"), pos:0},
+                 {label:"Aparición de síntomas", color:codigoColor("violeta"), pos:0.33,labelLink:"Incubación"},
+                 {label:"Recuperación", color:codigoColor("verde"), pos:1,labelLink:"Síntomas leves"}
+             ]},
+             {name:"internado", subitems:[
+                 {label:"Infección", color:codigoColor("verde"), pos:0},
+                 {label:"Aparición de síntomas", color:codigoColor("violeta"), pos:0.33,labelLink:"Incubación"},
+                 {label:"Internación", color:codigoColor("naranja"), pos:0.66,labelLink:"Síntomas graves"},
+                 {label:"Recuperación", color:codigoColor("verde"), pos:1,labelLink:"Asistencia médica"}
+             ]},
+             {name:"fallecido", subitems:[
+                 {label:"Infección", color:codigoColor("verde"), pos:0},
+                 {label:"Aparición de síntomas", color:codigoColor("violeta"), pos:0.33,labelLink:"Incubación"},
+                 {label:"Internación", color:codigoColor("naranja"), pos:0.66,labelLink:"Síntomas graves"},
+                 {label:"Fallecimiento", color:"gray", pos:1,labelLink:"Asistencia médica"}
+             ]}
+        ];
+
+        casos.forEach((p,ii) => { // agrego la data para las flechas
+                
+                for (let i = 0; i < p.subitems.length; i++) {
+                    if(i<p.subitems.length-1){ // todos menos el ultimo
+                    p.subitems[i].flecha = {
+                        x0:p.subitems[i].pos*anchoGrafico+padding,
+                        x1:p.subitems[i+1].pos*anchoGrafico-padding,
+                        label:p.subitems[i+1].labelLink};
+                    }
+                    p.subitems[i].casoId = ii;
+                }
+            })
+
+        var titulos = grafico.append("g").attr("id","titulos")
+                        .attr("transform", "translate(0," + (margin.top) + ")")
+                        .attr("text-anchor","middle")
+                        .style("opacity",0);
+            titulos.append("text").text("Inicio").attr("x",0);
+            titulos.append("text").text("Desenlace").attr("x",anchoGrafico);
+
+        dibujaRenglon(0,height/2,grafico,"g1");
+        dibujaRenglon(1,height/5,grafico,"g2");
+        dibujaRenglon(2,height*2/5,grafico,"g2");
+        dibujaRenglon(3,height*3/5,grafico,"g2 clones"); // este va duplicado
+        
+        dibujaRenglon(4,height*4/5,grafico,"g2");
+            
+        var divisionEnAlto = isMobile?7:7.3; // esto es lo que define el alto de los clones
+        for (let i = 1; i < 6; i++) {
+            if(i!=3) dibujaRenglon(3,height*i/(divisionEnAlto),grafico,"clones"); // este va duplicado
+        }
+
+        
+
+        function dibujaRenglon(index,altura,root,clase) {
+            const tempRoot = root.append("g").attr("class",clase)
+                    .style("opacity",clase=="clones"?0:1)
+                    .attr("transform", d => `translate(0,${altura})`);
+
+            const node = tempRoot.append("g")
+                    .selectAll("g").attr("class","subitems")
+                    .data(casos[index].subitems)
+                    .join("g")
+                    //.attr("transform", d => `translate(${d.pos*anchoGrafico},0)`)
+                    .attr("class",(d,i)=>"bl"+i);
+
+                node.append("use")
+                    .attr("xlink:href","#tipito")
+                    .attr("x",d=>d.pos*anchoGrafico)
+                    .attr("class",(d,i)=>"item tip"+i)
+                    .attr("fill",d=>d.color)
+                    ;
+
+                node.append("text")
+                    .attr("y", height<560?15:18)
+                    .attr("x",d=>d.pos*anchoGrafico)
+                    .attr("text-anchor", "middle")
+                    .attr("class","item labels")
+                    .text(d=>d.label)
+                    .call(wrap, 100, 1, false)
+                    ;
+            
+                node.filter(d=>d.hasOwnProperty("flecha")).append("path")
+                    .attr("class", "item links flechitas")
+                    .attr('stroke-width', 1.5)
+                    .attr("marker-end","url(#arrow)")
+                    .attr("d", d=>d3.line()([[d.flecha.x0,0],[d.flecha.x1,0]]));
+        
+          if(clase!="clones"){
+                node.filter(d=>d.hasOwnProperty("flecha")).append("text")
+                    .attr("class","item links texts")
+                    .attr("y", -5)
+                    .attr("x", d=>{
+                        return (d.flecha.x1-d.flecha.x0)/2+d.flecha.x0})
+                    .attr("text-anchor", "middle") 
+                    .text(d=>d.flecha.label);
+                if(isMobile) node.selectAll(".texts").call(wrap, 70, 1,true) ;
+                    
+                }
+                   d3.selectAll(".g2").selectAll(".item").style("opacity",0);
+        }
+
+        
+            // aca construye el grafico de barras inferior
+           
+    const dataLine = [[0,0,0],[1,1,0],[1,2,0],[1,3,0],[1,4,0],[1,5,0],[0,6,0],[0,7,0],
+                        [0,0,1],[0,1,1],[1,2,1],[1,3,1],[1,4,1],[1,5,1],[1,6,1],[0,7,1],
+                        ];
+
+
+    const xScale = d3.scaleLinear()
+      .domain([0,7])
+      .range([0, anchoGrafico]);
+
+    const yScale = d3.scaleLinear()
+      .domain([0, 3])
+      .range([0, height*2/divisionEnAlto]);
+
+    const xAxis = (g) => g
+      .attr('transform', `translate(0,${height - margin.bottom})`)
+      .attr("id","eje")
+      .attr("opacity",0)
+      .call(d3.axisBottom(xScale).ticks(8))
+      .selectAll(".tick").selectAll("text").remove();
+
+    const line = d3.line()
+      //.defined(d => !isNaN(d.value))
+      .y(d => yScale(d))
+      .x((d,i) => xScale(i));
+
+    const grafLinea = grafico.append('g').attr("id","graficoLinea");
+
+    grafLinea.append('g').call(xAxis)
+
+    grafLinea.append('g').attr("id","barras").selectAll("rect")
+      .data(dataLine)
+      .join("rect")
+        .attr("opacity",0)
+        .attr("fill",d=>!d[2]?codigoColor("violeta"):codigoColor("naranja"))
+        .attr('x', d => xScale(d[1])-anchoGrafico/64*(isMobile?2:1))
+        .attr("y",d=> height - margin.bottom - yScale(d[0]+(d[1]>5?0:d[2])))
+        .attr("width", anchoGrafico/32*(isMobile?2:1))
+        .attr("height", d=> yScale(d[0]));
+     
+
+        grafico
+                .append("text")
+                .attr("opacity",0)
+                .attr("id","tituloGrafico")
+                .attr("x",0)
+                .attr("y",height*(isMobile?5.5:6)/divisionEnAlto)
+                .style("fill","black")
+                .style("text-anchor","middle")
+                .text("Casos activos");
+
+// INICIA EL SCROLLY
+
+        init()
+
+    var stepPrevio=0;
+    function scrollyTelling(step){
+        var apagadito = 0.2, angostamiento= 0.43;
+
+        switch (step) {
+                case 0:
+                d3.selectAll(".g2").selectAll(".item").transition().duration(600).style("opacity",0);
+                d3.selectAll(".g1").transition().duration(600).style("opacity",1);
+                d3.select("#titulos").transition().duration(600).style("opacity",0);
+                break;
+
+                case 1: // aparecer solo los tipitos
+                d3.selectAll(".tip0").transition().duration(600).style("opacity",1);
+                d3.select("#titulos").transition().duration(600).style("opacity",1);
+                d3.selectAll(".g1").transition().duration(600).style("opacity",0);
+                break;
+
+                case 2:
+                d3.selectAll(".g2").selectAll(".item:not(.tip0)").transition().delay(d=>d.pos*80).duration(600).style("opacity",d=>d.casoId==1?1:0);
+                d3.selectAll(".g1").transition().duration(600).style("opacity",0);
+                break;
+
+                case 3:
+                d3.selectAll(".g2").selectAll(".item:not(.tip0)").transition().delay(d=>d.pos*80).duration(600).style("opacity",d=>d.casoId<=2?1:0);
+                d3.selectAll(".g1").transition().duration(600).style("opacity",0);
+                break;
+
+                case 4://resaltar sintomaticos
+
+                break;
+
+                case 5: //aparecen los dos hospitalizados
+                d3.selectAll(".g2").selectAll(".item").transition().delay(d=>d.pos*80).duration(600).style("opacity",1);
+                d3.selectAll(".g1").transition().duration(600).style("opacity",0);
+                break;
+
+                case 6://marco todos los del medio
+                d3.select("#titulos").transition().duration(600).style("opacity",1);
+                d3.selectAll(".g2").transition().duration(600).style("opacity",1);
+                d3.selectAll(".g2.clones").transition().delay(301).duration(300)
+                                            .attr("transform", d => `translate(0,${height*3/5})`);
+                d3.selectAll(".g2").selectAll(".item:not(.links)").transition().duration(600).style("opacity",d=>d.pos>0&&d.pos<1?1:apagadito);
+                d3.selectAll(".g2").selectAll(".links").transition().duration(600).style("opacity",apagadito);
+                d3.selectAll(".g1").transition().duration(600).style("opacity",0);
+                d3.selectAll(".clones:not(.g2)").transition().delay(301).duration(300).style("opacity",0);
+                d3.selectAll(".clones").selectAll("use,.labels").transition().delay(301).duration(600)
+                                            .attr("font-size","12px")
+
+                                          
+                break;
+
+                case 7:// dejo solo el caso 3 y apago el resto y duplico el caso 3
+
+                d3.select("#titulos").transition().duration(300).style("opacity",0);
+
+                d3.selectAll(".g2").selectAll(".item").transition().duration(300).style("opacity",1);
+                d3.selectAll(".g2").selectAll(".texts").transition().duration(300).style("opacity",0);
+
+                d3.selectAll(".g2:not(.clones)").transition().duration(300).style("opacity",0);
+
+                d3.selectAll(".clones").selectAll("use,.labels").transition().delay(301).duration(600)
+                                            .attr("font-size","9px")
+                                            .attr("x",d=>d.pos*anchoGrafico)
+
+                d3.selectAll(".clones").selectAll(".flechitas").transition().delay(301).duration(600)
+                                            .attr("d", d=>d3.line()([[d.flecha.x0,0],[d.flecha.x1,0]]));
+
+                d3.select(".g2.clones").transition().delay(301).duration(600)
+                                            .style("opacity",1)
+                                            .attr("transform", d => `translate(0,${height*3/divisionEnAlto})`);
+
+                d3.selectAll(".clones").transition().delay(902).duration(300).delay((d,i)=>600+(Math.abs(i-2)*140))
+                                                .style("opacity",1);
+
+                d3.selectAll(".g1").transition().duration(600).style("opacity",0);
+
+                d3.selectAll(".clones g").transition().delay(301).duration(600)
+                            .attr("transform", (d,i) => `translate(0,0)`);
+
+                if(isMobile)  d3.selectAll(".clones").selectAll(".labels").transition().duration(300)
+                            .style("opacity",1);    
+
+                break;
+                
+                case 8:// angosto y distribuyo
+                d3.selectAll(".clones").selectAll("use,.labels").transition().duration(600)
+                                    .attr("x",d=>d.pos*angostamiento*anchoGrafico);
+                                   
+                d3.selectAll(".clones").selectAll(".flechitas").transition().duration(600)
+                            .attr("d", d=>d3.line()([[d.flecha.x0*angostamiento+padding/2,0],[d.flecha.x1*angostamiento-padding/2,0]]));
+                            
+                d3.selectAll(".clones>g").transition().duration(600)
+                            .attr("transform", (d,i) => `translate(${i*anchoGrafico/7},0)`);
+                        
+                            d3.selectAll("#eje, #tituloGrafico").transition().duration(300)
+                            .style("opacity",0);
+                
+                d3.selectAll("#barras").selectAll("rect").transition().duration(300)
+                            .style("opacity",0);    
+                if(isMobile)  d3.selectAll(".clones").selectAll(".labels").transition().duration(300)
+                            .style("opacity",0);    
+                break;
+                
+                case 9://
+
+                d3.selectAll("#eje, #tituloGrafico").transition().delay(600).duration(300)
+                            .style("opacity",1);
+                
+                d3.selectAll("#barras").selectAll("rect").transition().delay(d=>800+d[1]*100).duration(300)
+                            .style("opacity",1);
+                break;
+
+                case 10://
+                break;
+            }
+
+
+            stepPrevio = step;
+        }
+            
+
+    
+
+});
+
+
+function wrap(text, width, dy, alignBottom) {
+  text.each(function() {
+    var text = d3.select(this),
+        words = text.text().split(/\s+/).reverse(),
+        word,
+        line = [],
+        lineNumber = 1,
+        lineHeight = dy, // ems
+        y = text.attr("y"),
+        clase = text.attr("class"),
+        x = parseFloat(text.attr("x")),
+        tspan = text.text(null).append("tspan").attr("x", 0)
+                    .attr("dy", dy + "em");
+    while (word = words.pop()) {
+      line.push(word);
+      tspan.text(line.join(" "))
+            .attr("x", x).attr("class",clase);
+      if (tspan.node().getComputedTextLength() > width) {
+        lineNumber++;
+
+        line.pop();
+        tspan.text(line.join(" "));
+        line = [word];
+        tspan = text.append("tspan")
+                .attr("x", x)
+                .attr("dy", dy + "em").text(word).attr("class",clase);
+      }
+    }
+    if(alignBottom) d3.select(this).attr("y",y-lineNumber*10-5)
+  });
+}
+
+</script>
+
+
+<div class="note info"><p>Ahora que conocemos mejor cómo se comporta esta enfermedad y cuál es su historia, podemos tener una visión más amplia de lo que está pasando. Así, vemos que en una población conviven al mismo tiempo varios subgrupos muy distintos en cuanto a la probabilidad de ser testeado y detectado, a la capacidad de transmitir o no el virus, a la posibilidad de requerir o no internación o respirador, etc.</p>
+<img src="/images/historiaDeUnCaso_venn.png" class="imgDesktop">
+<img src="/images/historiaDeUnCaso_venn_mobile.png" class="imgMobile">
+
+<p>Entender qué subgrupo es el que conforma, por ejemplo, el número total de casos o el número de casos activos es uno de los primeros pasos para interpretar correctamente las noticias.</p>
+</div>]]></content>
+  </entry>
 </search>
