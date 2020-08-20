@@ -426,7 +426,7 @@ var coloreaCategorias = d3.scaleOrdinal()
             </div>
             <div class='step' data-index='6'>
                 <p>
-                    Los que hemos detectado con el test y aún no se han recuperado ni han fallecido son los que denominamos <a href="/covid/achatar_la_curva/">casos activos</a>. Los casos activos y los asintomáticos son los que pueden contagiar el virus y podrían requerir asistencia del sistema de salud
+                    Los que hemos detectado con el test y aún no se han recuperado ni han fallecido son los que denominamos <a href="/covid/achatar_la_curva/">casos activos</a>. Los casos activos y los asintomáticos son los que pueden contagiar el virus y podrían requerir asistencia del sistema de salud.
                     <br/><br/>
                     Los casos activos tienen una dinámica que es muy importante para el sistema de salud. ¿A qué nos referimos con esto? 
                 </p>
@@ -661,7 +661,7 @@ var grafico = svg.append("g")
                     ;
 
                 node.append("text")
-                    .attr("y", 18)
+                    .attr("y", height<560?15:18)
                     .attr("x",d=>d.pos*anchoGrafico)
                     .attr("text-anchor", "middle")
                     .attr("class","item labels")
@@ -740,7 +740,7 @@ var grafico = svg.append("g")
                 .attr("y",height*(isMobile?5.5:6)/divisionEnAlto)
                 .style("fill","black")
                 .style("text-anchor","middle")
-                .text("Casos diarios");
+                .text("Casos activos");
 
 // INICIA EL SCROLLY
 
@@ -800,6 +800,7 @@ var grafico = svg.append("g")
                 case 7:// dejo solo el caso 3 y apago el resto y duplico el caso 3
 
                 d3.select("#titulos").transition().duration(300).style("opacity",0);
+
                 d3.selectAll(".g2").selectAll(".item").transition().duration(300).style("opacity",1);
                 d3.selectAll(".g2").selectAll(".texts").transition().duration(300).style("opacity",0);
 
@@ -816,7 +817,7 @@ var grafico = svg.append("g")
                                             .style("opacity",1)
                                             .attr("transform", d => `translate(0,${height*3/divisionEnAlto})`);
 
-                d3.selectAll(".clones").transition().delay(901).duration(300).delay((d,i)=>600+(Math.abs(i-2)*140))
+                d3.selectAll(".clones").transition().delay(902).duration(300).delay((d,i)=>600+(Math.abs(i-2)*140))
                                                 .style("opacity",1);
 
                 d3.selectAll(".g1").transition().duration(600).style("opacity",0);
@@ -835,6 +836,7 @@ var grafico = svg.append("g")
                                    
                 d3.selectAll(".clones").selectAll(".flechitas").transition().duration(600)
                             .attr("d", d=>d3.line()([[d.flecha.x0*angostamiento+padding/2,0],[d.flecha.x1*angostamiento-padding/2,0]]));
+                            
                 d3.selectAll(".clones>g").transition().duration(600)
                             .attr("transform", (d,i) => `translate(${i*anchoGrafico/7},0)`);
                         

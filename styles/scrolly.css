@@ -66,6 +66,8 @@
         img.imgDesktop{
                 display: none;
             }
+
+
         @media only screen and (min-width: 768px) {
 
             img.imgMobile{
@@ -97,11 +99,24 @@
                 margin-bottom: 20px;
             }
 
+            
+        }
+
+        @media only screen and (min-height: 650px) and (min-width: 768px) {
             #contenedorGrafico.sticky, .contenedorGrafico.sticky {
                 top: 18vh;
                 height: 60vh;
-                    }
+            }
         }
+        
+        @media only screen and (max-height: 650px) and (min-width: 768px) {
+            #contenedorGrafico.sticky, .contenedorGrafico.sticky {
+                top: 12vh;
+                height: 80vh;
+            }
+        }
+        
+        
 
 
       
