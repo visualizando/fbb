@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather:300,300italic,400,400italic,700,700italic|Oswald:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"decodificar.org","root":"/","scheme":"Mist","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"remove","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeIn","post_body":"none","coll_header":"fadeIn","sidebar":"fadeInUp"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="En cada país se toman decisiones distintas respecto a COVID-19. Esto hace difícil la comparación de la situación entre naciones. ¿Qué herramientas tenemos para hacer estas comparaciones y así tener un">
+<meta property="og:type" content="article">
+<meta property="og:title" content="¿En qué países murieron más personas por COVID-19?">
+<meta property="og:url" content="https://decodificar.org/covid/muertes_por_pais/index.html">
+<meta property="og:site_name" content="Decodificar: COVID19">
+<meta property="og:description" content="En cada país se toman decisiones distintas respecto a COVID-19. Esto hace difícil la comparación de la situación entre naciones. ¿Qué herramientas tenemos para hacer estas comparaciones y así tener un">
+<meta property="og:locale" content="es_ES">
+<meta property="og:image" content="https://decodificar.org/images07_muertes_mundo_redes.png">
+<meta property="article:published_time" content="2020-08-25T03:00:00.000Z">
+<meta property="article:modified_time" content="2020-08-25T03:00:00.000Z">
+<meta property="article:author" content="Fundacion Bunge y Born">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://decodificar.org/images07_muertes_mundo_redes.png">
+
+<link rel="canonical" href="https://decodificar.org/covid/muertes_por_pais/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'es'
+  };
+</script>
+
+  <title>¿En qué países murieron más personas por COVID-19? | Decodificar: COVID19</title><meta name="robots" content="noindex">
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132699662-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-132699662-2');
+      }
+    </script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PWMSB36');</script>
+<!-- End Google Tag Manager -->
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+      <script src="https://d3js.org/d3.v5.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/stickyfill/2.1.0/stickyfill.js"></script>
+      <script src="https://unpkg.com/enter-view"></script>
+      <link rel="stylesheet" href="/styles/scrolly.css">
+  
+</head>
+
+<body itemscope  class="white" itemtype="http://schema.org/WebPage">
+      <script>
+      var es_ES = {
+        "decimal": ",",
+        "thousands": ".",
+        "grouping": [3],
+        "currency": ["$", ""],
+        "dateTime": "%a %b %e %X %Y",
+        "date": "%d/%m/%Y",
+        "time": "%H:%M:%S",
+        "periods": ["AM", "PM"],
+        "days": ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+        "shortDays": ["Dom", "Lun", "Mar", "Mi", "Jue", "Vie", "Sab"],
+        "months": ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+        "shortMonths": ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
+    };
+
+    d3.timeFormatDefaultLocale(es_ES);
+    d3.formatDefaultLocale(es_ES);
+
+    var anchoDiv = document.getElementsByTagName("body")[0].clientWidth;
+    var isMobile = anchoDiv < 768 ? 1 : 0; 
+
+  var nombresPcias = {
+            "CABA":["CABA","CABA"],
+            "Buenos_Aires":["Buenos Aires","PBA"],
+            "Catamarca":["Catamarca","CAT"],
+            "Chaco":["Chaco","CHAC"],
+            "Chubut":["Chubut","CHUB"],
+            "Cordoba":["Córdoba","CBA"],
+            "Corrientes":["Corrientes","COR"],
+            "Entre_Rios":["Entre Ríos","ER"],
+            "Formosa":["Formosa","FORM"],
+            "Jujuy":["Jujuy","JUJ"],
+            "La_Pampa":["La Pampa","PAMP"],
+            "La_Rioja":["La Rioja","RIOJ"],
+            "Mendoza":["Mendoza","MEND"],
+            "Misiones":["Misiones","MIS"],
+            "Neuquen":["Neuquén","NEU"],
+            "Rio_Negro":["Río Negro","RN"],
+            "Salta":["Salta","SAL"],
+            "San_Juan":["San Juan","SJuan"],
+            "San_Luis":["San Luis","SLuis"],
+            "Santa_Cruz":["Santa Cruz","Scruz"],
+            "Santa_Fe":["Santa Fe","SFe"],
+            "Santiago_del_Estero":["Sgo del Estero","SEst"],
+            "Tierra_del_fuego":["T. del Fuego","TFuego"],
+            "Tucuman":["Tucumán","TUC"]
+
+        }
+
+
+var codigoColor = d3.scaleOrdinal()
+        .domain(["azul","violeta","rojo","naranja","verde","celeste"])
+        .range(["#00468B","#8B6BAF","#F04E53","#F26522","#62BB46","#5badd4"]);
+
+
+
+var colores = d3.scaleOrdinal()
+        .domain([0,5])
+        //azul -  violeta - rojo  - naranja - verde
+        .range(["#00468B","#8B6BAF","#F04E53","#F26522","#62BB46"]);
+
+//window.onresize = function(){ location.reload(); }
+
+var coloreaCategorias = d3.scaleOrdinal()
+        .range(["#4e79a7","#f28e2c","#e15759","#76b7b2","#59a14f","#af7aa1","#ff9da7","#9c755f","#8a7e78"]);
+
+      </script>
+
+  
+
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <img src="/images/logo-web.png">
+<!--       <i class="logo-line"></i>
+      <h1 class="site-title">Decodificar: COVID19</h1>
+      <i class="logo-line"></i> -->
+    </a>
+      <p class="site-subtitle" itemprop="description">Entendiendo la pandemia</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+
+    <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Cambiar a barra de navegación">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-inicio">
+
+    <a href="/" rel="section">Inicio</a>
+
+  </li>
+        <li class="menu-item menu-item-acerca-del-proyecto">
+
+    <a href="/about/" rel="section">Acerca del proyecto</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+      </header>
+
+      
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+      <div class="main-inner">
+        
+
+        <div class="content post posts-expand">
+          
+
+    
+  
+  
+      
+ <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="es">
+    <link itemprop="mainEntityOfPage" href="https://decodificar.org/covid/muertes_por_pais/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fundacion Bunge y Born">
+      <meta itemprop="description" content="Decodificar es un sitio para que todos, sin importar cuánto sepamos de datos, tengamos herramientas que nos ayuden a entender lo que pasa a nuestro alrededor. En esta edición especial te acercamos herramientas simples y potentes para leer noticias y otros contenidos relacionados con la pandemia del COVID-19">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Decodificar: COVID19">
+    </span>
+      <header class="post-header">
+      <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar-check"></i>
+              </span>
+              <!-- <span class="post-meta-item-text">Editado el</span> -->
+              <time title="Modificado por: 25 de agosto de 2020 00" itemprop="dateModified" datetime="2020-08-25T00:00:00-03:00">Publicado el 25 de agosto de 2020</time>
+            </span>
+
+          
+
+         
+        </div>
+
+
+          <h1 class="post-title" itemprop="name headline">
+          ¿En qué países murieron más personas por COVID-19?
+        </h1>
+            <div class="post-description">En cada país se toman decisiones distintas respecto a COVID-19. Esto hace difícil la comparación de la situación entre naciones. ¿Qué herramientas tenemos para hacer estas comparaciones y así tener un mejor termómetro de la situación global?</div>
+
+           
+                      <div class="compartir">Compartir:
+                        <a  href="https://www.facebook.com/sharer/sharer.php?u=https://decodificar.org/covid/muertes_por_pais/&quote=¿En qué países murieron más personas por COVID-19?" target="_blank" title="Share on Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURI(https://decodificar.org/covid/muertes_por_pais/) + '&quote=' + encodeURI(¿En qué países murieron más personas por COVID-19?); return false;"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+                        <a href="https://twitter.com/intent/tweet?text=¿En qué países murieron más personas por COVID-19?%20&url=https://decodificar.org/covid/muertes_por_pais/" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURI(¿En qué países murieron más personas por COVID-19?) + '&url='+ encodeURI(https://decodificar.org/covid/muertes_por_pais/) ; return false;"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                      </div>
+           
+
+      </header>
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+<!-- imagen destacada -->
+        
+      
+        
+
+
+<style>
+
+
+
+  
+    svg text{
+            font-size: 12px;
+        }
+
+
+     text.titulo{
+            font-size: 14px;
+            fill:#555;
+        }
+
+    .boxGroup .lineaBox{
+        fill:none;
+        stroke:#F26522;
+        stroke-width: 3px;
+        stroke-linecap: round;
+    }
+
+    .boxGroup .box{
+        fill:rgb(219, 219, 219);
+        stroke-width: 1px;
+    }
+    
+    .boxGroup tspan{
+        font-variant-numeric: lining-nums;
+    }
+
+    .boxGroup tspan.numero{
+        /* font-weight: 100; */
+    
+        opacity: 0.75;
+    }
+
+
+
+    .label.naranja{
+        background: #F26522;
+
+    }
+
+    .label.celeste{
+        background: #5badd4;
+
+    }
+
+    
+    .label.gris{
+        background: gray;
+
+    }
+
+
+    .label.violeta{
+        background: #8B6BAF;
+
+    }
+
+    @media only screen and (min-width: 768px) {
+    
+    
+        
+    }
+    
+</style>
+
+
+<section id='scrolly'>
+    <div class='scrolly'>
+        
+
+        <!-- aca va el grafico que va a quedar fijo -->
+        <figure id="contenedorGrafico" class='sticky' >
+        </figure>
+
+        <!-- acá van los textos de cada paso -->
+        <article>
+            <div class='step' data-index='0'>
+                <p> La cantidad de muertes totales y por millón de habitantes en todo el mundo por COVID-19 son cifras con las que nos cruzamos a diario.
+                    <br/><br/>
+                    Este es el ranking de los  países según ambos datos.
+                    <br/><br/>
+                    ¿Sirven estos números para comparar el impacto de la pandemia entre los distintos países? ¿Cuál conviene mirar?
+                </p>
+            </div>
+            
+            <div class='step' data-index='1'>
+                <p>
+                    Comparar entre países no es tan fácil como parece.
+                    <br/><br/>
+                    Podríamos comparar el número de casos confirmados. Pero, como vimos en ¿Cuántos contagiados hay realmente?, la decisión sobre a qué personas testear puede ser distinta en cada país y, además, cambiar en el tiempo.
+                    <br/><br/>
+                    No sería una comparación correcta y puede ser engañosa.
+                </p>
+            </div>
+            <div class='step' data-index='2'>
+                <p>
+                    En cambio, el número de fallecimientos es una medida un poco más confiable.
+                    <br/><br/>
+                    Un fallecimiento por COVID-19 no depende, por ejemplo, de cuántos testeos decida hacer el país o de la definición de caso sospechoso. Depende menos de las decisiones que cada país tome.
+                </p>
+            </div>
+            <div class='step' data-index='3'>
+                <p>
+                    Pero, incluso cuando elegimos un indicador bueno, puede haber otros factores que hagan difícil la comparación.
+                    <br/><br/>
+                    Por ejemplo, los países tienen poblaciones muy diferentes. ¿Importa eso para esta comparación?
+                </p>
+            </div>
+            <div class='step' data-index='4'>
+                <p>
+                    En este gráfico comparamos el número de fallecimientos por COVID-19 con la cantidad de habitantes al 31 de julio de 2020. Cada punto corresponde a un país
+                    <br/><br/>
+                    Ambos ejes están en escala logarítmica que, como vimos acá, permite graficar números chicos y grandes a la vez.
+                </p>
+            </div>
+            <div class='step' data-index='5'>
+                <p>
+                    Se ve que hay una tendencia: todos los puntos se acomodan como en diagonal.
+                <br/><br/>
+                Esto quiere decir que, cuantos más habitantes tiene un país, mayor es su número de muertes por COVID-19.
+                </p>
+            </div>
+            <div class='step' data-index='6'>
+                <p>
+                    Los que hemos detectado con el test y aún no se han recuperado ni han fallecido son los que denominamos <a href="/covid/achatar_la_curva/">casos activos</a>. Los casos activos y los asintomáticos son los que pueden contagiar el virus y podrían requerir asistencia del sistema de salud.
+                    <br/><br/>
+                    El país chico tiene todas las de ganar en esta comparación: tiene menos muertes simplemente porque tiene menos población.
+                </p>
+            </div>
+            <div class='step' data-index='7'>
+                <p>
+                    Entonces, para comparar entre distintos países, nos conviene ver cuántas personas fallecidas hay en relación al tamaño de su población.
+                    <br/><br/>
+                    Por ello, uno de los indicadores que usamos es el de muertes por millón de habitantes. Por cada millón de personas que viven en ese país, cuántas personas murieron.
+                    <br/><br/>
+                    Al incorporar la información del tamaño de la población (fallecimientos por millón de habitantes) el ranking de países se modifica, y la comparación entre países es más acertada.
+                </p>
+            </div>
+
+         
+        </article>
+
+
+    </div>
+
+</section>
+
+
+ <!-- Scripts -->
+ <script>
+    
+//********************* CARGA DATOS ************
+
+Promise.all([
+    d3.dsv(";", "https://datos.decodificar.org/I8_normalizacion_fallecimientos.csv"),
+    d3.dsv(";", "https://datos.decodificar.org/I8_normalizacion_fallecimientos_regresion.csv"),
+    d3.csv("https://datos.decodificar.org/metaData_tablas.csv")
+]).then(function(files) {
+
+    var epigrafeData ="";
+    
+    /* files[files.length-1].filter(d=>d.file=="I8_normalizacion_fallecimientos.csv")[0];
+        if(epigrafeData.hasOwnProperty("fecha")) epigrafeData.fecha = d3.timeFormat("%-d/%b/%Y")(d3.timeParse("%Y-%m-%d")(epigrafeData.fecha));
+ */
+
+
+    var parseTime = d3.timeParse("%d/%m/%y");
+
+    var datos = files[0].map(obj => {
+					return {
+						"id":obj.iso_code,
+						"pais":obj.location,
+                        "poblacion":+obj.population,
+                        "muertes":+obj.total_deadths,
+                        "muertesRel":+obj.total_deaths_per_million,
+                        //"fecha":parseTime(obj.date)
+					}})
+
+
+        datos.sort((a, b) => d3.descending(a.muertes, b.muertes))
+            .forEach((e,i) => {
+                e.rankingMuertes = i+1;
+            });
+
+        datos.sort((a, b) => d3.descending(a.muertesRel, b.muertesRel))
+            .forEach((e,i) => {
+                e.rankingMuertesRel = i+1;
+            });
+
+        datos.sort((a, b) => d3.descending(a.poblacion, b.poblacion))
+            .forEach((e,i) => {
+                e.rankingPob = i+1;
+            });
+    // **** CODIGO DEL SCROLLY *******
+
+    const container = d3.select('#scrolly'); //busco el container total
+    const stepSel = container.selectAll('.step'); // selecciono los "steps"
+
+    function updateChart(index) {  // funcion que llama cada vez que cruza un humbral
+        const sel = container.select(`[data-index='${index}']`);
+        stepSel.classed('is-active', (d, i) => i === index);
+        
+        scrollyTelling(index); // <<<<< AQUI LLAMA AL GRAFICO VERDADERO
+    }
+
+    function init() { // configuracion inicial
+        Stickyfill.add(d3.select('.sticky').node()); // fallback para browsers sin sticky
+
+        enterView({
+            selector: stepSel.nodes(),
+            offset: 0.3,
+            enter: el => {
+                const index = +d3.select(el).attr('data-index');
+                updateChart(index);
+            },
+            exit: el => {
+                let index = +d3.select(el).attr('data-index');
+                index = Math.max(0, index - 1);
+                updateChart(index);
+            }
+        });
+    }
+ 
+
+    // **** END SCROLLY *******
+
+
+/* COLORES
+azul #00468B
+violeta #8B6BAF
+rojo #F04E53
+naranja #F26522
+verde #62BB46
+*/
+       
+        
+
+var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maximo
+
+
+var svg = d3.select("#contenedorGrafico").append("svg"),
+    marginTexto = isMobile ? 30:45,
+    margin = isMobile ? {top: 15, right: 30, bottom: 15, left: 40} : {top: 25, right: 30, bottom: 20, left: 30},
+    width =  +d3.select('#contenedorGrafico').style('width').slice(0, -2),
+    height = +d3.select('#contenedorGrafico').style('height').slice(0, -2)-25;
+
+    d3.select("#contenedorGrafico").append("div").attr("class","epigrafe")
+            .html("www.decodificar.org - ")//+epigrafeData.fecha+" - Fuente: "+ epigrafeData.fuente)
+            ;
+
+
+    if (!isMobile && height > altoMaximo*width) {
+        svg.style('margin-top', (height - altoMaximo*width)/2 + "px")
+        height = altoMaximo*width;
+    }
+
+    svg.attr("viewBox", [0, 0, width, height]);
+
+    height = height - margin.top - margin.bottom;
+    width = width - margin.left - margin.right;
+    
+
+
+var grafico = svg.append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    ;
+
+    var anchografico = width;
+    var marginBox =10;
+    
+    var x = d3.scaleBand()
+                    .domain([0,1])
+                    .range([0,anchografico])
+                    .paddingInner(0.3)
+                    .paddingOuter(0)
+                    .align(0.5)
+                    .round(true);
+
+    
+    const xLine = d3.scaleLinear()
+            .range([marginBox+1, x.bandwidth()-marginBox-1]);
+
+    var y = d3.scaleBand()
+                    .domain(d3.range(1,11))
+                    .range([20,height])
+                    .paddingInner(0.2)
+                    .paddingOuter(0)
+                    .align(0.5)
+                    .round(true);
+
+
+                armaRanking(datos,"rankingMuertes","muertes",10,0, "", "rankMuertes", "Muertes totales");
+
+                armaRanking(datos,"rankingMuertesRel","muertesRel",10,1, "", "rankMuertesRel", "Muertes por millon de hab.");
+
+                armaRanking(datos,"rankingPob","poblacion",10,1, "hab", "rankPob", "Poblacion");
+                d3.select("#rankPob").style("opacity",0)
+
+    function armaRanking(data, variableOrden, variableMuestra, top, columna, unidad, id, titulo) {
+        
+       data = data.sort((a, b) => d3.ascending(a[variableOrden], b[variableOrden])).slice(0,top);
+        xLine.domain([0,d3.max(data,d=>d[variableMuestra])]);
+
+       const tabs = grafico.append("g").attr("id",id);
+    
+       var texto = tabs.append("text")
+                                    .attr("class","titulo")
+                                    .attr("x",marginBox+x(columna))
+                                    .attr("y",14)
+                                    .text(titulo);
+
+       var cards = tabs.append("g").selectAll("g")
+                        .data(data)
+                        .join("g")
+                            .attr("class","boxGroup")
+                            .attr("transform", d => `translate(${x(columna)},${y(+d[variableOrden])})`);
+            
+                  
+                   cards.append("rect")
+                                .attr("width",x.bandwidth())
+                                .attr("height",y.bandwidth())
+                                .attr("rx",4)
+                                .attr("class","box")
+                                ;
+                 
+                   var texto = cards.append("text")
+                                    .attr("x",marginBox)
+                                    .attr("y",y.bandwidth()/2+2);
+
+                       texto.append("tspan")
+                            .text(d=>d[variableOrden]+". " + d.pais + ": ")
+
+                       texto.append("tspan").attr("class","numero")
+                            .text(d=>d3.format(",.0f")(d[variableMuestra]) +" "+ unidad)
+
+                            
+                            
+                        ;
+
+                    cards.append("path")
+                            .attr("d",d=>d3.line()([[xLine(0),0],[xLine(d[variableMuestra]),0]]))
+                            .attr("class","lineaBox")
+                            .attr("transform", d => `translate(0,${(y.bandwidth()/2)+8})`);
+                            
+                        ;
+       
+        
+                }
+
+// INICIA EL SCROLLY
+
+        init()
+
+
+
+    function scrollyTelling(step){
+
+        switch (step) {
+            case 2:
+                d3.select("#rankPob").transition().duration(300).style("opacity",0)
+                d3.select("#rankMuertesRel").transition().delay(300).duration(400).style("opacity",1)
+                break;
+
+            case 3:
+                d3.select("#rankMuertesRel").transition().duration(300).style("opacity",0)
+                d3.select("#rankPob").transition().delay(300).duration(400).style("opacity",1)
+                break;
+
+
+            case 6:
+                d3.select("#rankMuertesRel").transition().duration(300).style("opacity",0)
+                d3.select("#rankPob").transition().delay(300).duration(400).style("opacity",1)
+                break;
+
+            case 7:
+                d3.select("#rankPob").transition().duration(300).style("opacity",0)
+                d3.select("#rankMuertesRel").transition().delay(300).duration(400).style("opacity",1)
+                break;
+
+                
+            }
+        }
+            
+
+    
+
+});
+
+
+function wrap(text, width, dy, alignBottom) {
+  text.each(function() {
+    var text = d3.select(this),
+        words = text.text().split(/\s+/).reverse(),
+        word,
+        line = [],
+        lineNumber = 1,
+        lineHeight = dy, // ems
+        y = text.attr("y"),
+        clase = text.attr("class"),
+        x = parseFloat(text.attr("x")),
+        tspan = text.text(null).append("tspan").attr("x", 0)
+                    .attr("dy", dy + "em");
+    while (word = words.pop()) {
+      line.push(word);
+      tspan.text(line.join(" "))
+            .attr("x", x).attr("class",clase);
+      if (tspan.node().getComputedTextLength() > width) {
+        lineNumber++;
+
+        line.pop();
+        tspan.text(line.join(" "));
+        line = [word];
+        tspan = text.append("tspan")
+                .attr("x", x)
+                .attr("dy", dy + "em").text(word).attr("class",clase);
+      }
+    }
+    if(alignBottom) d3.select(this).attr("y",y-lineNumber*10-5)
+  });
+}
+
+</script>
+
+
+<div class="note info"><p>Ajustar por tamaño de población (es decir, mirar el dato por millón de habitantes) nos permite hacer comparaciones más correctas entre países que tienen diferente tamaño.</p>
+<p>Otra corrección posible es la de comparar sólo entre países que se encuentren en etapas similares de la pandemia (por ejemplo, que hayan encontrado el pico). Puede haber aún más factores escondidos: densidad habitacional, condiciones sanitarias, edad de la población, riqueza del país, etc. Tener en cuenta estos factores nos ayuda a hacer comparaciones cada vez mejores.</p>
+</div><!-- flag of hidden posts -->
+    </div>
+                      <div class="compartir">Compartir:
+                        <a  href="https://www.facebook.com/sharer/sharer.php?u=https://decodificar.org/covid/muertes_por_pais/&quote=¿En qué países murieron más personas por COVID-19?" target="_blank" title="Share on Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURI(https://decodificar.org/covid/muertes_por_pais/) + '&quote=' + encodeURI(¿En qué países murieron más personas por COVID-19?); return false;"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+                        <a href="https://twitter.com/intent/tweet?text=¿En qué países murieron más personas por COVID-19?%20&url=https://decodificar.org/covid/muertes_por_pais/" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURI(¿En qué países murieron más personas por COVID-19?) + '&url='+ encodeURI(https://decodificar.org/covid/muertes_por_pais/) ; return false;"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                      </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+        </div>
+        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+<div class="firma">
+<img src="/images/logo_small.png">
+Un proyecto de la <a href="https://www.fundacionbyb.org/" target="_blank">Fundación Bunge y Born</a>, en alianza con  <a href="http://expedicionciencia.org.ar/" target="_blank">Expedición Ciencia</a>
+</div>
+
+<div class="redes">
+<a href="https://www.facebook.com/fundacionbungeyborn/" target="_blank"><i class="fab fa-facebook-square"></i></a>
+<a href="https://www.instagram.com/fundacionbungeyborn/" target="_blank"><i class="fab fa-instagram-square"></i></a>
+<a href="https://www.linkedin.com/company/fundacion-bunge-y-born/" target="_blank"><i class="fab fa-linkedin"></i></a>
+</div>
+
+
+<div class="reporte">
+<a href="https://docs.google.com/forms/d/e/1FAIpQLSep2P37Le6YQnp3zgMwTAv1B9HlZBA0Yu5ieVBxCg8GB2QRrQ/viewform" target="_blank">
+¿Encontraste un error?</a>
+</div>
+
+<div class="copyright">
+  <span itemprop="copyrightYear">&copy; 2020</span>
+  <span class="author" itemprop="copyrightHolder">Fundación Bunge y Born</span>
+ / <a href="https://www.fundacionbyb.org/politica-de-privacidad" target="_blank">Política de privacidad</a>
+</div>
+
+<div class="powered-by">
+Creado con <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a>
+&amp; <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
