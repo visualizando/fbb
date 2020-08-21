@@ -322,12 +322,12 @@ var coloreaCategorias = d3.scaleOrdinal()
 
   
     svg text{
-            font-size: 12px;
+            font-size: 11px;
         }
 
 
      text.titulo{
-            font-size: 14px;
+            font-size: 12px;
             fill:#555;
         }
 
@@ -337,6 +337,15 @@ var coloreaCategorias = d3.scaleOrdinal()
         stroke-width: 3px;
         stroke-linecap: round;
     }
+
+    #rankPob .boxGroup .lineaBox{
+        stroke:#4e79a7;
+    }
+
+    #rankMuertesRel .boxGroup .lineaBox{
+        stroke:#e98150;
+    }
+
 
     .boxGroup .box{
         fill:rgb(219, 219, 219);
@@ -349,8 +358,7 @@ var coloreaCategorias = d3.scaleOrdinal()
 
     .boxGroup tspan.numero{
         /* font-weight: 100; */
-    
-        opacity: 0.75;
+         opacity: 0.75;
     }
 
 
@@ -379,7 +387,14 @@ var coloreaCategorias = d3.scaleOrdinal()
 
     @media only screen and (min-width: 768px) {
     
-    
+        text.titulo{
+            font-size: 14px;
+        }
+
+        svg text{
+            font-size: 12px;
+        }
+
         
     }
     
@@ -562,7 +577,7 @@ var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maxim
 
 var svg = d3.select("#contenedorGrafico").append("svg"),
     marginTexto = isMobile ? 30:45,
-    margin = isMobile ? {top: 15, right: 30, bottom: 15, left: 40} : {top: 25, right: 30, bottom: 20, left: 30},
+    margin = isMobile ? {top: 15, right: 10, bottom: 15, left: 10} : {top: 25, right: 30, bottom: 20, left: 30},
     width =  +d3.select('#contenedorGrafico').style('width').slice(0, -2),
     height = +d3.select('#contenedorGrafico').style('height').slice(0, -2)-25;
 
@@ -611,14 +626,14 @@ var grafico = svg.append("g")
                     .round(true);
 
 
-                armaRanking(datos,"rankingMuertes","muertes",10,0, "", "rankMuertes", "Muertes totales");
+                armaRanking(datos,"rankingMuertes","muertes",10,0, "rankMuertes", "Muertes totales");
 
-                armaRanking(datos,"rankingMuertesRel","muertesRel",10,1, "", "rankMuertesRel", "Muertes por millon de hab.");
+                armaRanking(datos,"rankingMuertesRel","muertesRel",10,1, "rankMuertesRel", "Muertes por millon de hab.");
 
-                armaRanking(datos,"rankingPob","poblacion",10,1, "hab", "rankPob", "Poblacion");
+                armaRanking(datos,"rankingPob","poblacion",10,1, "rankPob", "Poblacion");
                 d3.select("#rankPob").style("opacity",0)
 
-    function armaRanking(data, variableOrden, variableMuestra, top, columna, unidad, id, titulo) {
+    function armaRanking(data, variableOrden, variableMuestra, top, columna, id, titulo) {
         
        data = data.sort((a, b) => d3.ascending(a[variableOrden], b[variableOrden])).slice(0,top);
         xLine.domain([0,d3.max(data,d=>d[variableMuestra])]);
@@ -653,7 +668,7 @@ var grafico = svg.append("g")
                             .text(d=>d[variableOrden]+". " + d.pais + ": ")
 
                        texto.append("tspan").attr("class","numero")
-                            .text(d=>d3.format(",.0f")(d[variableMuestra]) +" "+ unidad)
+                            .text(d=>d3.format(",.0f")(d[variableMuestra]))
 
                             
                             
