@@ -374,6 +374,12 @@ var coloreaCategorias = d3.scaleOrdinal()
         stroke: rgb(231, 61, 61);
     }
 
+    .slopeLinea{
+        fill:none;
+        stroke-width: 1px;
+        stroke: rgba(117, 117, 117, 0.39);
+    }
+
     .puntos{
         fill: #F26522;
 
@@ -650,11 +656,11 @@ var grafico = svg.append("g")
 
     const ySlope = d3.scaleLinear()
             .domain(d3.extent(datos,d=>d.muertes))
-            .range([height*0.95,height*0.05]);
+            .range([height,0]);
 
     const ySlopeRel = d3.scaleLinear()
             .domain(d3.extent(datos,d=>d.muertesRel))
-            .range([height*0.95,height*0.05]);
+            .range([height,0]);
 
     
 
@@ -683,6 +689,8 @@ var grafico = svg.append("g")
 
                 d3.select("#rankPob").selectAll(".titulo, .boxGroup").style("opacity",0)
         
+
+                // DIBUJO EL SCATTER PLOT
                 var scatterPlot = grafico.append("g").attr("id","scatterPlot");
 
                 scatterPlot.selectAll("circle")
@@ -697,6 +705,7 @@ var grafico = svg.append("g")
                        scatterPlot.append("path").attr("class","tendencia").style("opacity",0)
                                 .attr("d",d3.line()([[xScatter(15000),yScatter(50)],[xScatter(98550000),yScatter(23100)]]));
 
+                // DIBUJO EL SLOPECHART
                 var slopeChart = grafico.append("g").attr("id","slopeChart");
                 
                 for (let i = 0; i < 2; i++) {
@@ -705,12 +714,21 @@ var grafico = svg.append("g")
                         .join("circle")
                             .attr("class","puntos")
                             .style("opacity",0)
-                            .attr("cx", d => x(i))
+                            .attr("cx", d => !i?(x(i)+x.bandwidth()):x(i))
                             .attr("cy", d => !i?ySlope(d.muertes):ySlopeRel(d.muertesRel))
                             .attr("r", 3)
-                   
+                 
                 }
-        
+
+                slopeChart.append("g").attr("id","lineas").selectAll("path")
+                        .data(datos)
+                        .join("path")
+                            .attr("class","slopeLinea")
+                            .style("opacity",0)
+                            .attr("d", d => d3.line()([[x(0)+x.bandwidth(),ySlope(d.muertes)],[x(1),ySlopeRel(d.muertesRel)]]));
+
+
+
     function armaRanking(data, variableOrden, variableMuestra, top, columna, id, titulo) {
         
         data = data.sort((a, b) => d3.ascending(a[variableOrden], b[variableOrden])).slice(0,top);
@@ -851,18 +869,21 @@ var grafico = svg.append("g")
                 d3.select("#rankMuertesRel").selectAll(".boxGroup").transition().duration(400)
                                             .style("opacity",1)
                                             .attr("transform", d => `translate(${x(1)},${y(+d.rankingMuertesRel)})`);
-                d3.select("#slopeChart").selectAll(".puntos").transition().duration(100).style("opacity",0);
+                d3.select("#slopeChart").selectAll(".puntos, .slopeLinea").transition().duration(100).style("opacity",0);
+                d3.select("#rankMuertes").selectAll("text").transition().delay(50).duration(100).style("text-anchor","start");
                 break;
         
             case 8:
                 d3.select("#rankMuertes").selectAll(".titulo, .links, .box, .numero, .lineaBox").transition().delay((d,i)=>15*i).duration(100).style("opacity",0);
                 d3.select("#rankMuertesRel").selectAll(".titulo, .links, .box, .numero, .lineaBox").transition().delay((d,i)=>15*i).duration(100).style("opacity",0);
                 d3.select("#rankMuertes").selectAll(".boxGroup").transition().duration(400)
-                                            .attr("transform", d => `translate(${x(0)},${ySlope(d.muertes)-y.bandwidth()/2})`);
+                                            .attr("transform", d => `translate(${x(0)+x.bandwidth()*1.1},${ySlope(d.muertes)-y.bandwidth()/2})`);
                 d3.select("#rankMuertesRel").selectAll(".boxGroup").transition().duration(400)
                                             .attr("transform", d => `translate(${x(1)},${ySlopeRel(d.muertesRel)-y.bandwidth()/2})`);
-                d3.select("#slopeChart").selectAll(".puntos").transition().duration(200).style("opacity",1);
-
+                d3.select("#slopeChart").selectAll(".puntos, .slopeLinea").transition().duration(200).style("opacity",1);
+                d3.select("#rankMuertes").selectAll("text").transition().delay(50).style("text-anchor","end");
+                
+                
                 break;
             
 
