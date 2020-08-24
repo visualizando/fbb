@@ -877,7 +877,7 @@ var grafico = svg.append("g")
                 d3.select("#rankMuertes").selectAll(".titulo, .links, .box, .numero, .lineaBox").transition().delay((d,i)=>15*i).duration(100).style("opacity",0);
                 d3.select("#rankMuertesRel").selectAll(".titulo, .links, .box, .numero, .lineaBox").transition().delay((d,i)=>15*i).duration(100).style("opacity",0);
                 d3.select("#rankMuertes").selectAll(".boxGroup").transition().duration(400)
-                                            .attr("transform", d => `translate(${x(0)+x.bandwidth()*1.1},${ySlope(d.muertes)-y.bandwidth()/2})`);
+                                            .attr("transform", d => `translate(${x(0)+x.bandwidth()*(isMobile?0.85:1.1)},${ySlope(d.muertes)-y.bandwidth()/2*(isMobile?0.7:1)})`);
                 d3.select("#rankMuertesRel").selectAll(".boxGroup").transition().duration(400)
                                             .attr("transform", d => `translate(${x(1)},${ySlopeRel(d.muertesRel)-y.bandwidth()/2})`);
                 d3.select("#slopeChart").selectAll(".puntos, .slopeLinea").transition().duration(200).style("opacity",1);
