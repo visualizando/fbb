@@ -343,13 +343,13 @@ var coloreaCategorias = d3.scaleOrdinal()
     }
 
     #rankMuertesRel .boxGroup .lineaBox{
-        stroke:#e98150;
+        stroke:#db7d66;
     }
 
 
     .boxGroup .box{
         fill:rgb(219, 219, 219);
-        stroke-width: 1px;
+        /* stroke-width: 1px; */
     }
     
     .boxGroup tspan{
@@ -362,6 +362,11 @@ var coloreaCategorias = d3.scaleOrdinal()
     }
 
 
+    .links path{
+        fill:none;
+        stroke-width: 2px;
+        stroke: rgb(195, 195, 195);
+    }
 
     .label.naranja{
         background: #F26522;
@@ -384,6 +389,11 @@ var coloreaCategorias = d3.scaleOrdinal()
         background: #8B6BAF;
 
     }
+    
+    .epigrafe{
+            margin-top: 5px;
+                }
+
 
     @media only screen and (min-width: 768px) {
     
@@ -394,6 +404,10 @@ var coloreaCategorias = d3.scaleOrdinal()
         svg text{
             font-size: 12px;
         }
+        .epigrafe{
+            margin-top: 5px;
+                }
+
 
         
     }
@@ -489,28 +503,24 @@ var coloreaCategorias = d3.scaleOrdinal()
 //********************* CARGA DATOS ************
 
 Promise.all([
-    d3.dsv(";", "https://datos.decodificar.org/I8_normalizacion_fallecimientos.csv"),
-    d3.dsv(";", "https://datos.decodificar.org/I8_normalizacion_fallecimientos_regresion.csv"),
+    d3.csv("https://datos.decodificar.org/I8_normalizacion_fallecimientos.csv"),
+    d3.csv("https://datos.decodificar.org/I8_normalizacion_fallecimientos_regresion.csv"),
     d3.csv("https://datos.decodificar.org/metaData_tablas.csv")
 ]).then(function(files) {
 
-    var epigrafeData ="";
-    
-    /* files[files.length-1].filter(d=>d.file=="I8_normalizacion_fallecimientos.csv")[0];
-        if(epigrafeData.hasOwnProperty("fecha")) epigrafeData.fecha = d3.timeFormat("%-d/%b/%Y")(d3.timeParse("%Y-%m-%d")(epigrafeData.fecha));
- */
+   
+    var epigrafeData = files[2].filter(d=>d.file=="I8_normalizacion_fallecimientos.csv")[0];
+        epigrafeData.fecha = d3.timeFormat("%-d/%b/%Y")(d3.timeParse("%Y-%m-%d")(epigrafeData.fecha));
 
 
-    var parseTime = d3.timeParse("%d/%m/%y");
 
     var datos = files[0].map(obj => {
 					return {
 						"id":obj.iso_code,
-						"pais":obj.location,
+						"pais":[obj.location,obj.pais_corto],
                         "poblacion":+obj.population,
-                        "muertes":+obj.total_deadths,
-                        "muertesRel":+obj.total_deaths_per_million,
-                        //"fecha":parseTime(obj.date)
+                        "muertes":+obj.total_deaths,
+                        "muertesRel":+obj.total_deaths/+obj.population*1000000,
 					}})
 
 
@@ -545,7 +555,7 @@ Promise.all([
 
         enterView({
             selector: stepSel.nodes(),
-            offset: 0.3,
+            offset: 0,
             enter: el => {
                 const index = +d3.select(el).attr('data-index');
                 updateChart(index);
@@ -576,13 +586,12 @@ var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maxim
 
 
 var svg = d3.select("#contenedorGrafico").append("svg"),
-    marginTexto = isMobile ? 30:45,
-    margin = isMobile ? {top: 15, right: 10, bottom: 15, left: 10} : {top: 25, right: 30, bottom: 20, left: 30},
+    margin = isMobile ? {top: 15, right: 10, bottom: 5, left: 10} : {top: 25, right: 30, bottom: 10, left: 30},
     width =  +d3.select('#contenedorGrafico').style('width').slice(0, -2),
-    height = +d3.select('#contenedorGrafico').style('height').slice(0, -2)-25;
+    height = +d3.select('#contenedorGrafico').style('height').slice(0, -2)- (isMobile?45:35);
 
     d3.select("#contenedorGrafico").append("div").attr("class","epigrafe")
-            .html("www.decodificar.org - ")//+epigrafeData.fecha+" - Fuente: "+ epigrafeData.fuente)
+            .html("www.decodificar.org - "+epigrafeData.fecha+" - Fuente: "+ epigrafeData.fuente)
             ;
 
 
@@ -620,38 +629,47 @@ var grafico = svg.append("g")
     var y = d3.scaleBand()
                     .domain(d3.range(1,11))
                     .range([20,height])
-                    .paddingInner(0.2)
+                    .paddingInner(isMobile?0.12:0.2)
                     .paddingOuter(0)
                     .align(0.5)
                     .round(true);
 
+    var diagonal = d3.linkHorizontal()
+                    .x(d => d.x)
+                    .y(d => d.y);
+
 
                 armaRanking(datos,"rankingMuertes","muertes",10,0, "rankMuertes", "Muertes totales");
 
-                armaRanking(datos,"rankingMuertesRel","muertesRel",10,1, "rankMuertesRel", "Muertes por millon de hab.");
+                armaRanking(datos,"rankingMuertesRel","muertesRel",10,1, "rankMuertesRel", "Muertes por millón de hab.");
 
-                armaRanking(datos,"rankingPob","poblacion",10,1, "rankPob", "Poblacion");
-                d3.select("#rankPob").style("opacity",0)
+                armaRanking(datos,"rankingPob","poblacion",10,1, "rankPob", "Población");
+
+                armaConexion("#rankMuertes","#rankMuertesRel",1);
+                armaConexion("#rankMuertes","#rankPob",0);
+
+
+                d3.select("#rankPob").selectAll(".titulo, .boxGroup").style("opacity",0)
 
     function armaRanking(data, variableOrden, variableMuestra, top, columna, id, titulo) {
         
-       data = data.sort((a, b) => d3.ascending(a[variableOrden], b[variableOrden])).slice(0,top);
+        data = data.sort((a, b) => d3.ascending(a[variableOrden], b[variableOrden])).slice(0,top);
+
         xLine.domain([0,d3.max(data,d=>d[variableMuestra])]);
 
-       const tabs = grafico.append("g").attr("id",id);
+        const tabs = grafico.append("g").attr("id",id);
     
-       var texto = tabs.append("text")
-                                    .attr("class","titulo")
-                                    .attr("x",marginBox+x(columna))
-                                    .attr("y",14)
-                                    .text(titulo);
+        var texto = tabs.append("text")
+                        .attr("class","titulo")
+                        .attr("x",marginBox+x(columna))
+                        .attr("y",14)
+                        .text(titulo);
 
-       var cards = tabs.append("g").selectAll("g")
+        var cards = tabs.selectAll("g")
                         .data(data)
                         .join("g")
                             .attr("class","boxGroup")
                             .attr("transform", d => `translate(${x(columna)},${y(+d[variableOrden])})`);
-            
                   
                    cards.append("rect")
                                 .attr("width",x.bandwidth())
@@ -660,29 +678,64 @@ var grafico = svg.append("g")
                                 .attr("class","box")
                                 ;
                  
-                   var texto = cards.append("text")
-                                    .attr("x",marginBox)
-                                    .attr("y",y.bandwidth()/2+2);
+        var texto = cards.append("text")
+                                .attr("x",marginBox)
+                                .attr("y",y.bandwidth()/2+(isMobile?-5:2));
 
-                       texto.append("tspan")
-                            .text(d=>d[variableOrden]+". " + d.pais + ": ")
+                    texto.append("tspan")
+                            .text(d=>d[variableOrden]+". " + d.pais[isMobile] + ": ");
 
-                       texto.append("tspan").attr("class","numero")
+        var numero = texto.append("tspan").attr("class","numero")
                             .text(d=>d3.format(",.0f")(d[variableMuestra]))
-
-                            
-                            
                         ;
+
+                    if(isMobile) numero.attr("x",marginBox).attr("dy",y.bandwidth()/2.2);
 
                     cards.append("path")
                             .attr("d",d=>d3.line()([[xLine(0),0],[xLine(d[variableMuestra]),0]]))
                             .attr("class","lineaBox")
-                            .attr("transform", d => `translate(0,${(y.bandwidth()/2)+8})`);
-                            
+                            .attr("transform", d => `translate(0,${(y.bandwidth()/2)+(isMobile?0:8)})`);
                         ;
        
         
                 }
+
+
+    function armaConexion(origen, destino, prendido) {
+            var sources = d3.select(origen).selectAll(".boxGroup");
+            var targets = d3.select(destino).selectAll(".boxGroup");
+
+
+            sources.each(function (d) {
+                var esto = this;
+                if(targets.filter(e=>e.id==d.id)._groups[0].length){
+                    console.log(d.id);
+                    d3.select(destino).append("g").attr("class","links").style("opacity",prendido)
+                                    .append("path")
+                                        .attr("d", f => {
+                                            var targetBox = getTranslateXY(targets.filter(e=>e.id==d.id));
+                                            var sourceBox = getTranslateXY(d3.select(esto));
+                                            console.log(sourceBox)
+                                          
+                                        return diagonal({
+                                                    source: {x: (sourceBox[0]+x.bandwidth()), y: (sourceBox[1]+y.bandwidth()/2)},
+                                                    target: {x: targetBox[0], y: (targetBox[1]+y.bandwidth()/2)}
+                                            });
+                                        });
+                
+                }
+                
+               ;
+            })
+
+            /* sources.append("path")
+                    .attr("d", d => {
+                    const o = {x: source.x0, y: source.y0};
+                    return diagonal({source: o, target: o});
+                    }); */
+        
+    }
+
 
 // INICIA EL SCROLLY
 
@@ -694,24 +747,24 @@ var grafico = svg.append("g")
 
         switch (step) {
             case 2:
-                d3.select("#rankPob").transition().duration(300).style("opacity",0)
-                d3.select("#rankMuertesRel").transition().delay(300).duration(400).style("opacity",1)
+                d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>50*i).duration(300).style("opacity",0)
+                d3.select("#rankMuertesRel").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>400+80*i).duration(400).style("opacity",1)
                 break;
 
             case 3:
-                d3.select("#rankMuertesRel").transition().duration(300).style("opacity",0)
-                d3.select("#rankPob").transition().delay(300).duration(400).style("opacity",1)
+                d3.select("#rankMuertesRel").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>50*i).duration(300).style("opacity",0)
+                d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>400+80*i).duration(400).style("opacity",1)
                 break;
 
 
             case 6:
-                d3.select("#rankMuertesRel").transition().duration(300).style("opacity",0)
-                d3.select("#rankPob").transition().delay(300).duration(400).style("opacity",1)
+                d3.select("#rankMuertesRel").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>50*i).duration(300).style("opacity",0)
+                d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>400+80*i).duration(400).style("opacity",1)
                 break;
 
             case 7:
-                d3.select("#rankPob").transition().duration(300).style("opacity",0)
-                d3.select("#rankMuertesRel").transition().delay(300).duration(400).style("opacity",1)
+                d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>50*i).duration(300).style("opacity",0)
+                d3.select("#rankMuertesRel").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>400+80*i).duration(400).style("opacity",1)
                 break;
 
                 
@@ -722,6 +775,12 @@ var grafico = svg.append("g")
     
 
 });
+
+function getTranslateXY(item) {
+    var itemTrans = item.attr("transform");
+    var translate = itemTrans.substring(itemTrans.indexOf("(")+1, itemTrans.indexOf(")")).split(",");
+    return [+translate[0],+translate[1]]
+}
 
 
 function wrap(text, width, dy, alignBottom) {
