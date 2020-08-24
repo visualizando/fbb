@@ -368,8 +368,14 @@ var coloreaCategorias = d3.scaleOrdinal()
         stroke: rgb(195, 195, 195);
     }
 
-    .label.naranja{
-        background: #F26522;
+    .tendencia{
+        fill:none;
+        stroke-width: 2px;
+        stroke: rgb(231, 61, 61);
+    }
+
+    .puntos{
+        fill: #F26522;
 
     }
 
@@ -483,7 +489,10 @@ var coloreaCategorias = d3.scaleOrdinal()
                     Entonces, para comparar entre distintos países, nos conviene ver cuántas personas fallecidas hay en relación al tamaño de su población.
                     <br/><br/>
                     Por ello, uno de los indicadores que usamos es el de muertes por millón de habitantes. Por cada millón de personas que viven en ese país, cuántas personas murieron.
-                    <br/><br/>
+                </p>
+            </div>
+            <div class='step' data-index='8'>
+                 <p>
                     Al incorporar la información del tamaño de la población (fallecimientos por millón de habitantes) el ranking de países se modifica, y la comparación entre países es más acertada.
                 </p>
             </div>
@@ -521,7 +530,9 @@ Promise.all([
                         "poblacion":+obj.population,
                         "muertes":+obj.total_deaths,
                         "muertesRel":+obj.total_deaths/+obj.population*1000000,
-					}})
+                        "muertesScatter":+obj.total_deaths_july
+					}});
+
 
 
         datos.sort((a, b) => d3.descending(a.muertes, b.muertes))
@@ -626,6 +637,27 @@ var grafico = svg.append("g")
     const xLine = d3.scaleLinear()
             .range([marginBox+1, x.bandwidth()-marginBox-1]);
 
+
+            
+    const xScatter = d3.scaleLog()
+            .domain(d3.extent(datos.filter(d=>d.muertesScatter),d=>d.poblacion))
+            .range([width*0.05,width*0.95]);
+
+            
+    const yScatter = d3.scaleLog()
+            .domain(d3.extent(datos.filter(d=>d.muertesScatter) ,d=>d.muertesScatter))
+            .range([height*0.95,height*0.05]);
+
+    const ySlope = d3.scaleLinear()
+            .domain(d3.extent(datos,d=>d.muertes))
+            .range([height*0.95,height*0.05]);
+
+    const ySlopeRel = d3.scaleLinear()
+            .domain(d3.extent(datos,d=>d.muertesRel))
+            .range([height*0.95,height*0.05]);
+
+    
+
     var y = d3.scaleBand()
                     .domain(d3.range(1,11))
                     .range([20,height])
@@ -650,7 +682,35 @@ var grafico = svg.append("g")
 
 
                 d3.select("#rankPob").selectAll(".titulo, .boxGroup").style("opacity",0)
+        
+                var scatterPlot = grafico.append("g").attr("id","scatterPlot");
 
+                scatterPlot.selectAll("circle")
+                        .data(datos.filter(d=>d.muertesScatter))
+                        .join("circle")
+                            .attr("class","puntos").style("opacity",0)
+                            .attr("cx", d => xScatter(d.poblacion))
+                            .attr("cy", d => yScatter(d.muertesScatter))
+                            //.attr("fill",d=>d.rankingMuertes<11?"#F26522":"#F2652220")
+                            .attr("r", 3)
+                       ;
+                       scatterPlot.append("path").attr("class","tendencia").style("opacity",0)
+                                .attr("d",d3.line()([[xScatter(15000),yScatter(50)],[xScatter(98550000),yScatter(23100)]]));
+
+                var slopeChart = grafico.append("g").attr("id","slopeChart");
+                
+                for (let i = 0; i < 2; i++) {
+                    slopeChart.append("g").attr("id","columna"+i).selectAll("circle")
+                        .data(datos)
+                        .join("circle")
+                            .attr("class","puntos")
+                            .style("opacity",0)
+                            .attr("cx", d => x(i))
+                            .attr("cy", d => !i?ySlope(d.muertes):ySlopeRel(d.muertesRel))
+                            .attr("r", 3)
+                   
+                }
+        
     function armaRanking(data, variableOrden, variableMuestra, top, columna, id, titulo) {
         
         data = data.sort((a, b) => d3.ascending(a[variableOrden], b[variableOrden])).slice(0,top);
@@ -709,14 +769,12 @@ var grafico = svg.append("g")
             sources.each(function (d) {
                 var esto = this;
                 if(targets.filter(e=>e.id==d.id)._groups[0].length){
-                    console.log(d.id);
                     d3.select(destino).append("g").attr("class","links").style("opacity",prendido)
                                     .append("path")
                                         .attr("d", f => {
                                             var targetBox = getTranslateXY(targets.filter(e=>e.id==d.id));
                                             var sourceBox = getTranslateXY(d3.select(esto));
-                                            console.log(sourceBox)
-                                          
+                                                                                      
                                         return diagonal({
                                                     source: {x: (sourceBox[0]+x.bandwidth()), y: (sourceBox[1]+y.bandwidth()/2)},
                                                     target: {x: targetBox[0], y: (targetBox[1]+y.bandwidth()/2)}
@@ -741,32 +799,72 @@ var grafico = svg.append("g")
 
         switch (step) {
             case 2:
-                d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>50*i).duration(300).style("opacity",0)
-                d3.select("#rankMuertesRel").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>400+80*i).duration(400).style("opacity",1)
+                d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>40*i).duration(300).style("opacity",0)
+                d3.select("#rankMuertesRel").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>200+40*i).duration(400).style("opacity",1)
                 break;
 
             case 3:
-                d3.select("#rankMuertesRel").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>50*i).duration(300).style("opacity",0)
-                d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>400+80*i).duration(400).style("opacity",1)
+                d3.select("#rankMuertesRel").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>40*i).duration(300).style("opacity",0)
+                d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>100+40*i).duration(400).style("opacity",1)
                 d3.select("#rankMuertes").selectAll(".titulo, .links, .box, .numero, .lineaBox").transition().delay((d,i)=>60*i).duration(300).style("opacity",1);
+                d3.select("#rankMuertes").selectAll(".boxGroup").transition().duration(400)
+                                            .attr("transform", d => `translate(${x(0)},${y(+d.rankingMuertes)})`);
+                d3.select("#scatterPlot").selectAll(".puntos").transition().duration(50).style("opacity",0);
                 break;
 
             case 4: // pasa a scatterplot
-                d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>30*i).duration(100).style("opacity",0);
-                d3.select("#rankMuertes").selectAll(".titulo, .links, .box, .numero, .lineaBox").transition().delay((d,i)=>30*i).duration(200).style("opacity",0);
+                d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>10*i).duration(100).style("opacity",0);
+                d3.select("#rankMuertes").selectAll(".titulo, .links, .box, .numero, .lineaBox").transition().delay((d,i)=>15*i).duration(100).style("opacity",0);
+                d3.select("#rankMuertes").selectAll(".boxGroup").transition().delay((d,i)=>100+25*i).duration(500)
+                                                            .attr("transform",d => `translate(${xScatter(d.poblacion)-3},${yScatter(d.muertesScatter)-y.bandwidth()/2})`);
+                d3.select("#scatterPlot").selectAll(".puntos").transition().delay((d,i)=>i).duration(50).style("opacity",1);
+                d3.select("#scatterPlot").selectAll(".tendencia").transition().duration(50).style("opacity",0);
+                break;
+
+            case 5: // pasa a scatterplot
+                d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>10*i).duration(100).style("opacity",0);
+                d3.select("#rankMuertes").selectAll(".titulo, .links, .box, .numero, .lineaBox").transition().delay((d,i)=>15*i).duration(100).style("opacity",0);
+                d3.select("#rankMuertes").selectAll(".boxGroup").transition().delay((d,i)=>100+25*i).duration(500)
+                                                            .attr("transform",d => `translate(${xScatter(d.poblacion)-3},${yScatter(d.muertesScatter)-y.bandwidth()/2})`);
+                d3.select("#scatterPlot").selectAll(".puntos").transition().delay((d,i)=>i).duration(50).style("opacity",1);
+                d3.select("#scatterPlot").selectAll(".tendencia").transition().duration(150).style("opacity",1);
                 break;
 
 
             case 6:
-                d3.select("#rankMuertes").selectAll(".titulo, .links, .box, .numero, .lineaBox").transition().delay((d,i)=>60*i).duration(300).style("opacity",1);
-                d3.select("#rankMuertesRel").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>50*i).duration(300).style("opacity",0)
-                d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>400+80*i).duration(400).style("opacity",1)
+                d3.select("#scatterPlot").selectAll(".tendencia").transition().duration(50).style("opacity",0);
+                d3.select("#scatterPlot").selectAll(".puntos").transition().duration(100).style("opacity",0);
+                d3.select("#rankMuertes").selectAll(".boxGroup").transition().duration(400)
+                                            .attr("transform", d => `translate(${x(0)},${y(+d.rankingMuertes)})`);
+
+                d3.select("#rankMuertes").selectAll(".titulo, .links, .box, .numero, .lineaBox").transition().delay((d,i)=>20*i).duration(200).style("opacity",1);
+                d3.select("#rankMuertesRel").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>20*i).duration(200).style("opacity",0)
+                d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>20*i).duration(200).style("opacity",1)
                 break;
 
             case 7:
                 d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>50*i).duration(300).style("opacity",0)
-                d3.select("#rankMuertesRel").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>400+80*i).duration(400).style("opacity",1)
+                d3.select("#rankMuertes").selectAll(".titulo, .links, .box, .numero, .lineaBox").transition().delay((d,i)=>15*i).duration(100).style("opacity",1);
+                d3.select("#rankMuertesRel").selectAll(".titulo, .links, .box, .numero, .lineaBox").transition().delay((d,i)=>15*i).duration(100).style("opacity",1);
+                d3.select("#rankMuertes").selectAll(".boxGroup").transition().duration(400)
+                                            .attr("transform", d => `translate(${x(0)},${y(+d.rankingMuertes)})`);
+                d3.select("#rankMuertesRel").selectAll(".boxGroup").transition().duration(400)
+                                            .style("opacity",1)
+                                            .attr("transform", d => `translate(${x(1)},${y(+d.rankingMuertesRel)})`);
+                d3.select("#slopeChart").selectAll(".puntos").transition().duration(100).style("opacity",0);
                 break;
+        
+            case 8:
+                d3.select("#rankMuertes").selectAll(".titulo, .links, .box, .numero, .lineaBox").transition().delay((d,i)=>15*i).duration(100).style("opacity",0);
+                d3.select("#rankMuertesRel").selectAll(".titulo, .links, .box, .numero, .lineaBox").transition().delay((d,i)=>15*i).duration(100).style("opacity",0);
+                d3.select("#rankMuertes").selectAll(".boxGroup").transition().duration(400)
+                                            .attr("transform", d => `translate(${x(0)},${ySlope(d.muertes)-y.bandwidth()/2})`);
+                d3.select("#rankMuertesRel").selectAll(".boxGroup").transition().duration(400)
+                                            .attr("transform", d => `translate(${x(1)},${ySlopeRel(d.muertesRel)-y.bandwidth()/2})`);
+                d3.select("#slopeChart").selectAll(".puntos").transition().duration(200).style("opacity",1);
+
+                break;
+            
 
                 
             }
