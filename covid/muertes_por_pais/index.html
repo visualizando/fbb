@@ -358,7 +358,7 @@ var coloreaCategorias = d3.scaleOrdinal()
 
     .boxGroup tspan.numero{
         /* font-weight: 100; */
-         opacity: 0.75;
+         fill: rgb(97, 97, 97);
     }
 
 
@@ -683,10 +683,10 @@ var grafico = svg.append("g")
                                 .attr("y",y.bandwidth()/2+(isMobile?-5:2));
 
                     texto.append("tspan")
-                            .text(d=>d[variableOrden]+". " + d.pais[isMobile] + ": ");
+                            .text(d=>d[variableOrden]+". " + d.pais[isMobile]);
 
         var numero = texto.append("tspan").attr("class","numero")
-                            .text(d=>d3.format(",.0f")(d[variableMuestra]))
+                            .text(d=>(isMobile?"":": ")+d3.format(",.0f")(d[variableMuestra]))
                         ;
 
                     if(isMobile) numero.attr("x",marginBox).attr("dy",y.bandwidth()/2.2);
@@ -728,12 +728,6 @@ var grafico = svg.append("g")
                ;
             })
 
-            /* sources.append("path")
-                    .attr("d", d => {
-                    const o = {x: source.x0, y: source.y0};
-                    return diagonal({source: o, target: o});
-                    }); */
-        
     }
 
 
@@ -754,10 +748,17 @@ var grafico = svg.append("g")
             case 3:
                 d3.select("#rankMuertesRel").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>50*i).duration(300).style("opacity",0)
                 d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>400+80*i).duration(400).style("opacity",1)
+                d3.select("#rankMuertes").selectAll(".titulo, .links, .box, .numero, .lineaBox").transition().delay((d,i)=>60*i).duration(300).style("opacity",1);
+                break;
+
+            case 4: // pasa a scatterplot
+                d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>30*i).duration(100).style("opacity",0);
+                d3.select("#rankMuertes").selectAll(".titulo, .links, .box, .numero, .lineaBox").transition().delay((d,i)=>30*i).duration(200).style("opacity",0);
                 break;
 
 
             case 6:
+                d3.select("#rankMuertes").selectAll(".titulo, .links, .box, .numero, .lineaBox").transition().delay((d,i)=>60*i).duration(300).style("opacity",1);
                 d3.select("#rankMuertesRel").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>50*i).duration(300).style("opacity",0)
                 d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>400+80*i).duration(400).style("opacity",1)
                 break;
