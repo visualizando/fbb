@@ -353,18 +353,6 @@ var coloreaCategorias = d3.scaleOrdinal()
     }
 
     
-/*     #rankPob .flechitas{
-        fill:#4e79a7;
-    }
-
-    #rankMuertesRel .flechitas{
-        fill:#db7d66;
-    }
-
-    #rankMuertes .flechitas{
-        fill:#F26522;
-    }
- */
 
     #rankPob .boxGroup .lineaBox{
         stroke:#4e79a7;
@@ -413,14 +401,27 @@ var coloreaCategorias = d3.scaleOrdinal()
 
     } */
 
+
+    .label.naranja{
+        background: #F26522;
+
+    }
+    .label.naranjaclaro{
+        background: #db7d66;
+
+    }
     .label.celeste{
         background: #5badd4;
 
     }
+    
+    
+
+   
 
     
-    .label.gris{
-        background: gray;
+    .label.azul{
+        background: #4e79a7;
 
     }
 
@@ -441,6 +442,23 @@ var coloreaCategorias = d3.scaleOrdinal()
             -3px  3px 0 #f1f1f1,
             3px  3px 0 #f1f1f1;
     }
+
+    .argBox rect {
+            fill: none !important;
+            stroke: silver;
+            stroke-width: 2px;
+        }
+
+        
+    .argBox .textoPais{
+        fill:#1e8bbf;
+        font-weight: 500;
+    }
+
+    .argBox .numero {
+        fill: rgb(202, 202, 202);
+        }
+
 
     @media only screen and (min-width: 768px) {
     
@@ -473,7 +491,7 @@ var coloreaCategorias = d3.scaleOrdinal()
         <!-- acá van los textos de cada paso -->
         <article>
             <div class='step' data-index='0'>
-                <p> La cantidad de muertes totales y por millón de habitantes en todo el mundo por COVID-19 son cifras con las que nos cruzamos a diario.
+                <p> La <mark class="label naranja">cantidad de muertes totales</mark> y por <mark class="label naranjaclaro">millón de habitantes</mark> en todo el mundo por COVID-19 son cifras con las que nos cruzamos a diario.
                     <br/><br/>
                     Este es el ranking de los  países según ambos datos.
                     <br/><br/>
@@ -483,9 +501,9 @@ var coloreaCategorias = d3.scaleOrdinal()
             
             <div class='step' data-index='1'>
                 <p>
-                    Comparar entre países no es tan fácil como parece.
+                    <b>Comparar</b> entre países <b>no es tan fácil</b> como parece.
                     <br/><br/>
-                    Podríamos comparar el número de casos confirmados. Pero, como vimos en ¿Cuántos contagiados hay realmente?, la decisión sobre a qué personas testear puede ser distinta en cada país y, además, cambiar en el tiempo.
+                    Podríamos comparar el número de casos confirmados. Pero, como vimos en <a href="/covid/la_cantidad_de_contagiados/">¿Cuántos contagiados hay realmente?</a>, la decisión sobre a qué personas testear puede ser distinta en cada país y, además, cambiar en el tiempo.
                     <br/><br/>
                     No sería una comparación correcta y puede ser engañosa.
                 </p>
@@ -506,9 +524,9 @@ var coloreaCategorias = d3.scaleOrdinal()
             </div>
             <div class='step' data-index='4'>
                 <p>
-                    En este gráfico comparamos el número de fallecimientos por COVID-19 con la cantidad de habitantes al 31 de julio de 2020. Cada punto corresponde a un país
+                    En este gráfico comparamos el <mark class="label naranja">número de fallecimientos por COVID-19</mark> con la <mark class="label azul">cantidad de habitantes</mark> al 31 de julio de 2020. Cada punto corresponde a un país
                     <br/><br/>
-                    Ambos ejes están en escala logarítmica que, como vimos acá, permite graficar números chicos y grandes a la vez.
+                    Ambos ejes están en escala logarítmica que, como <a href="/covid/el_ritmo_de_la_pandemia/">vimos acá</a>, permite graficar números chicos y grandes a la vez.
                 </p>
             </div>
             <div class='step' data-index='5'>
@@ -520,7 +538,7 @@ var coloreaCategorias = d3.scaleOrdinal()
             </div>
             <div class='step' data-index='6'>
                 <p>
-                    Los que hemos detectado con el test y aún no se han recuperado ni han fallecido son los que denominamos <a href="/covid/achatar_la_curva/">casos activos</a>. Los casos activos y los asintomáticos son los que pueden contagiar el virus y podrían requerir asistencia del sistema de salud.
+                    Esta relación puede resultar intuitiva o no tanto, pero es claro que <b>no es justo comparar</b> la situación de un país grande y uno chico <b>mirando el número absoluto</b> de muertes.
                     <br/><br/>
                     El país chico tiene todas las de ganar en esta comparación: tiene menos muertes simplemente porque tiene menos población.
                 </p>
@@ -529,7 +547,7 @@ var coloreaCategorias = d3.scaleOrdinal()
                 <p>
                     Entonces, para comparar entre distintos países, nos conviene ver cuántas personas fallecidas hay en relación al tamaño de su población.
                     <br/><br/>
-                    Por ello, uno de los indicadores que usamos es el de muertes por millón de habitantes. Por cada millón de personas que viven en ese país, cuántas personas murieron.
+                    Por ello, uno de los indicadores que usamos es el de  <mark class="label naranjaclaro">muertes por millón de habitantes</mark>. Por cada millón de personas que viven en ese país, cuántas personas murieron.
                 </p>
             </div>
             <div class='step' data-index='8'>
@@ -685,7 +703,7 @@ var grafico = svg.append("g")
 
             
     const xScatter = d3.scaleLog()
-            .domain(d3.extent(datos.filter(d=>d.muertesScatter),d=>d.poblacion))
+            .domain([95000,d3.max(datos.filter(d=>d.muertesScatter),d=>d.poblacion)])
             .range([width*0.05,width*0.95]);
 
             if(isMobile) xScatter.range([width*0.15,width*0.85]);
@@ -770,6 +788,7 @@ var grafico = svg.append("g")
                                         .attr("transform",`translate(${isMobile?30:15},0)`).style("opacity",0);
 
                                 scatterPlot.selectAll(".tick").selectAll("line").remove();
+                                scatterPlot.select(".tick").select("text").text("Población:").attr("text-anchor","start");
                      
 
                 // DIBUJO EL SLOPECHART
@@ -807,11 +826,20 @@ var grafico = svg.append("g")
                             .attr("y",(ySlope(datos.filter(d=>d.id=="ARG")[0].muertes)-ySlopeRel(datos.filter(d=>d.id=="ARG")[0].muertesRel))/2+ySlopeRel(datos.filter(d=>d.id=="ARG")[0].muertesRel));
 
 
-    function armaRanking(data, variableOrden, variableMuestra, top, columna, id, titulo) {
+    function armaRanking(dataOrig, variableOrden, variableMuestra, top, columna, id, titulo) {
         
-        data = data.sort((a, b) => d3.ascending(a[variableOrden], b[variableOrden]))//.slice(0,top);
+        data = dataOrig.sort((a, b) => d3.ascending(a[variableOrden], b[variableOrden]))
                 .filter(d=>d[variableOrden]<11)
+
+        var ordenOriginal=0;
+        if(!data.filter(d=>d.id == "ARG")[0]){ // Si argentina NO ESTA en el ranking, la agrega
+            data.pop();
+            data.push(dataOrig.filter(d=>d.id == "ARG")[0]);
+            ordenOriginal=data[data.length-1][variableOrden];
+            data[data.length-1][variableOrden]=10;
+        }
         
+
         data.forEach(element => {
             element.labelY = 10;
             if(variableMuestra=="muertes") element.labelY = ySlope(element.muertes);
@@ -839,23 +867,24 @@ var grafico = svg.append("g")
         var cards = tabs.selectAll("g")
                         .data(data)
                         .join("g")
-                            .attr("class","boxGroup")
+                            .attr("class",d=>"boxGroup" + (d.id=="ARG"?" argBox":""))
                             .attr("transform", d => `translate(${x(columna)},${y(+d[variableOrden])})`);
                   
-                   cards.append("rect")
+        var box = cards.append("rect")
                                 .attr("width",x.bandwidth())
                                 .attr("height",y.bandwidth())
                                 .attr("rx",4)
                                 .attr("class","box")
                                 ;
-                 
+
+                             
         var texto = cards.append("text")
                                 .attr("x",marginBox)
                                 .attr("y",y.bandwidth()/2+(isMobile?-5:2));
 
                     texto.append("tspan")
                             .attr("class","textoPais")
-                            .text(d=>d[variableOrden]+". " + d.pais[isMobile]);
+                            .text(d=>(ordenOriginal&&d.id=="ARG"?ordenOriginal:d[variableOrden])+". " + d.pais[isMobile]); // si es argentina y no esta en el ranking pone el indice original (no el 10)
 
         var numero = texto.append("tspan").attr("class","numero")
                             .text(d=>(isMobile?"":": ")+d3.format(",.0f")(d[variableMuestra]))
@@ -866,15 +895,13 @@ var grafico = svg.append("g")
                     cards.append("path") // AGREGO LA LINEA DE POBLACION DEBAJO DE LOS PAISES
                             .attr("d",d=>d3.line()([[xLine(0),0],[xLine(d[variableMuestra]),0]]))
                             .attr("class","lineaBox")
-                            .attr("transform", d => `translate(0,${(y.bandwidth()/2)+(isMobile?0:8)})`);
+                            .attr("transform", d => `translate(0,${(y.bandwidth()/2)+(isMobile?1:9)})`);
                         ;
                     cards.append("circle") // AGREGO LA LINEA DE POBLACION DEBAJO DE LOS PAISES
                             .attr("d",d=>d3.line()([[xLine(0),0],[xLine(d[variableMuestra]),0]]))
                             .attr("r",1.5)
-                            //.attr("cx",1)
-                            //.attr("cy",1)
                             .attr("class","lineaBox marker")
-                            .attr("transform", d => `translate(${xLine(d[variableMuestra])},${(y.bandwidth()/2)+(isMobile?0:8)})`);
+                            .attr("transform", d => `translate(${xLine(d[variableMuestra])},${(y.bandwidth()/2)+(isMobile?1:9)})`);
                         ;
        
         
