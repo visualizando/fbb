@@ -443,7 +443,7 @@ var coloreaCategorias = d3.scaleOrdinal()
             3px  3px 0 #f1f1f1;
     }
 
-    .argBox rect {
+    .noRanking rect {
             fill: none !important;
             stroke: silver;
             stroke-width: 2px;
@@ -597,6 +597,7 @@ Promise.all([
 
 
                     datos = datos.filter(d=>d.poblacion>100000);
+
 
         //agrega los rankings
         datos.sort((a, b) => d3.descending(a.muertes, b.muertes))
@@ -762,9 +763,6 @@ var grafico = svg.append("g")
 
                 scatterPlot.append("path").attr("class","tendencia").style("opacity",0)
                                 .attr("d",d3.line()([[xScatter(100000),yScatter(1)],[xScatter(10000000000),yScatter(198000)]]));
-
-
-                            
                             
 
                 var scatterGroups = scatterPlot.selectAll("g")
@@ -817,13 +815,14 @@ var grafico = svg.append("g")
                             .style("opacity",0)
                             .attr("d", d => d3.line()([[x(0)+x.bandwidth(),ySlope(d.muertes)],[x(1),ySlopeRel(d.muertesRel)]]));
 
-                slopeChart.append("text").style("text-anchor","middle").attr("class", "textoPais arg")
+                            // dibuja el ARG en el medio
+                /* slopeChart.append("text").style("text-anchor","middle").attr("class", "textoPais arg")
                             .text("ARG")
                             .style("opacity",0)
                             .attr("x",width/2)
                             .attr("dy",3)
                             .style("fill","#5badd4")
-                            .attr("y",(ySlope(datos.filter(d=>d.id=="ARG")[0].muertes)-ySlopeRel(datos.filter(d=>d.id=="ARG")[0].muertesRel))/2+ySlopeRel(datos.filter(d=>d.id=="ARG")[0].muertesRel));
+                            .attr("y",(ySlope(datos.filter(d=>d.id=="ARG")[0].muertes)-ySlopeRel(datos.filter(d=>d.id=="ARG")[0].muertesRel))/2+ySlopeRel(datos.filter(d=>d.id=="ARG")[0].muertesRel)); */
 
 
     function armaRanking(dataOrig, variableOrden, variableMuestra, top, columna, id, titulo) {
@@ -867,7 +866,7 @@ var grafico = svg.append("g")
         var cards = tabs.selectAll("g")
                         .data(data)
                         .join("g")
-                            .attr("class",d=>"boxGroup" + (d.id=="ARG"?" argBox":""))
+                            .attr("class",d=>"boxGroup" + (d.id=="ARG"?" argBox":"") + (d.id=="ARG"&&ordenOriginal?" noRanking":""))
                             .attr("transform", d => `translate(${x(columna)},${y(+d[variableOrden])})`);
                   
         var box = cards.append("rect")
