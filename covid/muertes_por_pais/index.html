@@ -331,12 +331,28 @@ var coloreaCategorias = d3.scaleOrdinal()
             fill:#555;
         }
 
+    #scatterPlot text{
+            font-size: 11px;
+            fill:#222;
+        }
+
+
+    #scatterPlot .tick text{
+        font-size: 11px;
+            fill:#777;
+    }
+
+    .axis .domain{
+        stroke: #777;
+    }
     .boxGroup .lineaBox{
         fill:none;
         stroke:#F26522;
         stroke-width: 3px;
         stroke-linecap: round;
     }
+
+    
 
     #rankPob .boxGroup .lineaBox{
         stroke:#4e79a7;
@@ -380,10 +396,10 @@ var coloreaCategorias = d3.scaleOrdinal()
         stroke: rgba(117, 117, 117, 0.39);
     }
 
-    .puntos{
+   /*  .puntos{
         fill: #F26522;
 
-    }
+    } */
 
     .label.celeste{
         background: #5badd4;
@@ -406,6 +422,13 @@ var coloreaCategorias = d3.scaleOrdinal()
             margin-top: 5px;
                 }
 
+    .textoPais.arg{
+        text-shadow:
+            -3px -3px 0 #f1f1f1,  
+            3px -3px 0 #f1f1f1,
+            -3px  3px 0 #f1f1f1,
+            3px  3px 0 #f1f1f1;
+    }
 
     @media only screen and (min-width: 768px) {
     
@@ -525,9 +548,11 @@ Promise.all([
 
    
     var epigrafeData = files[2].filter(d=>d.file=="I8_normalizacion_fallecimientos.csv")[0];
-        epigrafeData.fecha = d3.timeFormat("%-d/%b/%Y")(d3.timeParse("%Y-%m-%d")(epigrafeData.fecha));
+        epigrafeData.fecha = d3.timeFormat("%-d/%b/%Y")(d3.timeParse("%Y-%m-%d")(epigrafeData.fecha)).toLowerCase();
 
 
+
+    var paisesSelect  = ["ARG", "PER", "CHI","BOL", "BRA", "MEX", "USA", "CHI", "RUS", "IND", "ITA", "ESP", "NZL", "URY", "CHN", "PRY"]
 
     var datos = files[0].map(obj => {
 					return {
@@ -536,11 +561,14 @@ Promise.all([
                         "poblacion":+obj.population,
                         "muertes":+obj.total_deaths,
                         "muertesRel":+obj.total_deaths/+obj.population*1000000,
-                        "muertesScatter":+obj.total_deaths_july
+                        "muertesScatter":+obj.total_deaths_july,
+                        "figuraEnScatter":paisesSelect.find(d=>d==obj.iso_code)
 					}});
 
 
+                    
 
+        //agrega los rankings
         datos.sort((a, b) => d3.descending(a.muertes, b.muertes))
             .forEach((e,i) => {
                 e.rankingMuertes = i+1;
@@ -649,18 +677,28 @@ var grafico = svg.append("g")
             .domain(d3.extent(datos.filter(d=>d.muertesScatter),d=>d.poblacion))
             .range([width*0.05,width*0.95]);
 
+            if(isMobile) xScatter.range([width*0.15,width*0.85]);
+
             
     const yScatter = d3.scaleLog()
             .domain(d3.extent(datos.filter(d=>d.muertesScatter) ,d=>d.muertesScatter))
             .range([height*0.95,height*0.05]);
 
+            if(isMobile) yScatter.range([height*0.95,height*0.05]);
+
+    var yAxis = d3.axisLeft(yScatter);
+        yAxis.ticks(4).tickFormat(d3.format(",.0s"));
+
+    var xAxis = d3.axisBottom(xScatter);
+        xAxis.ticks(4).tickFormat(d3.format(",.0s"));
+
     const ySlope = d3.scaleLinear()
             .domain(d3.extent(datos,d=>d.muertes))
-            .range([height,0]);
+            .range([height,isMobile?40:30]);
 
     const ySlopeRel = d3.scaleLinear()
             .domain(d3.extent(datos,d=>d.muertesRel))
-            .range([height,0]);
+            .range([height,isMobile?40:30]);
 
     
 
@@ -679,7 +717,7 @@ var grafico = svg.append("g")
 
                 armaRanking(datos,"rankingMuertes","muertes",10,0, "rankMuertes", "Muertes totales");
 
-                armaRanking(datos,"rankingMuertesRel","muertesRel",10,1, "rankMuertesRel", "Muertes por millón de hab.");
+                armaRanking(datos,"rankingMuertesRel","muertesRel",10,1, "rankMuertesRel", isMobile?"Muertes x mill. hab.":"Muertes por millón de hab.");
 
                 armaRanking(datos,"rankingPob","poblacion",10,1, "rankPob", "Población");
 
@@ -693,46 +731,90 @@ var grafico = svg.append("g")
                 // DIBUJO EL SCATTER PLOT
                 var scatterPlot = grafico.append("g").attr("id","scatterPlot");
 
-                scatterPlot.selectAll("circle")
+                scatterPlot.append("path").attr("class","tendencia").style("opacity",0)
+                                .attr("d",d3.line()([[xScatter(20000),yScatter(1)],[xScatter(1600000000),yScatter(28000)]]));
+
+
+                            
+                            
+
+                var scatterGroups = scatterPlot.selectAll("g")
                         .data(datos.filter(d=>d.muertesScatter))
-                        .join("circle")
+                        .join("g")
+                        .attr("transform", d => `translate(${xScatter(d.poblacion)},${yScatter(d.muertesScatter)})`);
+                        ;
+
+                        scatterGroups.append("circle")
                             .attr("class","puntos").style("opacity",0)
-                            .attr("cx", d => xScatter(d.poblacion))
-                            .attr("cy", d => yScatter(d.muertesScatter))
-                            //.attr("fill",d=>d.rankingMuertes<11?"#F26522":"#F2652220")
-                            .attr("r", 3)
+                            .attr("fill",d=>d.figuraEnScatter?d.figuraEnScatter=="ARG"?"#5badd4":"#F26522":"#CCC")
+                            .attr("r", d=>d.figuraEnScatter?4:2)
                        ;
-                       scatterPlot.append("path").attr("class","tendencia").style("opacity",0)
-                                .attr("d",d3.line()([[xScatter(15000),yScatter(50)],[xScatter(98550000),yScatter(23100)]]));
+
+                       scatterGroups.filter(d=>d.figuraEnScatter).append("text").style("opacity",0)
+                                            .text(d=>isMobile?d.id:d.pais[1]).attr("dx",5).attr("dy",5);
+
+                                scatterPlot.append("g").attr("class","axis").call(xAxis)
+                                        .attr("transform",`translate(0,${height-(isMobile?20:10)})`).style("opacity",0);
+                                scatterPlot.append("g").attr("class","axis").call(yAxis)
+                                        .attr("transform",`translate(${isMobile?30:15},0)`).style("opacity",0);
+
+                                scatterPlot.selectAll(".tick").selectAll("line").remove();
+                     
 
                 // DIBUJO EL SLOPECHART
                 var slopeChart = grafico.append("g").attr("id","slopeChart");
                 
                 for (let i = 0; i < 2; i++) {
+                    var rank = ["rankingMuertes","rankingMuertesRel"];
+
                     slopeChart.append("g").attr("id","columna"+i).selectAll("circle")
                         .data(datos)
                         .join("circle")
                             .attr("class","puntos")
                             .style("opacity",0)
+                            .attr("fill",d=>d.figuraEnScatter=="ARG"?"#5badd4":d[rank[i]]<11?"#F26522":"#88888840")
                             .attr("cx", d => !i?(x(i)+x.bandwidth()):x(i))
                             .attr("cy", d => !i?ySlope(d.muertes):ySlopeRel(d.muertesRel))
-                            .attr("r", 3)
+                            .attr("r", d=>d[rank[i]]<11?4:d.figuraEnScatter=="ARG"?4:2)
+                            ;
                  
                 }
 
                 slopeChart.append("g").attr("id","lineas").selectAll("path")
-                        .data(datos)
+                        .data(datos.filter(d=>d.rankingMuertes<11 ||d.rankingMuertesRel<11 || d.id=="ARG"))
                         .join("path")
                             .attr("class","slopeLinea")
                             .style("opacity",0)
                             .attr("d", d => d3.line()([[x(0)+x.bandwidth(),ySlope(d.muertes)],[x(1),ySlopeRel(d.muertesRel)]]));
 
+                slopeChart.append("text").style("text-anchor","middle").attr("class", "textoPais arg")
+                            .text("ARG")
+                            .style("opacity",0)
+                            .attr("x",width/2)
+                            .attr("dy",3)
+                            .style("fill","#5badd4")
+                            .attr("y",(ySlope(datos.filter(d=>d.id=="ARG")[0].muertes)-ySlopeRel(datos.filter(d=>d.id=="ARG")[0].muertesRel))/2+ySlopeRel(datos.filter(d=>d.id=="ARG")[0].muertesRel));
 
 
     function armaRanking(data, variableOrden, variableMuestra, top, columna, id, titulo) {
         
-        data = data.sort((a, b) => d3.ascending(a[variableOrden], b[variableOrden])).slice(0,top);
+        data = data.sort((a, b) => d3.ascending(a[variableOrden], b[variableOrden]))//.slice(0,top);
+                .filter(d=>d[variableOrden]<11)
+        
+        data.forEach(element => {
+            element.labelY = 10;
+            if(variableMuestra=="muertes") element.labelY = ySlope(element.muertes);
+            if(variableMuestra=="muertesRel") element.labelY = ySlopeRel(element.muertesRel);
+        });
 
+       relax(data, 11, height); // Separa los labels para que no se pisen
+        
+       data.forEach(element => {
+            if(variableMuestra=="muertes") element.labelYmuertes = element.labelY;
+            if(variableMuestra=="muertesRel") element.labelYmuertesRel = element.labelY;;
+        });
+
+        
         xLine.domain([0,d3.max(data,d=>d[variableMuestra])]);
 
         const tabs = grafico.append("g").attr("id",id);
@@ -761,6 +843,7 @@ var grafico = svg.append("g")
                                 .attr("y",y.bandwidth()/2+(isMobile?-5:2));
 
                     texto.append("tspan")
+                            .attr("class","textoPais")
                             .text(d=>d[variableOrden]+". " + d.pais[isMobile]);
 
         var numero = texto.append("tspan").attr("class","numero")
@@ -824,38 +907,29 @@ var grafico = svg.append("g")
             case 3:
                 d3.select("#rankMuertesRel").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>40*i).duration(300).style("opacity",0)
                 d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>100+40*i).duration(400).style("opacity",1)
-                d3.select("#rankMuertes").selectAll(".titulo, .links, .box, .numero, .lineaBox").transition().delay((d,i)=>60*i).duration(300).style("opacity",1);
-                d3.select("#rankMuertes").selectAll(".boxGroup").transition().duration(400)
-                                            .attr("transform", d => `translate(${x(0)},${y(+d.rankingMuertes)})`);
-                d3.select("#scatterPlot").selectAll(".puntos").transition().duration(50).style("opacity",0);
+                d3.select("#rankMuertes").selectAll(".boxGroup").transition().delay((d,i)=>60*i).duration(300).style("opacity",1);
+                d3.select("#scatterPlot").selectAll(".puntos,text,.axis").transition().duration(50).style("opacity",0);
                 break;
 
             case 4: // pasa a scatterplot
                 d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>10*i).duration(100).style("opacity",0);
-                d3.select("#rankMuertes").selectAll(".titulo, .links, .box, .numero, .lineaBox").transition().delay((d,i)=>15*i).duration(100).style("opacity",0);
-                d3.select("#rankMuertes").selectAll(".boxGroup").transition().delay((d,i)=>100+25*i).duration(500)
-                                                            .attr("transform",d => `translate(${xScatter(d.poblacion)-3},${yScatter(d.muertesScatter)-y.bandwidth()/2})`);
-                d3.select("#scatterPlot").selectAll(".puntos").transition().delay((d,i)=>i).duration(50).style("opacity",1);
+                d3.select("#rankMuertes").selectAll(".boxGroup").transition().delay((d,i)=>15*i).duration(100).style("opacity",0);
+                d3.select("#scatterPlot").selectAll(".puntos,text,.axis").transition().delay((d,i)=>i).duration(50).style("opacity",1);
                 d3.select("#scatterPlot").selectAll(".tendencia").transition().duration(50).style("opacity",0);
                 break;
 
-            case 5: // pasa a scatterplot
+            case 5: // mustra tendencia
                 d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>10*i).duration(100).style("opacity",0);
-                d3.select("#rankMuertes").selectAll(".titulo, .links, .box, .numero, .lineaBox").transition().delay((d,i)=>15*i).duration(100).style("opacity",0);
-                d3.select("#rankMuertes").selectAll(".boxGroup").transition().delay((d,i)=>100+25*i).duration(500)
-                                                            .attr("transform",d => `translate(${xScatter(d.poblacion)-3},${yScatter(d.muertesScatter)-y.bandwidth()/2})`);
-                d3.select("#scatterPlot").selectAll(".puntos").transition().delay((d,i)=>i).duration(50).style("opacity",1);
+                d3.select("#rankMuertes").selectAll(".boxGroup").transition().delay((d,i)=>15*i).duration(100).style("opacity",0);
+                d3.select("#scatterPlot").selectAll(".puntos,text,.axis").transition().delay((d,i)=>i).duration(50).style("opacity",1);
                 d3.select("#scatterPlot").selectAll(".tendencia").transition().duration(150).style("opacity",1);
                 break;
 
 
             case 6:
                 d3.select("#scatterPlot").selectAll(".tendencia").transition().duration(50).style("opacity",0);
-                d3.select("#scatterPlot").selectAll(".puntos").transition().duration(100).style("opacity",0);
-                d3.select("#rankMuertes").selectAll(".boxGroup").transition().duration(400)
-                                            .attr("transform", d => `translate(${x(0)},${y(+d.rankingMuertes)})`);
-
-                d3.select("#rankMuertes").selectAll(".titulo, .links, .box, .numero, .lineaBox").transition().delay((d,i)=>20*i).duration(200).style("opacity",1);
+                d3.select("#scatterPlot").selectAll(".puntos,text,.axis").transition().duration(100).style("opacity",0);
+                d3.select("#rankMuertes").selectAll(".boxGroup").transition().delay((d,i)=>20*i).duration(200).style("opacity",1);
                 d3.select("#rankMuertesRel").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>20*i).duration(200).style("opacity",0)
                 d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>20*i).duration(200).style("opacity",1)
                 break;
@@ -869,19 +943,19 @@ var grafico = svg.append("g")
                 d3.select("#rankMuertesRel").selectAll(".boxGroup").transition().duration(400)
                                             .style("opacity",1)
                                             .attr("transform", d => `translate(${x(1)},${y(+d.rankingMuertesRel)})`);
-                d3.select("#slopeChart").selectAll(".puntos, .slopeLinea").transition().duration(100).style("opacity",0);
-                d3.select("#rankMuertes").selectAll("text").transition().delay(50).duration(100).style("text-anchor","start");
+                d3.select("#slopeChart").selectAll(".puntos, .slopeLinea, .arg").transition().duration(100).style("opacity",0);
+                d3.select("#rankMuertes").selectAll(".textoPais").transition().delay(50).duration(100).style("text-anchor","start");
                 break;
         
             case 8:
-                d3.select("#rankMuertes").selectAll(".titulo, .links, .box, .numero, .lineaBox").transition().delay((d,i)=>15*i).duration(100).style("opacity",0);
-                d3.select("#rankMuertesRel").selectAll(".titulo, .links, .box, .numero, .lineaBox").transition().delay((d,i)=>15*i).duration(100).style("opacity",0);
+                d3.select("#rankMuertes").selectAll(".links, .box, .numero, .lineaBox").transition().delay((d,i)=>15*i).duration(100).style("opacity",0);
+                d3.select("#rankMuertesRel").selectAll(".links, .box, .numero, .lineaBox").transition().delay((d,i)=>15*i).duration(100).style("opacity",0);
                 d3.select("#rankMuertes").selectAll(".boxGroup").transition().duration(400)
-                                            .attr("transform", d => `translate(${x(0)+x.bandwidth()*(isMobile?0.85:1.1)},${ySlope(d.muertes)-y.bandwidth()/2*(isMobile?0.7:1)})`);
+                                            .attr("transform", d => `translate(${x(0)+x.bandwidth()*(isMobile?0.85:1.1)},${(d.labelYmuertes-y.bandwidth()/2*(isMobile?0.6:1))})`);
                 d3.select("#rankMuertesRel").selectAll(".boxGroup").transition().duration(400)
-                                            .attr("transform", d => `translate(${x(1)},${ySlopeRel(d.muertesRel)-y.bandwidth()/2})`);
-                d3.select("#slopeChart").selectAll(".puntos, .slopeLinea").transition().duration(200).style("opacity",1);
-                d3.select("#rankMuertes").selectAll("text").transition().delay(50).style("text-anchor","end");
+                                            .attr("transform", d => `translate(${x(1)},${(d.labelYmuertesRel-y.bandwidth()/2*(isMobile?0.6:1))})`);
+                d3.select("#slopeChart").selectAll(".puntos, .slopeLinea, .arg").transition().duration(200).style("opacity",1);
+                d3.select("#rankMuertes").selectAll(".textoPais").transition().delay(50).style("text-anchor","end");
                 
                 
                 break;
@@ -902,7 +976,38 @@ function getTranslateXY(item) {
     return [+translate[0],+translate[1]]
 }
 
-
+// separa en el eje Y los datos que le lleguen con formato: 
+// d.name // d.labelY // d.values
+function relax(dataInterna, spacing, height) {
+				spacing = spacing? spacing : 8;
+				var dy = 1;
+				var repeat = false;
+				var count = 0;
+				dataInterna.forEach(function(dA, i) {
+					var yA = dA.labelY;
+					dataInterna.forEach(function(dB, j) {
+						var yB = dB.labelY;
+						if (i === j) {
+							return;
+						}
+						diff = yA - yB;
+						if (Math.abs(diff) > spacing) {
+							return;
+						}
+						repeat = true;
+						magnitude = diff > 0 ? 1 : -1;
+						adjust = magnitude * dy;
+						dA.labelY = +yA + adjust;
+						dB.labelY = +yB - adjust;
+						dB.labelY = dB.labelY > height ? height : dB.labelY
+						dA.labelY = dA.labelY > height ? height : dA.labelY
+					})
+				})
+				if (repeat) {
+					relax(dataInterna, spacing);
+				}
+            }
+            
 function wrap(text, width, dy, alignBottom) {
   text.each(function() {
     var text = d3.select(this),
