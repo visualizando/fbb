@@ -3597,4 +3597,786 @@ function wrap(text, width, dy, alignBottom) {
 <p>Entender qué subgrupo es el que conforma, por ejemplo, el número total de casos o el número de casos activos es uno de los primeros pasos para interpretar correctamente las noticias.</p>
 </div>]]></content>
   </entry>
+  <entry>
+    <title>¿En qué países murieron más personas por COVID-19?</title>
+    <url>/covid/muertes_por_pais/</url>
+    <content><![CDATA[
+
+
+<style>
+
+
+
+  
+    svg text{
+            font-size: 11px;
+        }
+
+
+     text.titulo{
+            font-size: 12px;
+            fill:#555;
+        }
+
+    #scatterPlot text{
+            font-size: 11px;
+            fill:#222;
+        }
+
+
+    #scatterPlot .tick text{
+        font-size: 11px;
+            fill:#777;
+    }
+
+    .axis .domain{
+        stroke: #777;
+    }
+    .boxGroup .lineaBox{
+        fill:none;
+        stroke:#F26522;
+        stroke-width: 3px;
+        stroke-linecap: round;
+    }
+
+    
+
+    #rankPob .boxGroup .lineaBox{
+        stroke:#4e79a7;
+    }
+
+    #rankMuertesRel .boxGroup .lineaBox{
+        stroke:#db7d66;
+    }
+
+
+    .boxGroup .box{
+        fill:rgb(219, 219, 219);
+        /* stroke-width: 1px; */
+    }
+    
+    .boxGroup tspan{
+        font-variant-numeric: lining-nums;
+    }
+
+    .boxGroup tspan.numero{
+        /* font-weight: 100; */
+         fill: rgb(97, 97, 97);
+    }
+
+
+    .links path{
+        fill:none;
+        stroke-width: 2px;
+        stroke: rgb(195, 195, 195);
+    }
+
+    .tendencia{
+        fill:none;
+        stroke-width: 2px;
+        stroke: rgb(231, 61, 61);
+    }
+
+    .slopeLinea{
+        fill:none;
+        stroke-width: 1px;
+        stroke: rgba(117, 117, 117, 0.39);
+    }
+
+   /*  .puntos{
+        fill: #F26522;
+
+    } */
+
+
+    .label.naranja{
+        background: #F26522;
+
+    }
+    .label.naranjaclaro{
+        background: #db7d66;
+
+    }
+    .label.celeste{
+        background: #5badd4;
+
+    }
+    
+    
+
+   
+
+    
+    .label.azul{
+        background: #4e79a7;
+
+    }
+
+
+    .label.violeta{
+        background: #8B6BAF;
+
+    }
+    
+    .epigrafe{
+            margin-top: 5px;
+                }
+
+    .textoPais.arg{
+        text-shadow:
+            -3px -3px 0 #f1f1f1,  
+            3px -3px 0 #f1f1f1,
+            -3px  3px 0 #f1f1f1,
+            3px  3px 0 #f1f1f1;
+    }
+
+    .noRanking rect {
+            fill: none !important;
+            stroke: silver;
+            stroke-width: 2px;
+        }
+
+        
+    .argBox .textoPais{
+        fill:#1e8bbf;
+        font-weight: 500;
+    }
+
+    .argBox .numero {
+        fill: rgb(202, 202, 202);
+        }
+
+
+    @media only screen and (min-width: 768px) {
+    
+        text.titulo{
+            font-size: 14px;
+        }
+
+        svg text{
+            font-size: 12px;
+        }
+        .epigrafe{
+            margin-top: 5px;
+                }
+
+
+        
+    }
+    
+</style>
+
+
+<section id='scrolly'>
+    <div class='scrolly'>
+        
+
+        <!-- aca va el grafico que va a quedar fijo -->
+        <figure id="contenedorGrafico" class='sticky' >
+        </figure>
+
+        <!-- acá van los textos de cada paso -->
+        <article>
+            <div class='step' data-index='0'>
+                <p> La <mark class="label naranja">cantidad de muertes totales</mark> y por <mark class="label naranjaclaro">millón de habitantes</mark> en todo el mundo por COVID-19 son cifras con las que nos cruzamos a diario.
+                    <br/><br/>
+                    Este es el ranking de los  países según ambos datos.
+                    <br/><br/>
+                    ¿Sirven estos números para comparar el impacto de la pandemia entre los distintos países? ¿Cuál conviene mirar?
+                </p>
+            </div>
+            
+            <div class='step' data-index='1'>
+                <p>
+                    <b>Comparar</b> entre países <b>no es tan fácil</b> como parece.
+                    <br/><br/>
+                    Podríamos comparar el número de casos confirmados. Pero, como vimos en <a href="/covid/la_cantidad_de_contagiados/">¿Cuántos contagiados hay realmente?</a>, la decisión sobre a qué personas testear puede ser distinta en cada país y, además, cambiar en el tiempo.
+                    <br/><br/>
+                    No sería una comparación correcta y puede ser engañosa.
+                </p>
+            </div>
+            <div class='step' data-index='2'>
+                <p>
+                    En cambio, el número de fallecimientos es una medida un poco más confiable.
+                    <br/><br/>
+                    Un fallecimiento por COVID-19 no depende, por ejemplo, de cuántos testeos decida hacer el país o de la definición de caso sospechoso. Depende menos de las decisiones que cada país tome.
+                </p>
+            </div>
+            <div class='step' data-index='3'>
+                <p>
+                    Pero, incluso cuando elegimos un indicador bueno, puede haber otros factores que hagan difícil la comparación.
+                    <br/><br/>
+                    Por ejemplo, los países tienen <mark class="label azul">poblaciones</mark> muy diferentes. ¿Importa eso para esta comparación?
+                </p>
+            </div>
+            <div class='step' data-index='4'>
+                <p>
+                    En este gráfico comparamos el <mark class="label naranja">número de fallecimientos por COVID-19</mark> con la población al 31 de julio de 2020. Cada punto corresponde a un país
+                    <br/><br/>
+                    Ambos ejes están en escala logarítmica que, como <a href="/covid/el_ritmo_de_la_pandemia/">vimos acá</a>, permite graficar números chicos y grandes a la vez.
+                </p>
+            </div>
+            <div class='step' data-index='5'>
+                <p>
+                    Se ve que hay una tendencia: todos los puntos se acomodan como en diagonal.
+                <br/><br/>
+                Esto quiere decir que, cuantos más habitantes tiene un país, mayor es su número de muertes por COVID-19.
+                </p>
+            </div>
+            <div class='step' data-index='6'>
+                <p>
+                    Esta relación puede resultar intuitiva o no tanto, pero es claro que <b>no es justo comparar</b> la situación de un país grande y uno chico <b>mirando el número absoluto</b> de muertes.
+                    <br/><br/>
+                    El país chico tiene todas las de ganar en esta comparación: tiene menos muertes simplemente porque tiene menos población.
+                </p>
+            </div>
+            <div class='step' data-index='7'>
+                <p>
+                    Entonces, para comparar entre distintos países, nos conviene ver cuántas personas fallecidas hay en relación al tamaño de su población.
+                    <br/><br/>
+                    Por ello, uno de los indicadores que usamos es el de  <mark class="label naranjaclaro">muertes por millón de habitantes</mark>. Por cada millón de personas que viven en ese país, cuántas personas murieron.
+                </p>
+            </div>
+            <div class='step' data-index='8'>
+                 <p>
+                    Al incorporar la información del tamaño de la población (fallecimientos por millón de habitantes) el ranking de países se modifica, y la comparación entre países es más acertada.
+                </p>
+            </div>
+
+         
+        </article>
+
+
+    </div>
+
+</section>
+
+
+ <!-- Scripts -->
+ <script>
+    
+//********************* CARGA DATOS ************
+
+Promise.all([
+    d3.csv("https://datos.decodificar.org/I8_normalizacion_fallecimientos.csv"),
+    d3.csv("https://datos.decodificar.org/I8_normalizacion_fallecimientos_regresion.csv"),
+    d3.csv("https://datos.decodificar.org/metaData_tablas.csv")
+]).then(function(files) {
+
+   
+    var epigrafeData = files[2].filter(d=>d.file=="I8_normalizacion_fallecimientos.csv")[0];
+        epigrafeData.fecha = d3.timeFormat("%-d/%b/%Y")(d3.timeParse("%Y-%m-%d")(epigrafeData.fecha)).toLowerCase();
+
+
+
+    var paisesSelect  = ["ARG", "PER", "CHI","BOL", "BRA", "MEX", "USA", "CHI", "RUS", "IND", "ITA", "ESP", "NZL", "URY", "CHN", "PRY"]
+
+    var datos = files[0].map(obj => {
+					return {
+						"id":obj.iso_code,
+						"pais":[obj.location,obj.pais_corto],
+                        "poblacion":+obj.population,
+                        "muertes":+obj.total_deaths,
+                        "muertesRel":+obj.total_deaths/+obj.population*1000000,
+                        "muertesScatter":+obj.total_deaths_july,
+                        "figuraEnScatter":paisesSelect.find(d=>d==obj.iso_code)
+					}});
+
+
+                    datos = datos.filter(d=>d.poblacion>100000);
+
+
+        //agrega los rankings
+        datos.sort((a, b) => d3.descending(a.muertes, b.muertes))
+            .forEach((e,i) => {
+                e.rankingMuertes = i+1;
+            });
+
+        datos.sort((a, b) => d3.descending(a.muertesRel, b.muertesRel))
+            .forEach((e,i) => {
+                e.rankingMuertesRel = i+1;
+            });
+
+        datos.sort((a, b) => d3.descending(a.poblacion, b.poblacion))
+            .forEach((e,i) => {
+                e.rankingPob = i+1;
+            });
+    // **** CODIGO DEL SCROLLY *******
+
+    const container = d3.select('#scrolly'); //busco el container total
+    const stepSel = container.selectAll('.step'); // selecciono los "steps"
+
+    function updateChart(index) {  // funcion que llama cada vez que cruza un humbral
+        const sel = container.select(`[data-index='${index}']`);
+        stepSel.classed('is-active', (d, i) => i === index);
+        
+        scrollyTelling(index); // <<<<< AQUI LLAMA AL GRAFICO VERDADERO
+    }
+
+    function init() { // configuracion inicial
+        Stickyfill.add(d3.select('.sticky').node()); // fallback para browsers sin sticky
+
+        enterView({
+            selector: stepSel.nodes(),
+            offset: 0,
+            enter: el => {
+                const index = +d3.select(el).attr('data-index');
+                updateChart(index);
+            },
+            exit: el => {
+                let index = +d3.select(el).attr('data-index');
+                index = Math.max(0, index - 1);
+                updateChart(index);
+            }
+        });
+    }
+ 
+
+    // **** END SCROLLY *******
+
+
+/* COLORES
+azul #00468B
+violeta #8B6BAF
+rojo #F04E53
+naranja #F26522
+verde #62BB46
+*/
+       
+        
+
+var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maximo
+
+
+var svg = d3.select("#contenedorGrafico").append("svg"),
+    margin = isMobile ? {top: 15, right: 10, bottom: 5, left: 10} : {top: 25, right: 30, bottom: 10, left: 30},
+    width =  +d3.select('#contenedorGrafico').style('width').slice(0, -2),
+    height = +d3.select('#contenedorGrafico').style('height').slice(0, -2)- (isMobile?45:35);
+
+    d3.select("#contenedorGrafico").append("div").attr("class","epigrafe")
+            .html("www.decodificar.org - "+epigrafeData.fecha+" - Fuente: "+ epigrafeData.fuente)
+            ;
+
+
+    if (!isMobile && height > altoMaximo*width) {
+        svg.style('margin-top', (height - altoMaximo*width)/2 + "px")
+        height = altoMaximo*width;
+    }
+
+    svg.attr("viewBox", [0, 0, width, height]);
+
+    height = height - margin.top - margin.bottom;
+    width = width - margin.left - margin.right;
+    
+
+var grafico = svg.append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    ;
+
+    var anchografico = width;
+    var marginBox =10;
+    
+    var x = d3.scaleBand()
+                    .domain([0,1])
+                    .range([0,anchografico])
+                    .paddingInner(0.3)
+                    .paddingOuter(0)
+                    .align(0.5)
+                    .round(true);
+
+    
+    const xLine = d3.scaleLinear()
+            .range([marginBox+1, x.bandwidth()-marginBox-1]);
+
+
+            
+    const xScatter = d3.scaleLog()
+            .domain([95000,d3.max(datos.filter(d=>d.muertesScatter),d=>d.poblacion)])
+            .range([width*0.05,width*0.95]);
+
+            if(isMobile) xScatter.range([width*0.15,width*0.85]);
+
+            
+    const yScatter = d3.scaleLog()
+            .domain(d3.extent(datos.filter(d=>d.muertesScatter) ,d=>d.muertesScatter))
+            .range([height*0.95,height*0.05]);
+
+            if(isMobile) yScatter.range([height*0.95,height*0.05]);
+
+    var yAxis = d3.axisLeft(yScatter);
+        yAxis.ticks(4).tickFormat(d3.format(",.0s"));
+
+    var xAxis = d3.axisBottom(xScatter);
+        xAxis.ticks(4).tickFormat(d3.format(",.0s"));
+
+    const ySlope = d3.scaleLinear()
+            .domain(d3.extent(datos,d=>d.muertes))
+            .range([height,isMobile?40:30]);
+
+    const ySlopeRel = d3.scaleLinear()
+            .domain(d3.extent(datos,d=>d.muertesRel))
+            .range([height,isMobile?40:30]);
+
+    
+
+    var y = d3.scaleBand()
+                    .domain(d3.range(1,11))
+                    .range([20,height])
+                    .paddingInner(isMobile?0.12:0.2)
+                    .paddingOuter(0)
+                    .align(0.5)
+                    .round(true);
+
+    var diagonal = d3.linkHorizontal()
+                    .x(d => d.x)
+                    .y(d => d.y);
+
+
+                armaRanking(datos,"rankingMuertes","muertes",10,0, "rankMuertes", "Muertes totales");
+
+                armaRanking(datos,"rankingMuertesRel","muertesRel",10,1, "rankMuertesRel", isMobile?"Muertes x mill. hab.":"Muertes por millón de hab.");
+
+                armaRanking(datos,"rankingPob","poblacion",10,1, "rankPob", "Población");
+
+                armaConexion("#rankMuertes","#rankMuertesRel",1);
+                armaConexion("#rankMuertes","#rankPob",0);
+
+
+                d3.select("#rankPob").selectAll(".titulo, .boxGroup").style("opacity",0)
+        
+
+                // DIBUJO EL SCATTER PLOT
+                var scatterPlot = grafico.append("g").attr("id","scatterPlot");
+
+                scatterPlot.append("path").attr("class","tendencia").style("opacity",0)
+                                .attr("d",d3.line()([[xScatter(100000),yScatter(1)],[xScatter(10000000000),yScatter(198000)]]));
+                            
+
+                var scatterGroups = scatterPlot.selectAll("g")
+                        .data(datos.filter(d=>d.muertesScatter))
+                        .join("g")
+                        .attr("transform", d => `translate(${xScatter(d.poblacion)},${yScatter(d.muertesScatter)})`);
+                        ;
+
+                        scatterGroups.append("circle")
+                            .attr("class","puntos").style("opacity",0)
+                            .attr("fill",d=>d.figuraEnScatter?d.figuraEnScatter=="ARG"?"#5badd4":"#F26522":"#CCC")
+                            .attr("r", d=>d.figuraEnScatter?4:2)
+                       ;
+
+                       scatterGroups.filter(d=>d.figuraEnScatter).append("text").style("opacity",0)
+                                            .text(d=>isMobile?d.id:d.pais[1]).attr("dx",5).attr("dy",5);
+
+                                scatterPlot.append("g").attr("class","axis").call(xAxis)
+                                        .attr("transform",`translate(0,${height-(isMobile?20:10)})`).style("opacity",0);
+                                scatterPlot.append("g").attr("class","axis").call(yAxis)
+                                        .attr("transform",`translate(${isMobile?30:15},0)`).style("opacity",0);
+
+                                scatterPlot.selectAll(".tick").selectAll("line").remove();
+                                scatterPlot.select(".tick").select("text").text("Población:").attr("text-anchor","start");
+                     
+
+                // DIBUJO EL SLOPECHART
+                var slopeChart = grafico.append("g").attr("id","slopeChart");
+                
+                for (let i = 0; i < 2; i++) {
+                    var rank = ["rankingMuertes","rankingMuertesRel"];
+
+                    slopeChart.append("g").attr("id","columna"+i).selectAll("circle")
+                        .data(datos)
+                        .join("circle")
+                            .attr("class","puntos")
+                            .style("opacity",0)
+                            .attr("fill",d=>d.figuraEnScatter=="ARG"?"#5badd4":d[rank[i]]<11?"#F26522":"#88888840")
+                            .attr("cx", d => !i?(x(i)+x.bandwidth()):x(i))
+                            .attr("cy", d => !i?ySlope(d.muertes):ySlopeRel(d.muertesRel))
+                            .attr("r", d=>d[rank[i]]<11?4:d.figuraEnScatter=="ARG"?4:2)
+                            ;
+                 
+                }
+
+                slopeChart.append("g").attr("id","lineas").selectAll("path")
+                        .data(datos.filter(d=>d.rankingMuertes<11 ||d.rankingMuertesRel<11 || d.id=="ARG"))
+                        .join("path")
+                            .attr("class","slopeLinea")
+                            .style("opacity",0)
+                            .attr("d", d => d3.line()([[x(0)+x.bandwidth(),ySlope(d.muertes)],[x(1),ySlopeRel(d.muertesRel)]]));
+
+                            // dibuja el ARG en el medio
+                /* slopeChart.append("text").style("text-anchor","middle").attr("class", "textoPais arg")
+                            .text("ARG")
+                            .style("opacity",0)
+                            .attr("x",width/2)
+                            .attr("dy",3)
+                            .style("fill","#5badd4")
+                            .attr("y",(ySlope(datos.filter(d=>d.id=="ARG")[0].muertes)-ySlopeRel(datos.filter(d=>d.id=="ARG")[0].muertesRel))/2+ySlopeRel(datos.filter(d=>d.id=="ARG")[0].muertesRel)); */
+
+
+    function armaRanking(dataOrig, variableOrden, variableMuestra, top, columna, id, titulo) {
+        
+        data = dataOrig.sort((a, b) => d3.ascending(a[variableOrden], b[variableOrden]))
+                .filter(d=>d[variableOrden]<11)
+
+        var ordenOriginal=0;
+        if(!data.filter(d=>d.id == "ARG")[0]){ // Si argentina NO ESTA en el ranking, la agrega
+            data.pop();
+            data.push(dataOrig.filter(d=>d.id == "ARG")[0]);
+            ordenOriginal=data[data.length-1][variableOrden];
+            data[data.length-1][variableOrden]=10;
+        }
+        
+
+        data.forEach(element => {
+            element.labelY = 10;
+            if(variableMuestra=="muertes") element.labelY = ySlope(element.muertes);
+            if(variableMuestra=="muertesRel") element.labelY = ySlopeRel(element.muertesRel);
+        });
+
+       relax(data, 11, height); // Separa los labels para que no se pisen
+        
+       data.forEach(element => {
+            if(variableMuestra=="muertes") element.labelYmuertes = element.labelY;
+            if(variableMuestra=="muertesRel") element.labelYmuertesRel = element.labelY;;
+        });
+
+        
+        xLine.domain([0,d3.max(data,d=>d[variableMuestra])]);
+
+        const tabs = grafico.append("g").attr("id",id);
+    
+        var texto = tabs.append("text")
+                        .attr("class","titulo")
+                        .attr("x",marginBox+x(columna))
+                        .attr("y",14)
+                        .text(titulo);
+
+        var cards = tabs.selectAll("g")
+                        .data(data)
+                        .join("g")
+                            .attr("class",d=>"boxGroup" + (d.id=="ARG"?" argBox":"") + (d.id=="ARG"&&ordenOriginal?" noRanking":""))
+                            .attr("transform", d => `translate(${x(columna)},${y(+d[variableOrden])})`);
+                  
+        var box = cards.append("rect")
+                                .attr("width",x.bandwidth())
+                                .attr("height",y.bandwidth())
+                                .attr("rx",4)
+                                .attr("class","box")
+                                ;
+
+                             
+        var texto = cards.append("text")
+                                .attr("x",marginBox)
+                                .attr("y",y.bandwidth()/2+(isMobile?-5:2));
+
+                    texto.append("tspan")
+                            .attr("class","textoPais")
+                            .text(d=>(ordenOriginal&&d.id=="ARG"?ordenOriginal:d[variableOrden])+". " + d.pais[isMobile]); // si es argentina y no esta en el ranking pone el indice original (no el 10)
+
+        var numero = texto.append("tspan").attr("class","numero")
+                            .text(d=>(isMobile?"":": ")+d3.format(",.0f")(d[variableMuestra]))
+                        ;
+
+                    if(isMobile) numero.attr("x",marginBox).attr("dy",y.bandwidth()/2.2);
+
+                    cards.append("path") // AGREGO LA LINEA DE POBLACION DEBAJO DE LOS PAISES
+                            .attr("d",d=>d3.line()([[xLine(0),0],[xLine(d[variableMuestra]),0]]))
+                            .attr("class","lineaBox")
+                            .attr("transform", d => `translate(0,${(y.bandwidth()/2)+(isMobile?1:9)})`);
+                        ;
+                    cards.append("circle") // AGREGO LA LINEA DE POBLACION DEBAJO DE LOS PAISES
+                            .attr("d",d=>d3.line()([[xLine(0),0],[xLine(d[variableMuestra]),0]]))
+                            .attr("r",1.5)
+                            .attr("class","lineaBox marker")
+                            .attr("transform", d => `translate(${xLine(d[variableMuestra])},${(y.bandwidth()/2)+(isMobile?1:9)})`);
+                        ;
+       
+        
+                }
+
+
+    function armaConexion(origen, destino, prendido) {
+            var sources = d3.select(origen).selectAll(".boxGroup");
+            var targets = d3.select(destino).selectAll(".boxGroup");
+
+
+            sources.each(function (d) {
+                var esto = this;
+                if(targets.filter(e=>e.id==d.id)._groups[0].length){
+                    d3.select(destino).append("g").attr("class","links").style("opacity",prendido)
+                                    .append("path")
+                                        .attr("d", f => {
+                                            var targetBox = getTranslateXY(targets.filter(e=>e.id==d.id));
+                                            var sourceBox = getTranslateXY(d3.select(esto));
+                                                                                      
+                                        return diagonal({
+                                                    source: {x: (sourceBox[0]+x.bandwidth()), y: (sourceBox[1]+y.bandwidth()/2)},
+                                                    target: {x: targetBox[0], y: (targetBox[1]+y.bandwidth()/2)}
+                                            });
+                                        });
+                
+                }
+                
+               ;
+            })
+
+    }
+
+
+// INICIA EL SCROLLY
+
+        init()
+
+
+
+    function scrollyTelling(step){
+
+        switch (step) {
+            case 2:
+                d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>40*i).duration(300).style("opacity",0)
+                d3.select("#rankMuertesRel").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>200+40*i).duration(400).style("opacity",1)
+                break;
+
+            case 3:
+                d3.select("#rankMuertesRel").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>40*i).duration(300).style("opacity",0)
+                d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>100+40*i).duration(400).style("opacity",1)
+                d3.select("#rankMuertes").selectAll(".boxGroup").transition().delay((d,i)=>60*i).duration(300).style("opacity",1);
+                d3.select("#scatterPlot").selectAll(".puntos,text,.axis").transition().duration(50).style("opacity",0);
+                break;
+
+            case 4: // pasa a scatterplot
+                d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>10*i).duration(100).style("opacity",0);
+                d3.select("#rankMuertes").selectAll(".boxGroup").transition().delay((d,i)=>15*i).duration(100).style("opacity",0);
+                d3.select("#scatterPlot").selectAll(".puntos,text,.axis").transition().delay((d,i)=>i).duration(50).style("opacity",1);
+                d3.select("#scatterPlot").selectAll(".tendencia").transition().duration(50).style("opacity",0);
+                break;
+
+            case 5: // mustra tendencia
+                d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>10*i).duration(100).style("opacity",0);
+                d3.select("#rankMuertes").selectAll(".boxGroup").transition().delay((d,i)=>15*i).duration(100).style("opacity",0);
+                d3.select("#scatterPlot").selectAll(".puntos,text,.axis").transition().delay((d,i)=>i).duration(50).style("opacity",1);
+                d3.select("#scatterPlot").selectAll(".tendencia").transition().duration(150).style("opacity",1);
+                break;
+
+
+            case 6:
+                d3.select("#scatterPlot").selectAll(".tendencia").transition().duration(50).style("opacity",0);
+                d3.select("#scatterPlot").selectAll(".puntos,text,.axis").transition().duration(100).style("opacity",0);
+                d3.select("#rankMuertes").selectAll(".boxGroup").transition().delay((d,i)=>20*i).duration(200).style("opacity",1);
+                d3.select("#rankMuertesRel").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>20*i).duration(200).style("opacity",0)
+                d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>20*i).duration(200).style("opacity",1)
+                break;
+
+            case 7:
+                d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>50*i).duration(300).style("opacity",0)
+                d3.select("#rankMuertes").selectAll(".titulo, .links, .box, .numero, .lineaBox").transition().delay((d,i)=>15*i).duration(100).style("opacity",1);
+                d3.select("#rankMuertesRel").selectAll(".titulo, .links, .box, .numero, .lineaBox").transition().delay((d,i)=>15*i).duration(100).style("opacity",1);
+                d3.select("#rankMuertes").selectAll(".boxGroup").transition().duration(400)
+                                            .attr("transform", d => `translate(${x(0)},${y(+d.rankingMuertes)})`);
+                d3.select("#rankMuertesRel").selectAll(".boxGroup").transition().duration(400)
+                                            .style("opacity",1)
+                                            .attr("transform", d => `translate(${x(1)},${y(+d.rankingMuertesRel)})`);
+                d3.select("#slopeChart").selectAll(".puntos, .slopeLinea, .arg").transition().duration(100).style("opacity",0);
+                d3.select("#rankMuertes").selectAll(".textoPais").transition().delay(50).duration(100).style("text-anchor","start");
+                break;
+        
+            case 8:
+                d3.select("#rankMuertes").selectAll(".links, .box, .numero, .lineaBox").transition().delay((d,i)=>15*i).duration(100).style("opacity",0);
+                d3.select("#rankMuertesRel").selectAll(".links, .box, .numero, .lineaBox").transition().delay((d,i)=>15*i).duration(100).style("opacity",0);
+                d3.select("#rankMuertes").selectAll(".boxGroup").transition().duration(400)
+                                            .attr("transform", d => `translate(${x(0)+x.bandwidth()*(isMobile?0.85:1.1)},${(d.labelYmuertes-y.bandwidth()/2*(isMobile?0.6:1))})`);
+                d3.select("#rankMuertesRel").selectAll(".boxGroup").transition().duration(400)
+                                            .attr("transform", d => `translate(${x(1)},${(d.labelYmuertesRel-y.bandwidth()/2*(isMobile?0.6:1))})`);
+                d3.select("#slopeChart").selectAll(".puntos, .slopeLinea, .arg").transition().duration(200).style("opacity",1);
+                d3.select("#rankMuertes").selectAll(".textoPais").transition().delay(50).style("text-anchor","end");
+                
+                
+                break;
+            
+
+                
+            }
+        }
+            
+
+    
+
+});
+
+function getTranslateXY(item) {
+    var itemTrans = item.attr("transform");
+    var translate = itemTrans.substring(itemTrans.indexOf("(")+1, itemTrans.indexOf(")")).split(",");
+    return [+translate[0],+translate[1]]
+}
+
+// separa en el eje Y los datos que le lleguen con formato: 
+// d.name // d.labelY // d.values
+function relax(dataInterna, spacing, height) {
+				spacing = spacing? spacing : 8;
+				var dy = 1;
+				var repeat = false;
+				var count = 0;
+				dataInterna.forEach(function(dA, i) {
+					var yA = dA.labelY;
+					dataInterna.forEach(function(dB, j) {
+						var yB = dB.labelY;
+						if (i === j) {
+							return;
+						}
+						diff = yA - yB;
+						if (Math.abs(diff) > spacing) {
+							return;
+						}
+						repeat = true;
+						magnitude = diff > 0 ? 1 : -1;
+						adjust = magnitude * dy;
+						dA.labelY = +yA + adjust;
+						dB.labelY = +yB - adjust;
+						dB.labelY = dB.labelY > height ? height : dB.labelY
+						dA.labelY = dA.labelY > height ? height : dA.labelY
+					})
+				})
+				if (repeat) {
+					relax(dataInterna, spacing);
+				}
+            }
+            
+function wrap(text, width, dy, alignBottom) {
+  text.each(function() {
+    var text = d3.select(this),
+        words = text.text().split(/\s+/).reverse(),
+        word,
+        line = [],
+        lineNumber = 1,
+        lineHeight = dy, // ems
+        y = text.attr("y"),
+        clase = text.attr("class"),
+        x = parseFloat(text.attr("x")),
+        tspan = text.text(null).append("tspan").attr("x", 0)
+                    .attr("dy", dy + "em");
+    while (word = words.pop()) {
+      line.push(word);
+      tspan.text(line.join(" "))
+            .attr("x", x).attr("class",clase);
+      if (tspan.node().getComputedTextLength() > width) {
+        lineNumber++;
+
+        line.pop();
+        tspan.text(line.join(" "));
+        line = [word];
+        tspan = text.append("tspan")
+                .attr("x", x)
+                .attr("dy", dy + "em").text(word).attr("class",clase);
+      }
+    }
+    if(alignBottom) d3.select(this).attr("y",y-lineNumber*10-5)
+  });
+}
+
+</script>
+
+
+<div class="note info"><p>Ajustar por tamaño de población (es decir, mirar el dato por millón de habitantes) nos permite hacer comparaciones más correctas entre países que tienen diferente tamaño.</p>
+<p>Otra corrección posible es la de comparar sólo entre países que se encuentren en etapas similares de la pandemia (por ejemplo, que hayan encontrado el pico). Puede haber aún más factores escondidos: densidad habitacional, condiciones sanitarias, edad de la población, riqueza del país, etc. Tener en cuenta estos factores nos ayuda a hacer comparaciones cada vez mejores.</p>
+</div>]]></content>
+  </entry>
 </search>
