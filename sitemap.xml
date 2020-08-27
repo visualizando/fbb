@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://decodificar.org/covid/muertes_por_pais/</loc>
+    
+    <lastmod>2020-08-25</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://decodificar.org/covid/historia_de_un_caso/</loc>
+    
+    <lastmod>2020-08-18</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://decodificar.org/covid/record_de_contagios/</loc>
+    
+    <lastmod>2020-08-11</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://decodificar.org/covid/achatar_la_curva/</loc>
+    
+    <lastmod>2020-08-04</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://decodificar.org/about/index.html</loc>
+    
+    <lastmod>2020-08-04</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://decodificar.org/covid/evolucion_por_provincia/</loc>
+    
+    <lastmod>2020-07-28</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://decodificar.org/covid/la_cantidad_de_contagiados/</loc>
+    
+    <lastmod>2020-07-21</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://decodificar.org/covid/el_ritmo_de_la_pandemia/</loc>
+    
+    <lastmod>2020-07-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://decodificar.org/.cpanel.json</loc>
+    
+    <lastmod>2020-07-13</lastmod>
+    
+  </url>
+  
+
+  <url>
+    <loc>https://decodificar.org/</loc>
+    <lastmod>2020-08-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  
+
+  
+</urlset>
