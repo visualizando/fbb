@@ -343,10 +343,6 @@ var coloreaCategorias = d3.scaleOrdinal()
     .axis--x .tick line{
         stroke-width: 2px;
     }
-    
-    .axis--y .tick text{
-        text-anchor: start;
-    }
 
     .axis-title {
         fill: #222;
@@ -354,16 +350,12 @@ var coloreaCategorias = d3.scaleOrdinal()
         text-anchor: start;
     }
     
-    .line, .aspo {
+    .linea {
       fill: none;
       stroke: #a3a3a3;
       stroke-width: 1px;
     }
 
-    path.aspo {
-        stroke:#222;
-        stroke-dasharray: 3px 1px;   
-    }
 
     rect.aspo {
         stroke:none;
@@ -438,12 +430,10 @@ var coloreaCategorias = d3.scaleOrdinal()
 </style>
 
 
-<section id='scrolly'>
+<section id='scrolly1'>
     <div class='scrolly'>
-        
-
         <!-- aca va el grafico que va a quedar fijo -->
-        <figure id="contenedorGrafico" class='sticky' >
+        <figure id="grafico1" class='sticky contenedorGrafico' >
         </figure>
 
         <!-- acá van los textos de cada paso -->
@@ -512,6 +502,19 @@ var coloreaCategorias = d3.scaleOrdinal()
                     Las diferencias principales son las estrategias de testeo y el tiempo que pasa entre encontrar un caso sospechoso y su eventual confirmación por test.
                 </p>
             </div>
+        </article>
+    </div>
+</section>
+
+<section id='scrolly2'>
+    <div class='scrolly'>
+                    <!-- aca va el grafico que va a quedar fijo -->
+                    <figure id="grafico2" class='sticky contenedorGrafico' >
+                    </figure>
+
+        <!-- acá van los textos de cada paso -->
+        <article>
+                    
             <div class='step' data-index='10'>
                 <p>
                     El efecto del retraso entre casos confirmados y fallecimientos se ve aún más claro en los países que lograron encontrar el famoso "pico".
@@ -519,6 +522,18 @@ var coloreaCategorias = d3.scaleOrdinal()
                     Miremos Alemania, por ejemplo, con un retraso de 15 días. Los resultados de los testeos se tienen muy pronto en comparación con otros países.
                 </p>
             </div>
+        </article>
+    </div>
+</section>
+
+<section id='scrolly3'>
+    <div class='scrolly'>
+                    <!-- aca va el grafico que va a quedar fijo -->
+                    <figure id="grafico3" class='sticky contenedorGrafico' >
+                    </figure>
+
+        <!-- acá van los textos de cada paso -->
+        <article>
             <div class='step' data-index='11'>
                 <p>
                     En España el retraso aproximado entre la curva de casos confirmados y la de fallecimientos es de apenas 5 días. Es decir, la confirmación de casos se da bastante más tarde que en otros países.
@@ -529,6 +544,18 @@ var coloreaCategorias = d3.scaleOrdinal()
                     Pero entonces, ¿qué ventaja tiene mirar la curva de fallecimientos? ¿Nos dice algo diferente que la de casos confirmados?
                 </p>
             </div>
+        </article>
+    </div>
+</section>
+
+<section id='scrolly4'>
+    <div class='scrolly'>
+                    <!-- aca va el grafico que va a quedar fijo -->
+                    <figure id="grafico4" class='sticky contenedorGrafico' >
+                    </figure>
+
+        <!-- acá van los textos de cada paso -->
+        <article>
             <div class='step' data-index='13'>
                 <p>
                     Miremos el caso de Israel, que luego de haber encontrado el pico tuvo un rebrote. En el rebrote la curva de casos nuevos crece muy rápido y llega a valores más altos que antes, mientras que la de fallecimientos no.
@@ -541,6 +568,18 @@ var coloreaCategorias = d3.scaleOrdinal()
                     Basados en el número de fallecimientos, podríamos decir que el rebrote en realidad es similar a la primera ola de contagios.
                 </p>
             </div>
+        </article>
+    </div>
+</section>
+
+<section id='scrolly5'>
+    <div class='scrolly'>
+                    <!-- aca va el grafico que va a quedar fijo -->
+                    <figure id="grafico5" class='sticky contenedorGrafico' >
+                    </figure>
+
+        <!-- acá van los textos de cada paso -->
+        <article>
             <div class='step' data-index='15'>
                 <p>
                     En cambio, en el caso de Australia el número de fallecimientos durante el rebrote crece más rápido que el de casos nuevos confirmados. Esto podría indicar varias posibles causas, por ejemplo que el virus se está expandiendo en una población más vulnerable como las personas mayores.
@@ -573,34 +612,43 @@ Promise.all([
     // **** CODIGO DEL SCROLLY *******
 
 
-    const container = d3.select('#scrolly'); //busco el container total
-    const stepSel = container.selectAll('.step'); // selecciono los "steps"
+    const container1 = d3.select('#scrolly1'); //busco el container total
+	const container2 = d3.select('#scrolly2'); //busco el container total
+    const container3 = d3.select('#scrolly3'); //busco el container total
+    const container4 = d3.select('#scrolly4'); //busco el container total
+    const container5 = d3.select('#scrolly5'); //busco el container total
 
-    function updateChart(index) {  // funcion que llama cada vez que cruza un humbral
-        const sel = container.select(`[data-index='${index}']`);
-        stepSel.classed('is-active', (d, i) => i === index);
+    const stepSel1 = container1.selectAll('.step'); // selecciono los "steps"
+	const stepSel2 = container2.selectAll('.step'); // selecciono los "steps"
+    const stepSel3 = container3.selectAll('.step'); // selecciono los "steps"
+	const stepSel4 = container4.selectAll('.step'); // selecciono los "steps"
+    const stepSel5 = container5.selectAll('.step'); // selecciono los "steps"
+
+    function updateChart(index, what,containerNumber) {  // funcion que llama cada vez que cruza un humbral
+        const sel = d3.select('#scrolly'+containerNumber).select(`[data-index='${index}']`);
+        what.classed('is-active', (d, i) => i === index);
         
-        scrollyTelling(index); // <<<<< AQUI LLAMA AL GRAFICO VERDADERO
+        scrollyTelling(containerNumber,index); // <<<<< AQUI LLAMA AL GRAFICO VERDADERO
     }
 
-    function init() { // configuracion inicial
+    function init(what,containerNumber) { // configuracion inicial
         Stickyfill.add(d3.select('.sticky').node()); // fallback para browsers sin sticky
 
         enterView({
-            selector: stepSel.nodes(),
+            selector: what.nodes(),
             offset: 0.5,
             enter: el => {
                 const index = +d3.select(el).attr('data-index');
-                updateChart(index);
+                updateChart(index,what,containerNumber);
             },
             exit: el => {
                 let index = +d3.select(el).attr('data-index');
                 index = Math.max(0, index - 1);
-                updateChart(index);
+                updateChart(index,what,containerNumber);
             }
         });
     }
- 
+  
 
     // **** END SCROLLY *******
 
@@ -614,17 +662,17 @@ verde #62BB46
 */
        
         
-var ejeY, tituloY;
+var ejeY, ejeX, tituloY, minDate, maxDate, line;
+
 
 var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maximo
 
-var svg = d3.select("#contenedorGrafico").append("svg"),
-    marginTexto = isMobile ? 30:45,
+var svg = d3.selectAll(".contenedorGrafico").append("svg"),
     margin = isMobile ? {top: 35, right: 20, bottom: 15, left: 20} : {top: 50, right: 30, bottom: 25, left: 30},
-    width =  +d3.select('#contenedorGrafico').style('width').slice(0, -2),
-    height = +d3.select('#contenedorGrafico').style('height').slice(0, -2)-25;
+    width =  +d3.select('#grafico1').style('width').slice(0, -2),
+    height = +d3.select('#grafico1').style('height').slice(0, -2)-25;
 
-    d3.select("#contenedorGrafico").append("div").attr("class","epigrafe")
+    d3.selectAll(".contenedorGrafico").append("div").attr("class","epigrafe")
             .html("www.decodificar.org - "+epigrafeData.fecha+" - Fuente: "+ epigrafeData.fuente);
 
 
@@ -643,22 +691,29 @@ var parseTime = d3.timeParse("%Y-%m-%d");
 
 var x = d3.scaleTime().range([0, width]);
 var y = d3.scaleLinear().range([height, 0]);
+var yRight = d3.scaleLinear().range([height, 0]);
 var yLog = d3.scaleLog().range([height, 0]);
 
-var yAxis = d3.axisLeft(y);
-    yAxis.ticks(8).tickFormat(d3.format(",.2r")).tickSizeInner(-6)
+var yLogRight = d3.scaleLog().range(yLog.range());
+
+
+var yAxis = d3.axisRight(y)
+    .ticks(8).tickFormat(d3.format(",.2r"))
 ;
 
-var yLogAxis = d3.axisLeft(yLog);
-    yLogAxis.ticks(5).tickFormat(d3.format(",.1r")).tickSizeInner(-6);
 
-var line = d3.line()
-    .x(function(d) { return x(d.fecha); })
-    .y(function(d) { return y(d.casos_prom); });
+var yAxisDer = d3.axisRight(y)
+    .ticks(8).tickFormat(d3.format(",.2r"))
+;
 
-var grafico = svg.append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-    ;
+
+var yLogAxis = d3.axisLeft(yLog)
+                .ticks(5).tickFormat(d3.format(",.1r"));
+
+var yLogAxisDer = d3.axisRight(yLogRight)
+                .ticks(5).tickFormat(d3.format(",.1r"));
+
+
 
 
     var tituloGrafico = 
@@ -669,26 +724,197 @@ var grafico = svg.append("g")
         "Total de casos confirmados (escala logarítmica)"]
         : tituloGrafico;
     
-    var data = files[0] // datos principales;
 
-    data.forEach(function(d) {
-      d.fecha = parseTime(d.date);
-      d.casos_prom = +d.casos_diarios_prom;
-    });
+    var data =  files[0].map(obj => {
+                return {
+                                "iso":obj.iso_code,
+                                "name":obj.location,
+                                "casos":+obj.casos_diarios_prom,
+                                "fallecidos":+obj.fallecimientos_diarios_prom,
+                                "fecha":parseTime(obj.date)
+                                }
+            });
 
-    x.domain([parseTime("2020-03-01"),d3.max(data, function(d) { return d.fecha; })]);
-    y.domain([d3.min(data, function(d) { return d.casos_prom; }), d3.max(data, function(d) { return d.casos_prom; })+10000]);
-    yLog.domain([d3.min(data, function(d) { return d.casos_prom; }), d3.max(data, function(d) { return d.casos_prom; })+300000]);
+
+svg.append("g")
+    	.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+	;
+
+	svg.each(function(d,i){
+		d3.select(this).select("g").attr("id","gInterno"+i);
+	})
 
 
-     grafico.append("g") // EJE X
-        .attr("class", "axis axis--x")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x)
-        .ticks(d3.timeMonth.every(1)))
-        .call(g => {  // ESTO PONE LOS NOMBRES DE LOS MESES EN MEDIO DE CADA MES
+
+    dibujaGrafico(data.filter(d=>d.iso=="ARG"), "ARG", false, 0, 12)
+    dibujaGrafico(data.filter(d=>d.iso=="DEU"), "DEU", true, 1, 15,6000,260,["2020-02-29","2020-07-18"])
+    dibujaGrafico(data.filter(d=>d.iso=="ESP"), "ESP", true, 2, 6,9000,1000,["2020-02-29","2020-05-19"])
+    dibujaGrafico(data.filter(d=>d.iso=="ISR"), "ISR", true, 3, 11,700,11,["2020-02-29","2020-06-1"])
+    dibujaGrafico(data.filter(d=>d.iso=="AUS"), "AUS", true, 4, 11,450,5,["2020-03-10","2020-05-9"])
+
+
+    function dibujaGrafico(datosPais, pais, finished, scrollyID, retraso, maxEjeIzq, maxEjeDer, rangoFechas){
+
+
+        var grafico = d3.select("#gInterno"+scrollyID)
+    ;
+
+        yLog.domain([d3.min(datosPais, d=>d.casos), d3.max(datosPais, d=>d.casos)*1.1]);
+
+       
+        line = d3.line()
+         .x(d => x(d.fecha))
+         
+            ;
+
+        var ejeX = grafico.append("g") // EJE X
+                .attr("class", "axis axis--x")
+                .attr("transform", "translate(0," + height + ")")
+                .call(d3.axisBottom(x)
+                .ticks(d3.timeMonth.every(1)))
+                .call(ajustaMesesEjeX)
+                ;
+
+
+        if(finished){ // para grafico terminado
+            x.domain([parseTime(rangoFechas[0]),parseTime(rangoFechas[1])]);
+    
+            y.domain([0,maxEjeIzq]);
+
+            var ejeY = grafico.append("g") // EJE Y
+                .attr("id", "ejeY")
+                .attr("class", "axis axis--y")
+                .call(yAxis);
+
+            yRight.domain([0,maxEjeDer]);
+
+            var ejeYder = grafico.append("g") // EJE Y derecho
+                .attr("id", "ejeYder")
+                .attr("class", "axis axis--y")
+                .attr("transform", "translate( " + width + ", 0 )")
+                .call(yAxisDer);
+
+        }else{ // para grafico de argentina
+
+            x.domain(d3.extent(datosPais, d=>d.fecha));
+            y.domain([d3.min(datosPais, d=>d.casos), d3.max(datosPais, d=>d.casos)*1.1]);
+
+
+            var ejeY = grafico.append("g") // EJE Y
+                .attr("id", "ejeY")
+                .attr("class", "axis axis--y")
+                .call(yAxis);
+
+            var ejeYder = grafico.append("g") // EJE Y derecho
+                .attr("id", "ejeYder")
+                .attr("class", "axis axis--y")
+                .attr("transform", "translate( " + width + ", 0 )")
+                .call(yLogAxisDer);
+        }
+
+            
+            ejeY.append("text")
+                .attr("class", "axis-title")
+                .attr("y", -8)
+                .text(tituloGrafico[0]);
+            
+            
+
+        const lineasContainer = grafico.append("g")
+                                       .attr("id","lineas"+ pais)
+					            	  .attr("clip-path", "url(#clip)");
+
+
+        var lineaCasos = lineasContainer
+				.append("path")
+                    .attr("class", "linea casos")
+                    .style("stroke", finished?"#F2652240":"#F26522")
+                    .attr("d", line.y(d => y(d.casos))(datosPais));
+
+        var lineaMuertes = lineasContainer
+                .append("path")
+                    .attr("class", "linea muertos")
+                    .attr("opacity",finished?1:0)
+                    .style("stroke", "gray")
+                    .attr("d", finished?line.y(d => yRight(d.fallecidos))(datosPais):line.y(d => y(d.fallecidos))(datosPais));
+        
+        if(finished){
+            var lineaCasosDelayed = lineasContainer
+				.append("path")
+                    .attr("class", "linea casos delayed")
+                    .style("stroke", "#F26522")
+                    .attr("d", line.y(d => y(d.casos)).x(d => x( d3.timeDay.offset(d.fecha, retraso) ))(datosPais));
+        }
+
+
+
+    }
+
+    
+    init(stepSel1,1)
+	init(stepSel2,2)
+    init(stepSel1,3)
+	init(stepSel2,4)
+    init(stepSel1,5)
+
+
+function scrollyTelling(containerNumber,step){
+
+
+	if(containerNumber == 1){  //GRAFICO PRIMER SCROLLY
+        switch (step) {
+            case 0: // INICIO, ES LINEAL
+                d3.select("#gInterno0").selectAll(".muertos").transition().duration(600).style("opacity", 0);
+            break;
+
+            case 1: // aparece muertes
+                d3.select("#gInterno0").selectAll(".muertos").transition().duration(600).style("opacity", 1);
+                break;
+
+            case 3: // VUELVE A lineal
+/*                 d3.select("#gInterno0").select("#ejeY").transition().duration(600).call(yAxis);
+                d3.select("#gInterno0").select("#ejeY").select("text").text(tituloGrafico[0])
+                d3.select("#gInterno0").selectAll(".casos")
+                    .transition().duration(600)
+                    .attr("d", line.y(d => y(d.casos))(datosPais));
+
+                d3.select("#gInterno0").selectAll(".muertes")
+                    .transition().duration(600)
+                    .attr("d", line.y(d => y(d.fallecidos))(datosPais)); */
+            break;
+
+            case 4: 
+       /*      d3.select("#gInterno0").select("#ejeY").transition().duration(600).call(yLogAxis);
+                d3.select("#gInterno0").select("#ejeY").select("text").text(tituloGrafico[0])
+                d3.select("#gInterno0").selectAll(".casos")
+                    .transition().duration(600)
+                    .attr("d", line.y(d => yLog(d.casos))(datosPais));
+
+                d3.select("#gInterno0").selectAll(".muertes")
+                    .transition().duration(600)
+                    .attr("d", line.y(d => yLog(d.fallecidos))(datosPais));
+ */
+            break;
+
+
+        }
+
+      
+  
+	}else{
+ 
+
+            /// aca maneja los otros scrollys
+    }
+          
+
+}
+
+
+    function ajustaMesesEjeX(g) {
+		  // ESTO PONE LOS NOMBRES DE LOS MESES EN MEDIO DE CADA MES
             g.selectAll(".tick:not(:last-of-type) text") // para todos los meses menos el ultimo
-                .attr("dx", x(parseTime("2020-03-16"))) 
+                .attr("dx", x(parseTime("2020-03-16"))) // mueve el equivalente a 15 dias
                 .attr("dy", "0.3em") ;
             
             g.selectAll(".tick:last-of-type text") // el ultimo si no esta completo lo centra en los dias que haya
@@ -697,147 +923,8 @@ var grafico = svg.append("g")
             
             g.selectAll(".tick line") // las lineas que separan los meses, mas altas
                 .attr("y2", "1.4em") ;
-            }
-            )
-        ;
+			}
 
-    ejeY = grafico.append("g") // EJE Y
-        .attr("class", "axis axis--y")
-       .call(yLogAxis)
-       ;
-    
-    tituloY = ejeY.append("text")
-        .attr("class", "axis-title")
-        .attr("y", -8)
-        .text(tituloGrafico[1]);
-
-
-        
-    grafico.append("path") // LINEA DE FONDO
-        .datum(data.filter(e=>e.iso_code=="ARG"))
-        .attr("class", "line")
-        .attr("d", line);
-
-    grafico.append("g") // CIRCULITOS DE DATOS
-      .attr("fill", "#00468B")
-      .attr("stroke", "none")
-    .selectAll("circle")
-    .data(data.filter(e=>e.iso_code=="ARG"))
-    .join("circle")
-      .attr("class","dataCircle")
-      .attr("cx", i => x(i.fecha))
-      .attr("cy", i => y(i.casos_prom))
-      .attr("r", 3);
-
-
-   
-
-
-    
-                init()
-
-    function scrollyTelling(step){
-
-        var cambia = {};
-        switch (step) {
-            case 0: // INICIO, ES LOG
-                cambia.tipo = "log";
-                cambia.tick = -6;
-                cambia.resalta = 0;
-            break;
-
-            case 1: // PASA A LINEAL
-                cambia.tipo = "lineal"
-                cambia.tick =-6
-                cambia.resalta = 0;
-                break;
-
-            case 2: // AGREGA FLECHAS/GRADIENTE
-                cambia.tipo = "lineal"
-                cambia.tick =-width
-                cambia.resalta = 1;
-            break;
-
-            case 3: // VUELVE A LOG CON FLECHAS/GRADIENTE
-                cambia.tipo = "log"
-                cambia.tick =-width;
-                cambia.resalta = 1;
-                d3.selectAll(".tendencia").transition().duration(600).style("opacity",0)
-            break;
-
-            case 4: // AGREGA TENDENCIAS
-                cambia.tipo = 0
-                cambia.tick =-6
-                cambia.resalta= 0;
-                d3.selectAll(".resaltados").transition().duration(600).style("opacity", 0);
-                d3.selectAll(".tendencia").transition().delay(d=>d.index*100).duration(1100).style("opacity",1)
-                d3.selectAll(".duplicacionesTextos").transition().duration(600).style("opacity",0)
-
-            break;
-
-            case 5: // AGREGA NUMEROS A tENDECNIAS
-                cambia.tipo = 0
-                cambia.resalta = 0;
-                d3.selectAll(".duplicacionesTextos").transition().delay(d=>d.index*100).duration(1100).style("opacity",1)
-                d3.select("#aspo").transition().duration(600).style("opacity",0)
-            break;
-
-            case 6: // AGREGA ASPO
-                cambia.tipo = 0
-                cambia.resalta = 0;
-                d3.select("#aspo").transition().duration(600).style("opacity",1)
-            break;
-
-        }
-
-        if(cambia.tipo == "log"){
-            if(cambia.tick!=0) yLogAxis.tickSizeInner(cambia.tick);
-            
-            ejeY.transition().duration(600).call(yLogAxis);
-
-            tituloY.text(tituloGrafico[1]);
-
-            line.y(function(d) { return yLog(d.casos_prom); });
-            d3.selectAll(".line")
-                .transition().duration(600)
-                .attr("d", line);
-
-            d3.selectAll(".dataCircle")
-                .transition().duration(600)
-                .attr("cy", function(d) { return yLog(d.casos_prom); });
-
-            d3.selectAll(".resaltados")
-                .transition().duration(600)
-                        .attr("y", d=>yLog(d[1]))
-                        .attr("height", d=>yLog(d[0])-yLog(d[1]))
-                        .style("opacity", cambia.resalta) ;
-            
-        }else if (cambia.tipo == "lineal"){
-            if(cambia.tick!=0) yAxis.tickSizeInner(cambia.tick);
-            ejeY.transition().duration(600).call(yAxis);
-
-            tituloY.text(tituloGrafico[0])
-
-            line.y(function(d) { return y(d.casos_prom); });
-            d3.selectAll(".line")
-                .transition().duration(600)
-                .attr("d", line);
-
-            d3.selectAll(".dataCircle")
-                .transition().duration(600)
-                .attr("cy", function(d) { return y(d.casos_prom); })
-
-                d3.selectAll(".resaltados")
-                .transition().duration(600)
-                        .attr("y", d=>y(d[1]))
-                        .attr("height", d=>y(d[0])-y(d[1]))
-                        .style("opacity", cambia.resalta)
-                         ;
-
-        }
-            
-
-    }
 
 });
 
