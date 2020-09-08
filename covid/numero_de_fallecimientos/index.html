@@ -375,8 +375,16 @@ var coloreaCategorias = d3.scaleOrdinal()
     }
 
 
+    .label.naranja{
+        background: #F26522;
 
+    }
 
+    .label.azul{
+        background: #00468B;
+        color:white;
+
+    }
 
 
 
@@ -397,9 +405,9 @@ var coloreaCategorias = d3.scaleOrdinal()
         <!-- acá van los textos de cada paso -->
         <article>
             <div class='step' data-index='0'>
-                <p>Venimos viendo este gráfico hace bastante tiempo. Sí, es el de número de casos nuevos confirmados por día en Argentina (promedio de los últimos 7 días). Nos interesa mirar este rango de tiempo en especial.
+                <p>Venimos viendo este gráfico hace bastante tiempo. Sí, es el de número de casos nuevos confirmados por día en Argentina (promedio de los últimos 7 días). Nos interesa mirar <b>este rango de tiempo en especial.</b>
                     <br/><br/>
-                    ¿Qué pasa si a este mismo gráfico le agregamos la curva de fallecimientos por COVID-19 por día en Argentina?
+                    ¿Qué pasa si a este mismo gráfico le agregamos <b>la curva de fallecimientos</b> por COVID-19 por día en Argentina?
                 </p>
             </div>
             
@@ -407,12 +415,12 @@ var coloreaCategorias = d3.scaleOrdinal()
                 <p>
                     ¿Por qué queremos analizar al mismo tiempo el número de fallecimientos por COVID-19? Este dato también es muy importante para evaluar el desarrollo de la pandemia. 
                     <br/><br/>
-                    Comparado con el número de casos confirmados, el dato de fallecimientos depende en menor medida de criterios médicos o epidemiológicos o decisiones políticas y, por lo tanto, vamos a considerarlo un mejor indicador ("proxy") que el número de casos confirmados.
+                    Comparado con el <mark class="label azul">número de casos confirmados</mark>, el dato de fallecimientos <b>depende en menor medida</b> de criterios médicos o epidemiológicos o decisiones políticas y, por lo tanto, vamos a considerarlo un mejor indicador ("proxy") que el número de casos confirmados.
                 </p>
             </div>
             <div class='step' data-index='2'>
                 <p>
-                    Una diferencia, por ejemplo, es que el número de casos confirmados depende de la cantidad de tests que hagamos o de la definición de “caso sospechoso”, y ambos criterios van cambiando a lo largo de la pandemia. 
+                    Una diferencia, por ejemplo, es que el <mark class="label azul">número de casos confirmados</mark> depende de la cantidad de tests que hagamos o de la definición de “caso sospechoso”, y ambos criterios van cambiando a lo largo de la pandemia. 
                     <br/><br/>
                     El número de fallecimientos, en cambio, no depende de dichos criterios. Una persona fallecida, además, debe ser registrada oficialmente frente a los organismos correspondientes.
                        </p>
@@ -426,12 +434,12 @@ var coloreaCategorias = d3.scaleOrdinal()
             </div>
             <div class='step' data-index='4'>
                 <p>
-                    Empezamos cambiando la escala del eje vertical (logarítmica) para evidenciar el ritmo al cual crecen las curvas.
+                    Empezamos cambiando la escala del eje vertical (logarítmica) para evidenciar <a href="/covid/el_ritmo_de_la_pandemia/">el ritmo al cual crecen las curvas.</a>
                 </p>
             </div>
             <div class='step' data-index='5'>
                 <p>
-                    Luego le damos un eje propio a cada dato: ponemos el número de casos a la izquierda y el número de fallecimientos a la derecha, eligiendo astutamente los rangos de cada eje.
+                    Luego le damos un eje propio a cada dato: ponemos el <mark class="label azul">número de casos a la izquierda</mark> y el <mark class="label naranja">número de fallecimientos a la derecha</mark>, eligiendo astutamente los rangos de cada eje.
                 </p>
             </div>
             <div class='step' data-index='6'>
@@ -450,7 +458,7 @@ var coloreaCategorias = d3.scaleOrdinal()
             </div>
             <div class='step' data-index='8'>
                 <p>
-                    Este retraso tiene sentido. En el curso de esta enfermedad, hay muchos tiempos involucrados: comienza con el contagio, luego hay un período de varios días sin síntomas, después se realiza un test cuyo resultado también tarda varios días, y luego el curso normal de la enfermedad que después de algunos días más puede terminar en la recuperación o en un fallecimiento.
+                    Este retraso tiene sentido. En el <a href="/covid/historia_de_un_caso/">curso de esta enfermedad</a>, hay muchos tiempos involucrados: comienza con el contagio, luego hay un período de varios días sin síntomas, después se realiza un test cuyo resultado también tarda varios días, y luego el curso normal de la enfermedad que después de algunos días más puede terminar en la recuperación o en un fallecimiento.
                 </p>
             </div>
             <div class='step' data-index='9'>
@@ -477,7 +485,7 @@ var coloreaCategorias = d3.scaleOrdinal()
                 <p>
                     El efecto del retraso entre casos confirmados y fallecimientos se ve aún más claro en los países que lograron encontrar el famoso "pico".
                     <br/><br/>
-                    Miremos Alemania, por ejemplo, con un retraso de 15 días. Los resultados de los testeos se tienen muy pronto en comparación con otros países.
+                    Miremos <b>Alemania</b>, por ejemplo, con un retraso de 15 días. Los resultados de los testeos se tienen muy pronto en comparación con otros países.
                 </p>
             </div>
         </article>
@@ -494,7 +502,7 @@ var coloreaCategorias = d3.scaleOrdinal()
         <article>
             <div class='step' data-index='0'>
                 <p>
-                    En España el retraso aproximado entre la curva de casos confirmados y la de fallecimientos es de apenas 5 días. Es decir, la confirmación de casos se da bastante más tarde que en otros países.
+                    En <b>España</b> el retraso aproximado entre la curva de casos confirmados y la de fallecimientos es de apenas 5 días. Es decir, la confirmación de casos se da bastante más tarde que en otros países.
                 </p>
             </div>
             <div class='step' data-index='1'>
@@ -516,7 +524,7 @@ var coloreaCategorias = d3.scaleOrdinal()
         <article>
             <div class='step' data-index='0'>
                 <p>
-                    Miremos el caso de Israel, que luego de haber encontrado el pico tuvo un rebrote. En el rebrote la curva de casos nuevos crece muy rápido y llega a valores más altos que antes, mientras que la de fallecimientos no.
+                    Miremos el caso de <b>Israel</b>, que luego de haber encontrado el pico tuvo un rebrote. En el rebrote la curva de <mark class="label azul">casos nuevos</mark> crece muy rápido y llega a valores más altos que antes, mientras que la de <mark class="label naranja">fallecimientos</mark> no.
                 </p>
             </div>
             <div class='step' data-index='1'>
@@ -540,7 +548,7 @@ var coloreaCategorias = d3.scaleOrdinal()
         <article>
             <div class='step' data-index='0'>
                 <p>
-                    En cambio, en el caso de Australia el número de fallecimientos durante el rebrote crece más rápido que el de casos nuevos confirmados. Esto podría indicar varias posibles causas, por ejemplo que el virus se está expandiendo en una población más vulnerable como las personas mayores.
+                    En cambio, en el caso de <b>Australia</b> el <mark class="label naranja">número de fallecimientos</mark> durante el rebrote crece más rápido que el de <mark class="label azul">casos nuevos confirmados.</mark> Esto podría indicar varias posibles causas, por ejemplo que el virus se está expandiendo en una población más vulnerable como las personas mayores.
                 </p>
             </div>
 
