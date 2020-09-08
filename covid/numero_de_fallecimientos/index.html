@@ -658,16 +658,16 @@ var yLogRight = d3.scaleLog().range(yLog.range());
 var yAxis = d3.axisRight(y)
     .ticks(8).tickFormat(d3.format(",.2r")).tickSizeInner(0)
 ;
-0
+
 var yAxisDer = d3.axisLeft(yRight)
     .ticks(8).tickFormat(d3.format(",.2r")).tickSizeInner(0)
 ;
-0
+
 var yLogAxis = d3.axisRight(yLog)
                 .ticks(4).tickFormat(d3.format(",.1r")).tickSizeInner(0);
 
 var yLogAxisDer = d3.axisLeft(yLogRight)
-                .ticks(5).tickFormat(d3.format(",.1r")).tickSizeInner(0);
+                .ticks(30).tickFormat(d3.format(",.1r")).tickSizeInner(0);
 
 
 
@@ -726,8 +726,11 @@ svg.append("g")
                 .text(tituloGrafico+datosPais[0].name);
 
         yLog.domain([1, d3.max(datosPais, d=>d.casos)*1.1]);
+        yLogRight.domain([2, 100]);
        
         line = d3.line()
+        .defined(d => d.casos>0)
+
          .x(d => x(d.fecha));
 
         if(finished){ // para grafico terminado
@@ -752,8 +755,7 @@ svg.append("g")
 
             x.domain(d3.extent(datosPais, d=>d.fecha));
             y.domain([d3.min(datosPais, d=>d.casos), d3.max(datosPais, d=>d.casos)*1.1]);
-
-
+            
             var ejeY = grafico.append("g") // EJE Y
                 .attr("id", "ejeY")
                 .attr("class", "axis axis--y")
@@ -763,6 +765,7 @@ svg.append("g")
                 .attr("id", "ejeYder")
                 .attr("class", "axis axis--y")
                 .attr("transform", "translate( " + width + ", 0 )")
+                .style("opacity",0)
                 .call(yLogAxisDer);
         }
 
@@ -832,6 +835,7 @@ function scrollyTelling(containerNumber,step,entra){
         y.domain([d3.min(datosPais, d=>d.casos), d3.max(datosPais, d=>d.casos)*1.1]);
         x.domain(d3.extent(datosPais, d=>d.fecha));
         line.x(d => x(d.fecha))
+
         switch (step) {
             case 0: // INICIO, ES LINEAL
                 d3.select("#gInterno0").selectAll(".muertos").transition().duration(600).style("opacity", 0);
@@ -841,7 +845,7 @@ function scrollyTelling(containerNumber,step,entra){
                 d3.select("#gInterno0").selectAll(".muertos").transition().duration(600).style("opacity", 1);
                 break;
 
-            case 2: // VUELVE A lineal
+            case 2: 
 
             break;
 
@@ -852,23 +856,52 @@ function scrollyTelling(containerNumber,step,entra){
                     .transition().duration(600)
                     .attr("d", line.y(d => y(d.casos))(datosPais));
 
-                d3.select("#gInterno0").selectAll(".muertes")
+            d3.select("#gInterno0").selectAll(".muertos")
                     .transition().duration(600)
                     .attr("d", line.y(d => y(d.fallecidos))(datosPais));
             break;
 
             case 4: 
             yLog.domain([1, d3.max(datosPais, d=>d.casos)*1.1]);
+            line.defined(d => d.casos>0)
             d3.select("#gInterno0").select("#ejeY").transition().duration(600).call(yLogAxis);
+            d3.select("#gInterno0").select("#ejeYder").transition().duration(600).style("opacity",0).call(yLogAxisDer);
                 d3.select("#gInterno0").selectAll(".casos")
                     .transition().duration(600)
                     .attr("d", line.y(d => yLog(d.casos))(datosPais));
 
-                d3.select("#gInterno0").selectAll(".muertes")
+            line.defined(d => d.fallecidos>0)
+                d3.select("#gInterno0").selectAll(".muertos")
                     .transition().duration(600)
                     .attr("d", line.y(d => yLog(d.fallecidos))(datosPais));
 
             break;
+
+            case 5: 
+            yLog.domain([10, 10000]);
+            yLogRight.domain([2, 100]);
+            line.defined(d => d.casos>0)
+            d3.select("#gInterno0").select("#ejeY").transition().duration(600).call(yLogAxis.ticks(3));
+            d3.select("#gInterno0").select("#ejeYder").transition().duration(600).style("opacity",1).call(yLogAxisDer);
+            d3.select("#gInterno0").selectAll(".casos")
+                    .transition().duration(600)
+                    .attr("d", line.y(d => yLog(d.casos))(datosPais));
+
+            line.defined(d => d.fallecidos>0)
+                d3.select("#gInterno0").selectAll(".muertos")
+                    .transition().duration(600)
+                    .attr("d", line.y(d => yLogRight(d.fallecidos))(datosPais));
+
+            break;
+
+            case 7: 
+            var retraso = d3.select("#grafico"+containerNumber).select(".delayed").attr("data-retraso");
+                d3.select("#grafico"+containerNumber)
+                    .selectAll(".delayed").transition().duration(600)
+                    .attr("transform", "translate(" + (entra?retraso:0) + ",0)")
+                ;
+            break;
+
 
 
         }
