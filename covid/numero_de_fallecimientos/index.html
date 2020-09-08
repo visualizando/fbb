@@ -718,7 +718,7 @@ svg.append("g")
     dibujaGrafico(data.filter(d=>d.iso=="ISR"), "ISR", true, 3, 11,2000,30,["2020-02-29","2020-07-28"])
     dibujaGrafico(data.filter(d=>d.iso=="AUS"), "AUS", true, 4, 11,1600,16,["2020-03-10","2020-08-12"])
 
-    dibujaGrafico(data.filter(d=>d.iso=="ARG"), "ARG", false, 0, 12,[10,10000],[2,100],["2020-03-4","2020-07-5"])
+    dibujaGrafico(data.filter(d=>d.iso=="ARG"), "ARG", false, 0, 12,3000,[2,100],["2020-03-4","2020-07-5"])
 
 
 
@@ -761,9 +761,9 @@ svg.append("g")
 
         }else{ // para grafico de argentina
 
-            x.domain(d3.extent(datosPais, d=>d.fecha));
-            y.domain([d3.min(datosPais, d=>d.casos), d3.max(datosPais, d=>d.casos)*1.1]);
-            
+            x.domain([parseTime(rangoFechas[0]),parseTime(rangoFechas[1])]);
+            y.domain([0,3000]);
+
             var ejeY = grafico.append("g") // EJE Y
                 .attr("id", "ejeY")
                 .attr("class", "axis axis--y")
@@ -840,10 +840,9 @@ function scrollyTelling(containerNumber,step,entra){
 
 	if(containerNumber == 1){  //GRAFICO PRIMER SCROLLY ARG
         datosPais = data.filter(d=>d.iso=="ARG");
-        y.domain([d3.min(datosPais, d=>d.casos), d3.max(datosPais, d=>d.casos)*1.1]);
-        x.domain(d3.extent(datosPais, d=>d.fecha));
-        line.x(d => x(d.fecha))
-
+        y.domain([0,3000]);
+        x.domain([parseTime("2020-03-4"),parseTime("2020-07-5")]);
+        line.x(d => x(d.fecha));
         switch (step) {
             case 0: // INICIO, ES LINEAL
                 d3.select("#gInterno0").selectAll(".muertos").transition().duration(600).style("opacity", 0);
@@ -858,7 +857,7 @@ function scrollyTelling(containerNumber,step,entra){
             break;
 
             case 3: // VUELVE A lineal
-            y.domain([d3.min(datosPais, d=>d.casos), d3.max(datosPais, d=>d.casos)*1.1]);
+            y.domain([0,3000]);
             d3.select("#gInterno0").select("#ejeY").transition().duration(600).call(yAxis);
             d3.select("#gInterno0").selectAll(".casos")
                     .transition().duration(600)
