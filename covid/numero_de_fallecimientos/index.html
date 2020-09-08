@@ -422,12 +422,12 @@ var coloreaCategorias = d3.scaleOrdinal()
                 <p>
                     Una diferencia, por ejemplo, es que el <mark class="label azul">número de casos confirmados</mark> depende de la cantidad de tests que hagamos o de la definición de “caso sospechoso”, y ambos criterios van cambiando a lo largo de la pandemia. 
                     <br/><br/>
-                    El número de fallecimientos, en cambio, no depende de dichos criterios. Una persona fallecida, además, debe ser registrada oficialmente frente a los organismos correspondientes.
+                    <mark class="label naranja">El número de fallecimientos</mark>, en cambio, no depende de dichos criterios. Una persona fallecida, además, debe ser registrada oficialmente frente a los organismos correspondientes.
                        </p>
             </div>
             <div class='step' data-index='3'>
                 <p>
-                    Pero… hay un problema: la curva de fallecimientos casi no se ve, porque la cantidad de casos nuevos y la de fallecimientos diarios son números que están bastante alejados uno del otro en Argentina. Por ejemplo, cuando los casos nuevos subieron por encima de 1000, el número de fallecimientos era de pocas decenas.
+                    Pero… hay un problema: <mark class="label naranja">la curva de fallecimientos</mark> casi no se ve, porque la cantidad de casos nuevos y la de fallecimientos diarios son números que están bastante alejados uno del otro en Argentina. Por ejemplo, cuando los casos nuevos subieron por encima de 1000, el número de fallecimientos era de pocas decenas.
                     <br/><br/>
                     ¿Qué podemos hacer para apreciar curvas de valores tan disímiles en un mismo gráfico?
                 </p>
@@ -502,7 +502,7 @@ var coloreaCategorias = d3.scaleOrdinal()
         <article>
             <div class='step' data-index='0'>
                 <p>
-                    En <b>España</b> el retraso aproximado entre la curva de casos confirmados y la de fallecimientos es de apenas 5 días. Es decir, la confirmación de casos se da bastante más tarde que en otros países.
+                    En <b>España</b> el retraso aproximado entre la curva de casos confirmados y la de fallecimientos es de apenas 6 días. Es decir, la confirmación de casos se da bastante más tarde que en otros países.
                 </p>
             </div>
             <div class='step' data-index='1'>
@@ -958,7 +958,7 @@ function scrollyTelling(containerNumber,step,entra){
 
 
 <div class="note info"><p>El retraso entre el número de fallecimientos y el número de casos confirmados se debe principalmente al curso natural de la enfermedad (aunque otras causas como retrasos en la carga de datos también pueden tener efecto).</p>
-<p>Mientras más se tarde en testear a las personas con síntomas, y mientras más se tarde en conocer el resultado de ese test, menor será el retraso entre la curva de casos y la de fallecimientos. Las dos curvas estarán más “cerca“.</p>
+<p>Mientras más se tarde en testear a las personas con síntomas, y mientras más se tarde en conocer el resultado de ese test, menor será el retraso entre la curva de casos y la de fallecimientos. Las dos curvas estarán más “cerca”.</p>
 <p>La curva del número de fallecimientos es un indicador más confiable que la del número de casos confirmados, porque no depende de decisiones como la definición de caso sospechoso y el número de testeos que se están realizando. Sin embargo, tiene sus propias limitaciones y la principal es que es un indicador que llega con más retraso que el de casos confirmados.</p>
 </div><!-- flag of hidden posts -->
     </div>
