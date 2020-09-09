@@ -582,7 +582,7 @@ Promise.all([
 ]).then(function(files) {
 
     var epigrafeData = files[1].filter(d=>d.file=="E4_num_fallecimientos.csv")[0];
-        epigrafeData.fecha = d3.timeFormat("%-d/%b/%Y")(d3.timeParse("%Y-%m-%d")(epigrafeData.fecha));
+        epigrafeData.fecha = d3.timeFormat("%-d/%b/%Y")(d3.timeParse("%Y-%m-%d")(epigrafeData.fecha)).toLowerCase();
 
 
     // **** CODIGO DEL SCROLLY *******
@@ -990,6 +990,8 @@ function ajustaMesesEjeX(g) {
                       <div class="compartir">Compartir:
                         <a  href="https://www.facebook.com/sharer/sharer.php?u=https://decodificar.org/covid/numero_de_fallecimientos/&quote=¿Qué nos dice el número de fallecimientos?" target="_blank" title="Share on Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURI(https://decodificar.org/covid/numero_de_fallecimientos/) + '&quote=' + encodeURI(¿Qué nos dice el número de fallecimientos?); return false;"><i class="fab fa-facebook" aria-hidden="true"></i></a>
                         <a href="https://twitter.com/intent/tweet?text=¿Qué nos dice el número de fallecimientos?%20&url=https://decodificar.org/covid/numero_de_fallecimientos/" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURI(¿Qué nos dice el número de fallecimientos?) + '&url='+ encodeURI(https://decodificar.org/covid/numero_de_fallecimientos/) ; return false;"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                        <a href="https://api.whatsapp.com/send?text=¿Qué nos dice el número de fallecimientos? https://decodificar.org/covid/numero_de_fallecimientos/" target="_blank" ><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+
                       </div>
 
     
