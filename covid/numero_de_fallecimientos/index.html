@@ -322,6 +322,18 @@ var coloreaCategorias = d3.scaleOrdinal()
 
 <style>
 
+    .nada{
+        fill:#4e79a7;
+        fill:#f28e2c;
+        fill:#e15759;
+        fill:#76b7b2;
+        fill:#59a14f;
+        fill:#af7aa1;
+        fill:#ff9da7;
+        fill:#9c755f;
+        fill:#8a7e78;
+
+    }
 
     .axis path, .axis line {
       fill: none;
@@ -386,7 +398,13 @@ var coloreaCategorias = d3.scaleOrdinal()
 
     }
 
+    .label.rebrote{
+        background: #f28e2c;
+        
 
+    }
+
+    
 
 
     @media only screen and (min-width: 768px) {
@@ -530,7 +548,7 @@ var coloreaCategorias = d3.scaleOrdinal()
         <article>
             <div class='step' data-index='0'>
                 <p>
-                    Miremos el caso de <b>Israel</b>, que luego de haber encontrado el pico tuvo un rebrote. En el rebrote la curva de <mark class="label azul">casos nuevos</mark> crece muy rápido y llega a valores más altos que antes, mientras que la de <mark class="label naranja">fallecimientos</mark> no.
+                    Miremos el caso de <b>Israel</b>, que luego de haber encontrado el pico <mark class="label rebrote">tuvo un rebrote</mark>. En el rebrote la curva de <mark class="label azul">casos nuevos</mark> crece muy rápido y llega a valores más altos que antes, mientras que la de <mark class="label naranja">fallecimientos</mark> no.
                     <br/><br/>
 					<img src="/images/e5_tiempos_isr.png">
                 </p>
@@ -539,7 +557,7 @@ var coloreaCategorias = d3.scaleOrdinal()
                 <p>
                     Esto probablemente se deba a un simple aumento en el número de testeos, lo que produce un aumento en los casos confirmados pero no en los fallecimientos. 
                     <br/><br/>
-                    Basados en el número de fallecimientos, podríamos decir que el rebrote en realidad es similar a la primera ola de contagios.
+                    Basados en el número de fallecimientos, podríamos decir que <mark class="label rebrote">el rebrote</mark> en realidad es similar a la primera ola de contagios.
                 </p>
             </div>
         </article>
@@ -556,7 +574,7 @@ var coloreaCategorias = d3.scaleOrdinal()
         <article>
             <div class='step' data-index='0'>
                 <p>
-                    En cambio, en el caso de <b>Australia</b> el <mark class="label naranja">número de fallecimientos</mark> durante el rebrote crece más rápido que el de <mark class="label azul">casos nuevos confirmados.</mark> Esto podría indicar varias posibles causas, por ejemplo que el virus se está expandiendo en una población más vulnerable como las personas mayores.
+                    En cambio, en el caso de <b>Australia</b> el <mark class="label naranja">número de fallecimientos</mark> durante <mark class="label rebrote">el rebrote</mark> crece más rápido que el de <mark class="label azul">casos nuevos confirmados.</mark> Esto podría indicar varias posibles causas, por ejemplo que el virus se está expandiendo en una población más vulnerable como las personas mayores.
                     <br/><br/>
 					<img src="/images/e5_tiempos_aus.png">
                 </p>
@@ -641,6 +659,10 @@ var ejeY, ejeX, tituloY, minDate, maxDate, line;
 
 
 var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maximo
+
+var flechitaPath = 'M88 166.059V468c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12V166.059h46.059c21.382 0 32.09-25.851 16.971-40.971l-86.059-86.059c-9.373-9.373-24.569-9.373-33.941 0l-86.059 86.059c-15.119 15.119-4.411 40.971 16.971 40.971H88z';
+
+
 
 var svg = d3.selectAll(".contenedorGrafico").append("svg"),
     margin = isMobile ? {top: 55, right: 20, bottom: 35, left: 20} : {top: 70, right: 30, bottom: 25, left: 30},
@@ -834,6 +856,18 @@ svg.append("g")
                     .style("stroke", "#00468B")
                     .style("stroke-width", "2px")
 
+        if(pais=="ISR"||pais=="AUS"){
+            var flechita = grafico.append("g")
+                        .attr("transform","translate("+x(parseTime("2020-07-20"))+","+y(500)+") scale(0.08) rotate(135)");
+
+                flechita.append("path").attr("id","flechita")
+                        .attr("d", flechitaPath)
+                        .style("fill","#f28e2c")
+                        ;
+
+                if(pais=="AUS") flechita.attr("transform","translate("+x(parseTime("2020-07-30"))+","+y(800)+") scale(0.08) rotate(135)")
+        }
+        
         
     }
 
@@ -927,13 +961,13 @@ function scrollyTelling(containerNumber,step,entra){
   
 	}else{
         switch (step) {
-            case 0: // INICIO, ES LINEAL
+            case 0: // inicia el traslado de la curva de casos con el retraso
                 var retraso = d3.select("#grafico"+containerNumber).select(".delayed").attr("data-retraso");
                 d3.select("#grafico"+containerNumber)
                     .selectAll(".delayed").transition().duration(600)
-                    .attr("transform", "translate(" + (entra?retraso:0) + ",0)")
-                ;
+                    .attr("transform", "translate(" + (entra?retraso:0) + ",0)");
             break;
+
         }
         
 
