@@ -358,7 +358,7 @@ var coloreaCategorias = d3.scaleOrdinal()
 
     
     text.titulo {
-            font-size: 13px;
+            font-size: 12px;
             fill: #444;
         }
 
@@ -409,6 +409,10 @@ var coloreaCategorias = d3.scaleOrdinal()
 
     @media only screen and (min-width: 768px) {
   
+        text.titulo {
+            font-size: 14px;
+            fill: #444;
+        }
     }
     
 </style>
@@ -712,7 +716,7 @@ var yLogAxisDer = d3.axisLeft(yLogRight)
 
 
 
-    var tituloGrafico = ". Casos confirmados y fallecimientos diarios";
+    var tituloGrafico = [". Casos confirmados y fallecimientos diarios",". Casos confirmados y fallecidos diarios"];
     
     var tituloEje = ["Casos confirmados diarios","Fallecimientos diarios"];
 
@@ -763,8 +767,8 @@ svg.append("g")
             grafico.append("text")
                 .attr("class", "titulo")
                 .attr("y", -30)
-                .text(datosPais[0].name+tituloGrafico);
-
+                .text(datosPais[0].name + (isMobile?tituloGrafico[1]:tituloGrafico[0]));
+        console.log(isMobile?tituloGrafico[1]:tituloGrafico[0])
         yLog.domain([1, d3.max(datosPais, d=>d.casos)*1.1]);
         yLogRight.domain([2, 100]);
        
@@ -981,7 +985,6 @@ function scrollyTelling(containerNumber,step,entra){
 function ajustaMesesEjeX(g) {
         var diasUltimoMes = d3.timeDay.count(d3.timeMonth.floor(x.domain()[1]),x.domain()[1]);
         var diasPrimerMes = Math.abs(d3.timeDay.count(d3.timeMonth.ceil(x.domain()[0]),x.domain()[0]));
-        console.log(x.domain()[0],d3.timeDay.offset(x.domain()[0], diasPrimerMes/2))
 		  // ESTO PONE LOS NOMBRES DE LOS MESES EN MEDIO DE CADA MES
            g.selectAll(".tick:not(:last-of-type):not(:last-of-type) text") // para todos los meses menos el ultimo
                 .attr("dx", x(d3.timeDay.offset(x.domain()[0], 15 ))) // mueve el equivalente a 15 dias
