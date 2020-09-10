@@ -614,11 +614,11 @@ var y = d3.scaleLinear().range([height, 0]);
 var yLog = d3.scaleLog().range([height, 0]);
 
 var yAxis = d3.axisLeft(y);
-    yAxis.ticks(8).tickFormat(d3.format(",.2r")).tickSizeInner(-6)
+    yAxis.ticks(8).tickFormat(d3.format(",d")).tickSizeInner(-6)
 ;
 
 var yLogAxis = d3.axisLeft(yLog);
-    yLogAxis.ticks(5).tickFormat(d3.format(",.1r")).tickSizeInner(-6);
+    yLogAxis.ticks(5).tickFormat(d3.format(",d")).tickSizeInner(-6);
 
 var line = d3.line()
     .x(function(d) { return x(d.fecha); })

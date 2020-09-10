@@ -608,7 +608,7 @@ var x = d3.scaleTime().range([0, width-marginTexto]);
 var yLog = d3.scaleLog().range([height, 0]);
 
 var yLogAxis = d3.axisLeft(yLog);
-    yLogAxis.ticks(4).tickFormat(d3.format(",.1r")).tickSizeInner(-6);
+    yLogAxis.ticks(5).tickFormat(d3.format(",d")).tickSizeInner(-6);
 
 
 

@@ -646,7 +646,7 @@ var svg = d3.selectAll(".contenedorGrafico").append("svg"),
 	
 
 	var yAxis = d3.axisLeft(y);
-		yAxis.ticks(4).tickFormat(d3.format(",.1r")).tickSizeInner(-6);
+		yAxis.ticks(4).tickFormat(d3.format(",d")).tickSizeInner(-6);
 
 
 	svg.append("g")
