@@ -4900,7 +4900,7 @@ svg.append("g")
     dibujaGrafico(data.filter(d=>d.iso=="ISR"), "ISR", true, 3, 11,2000,30,["2020-02-29","2020-07-28"])
     dibujaGrafico(data.filter(d=>d.iso=="AUS"), "AUS", true, 4, 11,1600,16,["2020-03-10","2020-08-12"])
 
-    dibujaGrafico(data.filter(d=>d.iso=="ARG"), "ARG", false, 0, 12,3000,[2,100],["2020-03-4","2020-07-5"])
+    dibujaGrafico(data.filter(d=>d.iso=="ARG"), "ARG", false, 0, 12,3000,[2,100],["2020-03-10","2020-07-5"])
 
 
 
@@ -5035,7 +5035,7 @@ function scrollyTelling(containerNumber,step,entra){
 	if(containerNumber == 1){  //GRAFICO PRIMER SCROLLY ARG
         datosPais = data.filter(d=>d.iso=="ARG");
         y.domain([0,3000]);
-        x.domain([parseTime("2020-03-4"),parseTime("2020-07-5")]);
+        x.domain([parseTime("2020-03-10"),parseTime("2020-07-5")]);
         line.x(d => x(d.fecha));
         switch (step) {
             case 0: // INICIO, ES LINEAL
@@ -5093,6 +5093,13 @@ function scrollyTelling(containerNumber,step,entra){
                     .transition().duration(600)
                     .attr("d", line.y(d => yLogRight(d.fallecidos))(datosPais));
 
+            break;
+
+            case 6: 
+             d3.select("#grafico"+containerNumber)
+                    .selectAll(".delayed").transition().duration(600)
+                    .attr("transform", "translate(0,0)")
+                ;
             break;
 
             case 7: 
