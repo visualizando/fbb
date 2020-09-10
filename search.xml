@@ -4846,18 +4846,18 @@ var yLogRight = d3.scaleLog().range(yLog.range());
 
 
 var yAxis = d3.axisRight(y)
-    .ticks(8).tickFormat(d3.format(",.2r")).tickSizeInner(0)
+    .ticks(8).tickFormat(d3.format(",d")).tickSizeInner(0)
 ;
 
 var yAxisDer = d3.axisLeft(yRight)
-    .ticks(8).tickFormat(d3.format(",.2r")).tickSizeInner(0)
+    .ticks(8).tickFormat(d3.format(",d")).tickSizeInner(0)
 ;
 
 var yLogAxis = d3.axisRight(yLog)
-                .ticks(4).tickFormat(d3.format(",.1r")).tickSizeInner(0);
+                .ticks(4).tickFormat(d3.format(",d")).tickSizeInner(0);
 
 var yLogAxisDer = d3.axisLeft(yLogRight)
-                .ticks(30).tickFormat(d3.format(",.1r")).tickSizeInner(0);
+                .ticks(30).tickFormat(d3.format(",d")).tickSizeInner(0);
 
 
 
