@@ -3892,7 +3892,7 @@ function wrap(text, width, dy, alignBottom) {
             </div>
             <div class='step' data-index='4'>
                 <p>
-                    En este gráfico comparamos el <mark class="label naranja">número de fallecimientos por COVID-19</mark> con la población al 31 de julio de 2020. Cada punto corresponde a un país
+                    En este gráfico comparamos el <mark class="label naranja">número de fallecimientos por COVID-19</mark> con la población al <b>31 de julio de 2020</b>. Cada punto corresponde a un país
                     <br/><br/>
                     Ambos ejes están en escala logarítmica que, como <a href="/covid/el_ritmo_de_la_pandemia/">vimos acá</a>, permite graficar números chicos y grandes a la vez.
                 </p>
@@ -4318,6 +4318,7 @@ var grafico = svg.append("g")
                 break;
 
             case 3:
+            d3.select("#rankMuertes").select(".titulo").text("Muertes totales");
                 d3.select("#rankMuertesRel").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>40*i).duration(300).style("opacity",0)
                 d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>100+40*i).duration(400).style("opacity",1)
                 d3.select("#rankMuertes").selectAll(".boxGroup").transition().delay((d,i)=>60*i).duration(300).style("opacity",1);
@@ -4325,6 +4326,7 @@ var grafico = svg.append("g")
                 break;
 
             case 4: // pasa a scatterplot
+            d3.select("#rankMuertes").select(".titulo").text("Muertes totales (al 31/jul/20)");
                 d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>10*i).duration(100).style("opacity",0);
                 d3.select("#rankMuertes").selectAll(".boxGroup").transition().delay((d,i)=>15*i).duration(100).style("opacity",0);
                 d3.select("#scatterPlot").selectAll(".puntos,text,.axis").transition().delay((d,i)=>i).duration(50).style("opacity",1);
@@ -4340,6 +4342,7 @@ var grafico = svg.append("g")
 
 
             case 6:
+                d3.select("#rankMuertes").select(".titulo").text("Muertes totales");
                 d3.select("#scatterPlot").selectAll(".tendencia").transition().duration(50).style("opacity",0);
                 d3.select("#scatterPlot").selectAll(".puntos,text,.axis").transition().duration(100).style("opacity",0);
                 d3.select("#rankMuertes").selectAll(".boxGroup").transition().delay((d,i)=>20*i).duration(200).style("opacity",1);
