@@ -403,8 +403,17 @@ var coloreaCategorias = d3.scaleOrdinal()
         
 
     }
-
     
+    #tracker{
+        height: 100%;
+    }
+    #tracker td{
+        padding: 0;
+    }
+
+    #tracker td.activo{
+        vertical-align: top;
+    }
 
 
     @media only screen and (min-width: 768px) {
@@ -526,13 +535,6 @@ var coloreaCategorias = d3.scaleOrdinal()
                     Luego de la aprobación empieza la producción a gran escala de miles de millones de dosis. A medida que la vacuna comienza a utilizarse, en esta fase los científicos continúan monitoreando su efectividad y su seguridad. 
                 </p>
             </div>
-            <div class='step' data-index='13'>
-                <p>
-                    Dado que no hay población ni economía dispuesta a pasar 10 años con medidas de distanciamiento social, durante una pandemia es indispensable acelerar el proceso de aprobación de una vacuna. En estos casos los entes reguladores pueden dar una “autorización de uso de emergencia” antes de obtener una aprobación formal. 
-                    <br/><br/>
-                    Otra forma de acelerar el proceso es combinar las fases entre sí. Esto implica, por ejemplo, probar la vacuna por primera vez en cientos de personas (en vez de probarla en pocas personas), lo que nos da una Fase mixta 1-2. Esto no siempre es factible, o solo es aceptable en tiempos de pandemia.
-                </p>
-            </div>
 
         </article>
     </div>
@@ -545,12 +547,12 @@ var coloreaCategorias = d3.scaleOrdinal()
 //********************* CARGA DATOS ************
 
 Promise.all([
-    d3.csv("https://datos.decodificar.org/E4_num_fallecimientos.csv"),
+    d3.csv("https://datos.decodificar.org/V1_vacunas.csv"),
     d3.csv("https://datos.decodificar.org/metaData_tablas.csv")
 
 ]).then(function(files) {
 
-    var epigrafeData = files[1].filter(d=>d.file=="E4_num_fallecimientos.csv")[0];
+    var epigrafeData = files[1].filter(d=>d.file=="V1_vacunas.csv")[0];
         epigrafeData.fecha = d3.timeFormat("%-d/%b/%Y")(d3.timeParse("%Y-%m-%d")(epigrafeData.fecha)).toLowerCase();
 
 
@@ -572,7 +574,7 @@ Promise.all([
 
         enterView({
             selector: what.nodes(),
-            offset: 0.5,
+            offset: 0.1,
             enter: el => {
                 const index = +d3.select(el).attr('data-index');
                 updateChart(index,what,containerNumber,1);
@@ -597,13 +599,42 @@ naranja #F26522
 verde #62BB46
 */
        
+//****** DATOS
+
+var vacunas = files[0];
+
+    vacunas = vacunas.map(d=>{
+        return {
+                "titulo":titleCase(d.fase.replace(/_/g, " ")),
+                "cantidad":+d.cantidad
+        }
         
+    })
+console.log(vacunas);
+
+
+//*******
+
+
+//****** dibuja el tracker
+
+var tabla = d3.select("#grafico1").style("padding","10px").append("table").attr("id","tracker")//.append("tr")
+;
+
+    var celda = tabla.selectAll("tr")
+        .data(vacunas)
+        .join("tr")
+            .append("td")
+            .attr("id",(d,i)=>"step"+i)
+            .style("height",(100/7)+"%");
+    celda.append("div")
+            .html(d=>`${d.titulo}: ${d.cantidad}`);
+
+//*****
+
 var ejeY, ejeX, tituloY, minDate, maxDate, line;
 
-
 var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maximo
-
-
 
 var svg = d3.selectAll(".contenedorGrafico").append("svg"),
     margin = isMobile ? {top: 55, right: 20, bottom: 35, left: 20} : {top: 70, right: 30, bottom: 25, left: 30},
@@ -626,19 +657,6 @@ var svg = d3.selectAll(".contenedorGrafico").append("svg"),
     width = width - margin.left - margin.right;
     
 
-var parseTime = d3.timeParse("%Y-%m-%d");
-
-    var data =  files[0].map(obj => {
-                return {
-                                "iso":obj.iso_code,
-                                "name":obj.location,
-                                "casos":+obj.casos_diarios_prom,
-                                "fallecidos":+obj.fallecimientos_diarios_prom,
-                                "fecha":parseTime(obj.date)
-                                }
-            });
-
-
 svg.append("g")
     	.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 	;
@@ -651,16 +669,90 @@ svg.append("g")
     init(stepSel1,1)
 
 function scrollyTelling(containerNumber,step,entra){
+    var porcentaje = 90, compara,cambia;
         switch (step) {
             case 0: // INICIO, ES LINEAL
+                    compara = -1;
+                    cambia = 1;
+            break;
+            case 1: // INICIO, ES LINEAL
+                    compara = 6;
+                    cambia = 1;
+            break;
+
+            case 2: // INICIO, ES LINEAL
+                    compara = -1;
+                    cambia = 1;
+            break;
+
+            case 3: // INICIO, ES LINEAL
+                    compara = -1;
+                    cambia = 1;
+            break;
+
+            case 4: // INICIO, ES LINEAL
+                    compara = 0;
+                    cambia = 1;
+            break;
+
+            case 5: // INICIO, ES LINEAL
+                    compara = -1;
+                    cambia = 1;
+            break;
+
+            case 6: // INICIO, ES LINEAL
+                    compara = 1;
+                    cambia = 1;
+            break;
+            case 6: // INICIO, ES LINEAL
+                    compara = 1;
+                    cambia = 1;
+            break;
+
+            case 7: // INICIO, ES LINEAL
+                    compara = 2;
+                    cambia = 1;
+            break;
+            case 8: // INICIO, ES LINEAL
+                    compara = 3;
+                    cambia = 1;
+            break;
+            case 9: // INICIO, ES LINEAL
+                    compara = 3;
+                    cambia = 1;
+            break;
+
+            case 10: // INICIO, ES LINEAL
+                    compara = 4;
+                    cambia = 1;
+            break;
+            case 11: // INICIO, ES LINEAL
+                    compara = 6;
+                    cambia = 1;
             break;
 
         }
 
-          
+        if(cambia) {
+            d3.select("table").selectAll("td")
+                        .classed("activo",(d,i)=>i==compara?true:false)
+                                .transition().duration(600)
+                                    .style("height",(d,i)=>i==compara?`${porcentaje}%`:`${(100-porcentaje)/6}%`)
+                                
+            
+        }
+
 
 }
 
+
+function titleCase(string) {
+      var sentence = string.toLowerCase().split(" ");
+      for(var i = 0; i< sentence.length; i++){
+         if(sentence[i].length>2)sentence[i] = sentence[i][0].toUpperCase() + sentence[i].slice(1);
+      }
+   return sentence.join(" ");
+   }
 
 
 
@@ -669,7 +761,8 @@ function scrollyTelling(containerNumber,step,entra){
 </script>
 
 
-
+<p>Dado que no hay población ni economía dispuesta a pasar 10 años con medidas de distanciamiento social, durante una pandemia es indispensable acelerar el proceso de aprobación de una vacuna. En estos casos los entes reguladores pueden dar una “autorización de uso de emergencia” antes de obtener una aprobación formal. </p>
+<p>Otra forma de acelerar el proceso es combinar las fases entre sí. Esto implica, por ejemplo, probar la vacuna por primera vez en cientos de personas (en vez de probarla en pocas personas), lo que nos da una Fase mixta 1-2. Esto no siempre es factible, o solo es aceptable en tiempos de pandemia.</p>
 <div class="note info"><p>Como vimos, generar una vacuna que sea segura para su uso en humanos y efectiva para prevenir enfermedades lleva mucho tiempo, recursos y pasos en todo el proceso. Durante la pandemia por COVID-19, la comunidad científica trabaja de manera muy intensa en obtener una vacuna lo antes posible. </p>
 <p>En ese proceso se mezclan también intereses económicos y políticos que no podemos desconocer. Los esfuerzos de los países para asegurar una rápida fabricación y provisión de una vacuna a la humanidad son la gran apuesta para los próximos meses. </p>
 </div><!-- flag of hidden posts -->
