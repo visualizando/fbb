@@ -403,21 +403,90 @@ var coloreaCategorias = d3.scaleOrdinal()
         
 
     }
-    
-    #tracker{
-        height: 100%;
-    }
-    #tracker td{
-        padding: 0;
-    }
 
-    #tracker td.activo{
-        vertical-align: top;
+    #tracker text.numero {
+        font-size: 19px;
+        fill: #231f20;
+        text-anchor: middle;
+        font-variant-numeric: lining-nums;
     }
+    
+    #tracker text.titulo {
+        font-size: 10px;
+        font-weight: 700;
+        fill: #231f20;
+        text-anchor: middle;
+        font-family: oswald;
+    }
+    
+    
+    #tracker g#fase4 path {
+            fill:#59a14e;
+        }
+    
+    #tracker g#fase3 path {
+            fill:#f28e29;
+        }
+    
+    #tracker g#fase2 path {
+            fill:#f7a95d;
+        }
+    
+    #tracker g#fase1 path {
+            fill:#fcc68d;
+        }
+    
+    #tracker g#fase0 path {
+            fill:#d3d0ce;
+        }
+    
+    
+         div#stage0.stage img , div#stage1.stage img,  div#stage4.stage img  {
+            width: 40%;
+            display: inline-grid;
+        }
+        div.stage {
+            position: absolute;
+            opacity: 0;
+        }
+
+
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+
+            list-style: none;
+            }
+
+li {
+    height: 12vh;
+    flex-grow: 0;
+}
+
+#stage3  li {
+    height: 8vh;
+    flex-grow: 0;
+}
+
+#stage3  li:nth-child(odd) {
+    opacity: 0.3;
+}
+
+li > img {
+  max-height: 100%;
+  min-width: 100%;
+  object-fit: cover;
+  vertical-align: bottom;
+}
 
 
     @media only screen and (min-width: 768px) {
   
+        #tracker{
+            max-width: 440px;
+            margin-top: 20px;
+        }
+
         text.titulo {
             font-size: 14px;
             fill: #444;
@@ -427,10 +496,114 @@ var coloreaCategorias = d3.scaleOrdinal()
 </style>
 
 
+
 <section id='scrolly1'>
     <div class='scrolly'>
+
+
         <!-- aca va el grafico que va a quedar fijo -->
         <figure id="grafico1" class='sticky contenedorGrafico' >
+        
+
+            <svg xmlns="http://www.w3.org/2000/svg" id="tracker" viewBox="0 0 278.41 53.12">
+                <g>
+                  <g id="fase4" class="gfase">
+                    <path d="M273.43,53.12H184V0h89.47a5,5,0,0,1,5,5V48.14A5,5,0,0,1,273.43,53.12Z" />
+                    <g class="innerG">
+                        <text transform="translate(250,18)" class="titulo">FASE IV</text>
+                        <text transform="translate(250,40)" class="numero">0</text>
+                    </g>
+                  </g>
+                  <g id="fase3" class="gfase">
+                    <path d="M212.52,53.12H129.35V0h83A5,5,0,0,1,217,3.15l9.24,23.44a4.94,4.94,0,0,1-.11,3.9l-9,19.73A5,5,0,0,1,212.52,53.12Z" />
+                    <g class="innerG">
+                        <text transform="translate(195,18)" class="titulo">FASE III</text>
+                        <text transform="translate(195,40)" class="numero">3</text>
+                    </g>
+                  </g>
+                  <g id="fase2" class="gfase">
+                    <path d="M161.09,53.12H78.9V0h82a5,5,0,0,1,4.63,3.15l9.24,23.44a5,5,0,0,1-.1,3.9l-9,19.73A5,5,0,0,1,161.09,53.12Z" />
+                    <g class="innerG">
+                        <text transform="translate(145,18)" class="titulo">FASE II</text>
+                        <text transform="translate(145,40)" class="numero">10</text>
+                    </g>
+                  </g>
+                  <g id="fase1" class="gfase">
+                    <path d="M109.66,53.12H27.22V0h82.25a5,5,0,0,1,4.63,3.15l9.24,23.44a5,5,0,0,1-.1,3.9l-9,19.73A5,5,0,0,1,109.66,53.12Z" />
+                    <g class="innerG">
+                        <text transform="translate(95,18)" class="titulo">FASE I</text>
+                        <text transform="translate(95,40)" class="numero">13</text>
+                    </g>
+                  </g>
+                  <g id="fase0" class="gfase">
+                    <path d="M58.23,53.12H5a5,5,0,0,1-5-5V5A5,5,0,0,1,5,0H58a5,5,0,0,1,4.63,3.15l9.25,23.44a5,5,0,0,1-.11,3.9L62.76,50.22A5,5,0,0,1,58.23,53.12Z" />
+                    <g class="innerG">
+                      <text transform="translate(33,18)" class="titulo">PRE CLINICA</text>
+                      <text transform="translate(33,40)" class="numero">145</text>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            
+              <div id="stage0" class="stage">
+                <img src="/images/vacunas/petri.svg">
+                <img src="/images/vacunas/microscopio.svg">
+                <img src="/images/vacunas/raton.svg">
+            </div>
+            <div id="stage1" class="stage">
+              <img src="/images/vacunas/personita.svg">
+              <img src="/images/vacunas/personitaB.svg">
+            </div>
+            <div id="stage2" class="stage"><ul>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+            </ul>
+
+            </div>
+            <div id="stage3" class="stage"><ul>
+               <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li> <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li> <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+            </ul>
+            </div>
+            <div id="stage4" class="stage">
+              <img src="/images/vacunas/vacuna.svg">
+            </div>
+             
+
         </figure>
 
         <!-- acá van los textos de cada paso -->
@@ -440,8 +613,6 @@ var coloreaCategorias = d3.scaleOrdinal()
                     El proceso para obtener una vacuna segura y efectiva es complejo y puede llevar muchísimos años. 
                     <br/><br/>
                     Ese proceso tiene varias fases e involucra varios experimentos.
-                    <br/><br/>
-                    Muchas veces nos preguntamos cuándo tendremos una vacuna contra el COVID-19 porque esto supondría un cambio radical en la historia de esta pandemia.
                 </p>
             </div>
             
@@ -449,28 +620,28 @@ var coloreaCategorias = d3.scaleOrdinal()
                 <p>
                     ¿Y qué es una vacuna? Es una preparación que genera anticuerpos contra un determinado agente infeccioso aumentando así la inmunidad frente a ese germen.
                     <br/><br/>
-                    Las más comunes se fabrican en forma de inyección aunque también existen vacunas que se administran en forma oral o nasal. 
+                    Las más comunes se fabrican en forma de inyección aunque también existen algunas orales o nasales.
                 </p>
             </div>
             <div class='step' data-index='2'>
                 <p>
-                    Desde el año 1796 el ser humano ha fabricado vacunas, pero con el tiempo el proceso para obtenerlas ha ido cambiando enormemente. 
+                    Desde el año 1796 el ser humano ha fabricado vacunas, pero con el tiempo el proceso para obtenerlas ha ido cambiando enormemente.
                     <br/><br/>
                     En este gráfico podemos ver los distintos pasos que tiene que atravesar una sustancia desde que es creada en un laboratorio hasta que se convierte en una vacuna aprobada. 
                 </p>
             </div>
             <div class='step' data-index='3'>
                 <p>
-                    En la actualidad, estas etapas que denominamos "fases", deben cumplirse en un orden establecido y recién cuando los experimentos fueron exitosos en una fase se puede pasar a la siguiente  (sin saltear ninguna fase).
+                    En la actualidad, estas etapas que denominamos "fases", deben cumplirse en un orden establecido y recién cuando los experimentos fueron exitosos en una fase se puede pasar a la siguiente  (sin saltear ninguna).
                     <br/><br/>
                     Analicemos cada fase…
                 </p>
             </div>
             <div class='step' data-index='4'>
                 <p>
-                    Así denominada porque no implica la experimentación en seres humanos. Se testea la vacuna candidata en célulasy luego en animales (ratones, monos) para evaluar si produce respuesta del sistema inmune y su peligrosidad para la salud.
+                    Así denominada porque no implica la experimentación en seres humanos. Se testea la vacuna candidata en células y luego en animales (ratones, monos) para evaluar si produce respuesta inmune y si es peligrosa para la salud.
                     <br/><br/>
-                    Al ir avanzando por cada fase, hay mayores niveles de regulación y supervisión de una vacuna. 
+                    Al ir avanzando por cada fase, hay mayores niveles de regulación y supervisión de la vacuna candidata.
                 </p>
             </div>
             <div class='step' data-index='5'>
@@ -489,50 +660,52 @@ var coloreaCategorias = d3.scaleOrdinal()
                 <p>
                     Estudios de seguridad ampliada.
                     <br/><br/>  
-                    Estos estudios toman la dosis más efectiva y segura según la Fase 1 y se administra la sustancia ahora a  cientos de personas de diversas edades.  
+                    Estos estudios toman la dosis más efectiva y segura según la Fase 1 y la testean ahora en  cientos de personas de diversas edades.
                     <br/><br/>                      
-                    Se testea, pero ahora de manera ampliada,  la seguridad y la capacidad de la vacuna para estimular el sistema inmunológico.
-                    <br/><br/>                      
-                    Una vez pasada la Fase 2, ya se sabe que la vacuna candidata es segura y estimula el sistema inmune. Sin embargo, que estimule el sistema inmune no implica necesariamente que alcance para protegernos de una enfermedad. 
+                    Se evalúa, pero ahora de manera ampliada,  la seguridad y la capacidad de la vacuna para estimular el sistema inmunológico.
                 </p>
             </div>
             <div class='step' data-index='8'>
                 <p>
-                    En esta fase se administra la vacuna candidata a miles de personas voluntarias y también se administra un  “placebo” a otras miles de personas más. Un placebo, en este caso, es algo que parece una vacuna y se aplica igual, pero en realidad no estimula el sistema inmune. 
-                    <br/><br/>                      
-                    Ninguno de los participantes sabe si recibió el placebo o la sustancia candidata, ni tampoco los saben los científicos que siguen y controlan a esas personas. De ahí el nombre “doble ciego”, porque ambos grupos (participantes y científicos) están “cegados” a esa decisión.
+                    Una vez pasada la Fase 2, ya se sabe que la vacuna candidata es segura y estimula el sistema inmune. Pero eso no indica necesariamente que alcance para protegernos de una enfermedad, para eso se pasa a la Fase 3.
                 </p>
             </div>
             <div class='step' data-index='9'>
                 <p>
-                    Finalmente se hace un seguimiento para ver cuántos se infectan de los que recibieron la vacuna candidata, y cuántos se infectan de los que recibieron el placebo. 
+                    En esta fase se administra la vacuna candidata a miles de personas  y también se administra un  “placebo” a otras miles de personas más.
                     <br/><br/>
-                    Es en esta última fase que podemos saber finalmente si la vacuna protege o no contra la enfermedad y con qué nivel de eficacia lo hace. 
+                    Un placebo, en este caso, es algo que parece una vacuna y se aplica igual, pero en realidad no estimula el sistema inmune.
                     <br/><br/>
-                    Además, como la cantidad de personas que se testeó en esta fase es enorme, podemos saber si hay efectos secundarios más raros que quizás en las fases anteriores no pudieron observarse.
+                    Tanto participantes como médicos son “ciegos” al tratamiento, es decir, no saben quién recibió la vacuna y quién el placebo.
                 </p>
             </div>
             <div class='step' data-index='10'>
                 <p>
-                    Recién cuando la sustancia pasó satisfactoriamente por todas estas fases se llega a la instancia final, la de aprobación. 
+                    Finalmente se hace un seguimiento para ver cuántos (vacunados o placebos) se infectan. En este punto recién podemos saber con qué nivel de eficacia la vacuna candidata nos protege del virus. 
                     <br/><br/>
-                    En esta etapa los entes reguladores (diferentes en cada país) analizan los estudios realizados y deciden si la sustancia va a ser aprobada como vacuna o no.   
-                    <br/><br/>
-                    Existen vacunas para COVID-19 que han sido aprobadas por algunos países para su uso en ese territorio. 
+                    También ahora podemos saber si hay efectos secundarios menos frecuentes que quizás en las fases anteriores no pudieron observarse.
                 </p>
             </div>
 
             <div class='step' data-index='11'>
                 <p>
-                    Atravesar satisfactoriamente todas estas fases requiere de un gran esfuerzo (científico, tecnológico, económico y político) y por eso es que la fabricación y aprobación de una vacuna es un largo proceso que, en promedio, demora entre 10 y 15 años. 
+                    Recién cuando la sustancia pasó satisfactoriamente por todas estas fases se llega a la instancia final, la de aprobación.
                     <br/><br/>
-                    El récord en aprobar una vacuna desde cero fue de 4 años (paperas), pero hay vacunas que luego de 50 años aún no son aprobadas (bronquiolitis) o no se desarrollaron (HIV).
+                    Los entes reguladores de cada país analizan los estudios realizados y deciden si aprueban la vacuna o no.
+                    <br/><br/>
+                    Existen vacunas para COVID-19 aprobadas por algunos países para su uso en ese territorio
                 </p>
             </div>
 
             <div class='step' data-index='12'>
                 <p>
-                    Luego de la aprobación empieza la producción a gran escala de miles de millones de dosis. A medida que la vacuna comienza a utilizarse, en esta fase los científicos continúan monitoreando su efectividad y su seguridad. 
+                    Atravesar satisfactoriamente todas estas fases requiere de un gran esfuerzo (científico, tecnológico, económico y político) y por eso es un largo proceso que, en promedio, demora entre 10 y 15 años.
+                </p>
+            </div>
+
+            <div class='step' data-index='13'>
+                <p>
+                    Luego de la aprobación empieza la producción a gran escala de miles de millones de dosis. En esta fase la vacuna comienza a utilizarse y los científicos continúan monitoreando su efectividad y su seguridad.
                 </p>
             </div>
 
@@ -601,66 +774,85 @@ verde #62BB46
        
 //****** DATOS
 
+
+var skewer = d3.scaleOrdinal()
+            .domain([0,1,2,3,4])
+            .range([
+                [0,0,0,0,0],
+                [0,1,2,3,0],
+                [0,1,2,-1,0],
+                [0,1,-2,-1,0],
+                [0,-3,-2,-1,0],
+            ]);
+
 var vacunas = files[0];
 
     vacunas = vacunas.map(d=>{
         return {
-                "titulo":titleCase(d.fase.replace(/_/g, " ")),
+                "titulo": d.fase,
                 "cantidad":+d.cantidad
         }
         
-    })
-console.log(vacunas);
+    });
+    
 
 
 //*******
 
 
 //****** dibuja el tracker
-
-var tabla = d3.select("#grafico1").style("padding","10px").append("table").attr("id","tracker")//.append("tr")
+/* 
+var tabla = d3.select("#grafico1").style("padding","10px").append("table").attr("id","tracker").append("tr")
 ;
 
-    var celda = tabla.selectAll("tr")
+    var celda = tabla.selectAll("td")
         .data(vacunas)
-        .join("tr")
-            .append("td")
+        .join("td")
+            //.append("td")
             .attr("id",(d,i)=>"step"+i)
             .style("height",(100/7)+"%");
     celda.append("div")
             .html(d=>`${d.titulo}: ${d.cantidad}`);
-
+ */
 //*****
 
-var ejeY, ejeX, tituloY, minDate, maxDate, line;
+var ejeY, ejeX, tituloY, minDate, maxDate, line, posTracker, posTrackerPrev;
 
 var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maximo
 
-var svg = d3.selectAll(".contenedorGrafico").append("svg"),
-    margin = isMobile ? {top: 55, right: 20, bottom: 35, left: 20} : {top: 70, right: 30, bottom: 25, left: 30},
+//svg = d3.selectAll(".contenedorGrafico").append("svg"),
+var 
+    margin = isMobile ? {top: 35, right: 20, bottom: 35, left: 20} : {top: 35, right: 30, bottom: 25, left: 30},
     width =  +d3.select('#grafico1').style('width').slice(0, -2),
     height = +d3.select('#grafico1').style('height').slice(0, -2)-25;
 
     d3.selectAll(".contenedorGrafico").append("div").attr("class","epigrafe")
-            .html("www.decodificar.org - "+epigrafeData.fecha+" - Fuente: "+ epigrafeData.fuente);
+            .html("www.decodificar.org - "+epigrafeData.fecha+" - Fuente: "+ epigrafeData.fuente + " - Iconos: K. Rattanaphan");
 
-
+/* 
     if (height > altoMaximo*width) {
         svg.style('margin-top', (height - altoMaximo*width)/2 + "px")
         height = altoMaximo*width;
     }
 
     svg.attr("viewBox", [0, 0, width, height]);
+ */
 
-
-    height = height - margin.top - margin.bottom;
-    width = width - margin.left - margin.right;
+    /* height = height - margin.top - margin.bottom;
+    width = width - margin.left - margin.right; */
     
+    var trackerHeight = d3.select("#tracker").node().getBoundingClientRect().height;
 
-svg.append("g")
+    var verticalAligner = d3.scaleOrdinal()
+            .domain(["bottom","middle","top"])
+            //.range([height-trackerHeight-10,height/2-trackerHeight/2,isMobile?0:10]);
+            .range([10,height/2-trackerHeight/2,10]);
+console.log([height-trackerHeight-10,height,height/2-trackerHeight/2,isMobile?0:10])
+
+/* svg.append("g")
     	.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 	;
-
+ */
 
         
         
@@ -669,78 +861,126 @@ svg.append("g")
     init(stepSel1,1)
 
 function scrollyTelling(containerNumber,step,entra){
-    var porcentaje = 90, compara,cambia;
+    var porcentaje = 90, etapa,cambia,stage=-1;
         switch (step) {
-            case 0: // INICIO, ES LINEAL
-                    compara = -1;
+            case 0: // tracker
+                    etapa = -1;
                     cambia = 1;
+                    posTracker = "middle";
             break;
-            case 1: // INICIO, ES LINEAL
-                    compara = 6;
+            case 1: // vacuna
+                    etapa = 4;
                     cambia = 1;
-            break;
-
-            case 2: // INICIO, ES LINEAL
-                    compara = -1;
-                    cambia = 1;
+                    posTracker = "top";
+                    stage = "stage4";
             break;
 
-            case 3: // INICIO, ES LINEAL
-                    compara = -1;
+            case 2: // tracker
+                    etapa = -1;
                     cambia = 1;
+                    posTracker = "middle";
             break;
 
-            case 4: // INICIO, ES LINEAL
-                    compara = 0;
+            case 3: // tracker
+                    etapa = -1;
                     cambia = 1;
+                    posTracker = "middle";
+                    
             break;
 
-            case 5: // INICIO, ES LINEAL
-                    compara = -1;
+            case 4: // fase pre clinica
+                    etapa = 0;
                     cambia = 1;
+                    posTracker = "bottom";
+                    stage = "stage0";
             break;
 
-            case 6: // INICIO, ES LINEAL
-                    compara = 1;
+            case 5: // Fases Clínicas: 1, 2 y 3
+                    etapa = -1;
                     cambia = 1;
-            break;
-            case 6: // INICIO, ES LINEAL
-                    compara = 1;
-                    cambia = 1;
+                    posTracker = "middle";
             break;
 
-            case 7: // INICIO, ES LINEAL
-                    compara = 2;
+            case 6: // fase 1
+                    etapa = 1;
                     cambia = 1;
-            break;
-            case 8: // INICIO, ES LINEAL
-                    compara = 3;
-                    cambia = 1;
-            break;
-            case 9: // INICIO, ES LINEAL
-                    compara = 3;
-                    cambia = 1;
+                    posTracker = "bottom";
+                    stage = "stage1";
             break;
 
-            case 10: // INICIO, ES LINEAL
-                    compara = 4;
+            case 7: //fase 2
+            case 8:
+                    etapa = 2;
                     cambia = 1;
-            break;
-            case 11: // INICIO, ES LINEAL
-                    compara = 6;
-                    cambia = 1;
+                    posTracker = "bottom";
+                    stage = "stage2";
             break;
 
-        }
+            case 9: // fase 3
+            case 10:
+                    etapa = 3;
+                    cambia = 1;
+                    posTracker = "bottom";
+                    stage = "stage3";
+            break;
 
-        if(cambia) {
-            d3.select("table").selectAll("td")
-                        .classed("activo",(d,i)=>i==compara?true:false)
-                                .transition().duration(600)
-                                    .style("height",(d,i)=>i==compara?`${porcentaje}%`:`${(100-porcentaje)/6}%`)
-                                
+            case 11: // Aprobacion
+                    // aca tiene que prender el APROBACION
+            case 12:
+                    etapa = -1;
+                    cambia = 1;
+                    posTracker = "middle";
+            break;
+
+            case 13:
+                    etapa = 4;
+                    cambia = 1;
+                    posTracker = "top";
+                    stage = "stage4";
+            break;
             
+            
+
         }
+        var stepper = 10, result,posChange=0;
+        
+        if(cambia) {
+            if(posTracker != posTrackerPrev) posChange = 1;
+            posTrackerPrev = posTracker;
+            d3.select("#tracker").selectAll(".gfase")
+                        .transition().delay(400*posChange).duration(600)
+                        .attr("transform", (d,i)=>{
+                            return "translate("+(skewer(etapa)[i]*stepper)+",0)"}
+                            )
+                            .selectAll(".innerG")
+                                .attr("transform", function(d){
+                                    var quien = d3.select(this)._groups[0][0].parentNode.id.slice(-1)
+                                    var result = etapa?etapa==quien?-2*stepper:0:0;
+                                   return "translate("+result+",0)";
+                                })
+                                .selectAll("text")
+                                .style("opacity", function(d){
+                                    var quien = d3.select(this)._groups[0][0].parentNode.parentNode.id.slice(-1)
+                                    if(etapa==-1) return 1; // esto es el tracker sin nada
+                                   return etapa==quien?1:0.3;
+                                });                
+
+            if(posChange){
+                    
+                console.log(verticalAligner(posTracker));
+                    d3.select("#tracker")
+                                .transition().duration(300)
+                                .style("margin-top",verticalAligner(posTracker)+"px")  
+                    }          
+        };
+
+        d3.selectAll(".stage").transition().duration(400).style("opacity", function(d){
+                                    var quien = this.id;
+                                    console.log(quien);
+                                    if(stage==quien) return 1; // esto es el tracker sin nada
+                                   return 0;
+                                });  
+            
 
 
 }

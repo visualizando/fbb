@@ -46,11 +46,14 @@
      
         .epigrafe{
             font-size: 10px;
-            text-align: left;
-            margin-top: 20px;
-            margin-left: 30px;
+            
+            margin-top: 10px;
             color: #929292;
-            font-weight: 100
+            font-weight: 100;
+            position: absolute;
+            bottom: 7px;
+            width: 100%;
+            text-align: center;
                 }
 
         .step mark.label{
@@ -89,8 +92,7 @@
             }
 
             .epigrafe{
-  
-                margin-top: -5px;
+                text-align: left;
                 margin-left: 30px;
                         }
 
