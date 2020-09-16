@@ -441,21 +441,36 @@ var coloreaCategorias = d3.scaleOrdinal()
         }
     
     
+
          div#stage0.stage img , div#stage1.stage img,  div#stage4.stage img  {
-            width: 40%;
+            width: 48%;
             display: inline-grid;
         }
+
+        div#stage1.stage img{
+            width: 48%;
+            display: inline-grid;
+        }
+
+        div#stage4.stage img  {
+            width: 70%;
+            display: inline-grid;
+        }
+
         div.stage {
+            align-items: center;
             position: absolute;
             opacity: 0;
+            width: 100%;
         }
 
 
         ul {
             display: flex;
             flex-wrap: wrap;
-
             list-style: none;
+            padding: 0;
+            margin: 0;
             }
 
 li {
@@ -464,13 +479,11 @@ li {
 }
 
 #stage3  li {
-    height: 8vh;
+    height: 7vh;
     flex-grow: 0;
 }
 
-#stage3  li:nth-child(odd) {
-    opacity: 0.3;
-}
+
 
 li > img {
   max-height: 100%;
@@ -482,6 +495,22 @@ li > img {
 
     @media only screen and (min-width: 768px) {
   
+        #stage3  li {
+            height: 7vh;
+        }
+
+        div#stage0.stage img{
+            width: 29%;
+            display: inline-grid;
+        }
+
+        div#stage4.stage img{
+            width: 50%;
+            display: inline-grid;
+        }
+
+
+
         #tracker{
             max-width: 440px;
             margin-top: 20px;
@@ -556,48 +585,12 @@ li > img {
             </div>
             <div id="stage2" class="stage"><ul>
               <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
             </ul>
 
             </div>
             <div id="stage3" class="stage"><ul>
                <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li> <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li> <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-            </ul>
+             </ul>
             </div>
             <div id="stage4" class="stage">
               <img src="/images/vacunas/vacuna.svg">
@@ -847,7 +840,6 @@ var
             .domain(["bottom","middle","top"])
             //.range([height-trackerHeight-10,height/2-trackerHeight/2,isMobile?0:10]);
             .range([10,height/2-trackerHeight/2,10]);
-console.log([height-trackerHeight-10,height,height/2-trackerHeight/2,isMobile?0:10])
 
 /* svg.append("g")
     	.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
@@ -855,7 +847,21 @@ console.log([height-trackerHeight-10,height,height/2-trackerHeight/2,isMobile?0:
  */
 
         
-        
+    d3.select("#tracker").style("margin-top",verticalAligner("middle")+"px")  
+
+    var li = d3.select("#stage2").select("li")
+    for (let i = 0; i < 10; i++) {
+        li.clone(true)
+    }
+
+    li = d3.select("#stage3").select("li")
+    li.clone(true).select("img").attr("src","/images/vacunas/minivacPlaceboLabel.svg")
+    li.clone(true).style("margin-left","20px").select("img").attr("src","/images/vacunas/minivacLabel.svg")
+    
+    for (let i = 0; i < 50; i++) {
+        li.clone(true).select("img").attr("src",Math.random()>0.4?"/images/vacunas/minivac.svg":"/images/vacunas/minivacPlacebo.svg")
+    }
+    
 
     
     init(stepSel1,1)
@@ -948,7 +954,7 @@ function scrollyTelling(containerNumber,step,entra){
             if(posTracker != posTrackerPrev) posChange = 1;
             posTrackerPrev = posTracker;
             d3.select("#tracker").selectAll(".gfase")
-                        .transition().delay(400*posChange).duration(600)
+                        .transition().duration(600) //.delay(400*posChange)
                         .attr("transform", (d,i)=>{
                             return "translate("+(skewer(etapa)[i]*stepper)+",0)"}
                             )
