@@ -419,28 +419,9 @@ var coloreaCategorias = d3.scaleOrdinal()
         font-family: oswald;
     }
     
+
     
-    #tracker g#fase4 path {
-            fill:#59a14e;
-        }
-    
-    #tracker g#fase3 path {
-            fill:#f28e29;
-        }
-    
-    #tracker g#fase2 path {
-            fill:#f7a95d;
-        }
-    
-    #tracker g#fase1 path {
-            fill:#fcc68d;
-        }
-    
-    #tracker g#fase0 path {
-            fill:#d3d0ce;
-        }
-    
-    
+
 
          div#stage0.stage img , div#stage1.stage img,  div#stage4.stage img  {
             width: 48%;
@@ -778,6 +759,19 @@ var skewer = d3.scaleOrdinal()
                 [0,-3,-2,-1,0],
             ]);
 
+var colorFase = d3.scaleOrdinal()
+            .domain(["fase0","fase1","fase2","fase3","fase4"])
+            .range([
+            ["hsl(24, 5%, 82%)","hsl(24, 0%, 92%)"],
+            ["hsl(31, 95%, 77%)","hsl(31, 0%, 87%)"],
+            ["hsl(30, 91%, 67%)","hsl(30, 0%, 77%)"],
+            ["hsl(30, 89%, 55%)","hsl(30, 0%, 65%)"],
+            ["hsl(112, 53%, 57%)","hsl(112, 0%, 67%)"]
+            ]);
+            
+            
+ 
+
 var vacunas = files[0];
 
     vacunas = vacunas.map(d=>{
@@ -839,7 +833,7 @@ var
     var verticalAligner = d3.scaleOrdinal()
             .domain(["bottom","middle","top"])
             //.range([height-trackerHeight-10,height/2-trackerHeight/2,isMobile?0:10]);
-            .range([10,height/2-trackerHeight/2,10]);
+            .range([10,10,10]);
 
 /* svg.append("g")
     	.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
@@ -847,8 +841,12 @@ var
  */
 
         
-    d3.select("#tracker").style("margin-top",verticalAligner("middle")+"px")  
+    //d3.select("#tracker").style("margin-top",verticalAligner("middle")+"px")  
 
+    d3.select("#tracker").selectAll(".gfase").style("fill",function(d){
+        return colorFase(this.id)[0]
+    })  
+    
     var li = d3.select("#stage2").select("li")
     for (let i = 0; i < 10; i++) {
         li.clone(true)
@@ -948,13 +946,19 @@ function scrollyTelling(containerNumber,step,entra){
             
 
         }
-        var stepper = 10, result,posChange=0;
+        var stepper = 10,
+            result,
+            transparenciaTextos = 0.1;
+            posChange=0;
         
         if(cambia) {
             if(posTracker != posTrackerPrev) posChange = 1;
             posTrackerPrev = posTracker;
             d3.select("#tracker").selectAll(".gfase")
                         .transition().duration(600) //.delay(400*posChange)
+                        .style("fill",function(d){
+                            return colorFase(this.id)[etapa>=0?etapa==this.id.slice(-1)?0:1:0]
+                        })  
                         .attr("transform", (d,i)=>{
                             return "translate("+(skewer(etapa)[i]*stepper)+",0)"}
                             )
@@ -968,7 +972,7 @@ function scrollyTelling(containerNumber,step,entra){
                                 .style("opacity", function(d){
                                     var quien = d3.select(this)._groups[0][0].parentNode.parentNode.id.slice(-1)
                                     if(etapa==-1) return 1; // esto es el tracker sin nada
-                                   return etapa==quien?1:0.3;
+                                   return etapa==quien?1:transparenciaTextos;
                                 });                
 
             if(posChange){
