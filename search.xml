@@ -5180,4 +5180,904 @@ function ajustaMesesEjeX(g) {
 <p>La curva del número de fallecimientos es un indicador más confiable que la del número de casos confirmados, porque no depende de decisiones como la definición de caso sospechoso y el número de testeos que se están realizando. Sin embargo, tiene sus propias limitaciones y la principal es que es un indicador que llega con más retraso que el de casos confirmados.</p>
 </div>]]></content>
   </entry>
+  <entry>
+    <title>¿Cuándo tendremos una vacuna segura y efectiva?</title>
+    <url>/covid/donde_esta_la_vacuna/</url>
+    <content><![CDATA[
+
+
+<style>
+
+    .nada{
+        fill:#4e79a7;
+        fill:#f28e2c;
+        fill:#e15759;
+        fill:#76b7b2;
+        fill:#59a14f;
+        fill:#af7aa1;
+        fill:#ff9da7;
+        fill:#9c755f;
+        fill:#8a7e78;
+
+    }
+
+    .axis path, .axis line {
+      fill: none;
+      stroke: #D4D8DA;
+      stroke-width: 1px;
+     
+    }
+
+    .axis--y .domain, .axis--x .domain{
+        display: none;
+    }
+    
+    
+    .axis--y .tick{
+        stroke-width: 1px;
+        stroke-dasharray: 3px 2px;
+    }
+
+    .axis--x .tick line{
+        stroke-width: 2px;
+    }
+
+    
+    text.titulo {
+            font-size: 12px;
+            fill: #444;
+        }
+
+
+    #ejeY,#ejeY  .tick text{
+        fill:#00468B;
+
+    }
+    #ejeYder, #ejeYder .tick text{
+        fill:#F26522;
+    }
+
+    .axis-title {
+        font-size: 11px;
+        text-anchor: start;
+    }
+    
+    .axis-title.der{
+        text-anchor: end;
+    }
+
+    .linea {
+      fill: none;
+      stroke: #a3a3a3;
+      stroke-width: 2px;
+    }
+
+
+    .label.naranja{
+        background: #F26522;
+
+    }
+
+    .label.azul{
+        background: #00468B;
+        color:white;
+
+    }
+
+    .label.rebrote{
+        background: #f28e2c;
+        
+
+    }
+
+    #tracker text.numero {
+        font-size: 19px;
+        fill: #231f20;
+        text-anchor: middle;
+        font-variant-numeric: lining-nums;
+    }
+    
+    #tracker text.titulo {
+        font-size: 10px;
+        font-weight: 700;
+        fill: #231f20;
+        text-anchor: middle;
+        font-family: oswald;
+    }
+    
+
+    div#stage0.stage{
+        margin-top: 19%;
+        }
+    div#stage4.stage{
+        margin-top: 15%;
+        }
+
+
+         div#stage0.stage img , div#stage1.stage img,  div#stage4.stage img  {
+            width: 48%;
+            display: inline-grid;
+        }
+
+        div#stage1.stage img{
+            width: 65%;
+            display: inline-grid;
+            margin: auto;
+        }
+
+        div#stage4.stage img  {
+            width: 80%;
+            display: inline-grid;
+        }
+
+        div.stage {
+            align-items: center;
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+        }
+
+
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            justify-content: space-evenly;
+            }
+
+li {
+    
+    flex-grow: 0;
+}
+
+#stage3 li {
+    height: 7vh;
+    flex-grow: 0;
+}
+
+#stage2 li {
+    width: 29%;
+    flex-grow: 0;
+}
+
+
+
+.stage li img {
+  max-height: 100%;
+  object-fit: cover;
+  vertical-align: bottom;
+  margin: 0;
+
+}
+
+li.refe span {
+    font-size: 12px;
+}
+
+.stage li.refe img {
+    max-height: 87%;
+    margin-bottom: -8px !important;
+}
+
+.table-container{
+    align-items: center;
+    position: absolute;
+    bottom: 28px;
+    width: 100%;
+}
+
+#rangos{
+    font-size: 10px;
+    text-align: center;
+    padding: 0px;
+    opacity: 0;
+    max-width: 440px;
+    margin: auto;
+}
+
+
+
+#rangos tr{
+    background:transparent;
+}
+
+
+#rangos th, #rangos td {
+    border: 1px solid #ddd;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 2px 1px;
+    
+}
+#rangos td {
+    border-left: none;
+    width: 30%;
+}
+
+
+#rangos td:not(:last-child) {
+    border-right: 1px dashed #ddd;
+}
+
+#rangos th {
+    border-right: 1px solid #ddd;
+    font-weight: 700;
+    min-width: 70px;
+}
+
+
+
+
+    @media only screen and (min-width: 768px) {
+  
+        div#stage2.stage {
+            margin-top: 5%;
+        }
+
+        #stage2  li {
+            width: 16%;
+        }
+
+        #stage3  li {
+            height: 6vh;
+        }
+
+        div#stage4.stage {
+            margin-top: 3%;
+        }
+        
+        div#stage0.stage{
+        margin-top: 6%;
+        }
+
+        div#stage1.stage{
+        margin-top: 5%;
+        }
+        div#stage0.stage img{
+            width: 29%;
+            display: inline-grid;
+        }
+
+        div#stage1.stage li{
+            width: 48%;
+            display: inline-grid;
+            margin: auto;
+        }
+
+        
+
+        div#stage4.stage img{
+            width: 50%;
+            display: inline-grid;
+            max-height: 340px
+        }
+
+
+        #rangos td {
+                min-width: 95px;
+            }
+
+            #rangos th {
+                min-width: 100px;
+            }
+
+
+
+        #tracker{
+            max-width: 440px;
+            margin-top: 20px;
+        }
+
+        text.titulo {
+            font-size: 14px;
+            fill: #444;
+        }
+    }
+    
+</style>
+
+
+
+<section id='scrolly1'>
+    <div class='scrolly'>
+
+
+        <!-- aca va el grafico que va a quedar fijo -->
+        <figure id="grafico1" class='sticky contenedorGrafico' >
+        
+
+            <svg xmlns="http://www.w3.org/2000/svg" id="tracker" viewBox="0 -21 278.41 75">
+                <g>
+                  <g id="fase4" class="gfase">
+                    <path d="M273.43,53.12H184V0h89.47a5,5,0,0,1,5,5V48.14A5,5,0,0,1,273.43,53.12Z" />
+                    <g class="innerG">
+                        <text transform="translate(250,18)" class="titulo">FASE IV</text>
+                        <text transform="translate(250,40)" class="numero">0</text>
+                    </g>
+                  </g>
+                  <g id="fase3" class="gfase">
+                    <path d="M212.52,53.12H129.35V0h83A5,5,0,0,1,217,3.15l9.24,23.44a4.94,4.94,0,0,1-.11,3.9l-9,19.73A5,5,0,0,1,212.52,53.12Z" />
+                    <g class="innerG">
+                        <text transform="translate(195,18)" class="titulo">FASE III</text>
+                        <text transform="translate(195,40)" class="numero">3</text>
+                    </g>
+                  </g>
+                  <g id="fase2" class="gfase">
+                    <path d="M161.09,53.12H78.9V0h82a5,5,0,0,1,4.63,3.15l9.24,23.44a5,5,0,0,1-.1,3.9l-9,19.73A5,5,0,0,1,161.09,53.12Z" />
+                    <g class="innerG">
+                        <text transform="translate(145,18)" class="titulo">FASE II</text>
+                        <text transform="translate(145,40)" class="numero">10</text>
+                    </g>
+                  </g>
+                  <g id="fase1" class="gfase">
+                    <path d="M109.66,53.12H27.22V0h82.25a5,5,0,0,1,4.63,3.15l9.24,23.44a5,5,0,0,1-.1,3.9l-9,19.73A5,5,0,0,1,109.66,53.12Z" />
+                    <g class="innerG">
+                        <text transform="translate(95,18)" class="titulo">FASE I</text>
+                        <text transform="translate(95,40)" class="numero">13</text>
+                    </g>
+                  </g>
+                  <g id="fase0" class="gfase">
+                    <path d="M58.23,53.12H5a5,5,0,0,1-5-5V5A5,5,0,0,1,5,0H58a5,5,0,0,1,4.63,3.15l9.25,23.44a5,5,0,0,1-.11,3.9L62.76,50.22A5,5,0,0,1,58.23,53.12Z" />
+                    <g class="innerG">
+                      <text transform="translate(33,18)" class="titulo">PRE CLINICA</text>
+                      <text transform="translate(33,40)" class="numero">145</text>
+                    </g>
+                  </g>
+                </g>
+                <g transform="translate(60,-20)" id="aprobada" style="opacity: 0;">
+                    <path d="M.61,13.29V5.16A4.55,4.55,0,0,1,5.16.61H143.62a4.55,4.55,0,0,1,4.23,2.88l5.66,14.35H5.16A4.55,4.55,0,0,1,.61,13.29Z" fill="#e05759" stroke="#e05759" stroke-miterlimit="10" stroke-width="1.23"/>
+                    <line x1="166.1" y1="49.9" x2="150.06" y2="9.23" fill="none" stroke="#e05759" stroke-miterlimit="10" stroke-width="1.23"/>
+                    <circle cx="166.1" cy="49.9" r="4.04" fill="#e05759" stroke="#e05759" stroke-miterlimit="10"/>
+                    <text transform="translate(6.06 13.37)" font-size="9" fill="#231f20" font-family="Oswald-Bold, Oswald" font-weight="700"><tspan letter-spacing="-0.03em">V</tspan><tspan x="4.46" y="0" letter-spacing="-0.01em">A</tspan><tspan x="9.3" y="0">CUN</tspan><tspan x="24.7" y="0" letter-spacing="-0.01em">A</tspan><tspan x="29.59" y="0"> </tspan><tspan x="31.9" y="0" letter-spacing="-0.01em">APR</tspan><tspan x="47.18" y="0">O</tspan><tspan x="52.45" y="0" letter-spacing="0em">B</tspan><tspan x="57.73" y="0" letter-spacing="-0.01em">A</tspan><tspan x="62.61" y="0" letter-spacing="-0.01em">D</tspan><tspan x="67.78" y="0" letter-spacing="-0.01em">A</tspan></text>
+                  </g>
+              </svg>
+            
+              <div id="stage0" class="stage">
+                <img src="/images/vacunas/petri.svg">
+                <img src="/images/vacunas/microscopio.svg">
+                <img src="/images/vacunas/raton.svg">
+            </div>
+            <div id="stage1" class="stage">
+            <ul>
+              <li style="color:#459892"><img src="/images/vacunas/personita.svg">
+               <br>Dosis A</li>
+              <li style="color:#4f79a7"><img src="/images/vacunas/personitaB.svg">
+               <br>Dosis B</li>
+            </ul>
+            </div>
+            <div id="stage2" class="stage"><ul>
+              <li><img src="/images/vacunas/minivac.svg"></li>
+            </ul>
+
+            </div>
+            <div id="stage3" class="stage">
+                <ul>
+               <li><img src="/images/vacunas/minivac.svg"></li>
+             </ul>
+            </div>
+            <div id="stage4" class="stage">
+              <img src="/images/vacunas/vacuna.svg">
+            </div>
+             
+            <div class="table-container">
+                <table id="rangos">
+                    <tr>
+                        <th>Edades:</th>
+                        <td class="rango02">Niños</td>
+                        <td class="rango01">Jóvenes</td>
+                        <td class="rango02">Adultos Mayores</td>
+                    </tr>
+                    <tr>
+                        <th>Personas:</th>
+                        <td class="rango10">Decenas</td>
+                        <td class="rango11">Centenas</td>
+                        <td class="rango12">Miles</td>
+                    </tr>
+                </table>
+            </div>
+
+        </figure>
+
+        <!-- acá van los textos de cada paso -->
+        <article>
+            <div class='step' data-index='0'>
+                <p>
+                    El proceso para obtener una vacuna segura y efectiva es complejo y puede llevar muchísimos años. 
+                    <br/><br/>
+                    Ese proceso tiene varias fases e involucra varios experimentos.
+                </p>
+            </div>
+            
+            <div class='step' data-index='1'>
+                <p>
+                    ¿Y qué es una vacuna? Es una preparación que genera anticuerpos contra un determinado agente infeccioso aumentando así la inmunidad frente a ese germen.
+                    <br/><br/>
+                    Las más comunes se fabrican en forma de inyección aunque también existen algunas orales o nasales.
+                </p>
+            </div>
+            <div class='step' data-index='2'>
+                <p>
+                    El proceso para obtener vacunas seguras y efectivas fue cambiando enormemente en el tiempo.
+                    <br/><br/>
+                    En la actualidad, las etapas de ese proceso son denominadas "fases", deben cumplirse en un orden establecido y recién cuando los experimentos fueron exitosos en una fase se puede pasar a la siguiente  (sin saltear ninguna).
+                    <br/><br/>
+                    Analicemos cada fase…
+
+                </p>
+            </div>
+            
+            <div class='step' data-index='3'>
+                <p>
+                    Así denominada porque no implica la experimentación en seres humanos. Se testea la vacuna candidata en células y luego en animales (ratones, monos) para evaluar si produce respuesta inmune y si es peligrosa para la salud.
+                    <br/><br/>
+                    Al ir avanzando por cada fase, hay mayores niveles de regulación y supervisión de la vacuna candidata.
+                </p>
+            </div>
+            <div class='step' data-index='4'>
+                <p>
+                    Luego vienen las Fases Clínicas: 1, 2 y 3  (donde comienza la experimentación en seres humanos).
+                </p>
+            </div>
+            <div class='step' data-index='5'>
+                <p>
+                    Estudios de seguridad.
+                    <br/><br/>  
+                    Se testea la vacuna candidata en un número muy pequeño de personas sanas y en distintas dosis para probar la seguridad y cuál es la dosis más segura. Además se confirma que estimula el sistema inmunológico humano.
+                </p>
+            </div>
+            <div class='step' data-index='6'>
+                <p>
+                    Estudios de seguridad ampliada.
+                    <br/><br/>  
+                    Estos estudios toman la dosis más efectiva y segura según la Fase 1 y la testean ahora en  cientos de personas de diversas edades.
+                    <br/><br/>                      
+                    Se evalúa, pero ahora de manera ampliada,  la seguridad y la capacidad de la vacuna para estimular el sistema inmunológico.
+                </p>
+            </div>
+            <div class='step' data-index='7'>
+                <p>
+                    Una vez pasada la Fase 2, ya se sabe que la vacuna candidata es segura y estimula el sistema inmune. Pero eso no indica necesariamente que alcance para protegernos de una enfermedad, para eso se pasa a la Fase 3.
+                </p>
+            </div>
+            <div class='step' data-index='8'>
+                <p>
+                    En casos excepcionales, se combinan las fases 1 y 2 y se hacen pruebas directamente en cientos de personas. Esto se hace como una forma de acortar tiempos del proceso.
+                    <br/><br/>                      
+                    En el caso de COVID-19, actualmente hay <b><span id="etapa1y2">10</span> vacunas candidatas</b> que se encuentran en fase 1/2.
+                </p>
+            </div>
+
+
+            <div class='step' data-index='9'>
+                <p>
+                    <b>Estudios de eficacia </b>
+                    <br/><br/>
+                    En esta fase se administra la vacuna candidata a miles de personas  y también se administra un  “placebo” a otras miles de personas más.
+                    <br/><br/>
+                    Un placebo, en este caso, es algo que parece una vacuna y se aplica igual, pero en realidad no estimula el sistema inmune.
+                    <br/><br/>
+                    Tanto participantes como médicos son “ciegos” al tratamiento, es decir, no saben quién recibió la vacuna y quién el placebo.
+                </p>
+            </div>
+            <div class='step' data-index='10'>
+                <p>
+                    Finalmente se hace un seguimiento para ver cuántos (vacunados o placebos) se infectan. En este punto recién podemos saber con qué nivel de eficacia la vacuna candidata nos protege del virus. 
+                    <br/><br/>
+                    También ahora podemos saber si hay efectos secundarios menos frecuentes que quizás en las fases anteriores no pudieron observarse.
+                </p>
+            </div>
+
+            <div class='step' data-index='11'>
+                <p>
+                    Recién cuando la sustancia pasó satisfactoriamente por todas estas fases se llega a la instancia final, la de aprobación.
+                    <br/><br/>
+                    Los entes reguladores de cada país analizan los estudios realizados y deciden si aprueban la vacuna o no.
+                    <br/><br/>
+                    Existen vacunas para COVID-19 aprobadas por algunos países para su uso en ese territorio
+                </p>
+            </div>
+
+            <div class='step' data-index='12'>
+                <p>
+                    Atravesar satisfactoriamente todas estas fases requiere de un gran esfuerzo (científico, tecnológico, económico y político) y por eso es un largo proceso que, en promedio, demora entre 10 y 15 años.
+                </p>
+            </div>
+
+            <div class='step' data-index='13'>
+                <p>
+                    Luego de la aprobación empieza la producción a gran escala de miles de millones de dosis. En esta fase la vacuna comienza a utilizarse y los científicos continúan monitoreando su efectividad y su seguridad.
+                </p>
+            </div>
+
+        </article>
+    </div>
+</section>
+
+
+ <!-- Scripts -->
+ <script>
+    
+//********************* CARGA DATOS ************
+
+Promise.all([
+    d3.csv("https://datos.decodificar.org/V1_vacunas.csv"),
+    d3.csv("https://datos.decodificar.org/metaData_tablas.csv")
+
+]).then(function(files) {
+
+    var epigrafeData = files[1].filter(d=>d.file=="V1_vacunas.csv")[0];
+        epigrafeData.fecha = d3.timeFormat("%-d/%b/%Y")(d3.timeParse("%Y-%m-%d")(epigrafeData.fecha)).toLowerCase();
+
+
+    // **** CODIGO DEL SCROLLY *******
+
+
+    const container1 = d3.select('#scrolly1'); //busco el container total
+	
+    const stepSel1 = container1.selectAll('.step'); // selecciono los "steps"
+	
+    function updateChart(index, what,containerNumber,entra) {  // funcion que llama cada vez que cruza un umbral
+        const sel = d3.select('#scrolly'+containerNumber).select(`[data-index='${index}']`);
+        what.classed('is-active', (d, i) => i === index);
+        scrollyTelling(containerNumber,index,entra); // <<<<< AQUI LLAMA AL GRAFICO VERDADERO
+    }
+
+    function init(what,containerNumber) { // configuracion inicial
+        Stickyfill.add(d3.select('.sticky').node()); // fallback para browsers sin sticky
+
+        enterView({
+            selector: what.nodes(),
+            offset: 0.1,
+            enter: el => {
+                const index = +d3.select(el).attr('data-index');
+                updateChart(index,what,containerNumber,1);
+            },
+            exit: el => {
+                let index = +d3.select(el).attr('data-index');
+                index = Math.max(0, index - 1);
+                updateChart(index,what,containerNumber,0);
+            }
+        });
+    }
+  
+
+    // **** END SCROLLY *******
+
+
+/* COLORES
+azul #00468B
+violeta #8B6BAF
+rojo #F04E53
+naranja #F26522
+verde #62BB46
+*/
+       
+//****** DATOS
+
+
+var skewer = d3.scaleOrdinal()
+            .domain([0,1,2,3,4,5])
+            .range([
+                [0,0,0,0,0],
+                [0,1,2,3,0],
+                [0,1,2,-1,0],
+                [0,1,-2,-1,0],
+                [0,-3,-2,-1,0],
+                [0,1,2,1,0]
+            ]);
+
+var colorFase = d3.scaleOrdinal()
+            .domain(["fase0","fase1","fase2","fase3","fase4"])
+            .range([
+            ["hsl(24, 5%, 82%)","hsl(24, 0%, 92%)"],
+            ["hsl(31, 95%, 77%)","hsl(31, 0%, 87%)"],
+            ["hsl(30, 91%, 67%)","hsl(30, 0%, 77%)"],
+            ["hsl(30, 89%, 55%)","hsl(30, 0%, 65%)"],
+            ["hsl(112, 53%, 57%)","hsl(112, 0%, 67%)"]
+            ]);
+            
+            
+ 
+
+var vacunas = files[0];
+
+    vacunas = vacunas.map(d=>{
+        return {
+                "titulo": d.fase,
+                "cantidad":+d.cantidad
+        }
+        
+    });
+    
+
+
+//*******
+
+
+
+var ejeY, ejeX, tituloY, minDate, maxDate, line, posTracker, posTrackerPrev;
+
+var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maximo
+
+//svg = d3.selectAll(".contenedorGrafico").append("svg"),
+var 
+    margin = isMobile ? {top: 35, right: 20, bottom: 35, left: 20} : {top: 35, right: 30, bottom: 25, left: 30},
+    width =  +d3.select('#grafico1').style('width').slice(0, -2),
+    height = +d3.select('#grafico1').style('height').slice(0, -2)-25;
+
+    d3.selectAll(".contenedorGrafico").append("div").attr("class","epigrafe")
+            .html("www.decodificar.org - "+epigrafeData.fecha+" - Fuente: "+ epigrafeData.fuente );
+
+/* 
+    if (height > altoMaximo*width) {
+        svg.style('margin-top', (height - altoMaximo*width)/2 + "px")
+        height = altoMaximo*width;
+    }
+
+    svg.attr("viewBox", [0, 0, width, height]);
+ */
+
+    /* height = height - margin.top - margin.bottom;
+    width = width - margin.left - margin.right; */
+    
+    var trackerHeight = d3.select("#tracker").node().getBoundingClientRect().height;
+
+    var verticalAligner = d3.scaleOrdinal()
+            .domain(["bottom","middle","top"])
+            .range([height-trackerHeight-20,height/2-trackerHeight/2,0]);
+            
+
+    d3.select("#etapa1y2").html(vacunas[2].cantidad)
+        
+    d3.select("#tracker").style("margin-top",verticalAligner("middle")+"px")  
+
+    d3.select("#tracker").selectAll(".gfase").style("fill",function(d){
+        return colorFase(this.id)[0]
+    })  
+    
+    var li = d3.select("#stage2").select("li")
+    for (let i = 0; i < 10; i++) {
+        li.clone(true)
+    }
+
+    li = d3.select("#stage3").select("li");
+    var refPlacebo = li.clone(true).classed("refe",true);
+    var refVacuna = li.clone(true).classed("refe",true);;
+
+    refPlacebo.select("img").attr("src","/images/vacunas/minivacPlaceboLabel.svg");
+    refVacuna.select("img").attr("src","/images/vacunas/minivacLabel.svg");
+    refPlacebo.append("span").html("Placebo");
+    refVacuna.append("span").html("Vacuna");
+    
+    for (let i = 0; i < 50; i++) {
+        li.clone(true).select("img").attr("src",Math.random()>0.4?"/images/vacunas/minivac.svg":"/images/vacunas/minivacPlacebo.svg")
+    }
+    
+
+    
+    init(stepSel1,1)
+
+function scrollyTelling(containerNumber,step,entra){
+    var porcentaje = 90, etapa,cambia,stage=-1,rangos, aprobada = 0;
+        switch (step) {
+            case 0: // tracker
+                    etapa = -1;
+                    cambia = 1;
+                    posTracker = "middle";
+                    rangos = 0;
+            break;
+            case 1: // vacuna
+                    etapa = 4;
+                    cambia = 1;
+                    posTracker = "top";
+                    stage = "stage4";
+                    rangos = 0;
+            break;
+
+            case 2: // tracker
+                    etapa = -1;
+                    cambia = 1;
+                    posTracker = "top";
+                    rangos = 0;
+            break;
+
+      
+
+            case 3: // fase pre clinica
+                    etapa = 0;
+                    cambia = 1;
+                    posTracker = "top";
+                    stage = "stage0";
+                    rangos = 0;
+            break;
+
+            case 4: // Fases Clínicas: 1, 2 y 3
+                    etapa = -1;
+                    cambia = 1;
+                    posTracker = "top";
+                    rangos = 0;
+            break;
+
+            case 5: // fase 1
+                    etapa = 1;
+                    cambia = 1;
+                    posTracker = "top";
+                    stage = "stage1";
+                    rangos = [1,0];
+            break;
+
+            case 6: //fase 2
+            case 7:
+                    etapa = 2;
+                    cambia = 1;
+                    posTracker = "top";
+                    stage = "stage2";
+                    rangos = [2,1];
+            break;
+
+            case 8: //fase 1 y 2 combinadas
+                    etapa = 5;
+                    cambia = 1;
+                    posTracker = "middle";
+                    rangos = 0;
+            break;
+
+            case 9: // fase 3
+            case 10:
+                    etapa = 3;
+                    cambia = 1;
+                    posTracker = "top";
+                    stage = "stage3";
+                    rangos = [2,2];
+                    aprobada = 0;
+                    d3.select("#aprobada").transition().duration(300).style("opacity",0);
+            break;
+
+            case 11: // Aprobacion
+                    // aca tiene que prender el APROBACION
+            case 12:
+                    d3.select("#aprobada").transition().delay(300).duration(600).style("opacity",1);
+            
+                    aprobada = 1;
+                    etapa = -1;
+                    cambia = 1;
+                    posTracker = "middle";
+                    rangos = 0;
+            break;
+
+            case 13:
+                    d3.select("#aprobada").transition().duration(300).style("opacity",0);
+                    aprobada = 0;   
+                    etapa = 4;
+                    cambia = 1;
+                    posTracker = "top";
+                    stage = "stage4";
+                    rangos = 0;
+            break;
+
+            case 14:
+                    aprobada = 0;   
+                    etapa = 4;
+                    cambia = 1;
+                    posTracker = "top";
+                    stage = "stage4";
+                    rangos = 0;
+            break;
+            
+            
+
+        }
+        var stepper = 10,
+            result,
+            transparenciaTextos = 0.1;
+            posChange=0;
+        
+        if(cambia) {
+            if(posTracker != posTrackerPrev) posChange = 1;
+            posTrackerPrev = posTracker;
+            d3.select("#tracker").selectAll(".gfase")
+                        .transition().duration(600) //.delay(400*posChange)
+                        .style("fill",function(d){
+                            var quien = this.id.slice(-1);
+                            if(etapa==5) return colorFase(this.id)[quien==1?0:quien==2?0:1]
+                            return colorFase(this.id)[etapa>=0?etapa==quien?0:1:0]
+                        })  
+                        .attr("transform", (d,i)=>{
+                            return "translate("+(skewer(etapa)[i]*stepper)+",0)"}
+                            )
+                            .selectAll(".innerG")
+                                .attr("transform", function(d){
+                                    var quien = d3.select(this)._groups[0][0].parentNode.id.slice(-1)
+                                    var result = etapa?etapa==quien?-2*stepper:0:0;
+                                   return "translate("+result+",0)";
+                                })
+                                .selectAll("text")
+                                .style("opacity", function(d){
+                                    var quien = d3.select(this)._groups[0][0].parentNode.parentNode.id.slice(-1)
+                                    if(etapa==-1) return 1; // esto es el tracker sin nada
+                                    if(etapa==5) return quien==1?1:quien==2?1:transparenciaTextos; // esto es el tracker sin nada
+                                   return etapa==quien?1:transparenciaTextos;
+                                });                
+
+            if(posChange){
+                d3.select("#tracker")
+                                .transition().duration(300)
+                                .style("margin-top",verticalAligner(posTracker)+"px")
+
+                    } 
+
+        };
+
+        if (rangos){
+            d3.select("#rangos").transition().duration(600).style("opacity",1)
+                                .selectAll("td")
+                                .style("background-color", function(d,i){
+                                    /* console.log(d3.select(this).attr("class").slice(-2),[0,rangos[0]].join(""),[1,rangos[0]].join(""))
+                                    var quien = d3.select(this).attr("class").slice(-2);
+                                    var rangoCompara = [[0,rangos[0]].join(""),[1,rangos[0]].join("")]
+                                    if(quien == rangoCompara[0] || quien == rangoCompara[1]) return "silver";
+                                    return "transparent"; */
+                                    switch (etapa) {
+                                        case 1:
+                                            if(i==1 || i == 3 )
+                                            return "silver";
+                                            break;
+                                        case 2:
+                                            if(i<3 || i == 4 )
+                                            return "silver";
+                                            break;
+                                        case 3:
+                                            if(i<3 || i == 5 )
+                                            return "silver";
+                                            break;
+                                        default:
+                                            return "transparent";
+                                            break;
+                                    }
+                                    
+                                })
+
+        }else{
+            d3.select("#rangos").transition().duration(600).style("opacity",0)
+            .selectAll("td").style("background-color","transparent");
+        }
+
+        // esto prende y apaga las stages
+        d3.selectAll(".stage").transition().duration(400).style("opacity", function(d){
+                                    var quien = this.id;
+                                    if(stage==quien) return 1; // esto es el tracker sin nada
+                                   return 0;
+                                });  
+        
+        
+        //if(aprobada) d3.select("#tracker").transition().duration(300).delay(400).attr("viewBox",d=>(aprobada?"0 -21 278.41 75":"0 0 278.41 53.12"))  
+
+
+}
+
+
+function titleCase(string) {
+      var sentence = string.toLowerCase().split(" ");
+      for(var i = 0; i< sentence.length; i++){
+         if(sentence[i].length>2)sentence[i] = sentence[i][0].toUpperCase() + sentence[i].slice(1);
+      }
+   return sentence.join(" ");
+   }
+
+
+
+}); // fin todo
+
+</script>
+
+
+<p>Dado que no hay población ni economía dispuesta a pasar 10 años con medidas de distanciamiento social, durante una pandemia es indispensable acelerar el proceso de aprobación de una vacuna. En estos casos los entes reguladores pueden dar una “autorización de uso de emergencia” antes de obtener una aprobación formal. </p>
+<p>Otra forma de acelerar el proceso es combinar las fases entre sí. Esto implica, por ejemplo, probar la vacuna por primera vez en cientos de personas (en vez de probarla en pocas personas), lo que nos da una Fase mixta 1-2. Esto no siempre es factible, o solo es aceptable en tiempos de pandemia.</p>
+<div class="note info"><p>Como vimos, generar una vacuna que sea segura para su uso en humanos y efectiva para prevenir enfermedades lleva mucho tiempo, recursos y pasos en todo el proceso. Durante la pandemia por COVID-19, la comunidad científica trabaja de manera muy intensa en obtener una vacuna lo antes posible. </p>
+<p>En ese proceso se mezclan también intereses económicos y políticos que no podemos desconocer. Los esfuerzos de los países para asegurar una rápida fabricación y provisión de una vacuna a la humanidad son la gran apuesta para los próximos meses. </p>
+</div>]]></content>
+  </entry>
 </search>
