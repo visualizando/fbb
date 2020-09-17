@@ -119,6 +119,11 @@
         }
         
         
+        @media (max-width: 567px){
+        .post-body .note:not(.no-icon) {
+            padding-left: 10px !important;
+        }
+    }
 
 
       

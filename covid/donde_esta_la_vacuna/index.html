@@ -617,7 +617,7 @@ li.refe span {
         <figure id="grafico1" class='sticky contenedorGrafico' >
         
 
-            <svg xmlns="http://www.w3.org/2000/svg" id="tracker" viewBox="0 0 278.41 53.12">
+            <svg xmlns="http://www.w3.org/2000/svg" id="tracker" viewBox="0 -21 278.41 75">
                 <g>
                   <g id="fase4" class="gfase">
                     <path d="M273.43,53.12H184V0h89.47a5,5,0,0,1,5,5V48.14A5,5,0,0,1,273.43,53.12Z" />
@@ -655,6 +655,12 @@ li.refe span {
                     </g>
                   </g>
                 </g>
+                <g transform="translate(60,-20)" id="aprobada" style="opacity: 0;">
+                    <path d="M.61,13.29V5.16A4.55,4.55,0,0,1,5.16.61H143.62a4.55,4.55,0,0,1,4.23,2.88l5.66,14.35H5.16A4.55,4.55,0,0,1,.61,13.29Z" fill="#e05759" stroke="#e05759" stroke-miterlimit="10" stroke-width="1.23"/>
+                    <line x1="166.1" y1="49.9" x2="150.06" y2="9.23" fill="none" stroke="#e05759" stroke-miterlimit="10" stroke-width="1.23"/>
+                    <circle cx="166.1" cy="49.9" r="4.04" fill="#e05759" stroke="#e05759" stroke-miterlimit="10"/>
+                    <text transform="translate(6.06 13.37)" font-size="9" fill="#231f20" font-family="Oswald-Bold, Oswald" font-weight="700"><tspan letter-spacing="-0.03em">V</tspan><tspan x="4.46" y="0" letter-spacing="-0.01em">A</tspan><tspan x="9.3" y="0">CUN</tspan><tspan x="24.7" y="0" letter-spacing="-0.01em">A</tspan><tspan x="29.59" y="0"> </tspan><tspan x="31.9" y="0" letter-spacing="-0.01em">APR</tspan><tspan x="47.18" y="0">O</tspan><tspan x="52.45" y="0" letter-spacing="0em">B</tspan><tspan x="57.73" y="0" letter-spacing="-0.01em">A</tspan><tspan x="62.61" y="0" letter-spacing="-0.01em">D</tspan><tspan x="67.78" y="0" letter-spacing="-0.01em">A</tspan></text>
+                  </g>
               </svg>
             
               <div id="stage0" class="stage">
@@ -940,7 +946,7 @@ var
 
     var verticalAligner = d3.scaleOrdinal()
             .domain(["bottom","middle","top"])
-            .range([height-trackerHeight-20,height/2-trackerHeight/2,20]);
+            .range([height-trackerHeight-20,height/2-trackerHeight/2,0]);
             
 
         
@@ -973,7 +979,7 @@ var
     init(stepSel1,1)
 
 function scrollyTelling(containerNumber,step,entra){
-    var porcentaje = 90, etapa,cambia,stage=-1,rangos;
+    var porcentaje = 90, etapa,cambia,stage=-1,rangos, aprobada = 0;
         switch (step) {
             case 0: // tracker
                     etapa = -1;
@@ -1043,11 +1049,13 @@ function scrollyTelling(containerNumber,step,entra){
                     posTracker = "top";
                     stage = "stage3";
                     rangos = [2,2];
+                    aprobada = 0;
             break;
 
             case 11: // Aprobacion
                     // aca tiene que prender el APROBACION
             case 12:
+                    aprobada = 1;
                     etapa = -1;
                     cambia = 1;
                     posTracker = "middle";
@@ -1055,6 +1063,7 @@ function scrollyTelling(containerNumber,step,entra){
             break;
 
             case 13:
+                    aprobada = 0;   
                     etapa = 4;
                     cambia = 1;
                     posTracker = "top";
@@ -1095,10 +1104,12 @@ function scrollyTelling(containerNumber,step,entra){
                                 });                
 
             if(posChange){
-                    d3.select("#tracker")
+                d3.select("#tracker")
                                 .transition().duration(300)
-                                .style("margin-top",verticalAligner(posTracker)+"px")  
-                    }          
+                                .style("margin-top",verticalAligner(posTracker)+"px")
+
+                    } 
+
         };
 
         if (rangos){
@@ -1141,7 +1152,10 @@ function scrollyTelling(containerNumber,step,entra){
                                     if(stage==quien) return 1; // esto es el tracker sin nada
                                    return 0;
                                 });  
-            
+        
+        
+        //if(aprobada) d3.select("#tracker").transition().duration(300).delay(400).attr("viewBox",d=>(aprobada?"0 -21 278.41 75":"0 0 278.41 53.12"))  
+        d3.select("#aprobada").transition().duration(600).style("opacity",aprobada);
 
 
 }
