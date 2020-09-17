@@ -1050,11 +1050,14 @@ function scrollyTelling(containerNumber,step,entra){
                     stage = "stage3";
                     rangos = [2,2];
                     aprobada = 0;
+                    d3.select("#aprobada").transition().duration(300).style("opacity",0);
             break;
 
             case 11: // Aprobacion
                     // aca tiene que prender el APROBACION
             case 12:
+                    d3.select("#aprobada").transition().delay(300).duration(600).style("opacity",1);
+            
                     aprobada = 1;
                     etapa = -1;
                     cambia = 1;
@@ -1063,6 +1066,7 @@ function scrollyTelling(containerNumber,step,entra){
             break;
 
             case 13:
+                    d3.select("#aprobada").transition().duration(300).style("opacity",0);
                     aprobada = 0;   
                     etapa = 4;
                     cambia = 1;
@@ -1155,7 +1159,6 @@ function scrollyTelling(containerNumber,step,entra){
         
         
         //if(aprobada) d3.select("#tracker").transition().duration(300).delay(400).attr("viewBox",d=>(aprobada?"0 -21 278.41 75":"0 0 278.41 53.12"))  
-        d3.select("#aprobada").transition().duration(600).style("opacity",aprobada);
 
 
 }
