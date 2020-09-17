@@ -477,18 +477,27 @@ li {
 
 
 
-li > img {
+.stage li img {
   max-height: 100%;
-  
   object-fit: cover;
   vertical-align: bottom;
+  margin: 0;
 
+}
+
+li.refe span {
+    font-size: 12px;
+}
+
+.stage li.refe img {
+    max-height: 87%;
+    margin-bottom: -8px !important;
 }
 
 .table-container{
     align-items: center;
     position: absolute;
-    bottom: 38px;
+    bottom: 28px;
     width: 100%;
 }
 
@@ -534,11 +543,25 @@ li > img {
 
 
 
+
     @media only screen and (min-width: 768px) {
   
-        #stage3  li {
-            height: 7vh;
+        div#stage2.stage {
+            margin-top: 9%;
         }
+
+        #stage2  li {
+            width: 16%;
+        }
+
+        #stage3  li {
+            height: 6vh;
+        }
+
+        div#stage4.stage {
+            margin-top: 3%;
+        }
+        
         div#stage0.stage, div#stage1.stage{
         margin-top: 9%;
         }
@@ -547,10 +570,13 @@ li > img {
             display: inline-grid;
         }
 
-        div#stage1.stage img{
+        div#stage1.stage li{
             width: 48%;
             display: inline-grid;
+            margin: auto;
         }
+
+        
 
         div#stage4.stage img{
             width: 50%;
@@ -896,7 +922,7 @@ var
     height = +d3.select('#grafico1').style('height').slice(0, -2)-25;
 
     d3.selectAll(".contenedorGrafico").append("div").attr("class","epigrafe")
-            .html("www.decodificar.org - "+epigrafeData.fecha+" - Fuente: "+ epigrafeData.fuente + " - Iconos: K. Rattanaphan");
+            .html("www.decodificar.org - "+epigrafeData.fecha+" - Fuente: "+ epigrafeData.fuente );
 
 /* 
     if (height > altoMaximo*width) {
@@ -930,11 +956,11 @@ var
     }
 
     li = d3.select("#stage3").select("li");
-    var refPlacebo = li.clone(true);
-    var refVacuna = li.clone(true);
+    var refPlacebo = li.clone(true).classed("refe",true);
+    var refVacuna = li.clone(true).classed("refe",true);;
 
     refPlacebo.select("img").attr("src","/images/vacunas/minivacPlaceboLabel.svg");
-    refVacuna.style("margin-left","20px").select("img").attr("src","/images/vacunas/minivacLabel.svg");
+    refVacuna.select("img").attr("src","/images/vacunas/minivacLabel.svg");
     refPlacebo.append("span").html("Placebo");
     refVacuna.append("span").html("Vacuna");
     
