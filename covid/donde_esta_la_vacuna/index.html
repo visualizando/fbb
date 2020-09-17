@@ -485,17 +485,23 @@ li > img {
 
 }
 
-#rangos{
-    font-size: 10px;
-    margin: 0 1%;
-    text-align: center;
-    padding: 0px;
+.table-container{
+    align-items: center;
     position: absolute;
     bottom: 38px;
-    opacity: 0;
-    width: 98%;
-
+    width: 100%;
 }
+
+#rangos{
+    font-size: 10px;
+    text-align: center;
+    padding: 0px;
+    opacity: 0;
+    max-width: 440px;
+    margin: auto;
+}
+
+
 
 #rangos tr{
     background:transparent;
@@ -508,9 +514,11 @@ li > img {
     overflow: hidden;
     text-overflow: ellipsis;
     padding: 2px 1px;
+    
 }
 #rangos td {
     border-left: none;
+    max-width: 45px;
 }
 
 
@@ -521,7 +529,7 @@ li > img {
 #rangos th {
     border-right: 1px solid #ddd;
     font-weight: 700;
-    width: 100px;
+    min-width: 100px;
 }
 
 
@@ -548,6 +556,15 @@ li > img {
             width: 50%;
             display: inline-grid;
         }
+
+
+        #rangos td {
+                min-width: 95px;
+            }
+
+            #rangos th {
+                min-width: 100px;
+            }
 
 
 
@@ -641,20 +658,22 @@ li > img {
               <img src="/images/vacunas/vacuna.svg">
             </div>
              
-            <table id="rangos">
-                <tr>
-                    <th>Edades testeadas:</th>
-                    <td class="rango02">Niños/as</td>
-                    <td class="rango01">Jovenes</td>
-                    <td class="rango02">Adultos Mayores</td>
-                </tr>
-                <tr>
-                    <th>Personas testeadas:</th>
-                    <td class="rango10">Decenas</td>
-                    <td class="rango11">Centenas</td>
-                    <td class="rango12">Miles</td>
-                </tr>
-            </table>
+            <div class="table-container">
+                <table id="rangos">
+                    <tr>
+                        <th>Edades testeadas:</th>
+                        <td class="rango02">Niños/as</td>
+                        <td class="rango01">Jovenes</td>
+                        <td class="rango02">Adultos Mayores</td>
+                    </tr>
+                    <tr>
+                        <th>Personas testeadas:</th>
+                        <td class="rango10">Decenas</td>
+                        <td class="rango11">Centenas</td>
+                        <td class="rango12">Miles</td>
+                    </tr>
+                </table>
+            </div>
 
         </figure>
 
