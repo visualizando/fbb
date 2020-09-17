@@ -104,7 +104,7 @@ NexT.boot.refresh = function() {
   NexT.utils.registerActiveMenuItem();
   NexT.utils.registerLangSelect();
   NexT.utils.registerSidebarTOC();
-  NexT.utils.wrapTableWithBox();
+  //NexT.utils.wrapTableWithBox();
   NexT.utils.registerVideoIframe();
 };
 

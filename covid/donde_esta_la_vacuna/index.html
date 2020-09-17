@@ -420,7 +420,12 @@ var coloreaCategorias = d3.scaleOrdinal()
     }
     
 
-    
+    div#stage0.stage{
+        margin-top: 19%;
+        }
+    div#stage4.stage{
+        margin-top: 15%;
+        }
 
 
          div#stage0.stage img , div#stage1.stage img,  div#stage4.stage img  {
@@ -429,12 +434,12 @@ var coloreaCategorias = d3.scaleOrdinal()
         }
 
         div#stage1.stage img{
-            width: 48%;
+            width: 65%;
             display: inline-grid;
         }
 
         div#stage4.stage img  {
-            width: 70%;
+            width: 80%;
             display: inline-grid;
         }
 
@@ -452,15 +457,21 @@ var coloreaCategorias = d3.scaleOrdinal()
             list-style: none;
             padding: 0;
             margin: 0;
+            justify-content: space-evenly;
             }
 
 li {
-    height: 12vh;
+    
     flex-grow: 0;
 }
 
-#stage3  li {
+#stage3 li {
     height: 7vh;
+    flex-grow: 0;
+}
+
+#stage2 li {
+    width: 29%;
     flex-grow: 0;
 }
 
@@ -468,10 +479,51 @@ li {
 
 li > img {
   max-height: 100%;
-  min-width: 100%;
+  
   object-fit: cover;
   vertical-align: bottom;
+
 }
+
+#rangos{
+    font-size: 10px;
+    margin: 0 1%;
+    text-align: center;
+    padding: 0px;
+    position: absolute;
+    bottom: 38px;
+    opacity: 0;
+    width: 98%;
+
+}
+
+#rangos tr{
+    background:transparent;
+}
+
+
+#rangos th, #rangos td {
+    border: 1px solid #ddd;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 2px 1px;
+}
+#rangos td {
+    border-left: none;
+}
+
+
+#rangos td:not(:last-child) {
+    border-right: 1px dashed #ddd;
+}
+
+#rangos th {
+    border-right: 1px solid #ddd;
+    font-weight: 700;
+    width: 100px;
+}
+
 
 
     @media only screen and (min-width: 768px) {
@@ -479,9 +531,16 @@ li > img {
         #stage3  li {
             height: 7vh;
         }
-
+        div#stage0.stage, div#stage1.stage{
+        margin-top: 9%;
+        }
         div#stage0.stage img{
             width: 29%;
+            display: inline-grid;
+        }
+
+        div#stage1.stage img{
+            width: 48%;
             display: inline-grid;
         }
 
@@ -561,15 +620,20 @@ li > img {
                 <img src="/images/vacunas/raton.svg">
             </div>
             <div id="stage1" class="stage">
-              <img src="/images/vacunas/personita.svg">
-              <img src="/images/vacunas/personitaB.svg">
+            <ul>
+              <li style="color:#459892"><img src="/images/vacunas/personita.svg">
+               <br>Dosis A</li>
+              <li style="color:#4f79a7"><img src="/images/vacunas/personitaB.svg">
+               <br>Dosis B</li>
+            </ul>
             </div>
             <div id="stage2" class="stage"><ul>
               <li><img src="/images/vacunas/minivac.svg"></li>
             </ul>
 
             </div>
-            <div id="stage3" class="stage"><ul>
+            <div id="stage3" class="stage">
+                <ul>
                <li><img src="/images/vacunas/minivac.svg"></li>
              </ul>
             </div>
@@ -577,6 +641,20 @@ li > img {
               <img src="/images/vacunas/vacuna.svg">
             </div>
              
+            <table id="rangos">
+                <tr>
+                    <th>Edades testeadas:</th>
+                    <td class="rango02">Niños/as</td>
+                    <td class="rango01">Jovenes</td>
+                    <td class="rango02">Adultos Mayores</td>
+                </tr>
+                <tr>
+                    <th>Personas testeadas:</th>
+                    <td class="rango10">Decenas</td>
+                    <td class="rango11">Centenas</td>
+                    <td class="rango12">Miles</td>
+                </tr>
+            </table>
 
         </figure>
 
@@ -787,21 +865,6 @@ var vacunas = files[0];
 //*******
 
 
-//****** dibuja el tracker
-/* 
-var tabla = d3.select("#grafico1").style("padding","10px").append("table").attr("id","tracker").append("tr")
-;
-
-    var celda = tabla.selectAll("td")
-        .data(vacunas)
-        .join("td")
-            //.append("td")
-            .attr("id",(d,i)=>"step"+i)
-            .style("height",(100/7)+"%");
-    celda.append("div")
-            .html(d=>`${d.titulo}: ${d.cantidad}`);
- */
-//*****
 
 var ejeY, ejeX, tituloY, minDate, maxDate, line, posTracker, posTrackerPrev;
 
@@ -832,16 +895,11 @@ var
 
     var verticalAligner = d3.scaleOrdinal()
             .domain(["bottom","middle","top"])
-            //.range([height-trackerHeight-10,height/2-trackerHeight/2,isMobile?0:10]);
-            .range([10,10,10]);
-
-/* svg.append("g")
-    	.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-	;
- */
+            .range([height-trackerHeight-20,height/2-trackerHeight/2,20]);
+            
 
         
-    //d3.select("#tracker").style("margin-top",verticalAligner("middle")+"px")  
+    d3.select("#tracker").style("margin-top",verticalAligner("middle")+"px")  
 
     d3.select("#tracker").selectAll(".gfase").style("fill",function(d){
         return colorFase(this.id)[0]
@@ -852,9 +910,14 @@ var
         li.clone(true)
     }
 
-    li = d3.select("#stage3").select("li")
-    li.clone(true).select("img").attr("src","/images/vacunas/minivacPlaceboLabel.svg")
-    li.clone(true).style("margin-left","20px").select("img").attr("src","/images/vacunas/minivacLabel.svg")
+    li = d3.select("#stage3").select("li");
+    var refPlacebo = li.clone(true);
+    var refVacuna = li.clone(true);
+
+    refPlacebo.select("img").attr("src","/images/vacunas/minivacPlaceboLabel.svg");
+    refVacuna.style("margin-left","20px").select("img").attr("src","/images/vacunas/minivacLabel.svg");
+    refPlacebo.append("span").html("Placebo");
+    refVacuna.append("span").html("Vacuna");
     
     for (let i = 0; i < 50; i++) {
         li.clone(true).select("img").attr("src",Math.random()>0.4?"/images/vacunas/minivac.svg":"/images/vacunas/minivacPlacebo.svg")
@@ -865,67 +928,76 @@ var
     init(stepSel1,1)
 
 function scrollyTelling(containerNumber,step,entra){
-    var porcentaje = 90, etapa,cambia,stage=-1;
+    var porcentaje = 90, etapa,cambia,stage=-1,rangos;
         switch (step) {
             case 0: // tracker
                     etapa = -1;
                     cambia = 1;
                     posTracker = "middle";
+                    rangos = 0;
             break;
             case 1: // vacuna
                     etapa = 4;
                     cambia = 1;
                     posTracker = "top";
                     stage = "stage4";
+                    rangos = 0;
             break;
 
             case 2: // tracker
                     etapa = -1;
                     cambia = 1;
-                    posTracker = "middle";
+                    posTracker = "top";
+                    rangos = 0;
             break;
 
             case 3: // tracker
                     etapa = -1;
                     cambia = 1;
-                    posTracker = "middle";
+                    posTracker = "top";
+                    rangos = 0;
                     
             break;
 
             case 4: // fase pre clinica
                     etapa = 0;
                     cambia = 1;
-                    posTracker = "bottom";
+                    posTracker = "top";
                     stage = "stage0";
+                    rangos = 0;
             break;
 
             case 5: // Fases Clínicas: 1, 2 y 3
                     etapa = -1;
                     cambia = 1;
-                    posTracker = "middle";
+                    posTracker = "top";
+                    rangos = 0;
             break;
 
             case 6: // fase 1
                     etapa = 1;
                     cambia = 1;
-                    posTracker = "bottom";
+                    posTracker = "top";
                     stage = "stage1";
+                    rangos = [1,0];
             break;
 
             case 7: //fase 2
             case 8:
                     etapa = 2;
                     cambia = 1;
-                    posTracker = "bottom";
+                    posTracker = "top";
                     stage = "stage2";
+                    rangos = [2,1];
             break;
 
             case 9: // fase 3
             case 10:
                     etapa = 3;
                     cambia = 1;
-                    posTracker = "bottom";
+                    posTracker = "top";
                     stage = "stage3";
+                    rangos = [2,2];
             break;
 
             case 11: // Aprobacion
@@ -934,6 +1006,7 @@ function scrollyTelling(containerNumber,step,entra){
                     etapa = -1;
                     cambia = 1;
                     posTracker = "middle";
+                    rangos = 0;
             break;
 
             case 13:
@@ -941,6 +1014,7 @@ function scrollyTelling(containerNumber,step,entra){
                     cambia = 1;
                     posTracker = "top";
                     stage = "stage4";
+                    rangos = 0;
             break;
             
             
@@ -976,17 +1050,49 @@ function scrollyTelling(containerNumber,step,entra){
                                 });                
 
             if(posChange){
-                    
-                console.log(verticalAligner(posTracker));
                     d3.select("#tracker")
                                 .transition().duration(300)
                                 .style("margin-top",verticalAligner(posTracker)+"px")  
                     }          
         };
 
+        if (rangos){
+            d3.select("#rangos").transition().duration(600).style("opacity",1)
+                                .selectAll("td")
+                                .style("background-color", function(d,i){
+                                    /* console.log(d3.select(this).attr("class").slice(-2),[0,rangos[0]].join(""),[1,rangos[0]].join(""))
+                                    var quien = d3.select(this).attr("class").slice(-2);
+                                    var rangoCompara = [[0,rangos[0]].join(""),[1,rangos[0]].join("")]
+                                    if(quien == rangoCompara[0] || quien == rangoCompara[1]) return "silver";
+                                    return "transparent"; */
+                                    switch (etapa) {
+                                        case 1:
+                                            if(i==1 || i == 3 )
+                                            return "silver";
+                                            break;
+                                        case 2:
+                                            if(i<3 || i == 4 )
+                                            return "silver";
+                                            break;
+                                        case 3:
+                                            if(i<3 || i == 5 )
+                                            return "silver";
+                                            break;
+                                        default:
+                                            return "transparent";
+                                            break;
+                                    }
+                                    
+                                })
+
+        }else{
+            d3.select("#rangos").transition().duration(600).style("opacity",0)
+            .selectAll("td").style("background-color","transparent");
+        }
+
+        // esto prende y apaga las stages
         d3.selectAll(".stage").transition().duration(400).style("opacity", function(d){
                                     var quien = this.id;
-                                    console.log(quien);
                                     if(stage==quien) return 1; // esto es el tracker sin nada
                                    return 0;
                                 });  
