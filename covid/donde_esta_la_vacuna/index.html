@@ -665,7 +665,7 @@ li.refe span {
                     <path d="M.61,13.29V5.16A4.55,4.55,0,0,1,5.16.61H143.62a4.55,4.55,0,0,1,4.23,2.88l5.66,14.35H5.16A4.55,4.55,0,0,1,.61,13.29Z" fill="#e05759" stroke="#e05759" stroke-miterlimit="10" stroke-width="1.23"/>
                     <line x1="166.1" y1="49.9" x2="150.06" y2="9.23" fill="none" stroke="#e05759" stroke-miterlimit="10" stroke-width="1.23"/>
                     <circle cx="166.1" cy="49.9" r="4.04" fill="#e05759" stroke="#e05759" stroke-miterlimit="10"/>
-                    <text transform="translate(6.06 13.37)" font-size="9" fill="#231f20" font-family="Oswald-Bold, Oswald" font-weight="700"><tspan letter-spacing="-0.03em">V</tspan><tspan x="4.46" y="0" letter-spacing="-0.01em">A</tspan><tspan x="9.3" y="0">CUN</tspan><tspan x="24.7" y="0" letter-spacing="-0.01em">A</tspan><tspan x="29.59" y="0"> </tspan><tspan x="31.9" y="0" letter-spacing="-0.01em">APR</tspan><tspan x="47.18" y="0">O</tspan><tspan x="52.45" y="0" letter-spacing="0em">B</tspan><tspan x="57.73" y="0" letter-spacing="-0.01em">A</tspan><tspan x="62.61" y="0" letter-spacing="-0.01em">D</tspan><tspan x="67.78" y="0" letter-spacing="-0.01em">A</tspan></text>
+                    <text transform="translate(6.06 13.37)" font-size="9" fill="#231f20" font-family="Oswald-Bold, Oswald" font-weight="700">VACUNAS APROBADAS: <tspan id="numeroAprobadas">0</tspan></text>
                   </g>
               </svg>
             
@@ -965,7 +965,9 @@ var
             
 
     d3.select("#etapa1y2").html(vacunas[2].cantidad)
-        
+    d3.select("#vacunasAprobadas").html(vacunas[5].cantidad)
+    
+    
     d3.select("#tracker").style("margin-top",verticalAligner("middle")+"px")  
 
     d3.select("#tracker").selectAll(".gfase").style("fill",function(d){
