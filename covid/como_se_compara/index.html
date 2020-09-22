@@ -405,6 +405,12 @@ var coloreaCategorias = d3.scaleOrdinal()
     }
 
 
+    svg{
+      width: 100%;
+      height: 93%;
+      margin: auto;
+      margin-top: 2vh;
+    }
     svg rect.fondo{
         fill:#ffffff90;
     }
@@ -430,18 +436,28 @@ var coloreaCategorias = d3.scaleOrdinal()
     }
 
 
-    svg line.lineaComun{
-        marker-start: url(#circulo);
-        marker-end: url(#circulo)
+    #letalidadDesktop line.lineaComun{
+        marker-start: url(#circulo0);
+        marker-end: url(#circulo0)
     } 
     
-    svg line.lineaCovid{
-        marker-start: url(#circuloCovid);
-        marker-end: url(#circuloCovid)
+    #letalidadDesktop line.lineaCovid{
+        marker-start: url(#circuloCovid0);
+        marker-end: url(#circuloCovid0)
     } 
     
 
  
+    #letalidadMobile line.lineaComun{
+        marker-start: url(#circulo1);
+        marker-end: url(#circulo1)
+    } 
+    
+    #letalidadMobile line.lineaCovid{
+        marker-start: url(#circuloCovid1);
+        marker-end: url(#circuloCovid1)
+    } 
+    
 
     svg line.lineaCovid{
         stroke:#F26522 ;
@@ -486,7 +502,11 @@ var coloreaCategorias = d3.scaleOrdinal()
     }
 
     @media only screen and (min-width: 768px) {
-  
+      
+          svg{
+
+          margin-top: 1vh;
+        }
             
         #letalidadMobile{
             display:none;
@@ -511,39 +531,39 @@ var coloreaCategorias = d3.scaleOrdinal()
 
             <svg id="letalidadDesktop" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 770 565">
                 <rect class="fondo"  x="51.34" y="15.8" width="703.92" height="485.97"/>
-                <g id="gripe">
+                <g id="gripe" class="item">
                   <line class="lineaComun" x1="151.65" y1="501.27" x2="297.11" y2="501.27"/>
                   <text class="textoComun" transform="translate(303.9 505.62)">Gripe común</text>
                 </g>
-                <g id="influenza">
+                <g id="influenza" class="item">
                   <line class="lineaComun" x1="211.64" y1="479.21" x2="382.39" y2="479.21"/>
                   <text class="textoComun" transform="translate(390.08 483.56)">Influenza de 1918</text>
                 </g>
-                <g id="covid">
+                <g id="covid" class="item">
                   <line class="lineaCovid" x1="284.04" y1="467.08" x2="346.01" y2="467.08"/>
                   <text class="textoCovid" transform="translate(290.99 462.08)">COVID-19</text>
                 </g>
-                <g id="sars">
+                <g id="sars" class="item">
                   <line class="lineaComun" x1="286.63" y1="413.04" x2="529.48" y2="413.04"/>
                   <text class="textoComun" transform="translate(392.55 408.04)">SARS</text>
                 </g>
-                <g id="tuberculosis">
+                <g id="tuberculosis" class="item">
                   <line class="lineaComun" x1="74.13" y1="362.31" x2="567.38" y2="362.31"/>
                   <text class="textoComun" transform="translate(259.93 357.31)">Tuberculosis</text>
                 </g>
-                <g id="gripea">
+                <g id="gripea" class="item">
                   <line class="lineaComun" x1="49.35" y1="186.95" x2="97.42" y2="186.95"/>
                   <text class="textoComun" transform="translate(51.59 165.52)">Gripe A<tspan x="-0.62" y="14.4">(H7N9)</tspan></text>
                 </g>
-                <g id="mers">
+                <g id="mers" class="item">
                   <line class="lineaComun" x1="170.86" y1="183.64" x2="741.3" y2="183.64"/>
                   <text class="textoComun" transform="translate(438.44 178.64)">MERS</text>
                 </g>
-                <g id="ebola">
+                <g id="ebola" class="item">
                   <line class="lineaComun" x1="223.72" y1="40.27" x2="623.4" y2="40.27"/>
                   <text class="textoComun" transform="translate(407 35.27)">Ébola</text>
                 </g>
-                <g id="ejex" class="eje">
+                <g id="ejex" class="eje item">
                   <text class="titulo" transform="translate(296.49 558.45)">Número de reproducción básico</text>
                   <path class="dominio" d="M51.34,523.77H743.28"/>
                   <g>
@@ -571,9 +591,9 @@ var coloreaCategorias = d3.scaleOrdinal()
                     <text class="textTicks" transform="translate(645.01 538.37)">5</text>
                   </g>
                 </g>
-                <g id="ejey" class="eje">
+                <g id="ejey" class="eje item">
                   <text class="titulo" transform="translate(10.41 27.8)"><tspan xml:space="preserve">Tasa de  Letalidad</tspan></text>
-                  <g>
+                  <g  id="ebolaTick">
                     <line class="ticks" x1="32.33" y1="40.77" x2="26.33" y2="40.77"/>
                     <text class="textoTicks" transform="translate(10.04 42.97)">50</text>
                   </g>
@@ -609,39 +629,39 @@ var coloreaCategorias = d3.scaleOrdinal()
                 
                 
                 <rect class="fondo" class="cls-1" x="52.38" y="15.8" width="217.65" height="485.97"/>
-                <g id="gripe">
+                <g id="gripe" class="item">
                   <line class="lineaComun" x1="81.8" y1="501.27" x2="124.46" y2="501.27"/>
                   <text class="textoComun" transform="translate(132.97 505.62)">Gripe común</text>
                 </g>
-                <g id="influenza">
+                <g id="influenza" class="item">
                   <line class="lineaComun" x1="99.4" y1="479.21" x2="149.47" y2="479.21"/>
                   <text class="textoComun" transform="translate(161.62 483.56)">Influenza de 1918</text>
                 </g>
-                <g id="covid">
+                <g id="covid" class="item">
                   <line class="lineaCovid" x1="120.63" y1="467.08" x2="138.8" y2="467.08"/>
                   <text class="textoCovid" transform="translate(101.49 462.08)">COVID-19</text>
                 </g>
-                <g id="sars">
+                <g id="sars" class="item">
                   <line class="lineaComun" x1="121.39" y1="413.04" x2="192.61" y2="413.04"/>
                   <text class="textoComun" transform="translate(141.5 408.04)">SARS</text>
                 </g>
-                <g id="tuberculosis">
+                <g id="tuberculosis" class="item">
                   <line class="lineaComun" x1="59.07" y1="362.31" x2="203.73" y2="362.31"/>
                   <text class="textoComun" transform="translate(86.58 357.31)">Tuberculosis</text>
                 </g>
-                <g>
+                <g id="gripea" class="item">
                   <line class="lineaComun" x1="51.8" y1="186.95" x2="65.9" y2="186.95"/>
                   <text class="textoComun" transform="translate(37.56 165.52)">Gripe A<tspan x="-0.62" y="14.4">(H7N9)</tspan></text>
                 </g>
-                <g id="mers">
+                <g id="mers" class="item">
                   <line class="lineaComun" x1="87.44" y1="183.64" x2="254.73" y2="183.64"/>
                   <text class="textoComun" transform="translate(153.45 178.64)">MERS</text>
                 </g>
-                <g id="ebola">
+                <g id="ebola" class="item">
                   <line class="lineaComun" x1="102.94" y1="40.27" x2="220.16" y2="40.27"/>
                   <text class="textoComun" transform="translate(144.99 35.27)">Ébola</text>
                 </g>
-                <g id="ejex" class="eje">
+                <g id="ejex" class="eje item">
                   <text class="titulo" transform="translate(63.57 558.45)">Número de reproducción básico</text>
                   <g>
                     <path class="dominio" d="M52.38,523.77H255.31"/>
@@ -671,9 +691,9 @@ var coloreaCategorias = d3.scaleOrdinal()
                     </g>
                   </g>
                 </g>
-                <g id="ejey" class="eje">
+                <g id="ejey" class="eje item">
                   <text class="titulo" transform="translate(6.92 15.8)">Tasa de<tspan x="0" y="13.2">Letalidad</tspan></text>
-                  <g>
+                  <g id="ebolaTick">
                     <line class="ticks" x1="29.15" y1="40.77" x2="23.15" y2="40.77"/>
                     <text class="textTicks" transform="translate(6.86 42.97)">50</text>
                   </g>
@@ -797,7 +817,7 @@ console.log(files[0]);
 
         enterView({
             selector: what.nodes(),
-            offset: 0.5,
+            offset: 1,
             enter: el => {
                 const index = +d3.select(el).attr('data-index');
                 updateChart(index,what,containerNumber,1);
@@ -838,6 +858,7 @@ var margin = isMobile ? {top: 55, right: 20, bottom: 35, left: 20} : {top: 70, r
 
     d3.selectAll(".contenedorGrafico").append("div").attr("class","epigrafe")
            // .html("www.decodificar.org - "+epigrafeData.fecha+" - Fuente: "+ epigrafeData.fuente);
+           .html("www.decodificar.org - - Fuente: ");
 
 
 
@@ -850,7 +871,7 @@ var margin = isMobile ? {top: 55, right: 20, bottom: 35, left: 20} : {top: 70, r
     width = width - margin.left - margin.right;
 
     //svg.attr("viewBox", [0, 0, width, height]);
-    var svg = d3.select("#grafico1").select("#letalidadMobile");
+    var svg = d3.select("#grafico1").selectAll("svg");
 
 
     var ancho = 3, radius = 1;
@@ -859,7 +880,7 @@ var margin = isMobile ? {top: 55, right: 20, bottom: 35, left: 20} : {top: 70, r
     .append('defs');
 
     defs.append('marker')
-    .attr('id', 'circulo')
+    .attr('id', (d,i)=>'circulo'+i)
     .attr('refX', ancho-radius)
     .attr('stroke',"none")
     .attr('refY', ancho-radius)
@@ -872,7 +893,7 @@ var margin = isMobile ? {top: 55, right: 20, bottom: 35, left: 20} : {top: 70, r
     .attr("class","circulitos");
 
     defs.append('marker')
-    .attr('id', 'circuloCovid')
+    .attr('id', (d,i)=>'circuloCovid'+i)
     .attr('refX', ancho-radius)
     .attr('stroke',"none")
     .attr('refY', ancho-radius)
@@ -886,13 +907,73 @@ var margin = isMobile ? {top: 55, right: 20, bottom: 35, left: 20} : {top: 70, r
 
 
 
-
 var parseTime = d3.timeParse("%Y-%m-%d");
 
        
     init(stepSel1,1)
 
 function scrollyTelling(containerNumber,step,entra){
+  switch (step) {
+    case 0:
+      d3.selectAll("svg").selectAll(".item").transition().duration(600).style("opacity",1)
+      break;
+
+      case 1:
+      d3.selectAll("svg").selectAll(".item").transition().duration(600)
+          .style("opacity",function(d){
+              var quien = this.id;
+              if(quien=="ejey") return 1;
+              return 0;
+          })
+      break;
+
+      case 2: //muestra ebola y remarca el 50
+      d3.selectAll("svg").selectAll(".item").transition().duration(600)
+          .style("opacity",function(d){
+              var quien = this.id;
+              if(quien=="ejey") return 1;
+              if(quien=="ebola") return 1;
+              return 0;
+          })
+      break;
+  
+      case 3:
+      d3.selectAll("svg").selectAll(".item").transition().duration(600)
+          .style("opacity",function(d){
+              var quien = this.id;
+              if(quien=="ejex") return 1;
+              return 0;
+          })
+      break;
+
+      case 4:
+      d3.selectAll("svg").selectAll(".item").transition().duration(600)
+          .style("opacity",function(d){
+              var quien = this.id;
+              if(quien=="ejex") return 1;
+              if(quien=="ejey") return 1;
+              if(quien=="gripea") return 1;
+              if(quien=="mers") return 1;
+              return 0;
+          })
+      break;
+
+      case 5:
+      case 6:
+      d3.selectAll("svg").selectAll(".item").transition().duration(600)
+          .style("opacity",function(d){
+              var quien = this.id;
+              if(quien=="covid") return 0;
+              return 1;
+          })
+      break;
+
+      case 7:
+      d3.selectAll("svg").selectAll(".item").transition().duration(600)
+          .style("opacity",1)
+      break;
+
+  }
 
 }
 
