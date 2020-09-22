@@ -31,8 +31,8 @@
 <meta property="og:description" content="Analizar esta nueva enfermedad en relación a otras que ya conocemos nos permite entender mejor cuál es el riesgo al que nos enfrentamos. ¿Es COVID-19 más peligrosa que otras enfermedades? ¿Se propaga">
 <meta property="og:locale" content="es_ES">
 <meta property="og:image" content="https://decodificar.org/images/11_comparacion_redes.jpg">
-<meta property="article:published_time" content="2020-09-09T03:00:00.000Z">
-<meta property="article:modified_time" content="2020-09-09T03:00:00.000Z">
+<meta property="article:published_time" content="2020-09-21T20:31:33.003Z">
+<meta property="article:modified_time" content="2020-09-21T20:31:33.003Z">
 <meta property="article:author" content="Fundacion Bunge y Born">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://decodificar.org/images/11_comparacion_redes.jpg">
@@ -282,7 +282,7 @@ var coloreaCategorias = d3.scaleOrdinal()
                 <i class="far fa-calendar-check"></i>
               </span>
               <!-- <span class="post-meta-item-text">Editado el</span> -->
-              <time title="Modificado por: 9 de septiembre de 2020 00" itemprop="dateModified" datetime="2020-09-09T00:00:00-03:00">Publicado el 9 de septiembre de 2020</time>
+              <time title="Modificado por: 21 de septiembre de 2020 17" itemprop="dateModified" datetime="2020-09-21T17:31:33-03:00">Publicado el 21 de septiembre de 2020</time>
             </span>
 
           
@@ -398,7 +398,7 @@ var coloreaCategorias = d3.scaleOrdinal()
 
     }
 
-    .label.rebrote{
+    .label.amarillo{
         background: #f28e2c;
         
 
@@ -428,7 +428,7 @@ var coloreaCategorias = d3.scaleOrdinal()
 
     svg line{
         stroke:#888 ;
-        stroke-width: 2px;
+        stroke-width: 3px;
     }
 
     svg .circulitos{
@@ -458,11 +458,30 @@ var coloreaCategorias = d3.scaleOrdinal()
         marker-end: url(#circuloCovid1)
     } 
     
+    #letalidadDesktop #mers.resaltado line.lineaComun{
+        marker-start: url(#circuloCovid0);
+        marker-end: url(#circuloCovid0)
+    } 
+    #letalidadMobile #mers.resaltado line.lineaComun{
+        marker-start: url(#circuloCovid1);
+        marker-end: url(#circuloCovid1)
+    } 
 
     svg line.lineaCovid{
         stroke:#F26522 ;
-        stroke-width: 3px;
+        stroke-width: 4px;
     }
+
+    svg #mers.resaltado line.lineaComun{
+        stroke:#F26522 ;
+    }
+
+
+    svg #mers.resaltado text.textoComun{
+        fill:#F26522 ;
+        
+    }
+
 
     svg .circulitosCovid{
         fill:#F26522 ;
@@ -478,6 +497,17 @@ var coloreaCategorias = d3.scaleOrdinal()
         fill:#888;
         font-size: 10px;
         font-variant-numeric:lining-nums;
+        transition: fill 0.5s, stroke 0.5s, stroke-width 0.5s;
+    }
+
+    svg g.eje g.resaltado text{
+        stroke:#f28e2c;
+        stroke-width: 10px;
+        stroke-linejoin: round;
+        font-weight: 900;
+        fill: black;
+        paint-order: stroke;
+        transition: fill 0.5s, stroke 0.5s, stroke-width 0.5s;
     }
 
     svg g.eje text.titulo{
@@ -504,7 +534,6 @@ var coloreaCategorias = d3.scaleOrdinal()
     @media only screen and (min-width: 768px) {
       
           svg{
-
           margin-top: 1vh;
         }
             
@@ -515,6 +544,18 @@ var coloreaCategorias = d3.scaleOrdinal()
             display:unset;
         }
         
+        svg text.textoComun, svg text.textoCovid {
+            font-size: 14px;
+        }
+
+      svg g.eje text.titulo {
+          font-size: 13px;
+      }
+
+      svg g.eje text {
+          font-size: 12px;
+      }
+
         text.titulo {
             font-size: 14px;
             fill: #444;
@@ -528,8 +569,28 @@ var coloreaCategorias = d3.scaleOrdinal()
     <div class='scrolly'>
         <!-- aca va el grafico que va a quedar fijo  width="278.11" height="564.61" -->
         <figure id="grafico1" class='sticky contenedorGrafico' >
-
+          
             <svg id="letalidadDesktop" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 770 565">
+              <defs>
+                  
+                <filter id="glow0">
+                  <fegaussianblur class="blur" result="coloredBlur" stddeviation="4"></fegaussianblur>
+				<femerge>
+					<femergenode in="coloredBlur"></femergenode>
+          <femergenode in="coloredBlur"></femergenode>
+          <femergenode in="coloredBlur"></femergenode>
+					<femergenode in="SourceGraphic"></femergenode>
+				</femerge>
+                </filter>
+
+                <marker id="circulo0" refX="2" stroke="none" refY="2" markerWidth="3" markerHeight="3">
+                  <circle r="1" cx="2" cy="2" class="circulitos"></circle>
+                </marker>
+                <marker id="circuloCovid0" refX="2" stroke="none" refY="2" markerWidth="3" markerHeight="3">
+                  <circle r="1" cx="2" cy="2" class="circulitosCovid"></circle>
+                </marker>
+                
+              </defs>
                 <rect class="fondo"  x="51.34" y="15.8" width="703.92" height="485.97"/>
                 <g id="gripe" class="item">
                   <line class="lineaComun" x1="151.65" y1="501.27" x2="297.11" y2="501.27"/>
@@ -593,11 +654,11 @@ var coloreaCategorias = d3.scaleOrdinal()
                 </g>
                 <g id="ejey" class="eje item">
                   <text class="titulo" transform="translate(10.41 27.8)"><tspan xml:space="preserve">Tasa de  Letalidad</tspan></text>
-                  <g  id="ebolaTick">
+                  <g  class="ebolaTick">
                     <line class="ticks" x1="32.33" y1="40.77" x2="26.33" y2="40.77"/>
                     <text class="textoTicks" transform="translate(10.04 42.97)">50</text>
                   </g>
-                  <g>
+                  <g class="mersTick">
                     <line class="ticks" x1="32.33" y1="183.64" x2="26.33" y2="183.64"/>
                     <text class="textoTicks" transform="translate(10.4 185.84)">34</text>
                   </g>
@@ -609,10 +670,7 @@ var coloreaCategorias = d3.scaleOrdinal()
                     <line class="ticks" x1="32.33" y1="410.45" x2="26.33" y2="410.45"/>
                     <text class="textoTicks" transform="translate(11.73 412.65)">10</text>
                   </g>
-                  <g>
-                    <line class="ticks" x1="32.33" y1="456.66" x2="26.33" y2="456.66"/>
-                    <text class="textoTicks" transform="translate(17.11 458.86)">5</text>
-                  </g>
+
                   <g>
                     <line class="ticks" x1="32.33" y1="467.08" x2="26.33" y2="467.08"/>
                     <text class="textoTicks" transform="translate(7.61 471.28)">3.8</text>
@@ -627,99 +685,111 @@ var coloreaCategorias = d3.scaleOrdinal()
 
             <svg id="letalidadMobile" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 564" >
                 
-                
-                <rect class="fondo" class="cls-1" x="52.38" y="15.8" width="217.65" height="485.97"/>
+                <defs>
+                      <filter id="glow1">
+                        <fegaussianblur class="blur" result="coloredBlur" stddeviation="4"></fegaussianblur>
+                        <femerge>
+                          <femergenode in="coloredBlur"></femergenode>
+                          <femergenode in="coloredBlur"></femergenode>
+                          <femergenode in="coloredBlur"></femergenode>
+                          <femergenode in="SourceGraphic"></femergenode>
+                        </femerge>
+                   </filter>
+                   <marker id="circulo1" refX="2" stroke="none" refY="2" markerWidth="3" markerHeight="3">
+                    <circle r="1" cx="2" cy="2" class="circulitos"></circle>
+                  </marker>
+                  <marker id="circuloCovid1" refX="2" stroke="none" refY="2" markerWidth="3" markerHeight="3">
+                    <circle r="1" cx="2" cy="2" class="circulitosCovid"></circle>
+                  </marker>
+                </defs>
+                <rect class="fondo" x="52.38" y="71.12" width="217.65" height="384.8"/>
                 <g id="gripe" class="item">
-                  <line class="lineaComun" x1="81.8" y1="501.27" x2="124.46" y2="501.27"/>
-                  <text class="textoComun" transform="translate(132.97 505.62)">Gripe común</text>
+                  <line class="lineaComun" x1="81.8" y1="455.52" x2="124.46" y2="455.52"/>
+                  <text class="textoComun" transform="translate(140.91 458.96)">Gripe común</text>
                 </g>
                 <g id="influenza" class="item">
-                  <line class="lineaComun" x1="99.4" y1="479.21" x2="149.47" y2="479.21"/>
-                  <text class="textoComun" transform="translate(161.62 483.56)">Influenza de 1918</text>
+                  <line class="lineaComun" x1="99.4" y1="438.06" x2="149.47" y2="438.06"/>
+                  <text class="textoComun" transform="translate(172.32 441.5)">Influenza de 1918</text>
                 </g>
                 <g id="covid" class="item">
-                  <line class="lineaCovid" x1="120.63" y1="467.08" x2="138.8" y2="467.08"/>
-                  <text class="textoCovid" transform="translate(101.49 462.08)">COVID-19</text>
+                  <line class="lineaCovid" x1="120.63" y1="428.45" x2="138.8" y2="428.45"/>
+                  <text class="textoCovid" transform="translate(107.73 424.49)">COVID-19</text>
                 </g>
                 <g id="sars" class="item">
-                  <line class="lineaComun" x1="121.39" y1="413.04" x2="192.61" y2="413.04"/>
-                  <text class="textoComun" transform="translate(141.5 408.04)">SARS</text>
+                  <line class="lineaComun" x1="121.39" y1="385.66" x2="192.61" y2="385.66"/>
+                  <text class="textoComun" transform="translate(144.72 381.7)">SARS</text>
                 </g>
                 <g id="tuberculosis" class="item">
-                  <line class="lineaComun" x1="59.07" y1="362.31" x2="203.73" y2="362.31"/>
-                  <text class="textoComun" transform="translate(86.58 357.31)">Tuberculosis</text>
+                  <line class="lineaComun" x1="59.07" y1="345.49" x2="203.73" y2="345.49"/>
+                  <text class="textoComun" transform="translate(94.53 341.53)">Tuberculosis</text>
                 </g>
                 <g id="gripea" class="item">
-                  <line class="lineaComun" x1="51.8" y1="186.95" x2="65.9" y2="186.95"/>
-                  <text class="textoComun" transform="translate(37.56 165.52)">Gripe A<tspan x="-0.62" y="14.4">(H7N9)</tspan></text>
+                  <line class="lineaComun" x1="51.8" y1="206.64" x2="65.9" y2="206.64"/>
+                  <text class="textoComun" transform="translate(42.1 189.67)">Gripe A<tspan x="-0.49" y="11.4">(H7N9)</tspan></text>
                 </g>
                 <g id="mers" class="item">
-                  <line class="lineaComun" x1="87.44" y1="183.64" x2="254.73" y2="183.64"/>
-                  <text class="textoComun" transform="translate(153.45 178.64)">MERS</text>
+                  <line class="lineaComun" x1="87.44" y1="204.02" x2="254.73" y2="204.02"/>
+                  <text class="textoComun" transform="translate(157.12 200.06)">MERS</text>
                 </g>
                 <g id="ebola" class="item">
-                  <line class="lineaComun" x1="102.94" y1="40.27" x2="220.16" y2="40.27"/>
-                  <text class="textoComun" transform="translate(144.99 35.27)">Ébola</text>
+                  <line class="lineaComun" x1="102.94" y1="90.5" x2="220.16" y2="90.5"/>
+                  <text class="textoComun" transform="translate(148.43 86.54)">Ébola</text>
                 </g>
                 <g id="ejex" class="eje item">
-                  <text class="titulo" transform="translate(63.57 558.45)">Número de reproducción básico</text>
+                  <text class="titulo"  transform="translate(63.57 512.6)">Número de reproducción básico</text>
                   <g>
-                    <path class="dominio" d="M52.38,523.77H255.31"/>
+                    <path class="dominio" d="M52.38,477.92H255.31"/>
                     <g>
-                      <line class="ticks" x1="85.65" y1="523.27" x2="85.65" y2="527.27"/>
-                      <text class="textTicks" transform="translate(83.23 538.37)">1</text>
+                      <line class="ticks" x1="85.65" y1="477.42" x2="85.65" y2="481.42"/>
+                      <text class="textTicks" transform="translate(83.23 492.52)">1</text>
                     </g>
                     <g>
-                      <line class="ticks" x1="52.38" y1="523.27" x2="52.38" y2="527.27"/>
-                      <text class="textTicks" transform="translate(48.85 538.37)">0</text>
+                      <line class="ticks" x1="52.38" y1="477.42" x2="52.38" y2="481.42"/>
+                      <text class="textTicks" transform="translate(48.85 492.52)">0</text>
                     </g>
                     <g>
-                      <line class="ticks" x1="121.2" y1="523.27" x2="121.2" y2="527.27"/>
-                      <text class="textTicks" transform="translate(117.91 538.37)">2</text>
+                      <line class="ticks" x1="121.2" y1="477.42" x2="121.2" y2="481.42"/>
+                      <text class="textTicks" transform="translate(117.91 492.52)">2</text>
                     </g>
                     <g>
-                      <line class="ticks" x1="156.75" y1="523.27" x2="156.75" y2="527.27"/>
-                      <text class="textTicks" transform="translate(153.67 538.37)">3</text>
+                      <line class="ticks" x1="156.75" y1="477.42" x2="156.75" y2="481.42"/>
+                      <text class="textTicks" transform="translate(153.67 492.52)">3</text>
                     </g>
                     <g>
-                      <line class="ticks" x1="192.3" y1="523.27" x2="192.3" y2="527.27"/>
-                      <text class="textTicks" transform="translate(188.9 538.37)">4</text>
+                      <line class="ticks" x1="192.3" y1="477.42" x2="192.3" y2="481.42"/>
+                      <text class="textTicks" transform="translate(188.9 492.52)">4</text>
                     </g>
                     <g>
-                      <line class="ticks" x1="227.85" y1="523.27" x2="227.85" y2="527.27"/>
-                      <text class="textTicks" transform="translate(224.19 538.37)">5</text>
+                      <line class="ticks" x1="227.85" y1="477.42" x2="227.85" y2="481.42"/>
+                      <text class="textTicks" transform="translate(224.19 492.52)">5</text>
                     </g>
                   </g>
                 </g>
                 <g id="ejey" class="eje item">
-                  <text class="titulo" transform="translate(6.92 15.8)">Tasa de<tspan x="0" y="13.2">Letalidad</tspan></text>
-                  <g id="ebolaTick">
-                    <line class="ticks" x1="29.15" y1="40.77" x2="23.15" y2="40.77"/>
-                    <text class="textTicks" transform="translate(6.86 42.97)">50</text>
+                  <text class="titulo" transform="translate(6.92 50.12)">Tasa de<tspan x="0" y="13.2">Letalidad</tspan></text>
+                  <g class="ebolaTick">
+                    <line class="ticks" x1="29.15" y1="90.89" x2="23.15" y2="90.89"/>
+                    <text class="textTicks" transform="translate(9.7 92.64)">50</text>
+                  </g>
+                  <g class="mersTick">
+                    <line class="ticks" x1="29.15" y1="204.02" x2="23.15" y2="204.02"/>
+                    <text class="textTicks" transform="translate(9.99 205.76)">34</text>
                   </g>
                   <g>
-                    <line class="ticks" x1="29.15" y1="183.64" x2="23.15" y2="183.64"/>
-                    <text class="textTicks" transform="translate(7.23 185.84)">34</text>
+                    <line class="ticks" x1="29.15" y1="347.02" x2="23.15" y2="347.02"/>
+                    <text class="textTicks" transform="translate(11.47 348.76)">15</text>
                   </g>
                   <g>
-                    <line class="ticks" x1="29.15" y1="364.24" x2="23.15" y2="364.24"/>
-                    <text class="textTicks" transform="translate(9.1 366.44)">15</text>
+                    <line class="ticks" x1="29.15" y1="383.61" x2="23.15" y2="383.61"/>
+                    <text class="textTicks" transform="translate(11.04 385.35)">10</text>
                   </g>
                   <g>
-                    <line class="ticks" x1="29.15" y1="410.45" x2="23.15" y2="410.45"/>
-                    <text class="textTicks" transform="translate(8.56 412.65)">10</text>
+                    <line class="ticks" x1="29.15" y1="428.45" x2="23.15" y2="428.45"/>
+                    <text class="textTicks" transform="translate(7.77 431.78)">3.8</text>
                   </g>
                   <g>
-                    <line class="ticks" x1="29.15" y1="456.66" x2="23.15" y2="456.66"/>
-                    <text class="textTicks" transform="translate(13.94 458.86)">5</text>
-                  </g>
-                  <g>
-                    <line class="ticks" x1="29.15" y1="467.08" x2="23.15" y2="467.08"/>
-                    <text class="textTicks" transform="translate(4.43 471.28)">3.8</text>
-                  </g>
-                  <g>
-                    <polyline class="ticks" points="23.15 40.77 29.65 40.77 29.65 501.77 23.15 501.77"/>
-                    <text class="textTicks" transform="translate(13.4 503.97)">0</text>
+                    <polyline class="ticks" points="23.15 90.89 29.65 90.89 29.65 455.92 23.15 455.92"/>
+                    <text class="textTicks" transform="translate(14.87 457.66)">0</text>
                   </g>
                 </g>
               </svg>
@@ -742,7 +812,7 @@ var coloreaCategorias = d3.scaleOrdinal()
             </div>
             <div class='step' data-index='2'>
                 <p>
-                    Acá vemos cómo el virus del Ébola tiene una tasa de letalidad extremadamente alta: de 100 personas que se contagian de Ébola, 50 fallecen.
+                    Acá vemos cómo el virus del Ébola tiene una tasa de letalidad extremadamente alta: de 100 personas que se contagian de <mark class="label amarillo">Ébola</mark>, 50 fallecen.
             </div>
             <div class='step' data-index='3'>
                 <p>
@@ -753,7 +823,7 @@ var coloreaCategorias = d3.scaleOrdinal()
             </div>
             <div class='step' data-index='4'>
                 <p>
-                    Tal como vemos acá, dos virus pueden tener la misma tasa de letalidad (35%) y aún así tener diferentes contagiosidades. Este es el caso de la gripe aviar y el MERS (un tipo de coronavirus que se descubrió en Oriente Medio en 2012).
+                    Tal como vemos acá, dos virus pueden tener la misma <mark class="label amarillo">tasa de letalidad (34%)</mark> y aún así tener diferentes contagiosidades. Este es el caso de la gripe aviar y el MERS (un tipo de coronavirus que se descubrió en Oriente Medio en 2012).
                     <br/><br/>
                     En la gripe aviar, por cada persona contagiada, el virus se transmite a menos de una persona en promedio. En cambio, el MERS es más contagioso, ya que por cada persona con el virus habrá, en promedio, hasta 5 nuevas personas infectadas.
                 </p>
@@ -762,7 +832,7 @@ var coloreaCategorias = d3.scaleOrdinal()
                 <p>
                     El tercer aspecto a considerar para saber cuán peligroso es un germen es el hecho de que existan o no tratamientos efectivos o medidas preventivas (medicamentos, vacunas, etc).
                     <br/><br/>
-                    Para algunos gérmenes hay algún tipo de tratamiento y/o una vacuna, mientras que para otros aún no existe tratamiento alguno ni vacunas.
+                    Para algunos gérmenes hay algún tipo de tratamiento y/o una vacuna, mientras que para otros aún <mark class="label naranja">no existe tratamiento alguno ni vacunas</mark>.
                 </p>
             </div>
             <div class='step' data-index='6'>
@@ -772,9 +842,9 @@ var coloreaCategorias = d3.scaleOrdinal()
             </div>
             <div class='step' data-index='7'>
                 <p>
-                    Como podemos ver, el virus que produce COVID-19 parece tener una contagiosidad (R0 ) mayor que el virus de la gripe estacional, es decir que se propaga más fácilmente.
+                    Como podemos ver, el virus que produce <mark class="label naranja">COVID-19</mark> parece tener una contagiosidad (R0 ) mayor que el virus de la gripe estacional, es decir que se propaga más fácilmente.
                     <br/><br/>
-                    También vemos que tiene una letalidad más baja que otros virus que causaron brotes de otras enfermedades (como SARS, MERS o Ébola). Si 100 personas contraen COVID-19, 2 de ellas fallecerán. Sin embargo, es bastante más letal que la gripe estacional.
+                    También vemos que tiene una letalidad más baja que otros virus que causaron brotes de otras enfermedades (como SARS, MERS o Ébola). Si 100 personas contraen COVID-19, 3 de ellas fallecerán. Sin embargo, es bastante más letal que la gripe estacional.
                 </p>
             </div>
            
@@ -817,7 +887,7 @@ console.log(files[0]);
 
         enterView({
             selector: what.nodes(),
-            offset: 1,
+            offset: 0,
             enter: el => {
                 const index = +d3.select(el).attr('data-index');
                 updateChart(index,what,containerNumber,1);
@@ -874,39 +944,6 @@ var margin = isMobile ? {top: 55, right: 20, bottom: 35, left: 20} : {top: 70, r
     var svg = d3.select("#grafico1").selectAll("svg");
 
 
-    var ancho = 3, radius = 1;
-
-    var defs = svg
-    .append('defs');
-
-    defs.append('marker')
-    .attr('id', (d,i)=>'circulo'+i)
-    .attr('refX', ancho-radius)
-    .attr('stroke',"none")
-    .attr('refY', ancho-radius)
-    .attr('markerWidth', ancho)
-    .attr('markerHeight', ancho)
-    .append('circle')
-    .attr("r",radius)
-    .attr("cx",ancho-radius)
-    .attr("cy",ancho-radius)
-    .attr("class","circulitos");
-
-    defs.append('marker')
-    .attr('id', (d,i)=>'circuloCovid'+i)
-    .attr('refX', ancho-radius)
-    .attr('stroke',"none")
-    .attr('refY', ancho-radius)
-    .attr('markerWidth', ancho)
-    .attr('markerHeight', ancho)
-    .append('circle')
-    .attr("r",radius)
-    .attr("cx",ancho-radius)
-    .attr("cy",ancho-radius)
-    .attr("class","circulitosCovid");
-
-
-
 var parseTime = d3.timeParse("%Y-%m-%d");
 
        
@@ -924,7 +961,8 @@ function scrollyTelling(containerNumber,step,entra){
               var quien = this.id;
               if(quien=="ejey") return 1;
               return 0;
-          })
+          });
+          d3.selectAll("svg").selectAll(".ebolaTick").classed("resaltado",false)
       break;
 
       case 2: //muestra ebola y remarca el 50
@@ -934,7 +972,10 @@ function scrollyTelling(containerNumber,step,entra){
               if(quien=="ejey") return 1;
               if(quien=="ebola") return 1;
               return 0;
-          })
+          });
+
+      d3.selectAll("svg").selectAll(".ebolaTick").classed("resaltado",true)
+
       break;
   
       case 3:
@@ -943,10 +984,13 @@ function scrollyTelling(containerNumber,step,entra){
               var quien = this.id;
               if(quien=="ejex") return 1;
               return 0;
-          })
+          });
+          d3.selectAll("svg").selectAll(".ebolaTick").classed("resaltado",false)
+          d3.selectAll("svg").selectAll(".mersTick").classed("resaltado",false)
+
       break;
 
-      case 4:
+      case 4: //muestra mers y remarca el 34
       d3.selectAll("svg").selectAll(".item").transition().duration(600)
           .style("opacity",function(d){
               var quien = this.id;
@@ -956,9 +1000,16 @@ function scrollyTelling(containerNumber,step,entra){
               if(quien=="mers") return 1;
               return 0;
           })
+
+          d3.selectAll("svg").selectAll(".mersTick").classed("resaltado",true)
+          d3.selectAll("svg").selectAll("#mers").classed("resaltado",false)
+
       break;
 
-      case 5:
+      case 5: // remarca el mers
+      d3.selectAll("svg").selectAll(".mersTick").classed("resaltado",false)
+      d3.selectAll("svg").selectAll("#mers").classed("resaltado",true)
+
       case 6:
       d3.selectAll("svg").selectAll(".item").transition().duration(600)
           .style("opacity",function(d){
