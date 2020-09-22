@@ -418,6 +418,8 @@ var coloreaCategorias = d3.scaleOrdinal()
     svg text.textoComun, svg text.textoCovid{
         font-size: 11px;
         fill:#444;
+        font-variant-numeric:lining-nums;
+
     }
 
     
@@ -516,6 +518,16 @@ var coloreaCategorias = d3.scaleOrdinal()
         
     }
 
+    svg g.referencia text,svg g.referencia rect{
+      fill:#F26522;
+    }
+
+    svg g.referencia text{
+      text-anchor: end;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
     
     #letalidadMobile{
         display:unset;
@@ -575,12 +587,12 @@ var coloreaCategorias = d3.scaleOrdinal()
                   
                 <filter id="glow0">
                   <fegaussianblur class="blur" result="coloredBlur" stddeviation="4"></fegaussianblur>
-				<femerge>
-					<femergenode in="coloredBlur"></femergenode>
-          <femergenode in="coloredBlur"></femergenode>
-          <femergenode in="coloredBlur"></femergenode>
-					<femergenode in="SourceGraphic"></femergenode>
-				</femerge>
+                  <femerge>
+                    <femergenode in="coloredBlur"></femergenode>
+                    <femergenode in="coloredBlur"></femergenode>
+                    <femergenode in="coloredBlur"></femergenode>
+                    <femergenode in="SourceGraphic"></femergenode>
+                  </femerge>
                 </filter>
 
                 <marker id="circulo0" refX="2" stroke="none" refY="2" markerWidth="3" markerHeight="3">
@@ -602,7 +614,7 @@ var coloreaCategorias = d3.scaleOrdinal()
                 </g>
                 <g id="covid" class="item">
                   <line class="lineaCovid" x1="284.04" y1="467.08" x2="346.01" y2="467.08"/>
-                  <text class="textoCovid" transform="translate(290.99 462.08)">COVID-19</text>
+                  <text class="textoCovid" transform="translate(283 460)">COVID-19</text>
                 </g>
                 <g id="sars" class="item">
                   <line class="lineaComun" x1="286.63" y1="413.04" x2="529.48" y2="413.04"/>
@@ -680,6 +692,11 @@ var coloreaCategorias = d3.scaleOrdinal()
                     <text class="textoTicks" transform="translate(16.57 503.97)">0</text>
                   </g>
                 </g>
+                <g class="referencia" transform="translate(730 557)">
+                  <text >Sin tratamientos ni vacunas</text>
+                  <rect x="3" y="-9" width="11" height="11"/>
+                </g>
+                
               </svg>
 
 
@@ -713,7 +730,7 @@ var coloreaCategorias = d3.scaleOrdinal()
                 </g>
                 <g id="covid" class="item">
                   <line class="lineaCovid" x1="120.63" y1="428.45" x2="138.8" y2="428.45"/>
-                  <text class="textoCovid" transform="translate(107.73 424.49)">COVID-19</text>
+                  <text class="textoCovid" transform="translate(107.73 422)">COVID-19</text>
                 </g>
                 <g id="sars" class="item">
                   <line class="lineaComun" x1="121.39" y1="385.66" x2="192.61" y2="385.66"/>
@@ -791,6 +808,10 @@ var coloreaCategorias = d3.scaleOrdinal()
                     <polyline class="ticks" points="23.15 90.89 29.65 90.89 29.65 455.92 23.15 455.92"/>
                     <text class="textTicks" transform="translate(14.87 457.66)">0</text>
                   </g>
+                </g>
+                <g class="referencia" transform="translate(290 540)">
+                  <text >Sin tratamientos ni vacunas</text>
+                  <rect x="3" y="-9" width="11" height="11"></rect>
                 </g>
               </svg>
              
@@ -963,6 +984,8 @@ function scrollyTelling(containerNumber,step,entra){
               return 0;
           });
           d3.selectAll("svg").selectAll(".ebolaTick").classed("resaltado",false)
+          d3.selectAll("svg").selectAll(".referencia").transition().duration(600).style("opacity",0)
+
       break;
 
       case 2: //muestra ebola y remarca el 50
@@ -1003,12 +1026,14 @@ function scrollyTelling(containerNumber,step,entra){
 
           d3.selectAll("svg").selectAll(".mersTick").classed("resaltado",true)
           d3.selectAll("svg").selectAll("#mers").classed("resaltado",false)
+          d3.selectAll("svg").selectAll(".referencia").transition().duration(600).style("opacity",0)
 
       break;
 
       case 5: // remarca el mers
       d3.selectAll("svg").selectAll(".mersTick").classed("resaltado",false)
       d3.selectAll("svg").selectAll("#mers").classed("resaltado",true)
+      d3.selectAll("svg").selectAll(".referencia").transition().duration(600).style("opacity",1)
 
       case 6:
       d3.selectAll("svg").selectAll(".item").transition().duration(600)
