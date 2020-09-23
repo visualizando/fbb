@@ -6655,11 +6655,10 @@ Promise.all([
 ]).then(function(files) {
 
     var epigrafeData = files[1].filter(d=>d.file=="I6_letalidad_contagiosidad.csv")[0];
-        //epigrafeData.fecha = d3.timeFormat("%-d/%b/%Y")(d3.timeParse("%Y-%m-%d")(epigrafeData.fecha)).toLowerCase();
+        epigrafeData.fecha = d3.timeFormat("%-d/%b/%Y")(d3.timeParse("%Y-%m-%d")(epigrafeData.fecha)).toLowerCase();
 
-console.log(files[0]);
 
-    // **** CODIGO DEL SCROLLY *******
+        // **** CODIGO DEL SCROLLY *******
 
 
     const container1 = d3.select('#scrolly1'); //busco el container total
@@ -6717,9 +6716,8 @@ var margin = isMobile ? {top: 55, right: 20, bottom: 35, left: 20} : {top: 70, r
     height = +d3.select('#grafico1').style('height').slice(0, -2)-25;
 
     d3.selectAll(".contenedorGrafico").append("div").attr("class","epigrafe")
-           // .html("www.decodificar.org - "+epigrafeData.fecha+" - Fuente: "+ epigrafeData.fuente);
-           .html("www.decodificar.org - - Fuente: ");
-
+           .html("www.decodificar.org - "+epigrafeData.fecha+" - Fuente: "+ epigrafeData.fuente);
+           
 
 
    /*  if (height > altoMaximo*width) {
