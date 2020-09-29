@@ -31,8 +31,8 @@
 <meta property="og:description" content="MÉTODOS Y DATOSAjuste y tiempo de duplicaciónPara estimar el tiempo de duplicación hicimos un ajuste robusto (es decir, resistente a valores atípicos) de un modelo lineal al logaritmo de los datos. Es">
 <meta property="og:locale" content="es_ES">
 <meta property="og:image" content="https://decodificar.org/images/coverindex.jpg">
-<meta property="article:published_time" content="2020-09-29T12:53:41.528Z">
-<meta property="article:modified_time" content="2020-09-29T12:53:41.528Z">
+<meta property="article:published_time" content="2020-09-29T13:48:41.898Z">
+<meta property="article:modified_time" content="2020-09-29T13:48:41.898Z">
 <meta property="article:author" content="Fundacion Bunge y Born">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://decodificar.org/images/coverindex.jpg">
@@ -214,7 +214,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <ol>
 <li><p>Definimos una ventana temporal para cada tramo de la curva (de tres semanas de largo en el caso de los tres primeros tramos; una semana en el caso del último tramo).</p>
 </li>
-<li><p>Utilizando los datos de día y número de casos que corresponden a cada ventana temporal, ajustamos el modelo<br>ln(N) ~ alfa + beta*(t - tprom)<br>donde N es el número total de casos confirmados, t es el tiempo en días desde el primer caso en la ventana considerada y tprom es el tiempo medio en la ventana considerada. Utilizamos la función rlm de la librería MASS en lenguaje R. Todos los puntos de la ventana entran en el cálculo con el mismo peso.</p>
+<li><p>Utilizando los datos de día y número de casos que corresponden a cada ventana temporal, ajustamos el modelo<br>$ln(N) ~ alfa + beta*(t - tprom)$<br>donde N es el número total de casos confirmados, t es el tiempo en días desde el primer caso en la ventana considerada y tprom es el tiempo medio en la ventana considerada. Utilizamos la función rlm de la librería MASS en lenguaje R. Todos los puntos de la ventana entran en el cálculo con el mismo peso.</p>
 </li>
 <li><p>Dado el valor obtenido para beta, calculamos el tiempo de duplicación como<br>Td = ln(2)/beta</p>
 </li>

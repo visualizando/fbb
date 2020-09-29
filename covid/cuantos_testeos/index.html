@@ -654,6 +654,9 @@ var svg = d3.selectAll(".contenedorGrafico").append("svg"),
 
  var data = files[0];
 
+
+// AGREGAR  MOVING AVERAGE DE 7 DIAS A LA POSITIVIDAD
+
 		data.forEach(element => {
 			element.fecha = parseTime(element.fecha_informe);
       delete element.fecha_informe;
@@ -671,7 +674,7 @@ var svg = d3.selectAll(".contenedorGrafico").append("svg"),
     var groupKey = data.columns[0];
     var keys = data.columns.slice(1,3)
     
-    data = data.filter((d,i)=>i>30);
+    data = data.filter((d,i)=>i>10);
     console.log(data);
 
     
@@ -704,7 +707,8 @@ var svg = d3.selectAll(".contenedorGrafico").append("svg"),
         .defined(d => d.positividad>0)
         .x(d => x(d.fecha))
         .y(d => yPosit(d.positividad))
-        .curve(d3.curveBasis);
+        ;
+        
     
 
 
