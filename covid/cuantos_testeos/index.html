@@ -357,7 +357,7 @@ var coloreaCategorias = d3.scaleOrdinal()
 
     .axis-title {
       fill: #222;
-        font-size: 16px;
+        font-size: 14px;
         text-anchor: start;
     }
     
@@ -420,6 +420,13 @@ var coloreaCategorias = d3.scaleOrdinal()
         text-anchor: start;
         fill: #F04E53;
 	  }
+
+    g#linea5porciento line{
+      stroke-dasharray: 3px 2px;
+      fill:none;
+      opacity: 0;
+      stroke: #F04E53;
+    }
 	
     
 /* COLORES
@@ -617,7 +624,7 @@ var ejeY, ejeX, tituloY, minDate, maxDate;
 var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maximo
 
 var svg = d3.selectAll(".contenedorGrafico").append("svg"),
-    margin = isMobile ? {top: 35, right: 20, bottom: 15, left: 20} : {top: 30, right: 30, bottom: 15, left: 30},
+    margin = isMobile ? {top: 35, right: 20, bottom: 15, left: 20} : {top: 40, right: 35, bottom: 25, left: 35},
     width =  +d3.select('#grafico1').style('width').slice(0, -2),
     height = +d3.select('#grafico1').style('height').slice(0, -2)-25;
 
@@ -672,43 +679,37 @@ var svg = d3.selectAll(".contenedorGrafico").append("svg"),
 
     
     var groupKey = data.columns[0];
-    var keys = data.columns.slice(1,3)
+    var keys = ["tests","casos"] //data.columns.slice(1,3)
+    var today =  new Date();
     
-    data = data.filter((d,i)=>i>10);
-    console.log(data);
+    var cuantosMeses = isMobile?3:5; // CANTIDAD DE MESES HACIA ATRAS PARA CORTAR
+    var paddingColumnas = 1;
 
+    data = data.filter(d=>d.fecha> d3.timeMonth.round(d3.timeMonth.offset(today, -cuantosMeses)));
     
-
 
 
 
 //***************
 
 	var x = d3.scaleTime()
-			.range([0, width-margin.right/1.7])
+			.range([0, width])
 			.domain(d3.extent(data, d => d.fecha));
 
  
- var x1 = d3.scaleBand() // este es el x interno de cada grupo
-    .domain(keys)
-    .rangeRound([0, 5])
-    .padding(0.05)
-
-
     var y = d3.scaleLinear()
         .domain([0, d3.max(data, d => d3.max(keys, key => d[key]))]).nice()
-        .rangeRound([height - margin.bottom, margin.top])
+        .rangeRound([height, 0])
 
     var yPosit = d3.scaleLinear()
         .domain([0, d3.max(data, d => d.positividad)]).nice()
-        .rangeRound([height - margin.bottom, margin.top])
+        .rangeRound([height, 0])
       
     var line = d3.line()
         .defined(d => d.positividad>0)
         .x(d => x(d.fecha))
         .y(d => yPosit(d.positividad))
         ;
-        
     
 
 
@@ -724,14 +725,6 @@ var svg = d3.selectAll(".contenedorGrafico").append("svg"),
           .call(d3.axisLeft(yPosit).ticks(null, "%"))
           .call(g => g.select(".domain").remove());
 
-	
-  var xPuntos = d3.scaleBand() // este es para el segundo scrolly
-    .domain(d3.extent(data, d => d.fecha))
-    .rangeRound([margin.left, width - margin.right])
-    .paddingInner(0.1)
- 
-  
-  
   
   svg.append("g")
     	.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
@@ -745,11 +738,10 @@ var svg = d3.selectAll(".contenedorGrafico").append("svg"),
 
 
 	var gBarras = d3.select("#gInterno0");
-	var gBubbles = d3.select("#gInterno1");
 
     ejeX = gBarras.append("g") // EJE X
         .attr("class", "axis axis--x")
-        .attr("transform", "translate(0," + (height-margin.bottom+2) + ")")
+        .attr("transform", "translate(0," + (height+2) + ")")
         .call(d3.axisBottom(x)
         	.ticks(d3.timeMonth.every(1)))
         .call(ajustaMesesEjeX)
@@ -768,7 +760,7 @@ var svg = d3.selectAll(".contenedorGrafico").append("svg"),
     tituloY = ejeY.append("text")
         .attr("class", "axis-title")
         .attr("y", -8)
-        .text("Casos diarios confirmados");
+        .text("Casos confirmados diarios en Argentina");
 
 
 	
@@ -781,20 +773,60 @@ var svg = d3.selectAll(".contenedorGrafico").append("svg"),
               .selectAll("rect")
               .data(d => keys.map(key => ({key, value: d[key]})))
               .join("rect")
-                .attr("x", d => x1(d.key))
+                .attr("x", 0)
                 .attr("y", d => y(d.value))
-                .attr("width", x1.bandwidth())
+                .attr("width", Math.floor(width/data.length)-paddingColumnas)
                 .attr("height", d => y(0) - y(d.value))
-                .attr("class", (d,i) => !i?"casos":"tests");
+                .attr("class", (d,i) => !i?"tests":"casos");
                 
 
         gBarras.append("g").attr("id","lineaPositividad")
                 .append("path")
                                 .attr("d", line(data));
-                        
+
+        var linea5 = gBarras.append("g").attr("id","linea5porciento")
+                .append("line")
+                .attr("x1", x(x.domain()[0]))
+                .attr("x2", x(x.domain()[1]))
+                .attr("y1", yPosit(0.05))
+                .attr("y2", yPosit(0.05));
 
        
+//********* aca van los bubbles
 
+var gBubbles = d3.select("#gInterno1");
+var diam = 9, padding = 5;
+var contagiados = 0.2; // porcentaje de contagiados
+var total = Math.floor(width/(diam+padding))*Math.floor(height/(diam+padding)) , cantX = Math.floor(width/(diam+padding)), cantY = total/cantX;
+
+var scaleX = d3.scaleBand()
+  .domain(d3.range(cantX))
+  .range([0, Math.min(800, width)])
+  .align(0.5)
+  .round(true);
+
+var scaleY = d3.scaleBand()
+  .domain(d3.range(cantY))
+  .range([0, Math.min(800, height)])
+  .align(0.5)
+  .round(true);
+
+
+  gBubbles.append("g")
+          .selectAll("circle")
+          .data(d3.range(total).map((d,i)=>{return {"index":i, "stat":Math.random()}}))
+          .join("circle")
+              .attr('cx', d => {
+                    const n = d.index % cantX;
+                    return scaleX(n)
+                })
+                .attr('cy', (d, i) => {
+                    const nn = Math.floor(d.index / cantX);
+                    return scaleY(nn)
+                })
+                .attr("r",diam/2)
+                .style("fill",d=>d.stat<contagiados?"#F26522":"#62BB46")
+                ;
 
     
 
@@ -808,17 +840,22 @@ function scrollyTelling(containerNumber,step){
 		switch (step) {
 			case 0: // Casos confirmados diarios 
         d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",d=>d.key=="casos"?1:0)
+        d3.selectAll(".axis-title").text("Casos confirmados diarios en Argentina")
 			break;
 
       case 1: // testeos diarios 
 			case 2: // testeos diarios 
       d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",d=>d.key=="casos"?0:1)
+      d3.selectAll(".axis-title").text("Número de testeos diarios en Argentina")
       break;
 
       case 3: // Casos confirmados y testeos diarios 
       d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",1)
       d3.select("#lineaPositividad").selectAll("path").transition().duration(600).style("opacity",0)
       d3.select("#axisDer").transition().duration(600).style("opacity",0)
+      d3.selectAll(".axis-title").text("Número de testeos y casos confirmados diarios en Argentina")
+      
+
 
       break;
 
@@ -826,9 +863,13 @@ function scrollyTelling(containerNumber,step){
       d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",d=>d.key=="casos"?1:0)
       d3.select("#lineaPositividad").selectAll("path").transition().duration(600).style("opacity",1)
       d3.select("#axisDer").transition().duration(600).style("opacity",1)
+      d3.selectAll(".axis-title").text("Índice de positividad y casos confirmados diarios en Argentina")
+      d3.select("#linea5porciento").select("line").transition().duration(600).style("opacity",0)
       break;
 
       case 5: // una línea de referencia en 5% de positividad.
+      d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",d=>d.key=="casos"?0.5:0)
+      d3.select("#linea5porciento").select("line").transition().duration(600).style("opacity",1)
       break;
 
       
