@@ -524,14 +524,15 @@ Promise.all([
 	d3.csv("https://datos.decodificar.org/E1_ritmo.csv"),
 	d3.csv("https://datos.decodificar.org/E4_ritmo_prov.csv"),
 	d3.csv("https://datos.decodificar.org/E4_Rango_Fecha.csv", d3.autoType),
-	d3.csv("https://datos.decodificar.org/metaData_tablas.csv")
+    d3.csv("https://datos.decodificar.org/metaData_tablas_nueva.csv")
 
 ]).then(function(files) {
 	
-	var epigrafeData = files[4].filter(d=>d.file=="E4_ritmo_prov.csv")[0];
-        epigrafeData.fecha = d3.timeFormat("%-d/%b/%Y")(d3.timeParse("%Y-%m-%d")(epigrafeData.fecha));
-
-
+    var epigrafeData = files[files.length-1].filter(d=>d.id_historia=="E4");
+        epigrafeData.forEach(e => {
+            e.fecha = d3.timeFormat("%-d/%b/%Y")(d3.timeParse("%Y-%m-%d")(e.fecha_actualizacion)).toLowerCase(); 
+        });
+ 
 
     // **** CODIGO DEL SCROLLY *******
 
@@ -587,10 +588,9 @@ var svg = d3.select("#contenedorGrafico").append("svg"),
     width =  +d3.select('#contenedorGrafico').style('width').slice(0, -2),
     height = +d3.select('#contenedorGrafico').style('height').slice(0, -2)-25;;
 
-	d3.select("#contenedorGrafico").append("div").attr("class","epigrafe")
-            .html("www.decodificar.org - "+epigrafeData.fecha+" - Fuente: "+ epigrafeData.fuente);
-
-			
+d3.select("#contenedorGrafico").append("div").attr("class","epigrafe")
+            .html("www.decodificar.org - "+epigrafeData[0].fecha+" - Fuente: "+ epigrafeData[0].fuente);
+		
     if (height > altoMaximo*width) {
         svg.style('margin-top', (height - altoMaximo*width)/2 + "px")
         height = altoMaximo*width;

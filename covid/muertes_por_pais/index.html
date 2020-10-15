@@ -577,13 +577,15 @@ var coloreaCategorias = d3.scaleOrdinal()
 Promise.all([
     d3.csv("https://datos.decodificar.org/I8_normalizacion_fallecimientos.csv"),
     d3.csv("https://datos.decodificar.org/I8_normalizacion_fallecimientos_regresion.csv"),
-    d3.csv("https://datos.decodificar.org/metaData_tablas.csv")
+    d3.csv("https://datos.decodificar.org/metaData_tablas_nueva.csv")
 ]).then(function(files) {
 
    
-    var epigrafeData = files[2].filter(d=>d.file=="I8_normalizacion_fallecimientos.csv")[0];
-        epigrafeData.fecha = d3.timeFormat("%-d/%b/%Y")(d3.timeParse("%Y-%m-%d")(epigrafeData.fecha)).toLowerCase();
-
+    var epigrafeData = files[files.length-1].filter(d=>d.id_historia=="I8");
+        epigrafeData.forEach(e => {
+            e.fecha = d3.timeFormat("%-d/%b/%Y")(d3.timeParse("%Y-%m-%d")(e.fecha_actualizacion)).toLowerCase(); 
+        });
+       
 
 
     var paisesSelect  = ["ARG", "PER", "CHI","BOL", "BRA", "MEX", "USA", "CHI", "RUS", "IND", "ITA", "ESP", "NZL", "URY", "CHN", "PRY"]
@@ -671,7 +673,7 @@ var svg = d3.select("#contenedorGrafico").append("svg"),
     height = +d3.select('#contenedorGrafico').style('height').slice(0, -2)- (isMobile?45:35);
 
     d3.select("#contenedorGrafico").append("div").attr("class","epigrafe")
-            .html("www.decodificar.org - "+epigrafeData.fecha+" - Fuente: "+ epigrafeData.fuente)
+            .html("www.decodificar.org - "+epigrafeData[0].fecha+" - Fuente: "+ epigrafeData[0].fuente)
             ;
 
 
@@ -959,17 +961,20 @@ var grafico = svg.append("g")
                 d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>100+40*i).duration(400).style("opacity",1)
                 d3.select("#rankMuertes").selectAll(".boxGroup").transition().delay((d,i)=>60*i).duration(300).style("opacity",1);
                 d3.select("#scatterPlot").selectAll(".puntos,text,.axis").transition().duration(50).style("opacity",0);
+                d3.select("#contenedorGrafico").select("div").html("www.decodificar.org - "+epigrafeData[0].fecha+" - Fuente: "+ epigrafeData[0].fuente)
                 break;
 
             case 4: // pasa a scatterplot
             d3.select("#rankMuertes").select(".titulo").text("Muertes totales (al 31/jul/20)");
-                d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>10*i).duration(100).style("opacity",0);
+            d3.select("#contenedorGrafico").select("div").html("www.decodificar.org - "+epigrafeData[1].fecha+" - Fuente: "+ epigrafeData[1].fuente)
+            d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>10*i).duration(100).style("opacity",0);
                 d3.select("#rankMuertes").selectAll(".boxGroup").transition().delay((d,i)=>15*i).duration(100).style("opacity",0);
                 d3.select("#scatterPlot").selectAll(".puntos,text,.axis").transition().delay((d,i)=>i).duration(50).style("opacity",1);
                 d3.select("#scatterPlot").selectAll(".tendencia").transition().duration(50).style("opacity",0);
                 break;
 
             case 5: // mustra tendencia
+            d3.select("#contenedorGrafico").select("div").html("www.decodificar.org - "+epigrafeData[1].fecha+" - Fuente: "+ epigrafeData[1].fuente)
                 d3.select("#rankPob").selectAll(".titulo, .links, .boxGroup").transition().delay((d,i)=>10*i).duration(100).style("opacity",0);
                 d3.select("#rankMuertes").selectAll(".boxGroup").transition().delay((d,i)=>15*i).duration(100).style("opacity",0);
                 d3.select("#scatterPlot").selectAll(".puntos,text,.axis").transition().delay((d,i)=>i).duration(50).style("opacity",1);
@@ -979,6 +984,7 @@ var grafico = svg.append("g")
 
             case 6:
                 d3.select("#rankMuertes").select(".titulo").text("Muertes totales");
+                d3.select("#contenedorGrafico").select("div").html("www.decodificar.org - "+epigrafeData[0].fecha+" - Fuente: "+ epigrafeData[0].fuente)
                 d3.select("#scatterPlot").selectAll(".tendencia").transition().duration(50).style("opacity",0);
                 d3.select("#scatterPlot").selectAll(".puntos,text,.axis").transition().duration(100).style("opacity",0);
                 d3.select("#rankMuertes").selectAll(".boxGroup").transition().delay((d,i)=>20*i).duration(200).style("opacity",1);

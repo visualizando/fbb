@@ -528,23 +528,23 @@ verde #62BB46
             </div>
             <div class='step' data-index='1'>
                 <p>
-                  Hacemos los primeros 100 testeos y obtenemos un índice de positividad de 1%. Es decir, solo 1 nos da positivo y 99 dan negativo.
-                  <br/><br/>
-                  Hacer estos testeos lleva tiempo e implica usar recursos. Si tantos testeos nos dan negativos, quizás eso nos está diciendo que estamos testeando mucho más que lo necesario o que estamos testeando a personas que tienen pocas chances de tener la enfermedad. Es como testear al azar en la esquina de una plaza.
+                    Hacemos los primeros 100 testeos y obtenemos un índice de positividad cercano a 1%. Es decir, más o menos 1 test daría positivo y los otros 99 negativo.
+                    <br/><br/>
+                    Hacer estos testeos lleva tiempo e implica usar recursos. Si tantos testeos nos dan negativos, quizás eso nos está diciendo que estamos testeando mucho más que lo necesario o que estamos testeando a personas que tienen pocas chances de tener la enfermedad. Es como testear al azar en la esquina de una plaza.
                     </p>
             </div>
             <div class='step' data-index='2'>
                 <p>
-                  Ahora supongamos que testeamos a un grupo de personas mayores que vive en un geriátrico y donde se detectó un caso confirmado.
-                  <br/><br/>
-                  En este grupo obtenemos un índice de 90%: de 100 testeos, 90 nos dan positivo y 10 negativo.
+                    Ahora supongamos que testeamos a un grupo de personas mayores que vive en un geriátrico y donde se detectó un caso confirmado.
+                    <br/><br/>
+                    En este grupo obtenemos un índice cercano al 90%: de 100 testeos, más o menos 90 nos dan positivo y 10 negativo.
 				</p>
             </div>
 			<div class='step' data-index='3'>
                 <p>
-                  Consideremos finalmente una estrategia de testeo más general que nos da un índice de positividad de 50%. Esto significa que una de cada dos personas que testeamos tiene la enfermedad.
-                  <br/><br/>
-                  Como vemos, con este índice de positividad hay una chance grande de que muchas personas fuera de la "foto" también tengan la enfermedad. ¿Qué deberíamos hacer entonces?
+                    Consideremos finalmente una estrategia de testeo más general que nos da un índice de positividad cercano al 50%. Esto significa que una de cada dos personas que testeamos tiene la enfermedad.
+                    <br/><br/>
+                    Como vemos, con este índice de positividad hay una chance grande de que muchas personas fuera de la "foto" también tengan la enfermedad. ¿Qué deberíamos hacer entonces?
 				</p>
 
 			</div>
@@ -570,12 +570,16 @@ verde #62BB46
 
 Promise.all([
     d3.csv("https://datos.decodificar.org/I3_positividad.csv"),
-    d3.csv("https://datos.decodificar.org/metaData_tablas.csv")
+    d3.csv("/images/pintador.csv"),
+    d3.csv("https://datos.decodificar.org/metaData_tablas_nueva.csv")
 
 ]).then(function(files) {
-    var epigrafeData = files[1].filter(d=>d.file=="I3_positividad.csv")[0];
-        epigrafeData.fecha = d3.timeFormat("%-d/%b/%Y")(d3.timeParse("%Y-%m-%d")(epigrafeData.fecha));
-
+   
+    var epigrafeData = files[files.length-1].filter(d=>d.id_historia=="I3");
+        epigrafeData.forEach(e => {
+            e.fecha = d3.timeFormat("%-d/%b/%Y")(d3.timeParse("%Y-%m-%d")(e.fecha_actualizacion)).toLowerCase(); 
+        });
+       
 
 
     // **** CODIGO DEL SCROLLY *******
@@ -598,7 +602,7 @@ Promise.all([
 
         enterView({
             selector: what.nodes(),
-            offset: 1,
+            offset: 0.6,
             enter: el => {
                 const index = +d3.select(el).attr('data-index');
                 updateChart(index,what,containerNumber,1);
@@ -631,23 +635,24 @@ var altoMaximo = 1.5; // cuantas veces el ancho permitimos que sea el alto maxim
 
 var svg = d3.selectAll(".contenedorGrafico").append("svg"),
     margin = isMobile ? {top: 35, right: 20, bottom: 15, left: 20} : {top: 40, right: 35, bottom: 25, left: 35},
-    width =  +d3.select('#grafico1').style('width').slice(0, -2),
-    height = +d3.select('#grafico1').style('height').slice(0, -2)-25;
+    widthReal =  +d3.select('#grafico1').style('width').slice(0, -2),
+    heightReal = +d3.select('#grafico1').style('height').slice(0, -2)-25;
 
-    d3.selectAll(".contenedorGrafico").append("div").attr("class","epigrafe")
-            .html("www.decodificar.org - "+epigrafeData.fecha+" - Fuente: "+ epigrafeData.fuente);
+d3.select("#contenedorGrafico").append("div").attr("class","epigrafe")
+            .html("www.decodificar.org - "+epigrafeData[0].fecha+" - Fuente: "+ epigrafeData[0].fuente);
 
-    if (height > altoMaximo*width) {
-        svg.style('margin-top', (height - altoMaximo*width)/2 + "px")
-        height = altoMaximo*width;
+
+    if (heightReal > altoMaximo*widthReal) {
+        svg.style('margin-top', (heightReal - altoMaximo*widthReal)/2 + "px")
+        heightReal = altoMaximo*widthReal;
     }
 
      var signodepregunta = "M202.021 0C122.202 0 70.503 32.703 29.914 91.026c-7.363 10.58-5.093 25.086 5.178 32.874l43.138 32.709c10.373 7.865 25.132 6.026 33.253-4.148 25.049-31.381 43.63-49.449 82.757-49.449 30.764 0 68.816 19.799 68.816 49.631 0 22.552-18.617 34.134-48.993 51.164-35.423 19.86-82.299 44.576-82.299 106.405V320c0 13.255 10.745 24 24 24h72.471c13.255 0 24-10.745 24-24v-5.773c0-42.86 125.268-44.645 125.268-160.627C377.504 66.256 286.902 0 202.021 0zM192 373.459c-38.196 0-69.271 31.075-69.271 69.271 0 38.195 31.075 69.27 69.271 69.27s69.271-31.075 69.271-69.271-31.075-69.27-69.271-69.27z"
 
-    svg.attr("viewBox", [0, 0, width, height]);
+    svg.attr("viewBox", [0, 0, widthReal, heightReal]);
 
-    height = height - margin.top - margin.bottom;
-    width = width - margin.left - margin.right;
+    height = heightReal - margin.top - margin.bottom;
+    width = widthReal - margin.left - margin.right;
     
 
 	var parseTime = d3.timeParse("%Y-%m-%d");
@@ -656,6 +661,8 @@ var svg = d3.selectAll(".contenedorGrafico").append("svg"),
 
  var data = files[0];
 
+var positivador = files[1];
+    
 
 // AGREGAR  MOVING AVERAGE DE 7 DIAS A LA POSITIVIDAD ****************
 
@@ -792,35 +799,39 @@ var svg = d3.selectAll(".contenedorGrafico").append("svg"),
 
 var gBubbles = d3.select("#gInterno1");
     
+var ratio = width/height;
 
-var diam = 8,
-    padding = 4;
 var contagiados = 0.7; // porcentaje de contagiados
-var total = Math.floor(width/(diam+padding))*Math.floor(height/(diam+padding)) ,
-    cantX = Math.floor(width/(diam+padding)),
-    cantY = total/cantX;
+var matrix = [32,52],
+    grafRatio = isMobile?matrix[0]/matrix[1]:matrix[1]/matrix[0];
 
-    
+
+var cantX = isMobile?matrix[0]:matrix[1],
+    cantY = isMobile?matrix[1]:matrix[0],
+    total = cantX*cantY
+    ;
+
+var diam = d3.min([(height-20)/cantY*0.75,(width)/cantX*0.75]),
+    padding = diam*0.3;
+
+    var anchoGraf = (diam*cantX)+(padding*(cantX-1)); // ancho total de las pelotitas
+    var altoGraf = (diam*cantY)+(padding*(cantY-1)); // alto total de las pelotitas
     
 var scaleX = d3.scaleBand()
     .domain(d3.range(cantX))
-    .range([0, width])
+    .range([0, anchoGraf])
     .paddingOuter(0)
     .align(0.5)
     .round(true);
 
-    var marginDif = (width-(scaleX(cantX-1)+diam));
-    var newMargins = {
-        "left": margin.left + marginDif,
-        "right": margin.right + marginDif
-    }
     
-    gBubbles.attr("transform", "translate(" + newMargins.left + "," + margin.top*(isMobile?0.2:0.8) + ")");
+    
+    gBubbles.attr("transform", "translate(" + ((widthReal - anchoGraf)/2) + "," + (isMobile?diam:margin.top*0.8) + ")");
     
     
 var scaleY = d3.scaleBand()
     .domain(d3.range(cantY))
-    .range([0, height])
+    .range([0, altoGraf])
     .paddingOuter(0)
     .align(0.5)
     .round(true);
@@ -830,7 +841,8 @@ var scaleY = d3.scaleBand()
           .selectAll("circle")
           .data(d3.range(total).map((d,i)=>{return {
               "index":i,
-              "positivo":Math.random()*Math.sin(i/(total/2)*Math.PI/2)>contagiados?1:0,
+//              "positivo":Math.random()*Math.sin(i/(total/2)*Math.PI/2)>contagiados?1:0,
+              "positivo":+positivador[Math.floor(i / cantX)][i % cantX],
               "x":scaleX(i % cantX),
               "y":scaleY(Math.floor(i / cantX))
               }}))
@@ -838,11 +850,38 @@ var scaleY = d3.scaleBand()
               .attr('cx', d => d.x)
               .attr('cy', d => d.y)
                 .attr("r",diam/2)
-                .style("fill",d=>d.positivo?"#F26522":"#62BB46")
                 .attr("id",d=>"c"+d.index)
                 .attr("class","persona")
                 .attr("opacity",1)
+                .style("fill",d=>d.positivo?"#F26522":"#62BB46")
                 ;
+
+
+      /*         d3.selectAll(".persona").each(function(d) {
+                          switch(d.index){
+                              case 973:
+                              case 971:
+                              case 975:
+                              case 909:
+                              case 911:
+                              case 907:
+                              case 906:
+                              case 856:
+                              case 875:
+                              case 852:
+                              case 726:
+                              case 755:
+                              d.positivo = 1
+                              break;
+                              
+
+                          }
+                    }) */
+                   
+
+;
+
+
 
                 gBubbles.append("circle")
                             .attr("id","selector")
@@ -859,27 +898,29 @@ var scaleY = d3.scaleBand()
 
 var xStats = d3.scaleLinear()
         .domain([0, total])
-        .range([0, isMobile?width-marginDif-marginBars:300])
+        .range([0, anchoGraf-marginBars-10])
 
 var xStatsPorc = d3.scaleLinear()
         .domain([0, 1])
-        .range([0, isMobile?width-marginDif-marginBars:300])
+        .range([0, anchoGraf-marginBars-10])
 
-        var stats = gBubbles.append("g").attr("id","stats").attr("transform",`translate(0,${isMobile?(height+10):height-5})`);
+        var stats = gBubbles.append("g").attr("id","stats")
+        .attr("transform",`translate(0,${altoGraf+5})`)
+        ;
 
-              //stats.append("text").attr("id","poblacion").text("Población: "+total)
-              ;
-                stats.append("text").attr("id","testeos")
-                    //.text("Testeos: "+adentro._groups[0].length)
+
+    var statsTesteos =  stats.append("g").attr("id","statsTesteos");
+    var statsPositividad =  stats.append("g").attr("id","statsPositividad").style("opacity",0);
+    
+    statsTesteos.append("text").attr("id","testeos")
                     .attr("dy",15)
                     ;
                 
-                stats.append("text").attr("id","positividad")
-                    //.text("Positivad: "+d3.format(".0%")(adentro.filter(d=>d.positivo)._groups[0].length/adentro._groups[0].length))
+                    statsPositividad.append("text").attr("id","positividad")
                     .attr("dy",30)
                     ;
 
-                 stats.append("rect")
+                statsTesteos.append("rect")
                     .attr("x",marginBars)
                     .attr("y",5)
                     .attr("width",xStats(total))
@@ -888,16 +929,15 @@ var xStatsPorc = d3.scaleLinear()
                     ;
 
 
-                stats.append("rect").attr("id","testeosBar")
+                statsTesteos.append("rect").attr("id","testeosBar")
                     .attr("x",marginBars)
                     .attr("y",5)
-                    //.attr("width",xStats(adentro._groups[0].length))
                     .attr("width",1)
                     .attr("height",12)
                     .style("fill","#8B6BAF")
                     ;
                 
-                stats.append("rect")
+                    statsPositividad.append("rect")
                     .attr("x",marginBars)
                     .attr("y",20)
                     .attr("width",xStatsPorc(1))
@@ -905,14 +945,14 @@ var xStatsPorc = d3.scaleLinear()
                     .style("fill","#ddd")
                     ;
 
-                stats.append("rect").attr("id","positividadBar")
+                    statsPositividad.append("rect").attr("id","positividadBar")
                     .attr("x",marginBars)
                     .attr("y",20)
                     //.attr("width",xStatsPorc(adentro.filter(d=>d.positivo)._groups[0].length/adentro._groups[0].length))
                     .attr("width",1)
                     .attr("height",12)
                     .style("fill","#F04E53")
-
+                    ;
 
                     updateSelector(selector);
 
@@ -997,23 +1037,25 @@ function scrollyTelling(containerNumber,step,entra){
 
 
             switch (step) { //GRAFICO SEGUNDO SCROLLY
-                case 0: // 
-                    updateSelector({"radius":0,"x":width/2,"y":height/2})
+                case 0: // veo solo el circulo y testeos --- TODOS MISMO COLOR (violeta)
+                         updateSelector({"radius":40,"x":width/3,"y":height/2})
+                         d3.select("#statsPositividad").transition().duration(200).style("opacity",0)
                 break;
 
-                case 1: 
-                        updateSelector({"radius":30,"x":width/2,"y":height/2})
+                case 1: // buscar positivdad baja
+                        updateSelector({"radius":40,"x":width/2,"y":height/2})
+                        d3.select("#statsPositividad").transition().duration(600).style("opacity",1)
                 break;
 
-                case 2:
-                        updateSelector({"radius":60,"x":width/2,"y":height/2})
+                case 2: // buscar positivdad alta
+                        updateSelector({"radius":40,"x":width/2,"y":height/5})
                 break;
 
-                case 3:
+                case 3: // buscar positivdad intermedia
                         updateSelector({"radius":60,"x":width/2,"y":height/4.5})
                 break;
 
-                case 4:
+                case 4: // aumenta el circulo 
                         updateSelector({"radius":200,"x":width/2,"y":height/2})
                 break;
             }
