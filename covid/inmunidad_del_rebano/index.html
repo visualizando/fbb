@@ -519,9 +519,9 @@ verde #62BB46
 
                 <g id="fallecimientos" style="opacity: 0;">
                     <text transform="matrix(1 0 0 1 499.7166 28.0795)" class="st6 st7">Fallecimientos</text>
-                    <rect x="499.7" y="210.1" width="22.1" height="6.6"/>
-                    <rect x="499.7" y="61.8" width="66.5" height="6.6" style="opacity: 0;"/>
-                    <rect x="499.7" y="44.9" width="88.9" height="6.6"style="opacity: 0;"/>
+                    <rect id="muertes1" x="499.7" y="210.1" width="22.1" height="6.6"/>
+                    <rect id="muertes2" x="499.7" y="61.8" width="66.5" height="6.6" style="opacity: 0;"/>
+                    <rect id="muertes3" x="499.7" y="44.9" width="88.9" height="6.6"style="opacity: 0;"/>
                     <line class="st2" x1="499.7" y1="42.2" x2="499.7" y2="335.5"/>
                 </g>
 
@@ -751,22 +751,38 @@ function scrollyTelling(containerNumber,step,entra){
                 d3.select("#vacuna").transition().duration(600).style("opacity",1)
                 d3.select("#medidas").transition().duration(600).style("opacity",0)
                 d3.select("#inmunidadMedidas").transition().duration(600).style("opacity",1)
+                d3.select("#fallecimientos").transition().duration(600).style("opacity",0)
+
                 break;
 
                 case 2: 
                 d3.select("#inmunidadMedidas").transition().duration(600).style("opacity",0)
                 d3.select("#medidas").transition().duration(600).style("opacity",1)
                 d3.select("#inmunidad").transition().duration(600).style("opacity",0)
+                d3.select("#fallecimientos").transition().duration(600).style("opacity",1)
+                d3.select("#muertes3").transition().duration(600).style("opacity",0)
+
                 break;
 
                 case 3: 
+                d3.select("#inmunidad").transition().duration(600).style("opacity",1)
+                d3.select("#inmunidadMedidas").transition().duration(600).style("opacity",0)
+                d3.select("#flechita").transition().duration(500).style("opacity",0)
+                d3.select("#muertes3").transition().duration(600).style("opacity",1)
+                d3.select("#muertes2").transition().duration(600).style("opacity",0)
+                break;
+
                 case 4: 
                 d3.select("#inmunidad").transition().duration(600).style("opacity",1)
                 d3.select("#inmunidadMedidas").transition().duration(600).style("opacity",0)
                 d3.select("#flechita").transition().duration(500).style("opacity",0)
-               break;
+
+                d3.select("#muertes3").transition().duration(600).style("opacity",1)
+                d3.select("#muertes2").transition().duration(600).style("opacity",0)
+                break;
 
                 case 5: 
+                d3.select("#muertes2").transition().duration(600).style("opacity",1)
                 d3.select("#inmunidadMedidas").transition().duration(900).style("opacity",1)
                 d3.select("#flechita").transition().duration(500).style("opacity",1)
                 d3.select("#inmunidad").transition().duration(900).style("opacity",1)
