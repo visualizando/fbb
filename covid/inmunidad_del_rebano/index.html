@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="Gy0v5fPBzo8V6kQn7oOcPhNXVas7zpn5e7eVTANnKBM">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather:300,300italic,400,400italic,700,700italic|Oswald:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"decodificar.org","root":"/","scheme":"Mist","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"remove","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeIn","post_body":"none","coll_header":"fadeIn","sidebar":"fadeInUp"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Una estrategia para frenar algunas enfermedades es inmunizar a una parte de la población y, de esta manera, prevenir que las personas con factores de riesgo contraigan la enfermedad. ¿Cómo funciona es">
+<meta property="og:type" content="article">
+<meta property="og:title" content="¿Podemos lograr la inmunidad de rebaño sin vacuna?">
+<meta property="og:url" content="https://decodificar.org/covid/inmunidad_del_rebano/index.html">
+<meta property="og:site_name" content="Decodificar: COVID19">
+<meta property="og:description" content="Una estrategia para frenar algunas enfermedades es inmunizar a una parte de la población y, de esta manera, prevenir que las personas con factores de riesgo contraigan la enfermedad. ¿Cómo funciona es">
+<meta property="og:locale" content="es_ES">
+<meta property="og:image" content="https://decodificar.org/images/12_rebano_redes.jpg">
+<meta property="article:published_time" content="2020-09-29T01:49:26.219Z">
+<meta property="article:modified_time" content="2020-09-29T01:49:26.219Z">
+<meta property="article:author" content="Fundacion Bunge y Born">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://decodificar.org/images/12_rebano_redes.jpg">
+
+<link rel="canonical" href="https://decodificar.org/covid/inmunidad_del_rebano/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'es'
+  };
+</script>
+
+  <title>¿Podemos lograr la inmunidad de rebaño sin vacuna? | Decodificar: COVID19</title><meta name="robots" content="noindex">
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132699662-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-132699662-2');
+      }
+    </script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PWMSB36');</script>
+<!-- End Google Tag Manager -->
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+      <script src="https://d3js.org/d3.v5.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/stickyfill/2.1.0/stickyfill.js"></script>
+      <script src="https://unpkg.com/enter-view"></script>
+      <link rel="stylesheet" href="/styles/scrolly.css">
+  
+</head>
+
+<body itemscope  class="white" itemtype="http://schema.org/WebPage">
+      <script>
+      var es_ES = {
+        "decimal": ",",
+        "thousands": ".",
+        "grouping": [3],
+        "currency": ["$", ""],
+        "dateTime": "%a %b %e %X %Y",
+        "date": "%d/%m/%Y",
+        "time": "%H:%M:%S",
+        "periods": ["AM", "PM"],
+        "days": ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+        "shortDays": ["Dom", "Lun", "Mar", "Mi", "Jue", "Vie", "Sab"],
+        "months": ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+        "shortMonths": ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
+    };
+
+    d3.timeFormatDefaultLocale(es_ES);
+    d3.formatDefaultLocale(es_ES);
+
+    var anchoDiv = document.getElementsByTagName("body")[0].clientWidth;
+    var isMobile = anchoDiv < 768 ? 1 : 0; 
+
+  var nombresPcias = {
+            "CABA":["CABA","CABA"],
+            "Buenos_Aires":["Buenos Aires","PBA"],
+            "Catamarca":["Catamarca","CAT"],
+            "Chaco":["Chaco","CHAC"],
+            "Chubut":["Chubut","CHUB"],
+            "Cordoba":["Córdoba","CBA"],
+            "Corrientes":["Corrientes","COR"],
+            "Entre_Rios":["Entre Ríos","ER"],
+            "Formosa":["Formosa","FORM"],
+            "Jujuy":["Jujuy","JUJ"],
+            "La_Pampa":["La Pampa","PAMP"],
+            "La_Rioja":["La Rioja","RIOJ"],
+            "Mendoza":["Mendoza","MEND"],
+            "Misiones":["Misiones","MIS"],
+            "Neuquen":["Neuquén","NEU"],
+            "Rio_Negro":["Río Negro","RN"],
+            "Salta":["Salta","SAL"],
+            "San_Juan":["San Juan","SJuan"],
+            "San_Luis":["San Luis","SLuis"],
+            "Santa_Cruz":["Santa Cruz","Scruz"],
+            "Santa_Fe":["Santa Fe","SFe"],
+            "Santiago_del_Estero":["Sgo del Estero","SEst"],
+            "Tierra_del_fuego":["T. del Fuego","TFuego"],
+            "Tucuman":["Tucumán","TUC"]
+
+        }
+
+
+var codigoColor = d3.scaleOrdinal()
+        .domain(["azul","violeta","rojo","naranja","verde","celeste"])
+        .range(["#00468B","#8B6BAF","#F04E53","#F26522","#62BB46","#5badd4"]);
+
+
+
+var colores = d3.scaleOrdinal()
+        .domain([0,5])
+        //azul -  violeta - rojo  - naranja - verde
+        .range(["#00468B","#8B6BAF","#F04E53","#F26522","#62BB46"]);
+
+//window.onresize = function(){ location.reload(); }
+
+var coloreaCategorias = d3.scaleOrdinal()
+        .range(["#4e79a7","#f28e2c","#e15759","#76b7b2","#59a14f","#af7aa1","#ff9da7","#9c755f","#8a7e78"]);
+
+      </script>
+
+  
+
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <img src="/images/logo-web.png">
+<!--       <i class="logo-line"></i>
+      <h1 class="site-title">Decodificar: COVID19</h1>
+      <i class="logo-line"></i> -->
+    </a>
+      <p class="site-subtitle" itemprop="description">Entendiendo la pandemia</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+
+    <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Cambiar a barra de navegación">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-inicio">
+
+    <a href="/" rel="section">Inicio</a>
+
+  </li>
+        <li class="menu-item menu-item-acerca-del-proyecto">
+
+    <a href="/about/" rel="section">Acerca del proyecto</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+      </header>
+
+      
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+      <div class="main-inner">
+        
+
+        <div class="content post posts-expand">
+          
+
+    
+  
+  
+      
+ <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="es">
+    <link itemprop="mainEntityOfPage" href="https://decodificar.org/covid/inmunidad_del_rebano/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fundacion Bunge y Born">
+      <meta itemprop="description" content="Decodificar es un sitio para que todos, sin importar cuánto sepamos de datos, tengamos herramientas que nos ayuden a entender lo que pasa a nuestro alrededor. En esta edición especial te acercamos herramientas simples y potentes para leer noticias y otros contenidos relacionados con la pandemia del COVID-19">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Decodificar: COVID19">
+    </span>
+      <header class="post-header">
+      <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar-check"></i>
+              </span>
+              <!-- <span class="post-meta-item-text">Editado el</span> -->
+              <time title="Modificado por: 28 de septiembre de 2020 22" itemprop="dateModified" datetime="2020-09-28T22:49:26-03:00">Publicado el 28 de septiembre de 2020</time>
+            </span>
+
+          
+
+         
+        </div>
+
+
+          <h1 class="post-title" itemprop="name headline">
+          ¿Podemos lograr la inmunidad de rebaño sin vacuna?
+        </h1>
+            <div class="post-description">Una estrategia para frenar algunas enfermedades es inmunizar a una parte de la población y, de esta manera, prevenir que las personas con factores de riesgo contraigan la enfermedad. ¿Cómo funciona esta inmunidad? ¿Y cómo se relaciona con la pandemia por COVID-19?</div>
+
+          
+          
+           
+                      <div class="compartir">Compartir:
+                        <a  href="https://www.facebook.com/sharer/sharer.php?u=https://decodificar.org/covid/inmunidad_del_rebano/&quote=¿Podemos lograr la inmunidad de rebaño sin vacuna?" target="_blank" title="Share on Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURI(https://decodificar.org/covid/inmunidad_del_rebano/) + '&quote=' + encodeURI(¿Podemos lograr la inmunidad de rebaño sin vacuna?); return false;"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+                        <a href="https://twitter.com/intent/tweet?text=¿Podemos lograr la inmunidad de rebaño sin vacuna?%20&url=https://decodificar.org/covid/inmunidad_del_rebano/" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURI(¿Podemos lograr la inmunidad de rebaño sin vacuna?) + '&url='+ encodeURI(https://decodificar.org/covid/inmunidad_del_rebano/) ; return false;"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                        <a href="https://api.whatsapp.com/send?text=¿Podemos lograr la inmunidad de rebaño sin vacuna? https://decodificar.org/covid/inmunidad_del_rebano/" target="_blank" ><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+                      </div>
+           
+
+      </header>
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+<!-- imagen destacada -->
+        
+      
+        
+
+
+
+<style>
+
+
+    .axis path, .axis line {
+      fill: none;
+      stroke: #D4D8DA;
+      stroke-width: 1px;
+     
+    }
+
+    .axis--y .domain, .axis--x .domain{
+        display: none;
+    }
+    
+    
+    .axis--y .tick{
+        stroke-width: 1px;
+        stroke-dasharray: 3px 2px;
+    }
+
+    .axis--x .tick line{
+        stroke-width: 2px;
+    }
+    
+    .axis--y .tick text{
+        text-anchor: end;
+	  }
+	
+  
+  
+  
+
+
+
+    .axis-title {
+      fill: #222;
+        font-size: 14px;
+        text-anchor: start;
+    }
+    
+    #lineaMedidas {
+      fill: none;
+      stroke: #d88501;
+      stroke-width: 1px;
+    }
+
+    #lineaSinMedidas {
+      fill: none;
+      stroke: #d80101;
+      stroke-width: 1px;
+    }
+
+
+  
+	#contenedorGrafico.sticky{
+			margin-bottom: 191px;
+        }
+        
+    .label.desconocido{
+        background: #8B6BAF45;
+        color:rgb(58, 58, 58) !important;
+        font-weight: 400 !important;
+    }
+     
+    
+    .label.naranja{
+        background: #F26522;
+
+    }
+
+    .label.celeste{
+        background: #5badd4;
+
+    }
+
+    .label.violeta{
+        background: #8B6BAF;
+
+    }
+
+
+	
+    
+/* COLORES
+azul #00468B
+violeta #8B6BAF
+rojo #F04E53
+naranja #F26522
+verde #62BB46
+*/
+       
+     
+    @media only screen and (min-width: 768px) {
+      
+    }
+    
+</style>
+
+
+<section id='scrolly1'>
+    <div class='scrolly'>
+        <!-- aca va el grafico que va a quedar fijo -->
+        <figure id="grafico1" class='sticky contenedorGrafico' >
+        </figure>
+
+        <!-- acá van los textos de cada paso -->
+        <article>
+            <div class='step' data-index='0'>
+				<p>Supongamos una población imaginaria “A” donde ingresa un virus nuevo. Cada vez que el virus se encuentra con una persona la puede infectar.
+                    <br/><br/>
+                    Esto ocurre porque nadie en esa población tiene protección o “inmunidad” para impedirlo. El virus se propaga rápidamente y probablemente tenga peores consecuencias en personas con factores de riesgo (por otras enfermedades crónicas, por ejemplo).
+                </p>
+            </div>
+            <div class='step' data-index='1'>
+				      <p>Ahora imaginemos otra población “B” donde también hay un virus pero no es nuevo, ya tiene una vacuna efectiva, y la mayoría de las personas están vacunadas.
+                        <br/><br/>
+                        La propagación de este virus es más dificultosa porque hay menos chances de que encuentre personas no protegidas por la vacuna. 
+                </p>
+            </div>
+            <div class='step' data-index='2'>
+				      <p>Al hecho de que la circulación del virus se interrumpe lo llamamos "inmunidad de rebaño" o inmunidad colectiva.
+                <br/><br/>
+                El porcentaje mínimo de personas inmunizadas para lograr esto es distinto para cada enfermedad. En el caso del sarampión, por ejemplo, es de aproximadamente el 95% de la población.
+                </p>
+            </div>
+            <div class='step' data-index='3'>
+				      <p>Gracias a esa inmunidad colectiva, un virus podría desaparecer como ocurrió con la viruela.
+                <br/><br/>
+                Por otro lado, si por alguna razón la población que tenía inmunidad de rebaño pierde esa protección, un virus puede volver a producir importantes brotes.
+                </p>
+            </div>
+            
+        </article>
+		
+	</div>
+</section>
+
+<section id='scrolly2'>
+    <div class='scrolly'>
+ 
+        <!-- aca va el grafico que va a quedar fijo -->
+        <figure id="grafico2" class='sticky contenedorGrafico' >
+            Posibles escenarios hasta aprobación de vacuna
+            <svg viewBox="0 0 596.9 360.5">
+                <style type="text/css">
+                    .st0{fill-rule:evenodd;clip-rule:evenodd;fill-opacity:0;}
+                    .st1{fill:none;stroke:#303030;stroke-width:0.5;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:2,1;}
+                    .st2{fill:none;stroke:#969696;stroke-miterlimit:10;}
+                    .st3{fill:#969696;}
+                    .st4{fill:none;stroke:#EA0000;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;}
+                    .st5{fill:none;stroke:#EA5F00;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;}
+                    .st6{font-family:'Merriweather';}
+                    .st7{font-size:11px;}
+                    .st8{fill:#EA0000;}
+                    .st9{font-size:9px;}
+                    .st10{fill:#EA5F00;}
+                    .st11{fill:#303030;}
+                    .st12{fill:none;stroke:#EA0000;stroke-linejoin:round;}
+                    .st13{fill:#009900;}
+                    .st14{fill:#FFFFFF;stroke:#009900;stroke-miterlimit:10;}
+                </style>
+                
+                
+                <g id="ejes">
+                    <g>
+                        <polyline class="st2" points="16.4,22.1 16.4,335.2 485.1,335.2 		"/>
+                        <g>
+                            <polygon class="st3" points="12.3,25.5 13,26.1 16.4,22.5 19.7,26.1 20.5,25.5 16.4,21.1 			"/>
+                        </g>
+                        <g>
+                            <polygon class="st3" points="481.8,339.3 481.1,338.6 484.7,335.2 481.1,331.9 481.8,331.1 486.2,335.2 			"/>
+                        </g>
+                    </g>
+                    <text transform="matrix(1 0 0 1 21.7559 28.0795)" class="st6 st7">Casos confirmados acumulados</text>
+                    <text transform="matrix(1 0 0 1 446.5304 349.1118)" class="st6 st7">Tiempo</text>
+    
+                </g>
+                <g id="curvas">
+                    <g id="inmunidad" style="opacity: 0;">
+                        <path  class="st4" d="M16.4,335.2c161.1-30.7,127.2-281,298.5-287h171.3"/>
+                        <text transform="matrix(1 0 0 1 110.1363 155.5635)"><tspan x="0" y="0" class="st8 st6 st9">Sin medidas</tspan><tspan x="-11.1" y="10" class="st8 st6 st9">de aislamiento</tspan></text>
+                    </g>
+    
+
+                    <path id="inmunidadMedidas"  class="st4" d="M16.4,335.2C300.1,286.7,365.3,96.3,486.2,65.8"/>
+                    <g id="medidas" style="opacity: 0;">
+                        <text transform="matrix(1 0 0 1 262.6645 259.3053)"><tspan x="0" y="0" class="st10 st6 st9">Con medidas</tspan><tspan x="-8.1" y="10" class="st10 st6 st9">de aislamiento</tspan></text>
+                        <path  class="st5" d="M16.4,335.2c27.1-2.7,183.3,4.4,388.3-95.5c54.5-26.6,73.3-26.3,81.5-26.3"/>
+                    </g>
+                    </g>
+
+                <g id="flechita" style="opacity: 0;">
+                    <line class="st12" x1="200.8" y1="126.2" x2="366.4" y2="126.2"/>
+                    <polygon class="st8" points="363.1,130.3 362.4,129.5 366,126.2 362.4,122.8 363.1,122.1 367.5,126.2 			"/>
+                </g>
+
+                <g id="fallecimientos" style="opacity: 0;">
+                    <text transform="matrix(1 0 0 1 499.7166 28.0795)" class="st6 st7">Fallecimientos</text>
+                    <rect x="499.7" y="210.1" width="22.1" height="6.6"/>
+                    <rect x="499.7" y="61.8" width="66.5" height="6.6" style="opacity: 0;"/>
+                    <rect x="499.7" y="44.9" width="88.9" height="6.6"style="opacity: 0;"/>
+                    <line class="st2" x1="499.7" y1="42.2" x2="499.7" y2="335.5"/>
+                </g>
+
+                <g id="inmunidad">
+                    <text transform="matrix(1 0 0 1 21.7561 44.9263)"><tspan x="0" y="0" class="st11 st6 st9">Inmunidad de rebaño</tspan><tspan x="0" y="10" class="st11 st6 st9">(40% de la población)</tspan></text>
+                    <line class="st1" x1="16.4" y1="58.4" x2="486.2" y2="58.4"/>
+                </g>
+                <g id="vacuna" style="opacity: 0;">
+                    <text transform="matrix(1 0 0 1 383.2551 28.0795)"><tspan x="0" y="0" class="st13 st6 st7">Aprobación</tspan><tspan x="12" y="10.4" class="st13 st6 st7">vacuna</tspan></text>
+                    <line class="st14" x1="414.5" y1="42.2" x2="414.5" y2="335.2"/>
+                </g>
+                </svg>
+
+        </figure>
+
+        <!-- acá van los textos de cada paso -->
+        <article>
+            <div class='step' data-index='0'>
+                <p>
+                    En el caso de COVID-19 todavía no tenemos vacunas y, por lo tanto, no podemos aspirar en el corto plazo a la inmunidad de rebaño a través de la vacunación.
+                <br/><br/>
+                Y tampoco es factible lograr inmunidad de rebaño por contagio natural. ¿Por qué no?
+                </p>
+            </div>
+            <div class='step' data-index='1'>
+                <p>
+                    En pocas palabras, no es factible por dos motivos: no se puede realizar en el corto plazo (antes de la aprobación de la vacuna), y conllevaría muchísimas muertes. Profundicemos.
+                    </p>
+            </div>
+            <div class='step' data-index='2'>
+                <p>
+                    Para estimar el porcentaje de la población que debería ser inmune hay que tener en cuenta, entre varias otras cosas, características propias de la población y el número reproductivo básico del virus o R0.
+                    <br/><br/>
+Es un número difícil de saber con certeza. Las estimaciones más confiables calculan que entre el 40% y el 70% de población debería estar inmunizada contra el virus de COVID-19 para lograr la inmunidad colectiva.
+				</p>
+            </div>
+			<div class='step' data-index='3'>
+                <p>
+                    En Argentina, el 40% de la población contagiada significaría que unas 18 millones de personas se enfermen.
+                    <br/><br/>
+Esto supondría, además, llegar a ese 40% de forma rápida y mucho antes de la aprobación de una vacuna, lo que solo sería probable que suceda sin ninguna medida de prevención.
+				</p>
+
+			</div>
+			
+			<div class='step' data-index='4'>
+                <p>
+                    Más allá del tiempo, avanzar con esa estrategia implicaría que de los 18 millones de personas contagiadas, al menos 70.000 fallecieran solo por esta causa.
+                    <br/><br/>
+                Como referencia, en 2018 murieron casi 32.000 personas por todas las enfermedades respiratorias.Como referencia, en 2018 murieron casi 32.000 personas por todas las enfermedades respiratorias.
+				</p>
+			</div>
+            
+            
+            <div class='step' data-index='5'>
+                <p>
+                    Además de lo anterior, el potencial colapso del sistema de salud seguramente generaría que mueran aún más personas.
+                    <br/><br/>
+                    Para evitar este colapso, deberíamos hacer que la curva de casos crezca más lentamente.
+				</p>
+			</div>
+
+
+            <div class='step' data-index='6'>
+                <p>
+                    En este escenario, probablemente la aprobación de la primera vacuna contra COVID-19 estaría lista antes de lograr esa supuesta inmunidad colectiva natural. La diferencia entre ambos escenarios es que sin medidas de prevención tendríamos muchas más muertes.
+                    
+				</p>
+			</div>
+
+
+        </article>
+    </div>
+
+</section>
+
+
+ <!-- Scripts -->
+ <script>
+	
+	//********************* CARGA DATOS ************
+
+Promise.all([
+      //  d3.csv("https://datos.decodificar.org/E1_ritmoBis.csv"),
+]).then(function(files) {
+   
+
+    
+
+    // **** CODIGO DEL SCROLLY *******
+
+
+    const container1 = d3.select('#scrolly1'); //busco el container total
+	const container2 = d3.select('#scrolly2'); //busco el container total
+
+    const stepSel1 = container1.selectAll('.step'); // selecciono los "steps"
+	const stepSel2 = container2.selectAll('.step'); // selecciono los "steps"
+
+    function updateChart(index, what,containerNumber,entra) {  // funcion que llama cada vez que cruza un umbral
+        const sel = d3.select('#scrolly'+containerNumber).select(`[data-index='${index}']`);
+        what.classed('is-active', (d, i) => i === index);
+        scrollyTelling(containerNumber,index,entra); // <<<<< AQUI LLAMA AL GRAFICO VERDADERO
+    }
+
+    function init(what,containerNumber) { // configuracion inicial
+        Stickyfill.add(d3.select('.sticky').node()); // fallback para browsers sin sticky
+
+        enterView({
+            selector: what.nodes(),
+            offset: 0.6,
+            enter: el => {
+                const index = +d3.select(el).attr('data-index');
+                updateChart(index,what,containerNumber,1);
+            },
+            exit: el => {
+                let index = +d3.select(el).attr('data-index');
+                index = Math.max(0, index - 1);
+                updateChart(index,what,containerNumber,0);
+            }
+        });
+    }
+  
+  
+
+    // **** END SCROLLY *******
+
+
+/* COLORES
+azul #00468B
+violeta #8B6BAF
+rojo #F04E53
+naranja #F26522
+verde #62BB46
+*/
+       
+        
+var ejeY, ejeX, tituloY, minDate, maxDate;
+
+var altoMaximo = 1.5; // cuantas veces el ancho permitimos que sea el alto maximo
+
+//var svg = d3.selectAll(".contenedorGrafico").append("svg"),
+    margin = isMobile ? {top: 35, right: 20, bottom: 15, left: 20} : {top: 40, right: 35, bottom: 25, left: 35},
+    widthReal =  +d3.select('#grafico1').style('width').slice(0, -2),
+    heightReal = +d3.select('#grafico1').style('height').slice(0, -2)-25;
+
+d3.selectAll(".contenedorGrafico").append("div").attr("class","epigrafe")
+            .html("www.decodificar.org");
+
+/* 
+    if (heightReal > altoMaximo*widthReal) {
+        svg.style('margin-top', (heightReal - altoMaximo*widthReal)/2 + "px")
+        heightReal = altoMaximo*widthReal;
+    }
+ */
+   // svg.attr("viewBox", [0, 0, widthReal, heightReal]);
+
+    height = heightReal - margin.top - margin.bottom;
+    width = widthReal - margin.left - margin.right;
+    
+
+	var parseTime = d3.timeParse("%Y-%m-%d");
+
+///******** MANEJO DE DATOS ********
+
+   /*  var data = files[0];
+
+    data.forEach(function(d) {
+      d.fecha = parseTime(d.fecha);
+      d.casos_tot = +d.casos_tot;
+    });
+    
+console.log(data) */
+
+
+///******** setup ********
+
+/* 
+       svg.append("g")
+    	.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+	;
+
+	svg.each(function(d,i){
+		d3.select(this).select("g").attr("id","gInterno"+i);
+	})
+ */
+
+
+//*************** Primer scrolly
+
+
+
+
+
+/// Segundo scrolly                            
+    
+                                
+    
+                
+        
+ 
+
+        init(stepSel1,1)
+	    init(stepSel2,2)
+
+function scrollyTelling(containerNumber,step,entra){
+
+
+	if(containerNumber == 1){  //GRAFICO PRIMER SCROLLY
+		switch (step) {
+			case 0: 
+			break;
+
+	    }
+
+  
+  
+	}else{
+
+
+            switch (step) { //GRAFICO SEGUNDO SCROLLY
+                case 0: 
+                d3.select("#vacuna").transition().duration(600).style("opacity",0)
+                d3.select("#inmunidadMedidas").transition().duration(600).style("opacity",1)
+                break;
+
+                case 1: 
+                d3.select("#vacuna").transition().duration(600).style("opacity",1)
+                d3.select("#medidas").transition().duration(600).style("opacity",0)
+                d3.select("#inmunidadMedidas").transition().duration(600).style("opacity",1)
+                break;
+
+                case 2: 
+                d3.select("#inmunidadMedidas").transition().duration(600).style("opacity",0)
+                d3.select("#medidas").transition().duration(600).style("opacity",1)
+                d3.select("#inmunidad").transition().duration(600).style("opacity",0)
+                break;
+
+                case 3: 
+                case 4: 
+                d3.select("#inmunidad").transition().duration(600).style("opacity",1)
+                d3.select("#inmunidadMedidas").transition().duration(600).style("opacity",0)
+                d3.select("#flechita").transition().duration(500).style("opacity",0)
+               break;
+
+                case 5: 
+                d3.select("#inmunidadMedidas").transition().duration(900).style("opacity",1)
+                d3.select("#flechita").transition().duration(500).style("opacity",1)
+                d3.select("#inmunidad").transition().duration(900).style("opacity",1)
+                break;
+
+                case 6: 
+                d3.select("#inmunidad").transition().duration(900).style("opacity",0)
+                d3.select("#flechita").transition().duration(500).style("opacity",0)
+                break;
+
+            }
+
+
+
+                    
+    }
+          
+
+}
+
+
+
+//********** funciones
+ 
+
+ 
+
+
+function ajustaMesesEjeX(g) {
+        var diasUltimoMes = d3.timeDay.count(d3.timeMonth.floor(x.domain()[1]),x.domain()[1]);
+        var diasPrimerMes = Math.abs(d3.timeDay.count(d3.timeMonth.ceil(x.domain()[0]),x.domain()[0]));
+		  // ESTO PONE LOS NOMBRES DE LOS MESES EN MEDIO DE CADA MES
+           g.selectAll(".tick:not(:last-of-type):not(:last-of-type) text") // para todos los meses menos el ultimo
+                .attr("dx", x(d3.timeDay.offset(x.domain()[0], 15 ))) // mueve el equivalente a 15 dias
+                .attr("dy", "0.3em") ;
+
+          if(diasPrimerMes>8){
+            g.selectAll(".tick:first-of-type text") // el ultimo si no esta completo lo centra en los dias que haya
+                .clone(true)
+                .text(d3.timeFormat("%B")(d3.timeMonth.floor(x.domain()[0])))
+                .attr("dx",  x(d3.timeDay.offset(x.domain()[0], diasPrimerMes/2))*-1)
+                .attr("dy", "0.3em") ;
+            }
+
+  
+            if(diasUltimoMes<8){
+                g.selectAll(".tick:last-of-type text").remove()
+            }else{
+            g.selectAll(".tick:last-of-type text") // el ultimo si no esta completo lo centra en los dias que haya
+                .text(d3.timeFormat("%b")(d3.timeMonth.floor(x.domain()[1])))
+                .attr("dx",  x(d3.timeDay.offset(x.domain()[0], diasUltimoMes/2 )))
+                .attr("dy", "0.3em") ;
+            }
+
+            g.selectAll(".tick line") // las lineas que separan los meses, mas altas
+                .attr("y2", "1.4em") ;
+			}
+
+
+});
+
+</script>
+
+
+<div class="note info"><p>Si bien los números presentados más arriba dependen de varios supuestos, la inmunidad de rebaño por contagio natural no es factible de lograr en un plazo razonable y además, para lograrla, fallecerían muchas personas. Además, asumir una estrategia en la que muchísimas personas deben contagiarse y morir en un tiempo supone un riesgo para el sistema sanitario y para la salud de cada individuo.</p>
+<p>Con la ausencia aún de una vacuna efectiva, la mejor manera como población para combatir la pandemia de COVID-19 sigue siendo respetar las normas de distanciamiento social y de higiene.</p>
+</div><!-- flag of hidden posts -->
+    </div>
+                      <div class="compartir">Compartir:
+                        <a  href="https://www.facebook.com/sharer/sharer.php?u=https://decodificar.org/covid/inmunidad_del_rebano/&quote=¿Podemos lograr la inmunidad de rebaño sin vacuna?" target="_blank" title="Share on Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURI(https://decodificar.org/covid/inmunidad_del_rebano/) + '&quote=' + encodeURI(¿Podemos lograr la inmunidad de rebaño sin vacuna?); return false;"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+                        <a href="https://twitter.com/intent/tweet?text=¿Podemos lograr la inmunidad de rebaño sin vacuna?%20&url=https://decodificar.org/covid/inmunidad_del_rebano/" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURI(¿Podemos lograr la inmunidad de rebaño sin vacuna?) + '&url='+ encodeURI(https://decodificar.org/covid/inmunidad_del_rebano/) ; return false;"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                        <a href="https://api.whatsapp.com/send?text=¿Podemos lograr la inmunidad de rebaño sin vacuna? https://decodificar.org/covid/inmunidad_del_rebano/" target="_blank" ><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+
+                      </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+        </div>
+        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        <!-- <div class="firma"> -->
+
+<!-- <a href="/">
+  Inicio</a> 
+  &mdash;
+  <a href="/about/">
+    Acerca del proyecto</a>
+</div> -->
+
+<div class="firma">
+  <img src="/images/logo_small.png"> 
+  Un proyecto de la <a href="https://www.fundacionbyb.org/" target="_blank">Fundación Bunge y Born</a>, en alianza con  <a href="http://expedicionciencia.org.ar/" target="_blank">Expedición Ciencia</a>
+</div>
+
+<div class="redes">
+<a href="https://www.facebook.com/fundacionbungeyborn/" target="_blank"><i class="fab fa-facebook-square"></i></a>
+<a href="https://www.instagram.com/fundacionbungeyborn/" target="_blank"><i class="fab fa-instagram-square"></i></a>
+<a href="https://www.linkedin.com/company/fundacion-bunge-y-born/" target="_blank"><i class="fab fa-linkedin"></i></a>
+</div>
+
+
+<div class="reporte">
+<a href="/about/#Contacto">
+  Recibí novedades</a>
+</div>
+
+
+<div class="copyright">
+  <span itemprop="copyrightYear">&copy; 2020</span>
+  <span class="author" itemprop="copyrightHolder">Fundación Bunge y Born</span>
+ / <a href="https://www.fundacionbyb.org/politica-de-privacidad" target="_blank">Política de privacidad</a>
+</div>
+
+<div class="powered-by">
+Creado con <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a>
+&amp; <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
