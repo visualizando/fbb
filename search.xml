@@ -2666,6 +2666,12 @@ function relax(dataInterna, spacing) {
         opacity: 0;
     }
 
+    #ultimoRecord{
+        font-size: 9px;
+        text-anchor: middle;
+        fill: #F26522;
+        font-family: sans-serif;
+    }
 
 /* COLORES
 azul #00468B
@@ -2935,7 +2941,7 @@ var svg = d3.selectAll(".contenedorGrafico").filter((d,i)=>i==1?0:1).append("svg
 			.domain([minDate,maxDate]);
 
 	var y = d3.scaleLinear()
-			.range([height,0])
+			.range([height,10])
 			.domain([0,d3.max(data,d=>d.casos_diarios)]);
 	
 	
@@ -2950,14 +2956,12 @@ var svg = d3.selectAll(".contenedorGrafico").filter((d,i)=>i==1?0:1).append("svg
 
 	svg.each(function(d,i){
         d3.select(this).select("g").attr("class",()=>{
-        //if(i==0||i==2) return "gInterno0"
         return "gInterno0"});
 
 	})
 
  
 	var gBarras = d3.selectAll(".gInterno0");
-	//var gGifs = d3.select(".gInterno1");
 
     ejeX = gBarras.append("g") // EJE X
         .attr("class", "axis axis--x")
@@ -2978,20 +2982,25 @@ var svg = d3.selectAll(".contenedorGrafico").filter((d,i)=>i==1?0:1).append("svg
         .text("Número de casos diarios confirmados (Arg.)");
 
 	
-		gBarras.append("g")
+		gBarras.append("g").attr("id","gBarras")
                .selectAll("rect")
                 .data(data)
                     .join("rect")
                     .attr("class","barrasGrafico")
                     .attr("fill", d => d.record?"#F26522":"#F2652277")
-                    //.attr("fill", "#8B6BAF")
                     .attr("x", (d, i) => x(d.fecha))
                     .attr("y", d => y(d.casos_diarios))
                     .attr("height", d => y(0) - y(d.casos_diarios))
                     .attr("width",  (x(parseTime("2020-03-02"))-1)>1?(x(parseTime("2020-03-02"))-1):1)
         ;
         
+        var ultimoRecord=data.filter(d=>d.record).slice(-1)[0];
 
+        gBarras.append("text").attr("id","ultimoRecord")
+                .attr("x", x(ultimoRecord.fecha))
+                .attr("y", y(ultimoRecord.casos_diarios)-4)
+                .text(d3.format(",d")(+ultimoRecord.casos_diarios));
+                
 
 
     init(stepSel1,1)
