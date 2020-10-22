@@ -6895,4 +6895,791 @@ function scrollyTelling(containerNumber,step,entra){
 <p>Si bien estas cualidades de los virus pueden variar con el paso del tiempo y dependen de factores externos (distintas regiones, grupos de edad, condiciones socioeconómicas, conocimiento que los científicos van adquiriendo, etc.), al comparar al virus de COVID-19 con otros gérmenes que conocemos mejor se hace más fácil entender cuál es el desafío y el grado de peligrosidad de la pandemia que enfrentamos.</p>
 </div>]]></content>
   </entry>
+  <entry>
+    <title>¿Podemos lograr la inmunidad de rebaño sin vacuna?</title>
+    <url>/covid/inmunidad_de_rebano/</url>
+    <content><![CDATA[
+
+
+
+<style>
+
+
+    .axis path, .axis line {
+      fill: none;
+      stroke: #D4D8DA;
+      stroke-width: 1px;
+     
+    }
+
+    .axis--y .domain, .axis--x .domain{
+        display: none;
+    }
+    
+    
+    .axis--y .tick{
+        stroke-width: 1px;
+        stroke-dasharray: 3px 2px;
+    }
+
+    .axis--x .tick line{
+        stroke-width: 2px;
+    }
+    
+    .axis--y .tick text{
+        text-anchor: end;
+	  }
+	
+  
+  
+  
+    .axis-title {
+      fill: #222;
+        font-size: 14px;
+        text-anchor: start;
+    }
+    
+    #lineaMedidas {
+      fill: none;
+      stroke: #d88501;
+      stroke-width: 1px;
+    }
+
+    #lineaSinMedidas {
+      fill: none;
+      stroke: #d80101;
+      stroke-width: 1px;
+    }
+
+
+  
+	#contenedorGrafico.sticky{
+			margin-bottom: 191px;
+        }
+        
+    .label.desconocido{
+        background: #8B6BAF45;
+        color:rgb(58, 58, 58) !important;
+        font-weight: 400 !important;
+    }
+     
+    
+    .label.naranja{
+        background: #F26522;
+
+    }
+
+    .label.inmunidad{
+        background: #aac6ca;
+
+    }
+
+    .label.vacunadas{
+        background: #363f84;
+
+    }
+
+
+    .label.verde{
+        background: #62BB46;
+
+    }
+
+
+
+    .label.celeste{
+        background: #5badd4;
+
+    }
+
+    .label.gris{
+        background: silver;
+
+    }
+
+    #grafico1{
+        padding: 5px;
+    }
+
+
+    #grafico1 img{
+        max-width: 100%;
+    max-height: 95%;
+    margin: auto;
+    margin-top: 2vh;
+    }
+
+    #grafico2{
+        padding-top: 20px;
+    }
+
+    #grafico2 svg{
+        max-height: 115vh;
+    }
+
+	
+    
+/* COLORES
+azul #00468B
+violeta #8B6BAF
+rojo #F04E53
+naranja #F26522
+verde #62BB46
+*/
+       
+    #svgDesktop, #gifDesktop{
+            display:none;
+     }
+
+     
+    @media only screen and (min-width: 768px) {
+        #svgMobile, #gifMobile{
+            display:none;
+        }
+
+        #grafico2 svg{
+        max-height: 90%;
+    }
+
+             
+            #svgDesktop, #gifDesktop{
+                    display:block;
+            }
+
+    }
+    
+</style>
+
+
+<section id='scrolly1'>
+    <div class='scrolly'>
+        <!-- aca va el grafico que va a quedar fijo -->
+        <figure id="grafico1" class='sticky contenedorGrafico' >
+            <img id="gifDesktop" src="/images/inmunidadDesktop.gif">
+            <img id="gifMobile" src="/images/inmunidadMobile.gif">
+        </figure>
+
+        <!-- acá van los textos de cada paso -->
+        <article>
+            <div class='step' data-index='0'>
+				<p>Supongamos una población imaginaria “A” donde ingresa un virus nuevo. Cada vez que el virus se encuentra con una persona la puede infectar.
+                    <br/><br/>
+                    Esto ocurre porque <mark class="label inmunidad">nadie en esa población tiene protección o “inmunidad” para impedirlo</mark>. El virus se propaga rápidamente y probablemente tenga peores consecuencias en personas con factores de riesgo (por otras enfermedades crónicas, por ejemplo).
+                </p>
+            </div>
+            <div class='step' data-index='1'>
+				      <p>Ahora imaginemos otra población “B” donde también hay un virus pero <b>no es nuevo</b>, ya tiene una vacuna efectiva, y la mayoría de <mark class="label vacunadas">las personas están vacunadas</mark>.
+                        <br/><br/>
+                        La propagación de este virus es más dificultosa porque hay menos chances de que encuentre personas no protegidas por la vacuna. 
+                </p>
+            </div>
+            <div class='step' data-index='2'>
+				      <p>Al hecho de que la circulación del virus se interrumpe lo llamamos "inmunidad de rebaño" o inmunidad colectiva.
+                <br/><br/>
+                El porcentaje mínimo de personas inmunizadas para lograr esto es distinto para cada enfermedad. En el caso del sarampión, por ejemplo, es de aproximadamente el 95% de la población.
+                </p>
+            </div>
+            <div class='step' data-index='3'>
+				      <p>Gracias a esa inmunidad colectiva, un virus podría desaparecer como ocurrió con la viruela.
+                <br/><br/>
+                Por otro lado, si por alguna razón la población que tenía inmunidad de rebaño pierde esa protección, un virus puede volver a producir importantes brotes.
+                </p>
+            </div>
+            
+        </article>
+		
+	</div>
+</section>
+
+<section id='scrolly2'>
+    <div class='scrolly'>
+ 
+        <!-- aca va el grafico que va a quedar fijo -->
+        <figure id="grafico2" class='sticky contenedorGrafico' >
+            <svg
+            id="svgMobile"
+            viewBox="0 0 250 500">
+           <style
+              type="text/css">
+                 #svgMobile .st0{fill-rule:evenodd;clip-rule:evenodd;fill-opacity:0;}
+                 #svgMobile .st1{fill:none;stroke:#303030;stroke-width:0.5;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:2,1;}
+                 #svgMobile .gris{fill:none;stroke:#969696;stroke-miterlimit:10;}
+                 #svgMobile .st4{fill:none;stroke:#F04E53;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;}
+                 #svgMobile .st5{fill:none;stroke:#F26522;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;}
+                 #svgMobile .font{font-family:'Merriweather';font-size:8px; }
+                 #svgMobile .st8{fill:#F04E53;}
+                 #svgMobile .st9{font-size:8px;}
+                 #svgMobile .st10{fill:#F26522;}
+                 #svgMobile .st11{fill:#303030;}
+                 #svgMobile .st12{fill:none;stroke:#EA0000;stroke-linejoin:round;}
+                 #svgMobile .st13{fill:#62BB46;}
+                 #svgMobile .st14{fill:#FFFFFF;stroke:#62BB46;stroke-miterlimit:10;}
+             </style>
+           <g
+              id="ejes">
+             <g
+                id="g91">
+               <polyline
+                  id="polyline81"
+                  points="16.4,22.1 16.4,335.2 195,335.2   "
+                  class="gris" />
+               <g
+                  id="g85">
+                 <polygon
+                    id="polygon83"
+                    points="19.7,26.1 20.5,25.5 16.4,21.1 12.3,25.5 13,26.1 16.4,22.5 "
+                    class="gris" />
+               </g>
+               <g
+                  transform="translate(-291.12143)"
+                  id="g89">
+                 <polygon
+                    id="polygon87"
+                    points="484.7,335.2 481.1,331.9 481.8,331.1 486.2,335.2 481.8,339.3 481.1,338.6 "
+                    class="gris" />
+               </g>
+             </g>
+             <text
+                y="14.938601"
+                x="13.364521"
+                id="text93"
+                class="font">Casos confirmados acumulados</text>
+             <text
+                y="349.11179"
+                x="148.83852"
+                id="text95"
+                class="font">Tiempo</text>
+           </g>
+           <g
+              id="curvas">
+             <g
+                style="opacity:0"
+                id="inmunidad">
+               <path
+                  id="path98"
+                  d="M 16.350174,335.32703 C 70.680235,304.59985 59.247653,54.078301 117.01761,48.072991 h 57.76995"
+                  class="st4" />
+               <text
+                  y="100.32506"
+                  x="16.193367"
+                  id="text104"><tspan
+                    id="tspan100"
+                    class="st8 st6 st9"
+                    y="105"
+                    x="18">Sin medidas de</tspan><tspan
+                    id="tspan102"
+                    class="st8 st6 st9"
+                    y="115"
+                    x="18">de aislamiento</tspan></text>
+             </g>
+             <path
+                d="M 16.397821,335.38784 C 111.8167,286.8202 133.74589,96.154676 174.40906,65.612141"
+                class="st4"
+                style="opacity:0"
+                id="inmunidadMedidas" />
+             <g
+                id="medidas">
+               <text
+                  y="304.79303"
+                  x="98.403275"
+                  id="text112"><tspan
+                    id="tspan108"
+                    class="st10 st6 st9"
+                    y="304.79303"
+                    x="98.403275">Con medidas</tspan><tspan
+                    id="tspan110"
+                    class="st10 st6 st9"
+                    y="314.79303"
+                    x="90.303276">de aislamiento</tspan></text>
+               <path
+                  id="path114"
+                  d="m 16.388532,335.29198 c 9.138262,-2.70408 61.809722,4.40664 130.936798,-95.64423 18.37769,-26.64017 24.71715,-26.33972 27.48223,-26.33972"
+                  class="st5" />
+             </g>
+           </g>
+           <g
+              transform="translate(-250.18248,51.047335)"
+              style="opacity:0"
+              id="flechita">
+             <line
+                style="stroke-width:0.52308"
+                id="line118"
+                y2="126.2"
+                x2="366.39999"
+                y1="126.2"
+                x1="321.08975"
+                class="st12" />
+             <polygon
+                id="polygon120"
+                points="363.1,122.1 367.5,126.2 363.1,130.3 362.4,129.5 366,126.2 362.4,122.8 "
+                class="st8" />
+           </g>
+           <g
+              inkscape:groupmode="layer"
+              style="opacity:0"
+              id="fallecimientos"><text
+            y="28.0795"
+            x="198.48679"
+            id="text123"
+            class="font">Fallecidos</text>
+         <rect
+            height="6.5999999"
+            width="8.9073668"
+            y="210.10001"
+            x="198.4702"
+            id="muertes1" />
+         <rect
+            style="opacity:0;"
+            height="6.5999999"
+            width="26.80271"
+            y="61.799999"
+            x="198.4702"
+            id="muertes2" />
+         <rect
+            height="6.5999999"
+            width="35.83099"
+            y="44.900002"
+            x="198.4702"
+            id="muertes3" 
+            style="opacity:0;"/>
+         
+                 <line
+            id="line128"
+            y2="335.5"
+            x2="198.4702"
+            y1="42.200001"
+            x1="198.4702"
+            class="gris" />
+         </g>
+           <g
+              style="opacity:0"
+              id="inmunidadLimite">
+             <text
+                transform="translate(26,54)"
+                id="text135"><tspan
+                  id="tspan131"
+                  class="st11 st6 st9"
+                  y="0"
+                  x="0">% de inmunidad</tspan>
+                  <tspan
+                  id="tspan133"
+                  class="st11 st6 st9"
+                  y="15"
+                  x="0">requerida (40%)</tspan></text>
+             <line
+                id="line137"
+                y2="58.4"
+                x2="190"
+                y1="58.4"
+                x1="16.4"
+                class="st1" />
+           </g>
+           <g
+              transform="translate(-250.18248)"
+              style="opacity:0"
+              id="vacuna">
+             <text
+                id="text144"
+                transform="translate(390.2551,28.0795)"><tspan
+                  id="tspan140"
+                  class="st13 font"
+                  y="0"
+                  x="2">Aprobación</tspan><tspan
+                  id="tspan142"
+                  class="st13 font"
+                  y="10.4"
+                  x="10">vacuna</tspan></text>
+             <line
+                id="line146"
+                y2="335.20001"
+                x2="414.5"
+                y1="42.200001"
+                x1="414.5"
+                class="st14" />
+           </g>
+         </svg>
+         
+
+
+            <svg viewBox="0 0 596.9 360.5" id="svgDesktop">
+                <style type="text/css">
+                    .st0{fill-rule:evenodd;clip-rule:evenodd;fill-opacity:0;}
+                    .st1{fill:none;stroke:#303030;stroke-width:0.5;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:2,1;}
+                    .gris{fill:none;stroke:#969696;stroke-miterlimit:10;}
+                    .st4{fill:none;stroke:#F04E53;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;}
+                    .st5{fill:none;stroke:#F26522;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;}
+                    .font{font-family:'Merriweather';font-size:10px;}
+                    .st8{fill:#F04E53;}
+                    .st9{font-size:9px;}
+                    .st10{fill:#F26522;}
+                    .st11{fill:#303030;}
+                    .st12{fill:none;stroke:#EA0000;stroke-linejoin:round;}
+                    .st13{fill:#62BB46;}
+                    .st14{fill:#FFFFFF;stroke:#62BB46;stroke-miterlimit:10;}
+                </style>
+                
+                
+                <g id="ejes">
+                    <g>
+                        <polyline class="gris" points="16.4,22.1 16.4,335.2 485.1,335.2 		"/>
+                        <g>
+                            <polygon class="gris" points="12.3,25.5 13,26.1 16.4,22.5 19.7,26.1 20.5,25.5 16.4,21.1 			"/>
+                        </g>
+                        <g>
+                            <polygon class="gris" points="481.8,339.3 481.1,338.6 484.7,335.2 481.1,331.9 481.8,331.1 486.2,335.2 			"/>
+                        </g>
+                    </g>
+                    <text transform="matrix(1 0 0 1 26 28.0795)" class="font">Casos confirmados acumulados</text>
+                    <text transform="matrix(1 0 0 1 446.5304 349.1118)" class="font">Tiempo</text>
+    
+                </g>
+                <g id="curvas">
+                    <g id="inmunidad" style="opacity: 0;">
+                        <path  class="st4" d="M16.4,335.2c161.1-30.7,127.2-281,298.5-287h171.3"/>
+                        <text transform="matrix(1 0 0 1 110.1363 155.5635)"><tspan x="0" y="0" class="st8 st6 st9">Sin medidas</tspan><tspan x="-11.1" y="10" class="st8 st6 st9">de aislamiento</tspan></text>
+                    </g>
+    
+
+                    <path id="inmunidadMedidas" style="opacity: 0;" class="st4" d="M16.4,335.2C300.1,286.7,365.3,96.3,486.2,65.8"/>
+                    <g id="medidas" >
+                        <text transform="matrix(1 0 0 1 262.6645 259.3053)"><tspan x="0" y="0" class="st10 st6 st9">Con medidas</tspan><tspan x="-8.1" y="10" class="st10 st6 st9">de aislamiento</tspan></text>
+                        <path  class="st5" d="M16.4,335.2c27.1-2.7,183.3,4.4,388.3-95.5c54.5-26.6,73.3-26.3,81.5-26.3"/>
+                    </g>
+                    </g>
+
+                <g id="flechita" style="opacity: 0;">
+                    <line class="st12" x1="200.8" y1="126.2" x2="366.4" y2="126.2"/>
+                    <polygon class="st8" points="363.1,130.3 362.4,129.5 366,126.2 362.4,122.8 363.1,122.1 367.5,126.2 			"/>
+                </g>
+
+                <g id="fallecimientos" style="opacity: 0;">
+                    <text transform="matrix(1 0 0 1 499.7166 28.0795)" class="font">Fallecimientos</text>
+                    <rect id="muertes1" x="499.7" y="210.1" width="22.1" height="6.6"/>
+                    <rect id="muertes2" x="499.7" y="61.8" width="66.5" height="6.6" style="opacity: 0;"/>
+                    <rect id="muertes3" x="499.7" y="44.9" width="88.9" height="6.6"style="opacity: 0;"/>
+                    <line class="gris" x1="499.7" y1="42.2" x2="499.7" y2="335.5"/>
+                </g>
+
+                <g id="inmunidadLimite" style="opacity: 0;">
+                    <text transform="matrix(1 0 0 1 26 54)"><tspan x="0" y="0" class="st11 st6 st9">Porcentaje de inmunidad requerida</tspan><tspan x="0" y="15" class="st11 st6 st9">Escenario: 40% de la población</tspan></text>
+                    <line class="st1" x1="16.4" y1="58.4" x2="486.2" y2="58.4"/>
+                </g>
+                <g id="vacuna" style="opacity: 0;">
+                    <text transform="matrix(1 0 0 1 383.2551 28.0795)"><tspan x="0" y="0" class="st13 font">Aprobación</tspan><tspan x="12" y="10.4" class="st13 font">vacuna</tspan></text>
+                    <line class="st14" x1="414.5" y1="42.2" x2="414.5" y2="335.2"/>
+                </g>
+                </svg>
+
+        </figure>
+
+        <!-- acá van los textos de cada paso -->
+        <article>
+            <div class='step' data-index='0'>
+                <p>
+                    En el caso de COVID-19 todavía no tenemos vacunas y, por lo tanto, no podemos aspirar en el corto plazo a la inmunidad de rebaño a través de la vacunación.
+                <br/><br/>
+                Y tampoco es factible lograr inmunidad de rebaño por contagio natural. ¿Por qué no?
+                </p>
+            </div>
+            <div class='step' data-index='1'>
+                <p>
+                    En pocas palabras, no es factible por dos motivos: no se puede realizar en el corto plazo (antes de la <mark class="label verde">aprobación de la vacuna</mark>), y conllevaría muchísimas muertes. Profundicemos.
+                    </p>
+            </div>
+            <div class='step' data-index='2'>
+                <p>
+                    Para estimar el porcentaje de la población que debería ser inmune hay que tener en cuenta, entre varias otras cosas, características propias de la población y el <a href="/covid/como_se_compara/">número reproductivo básico del virus o R0</a>.
+                    <br/><br/>
+Es un número difícil de saber con certeza. Las estimaciones más confiables calculan que entre el 40% y el 70% de población <mark class="label gris">debería estar inmunizada</mark> contra el virus de COVID-19 para lograr la inmunidad colectiva.
+				</p>
+            </div>
+			<div class='step' data-index='3'>
+                <p>
+                    En Argentina, el 40% de la población contagiada significaría que unas <b>18 millones de personas</b> se enfermen.
+                    <br/><br/>
+Esto supondría, además, llegar a ese 40% de forma rápida y mucho antes de la aprobación de una vacuna, lo que solo sería probable que suceda sin ninguna medida de prevención.
+				</p>
+
+			</div>
+			
+			<div class='step' data-index='4'>
+                <p>
+                    Más allá del tiempo, avanzar con esa estrategia implicaría que de los 18 millones de personas contagiadas, al menos 70.000 <a href="/covid/historia_de_un_caso/">fallecieran solo por esta causa</a>.
+                    <br/><br/>
+                Como referencia, en 2018 murieron casi 32.000 personas por todas las enfermedades respiratorias.
+				</p>
+			</div>
+            
+            
+            <div class='step' data-index='5'>
+                <p>
+                    Además de lo anterior, el potencial colapso del sistema de salud seguramente generaría que mueran aún más personas.
+                    <br/><br/>
+                    Para evitar este colapso, deberíamos hacer que la curva de casos crezca más lentamente.
+				</p>
+			</div>
+
+
+            <div class='step' data-index='6'>
+                <p>
+                    En este escenario, probablemente la <a href="/covid/donde_esta_la_vacuna/">aprobación de la primera vacuna contra COVID-19</a> estaría lista antes de lograr esa supuesta inmunidad colectiva natural. La diferencia entre ambos escenarios es que sin medidas de prevención tendríamos muchas más muertes.
+                    
+				</p>
+			</div>
+
+
+        </article>
+    </div>
+
+</section>
+
+
+ <!-- Scripts -->
+ <script>
+	
+	//********************* CARGA DATOS ************
+
+Promise.all([
+      //  d3.csv("https://datos.decodificar.org/E1_ritmoBis.csv"),
+]).then(function(files) {
+   
+
+    
+
+    // **** CODIGO DEL SCROLLY *******
+
+
+    const container1 = d3.select('#scrolly1'); //busco el container total
+	const container2 = d3.select('#scrolly2'); //busco el container total
+
+    const stepSel1 = container1.selectAll('.step'); // selecciono los "steps"
+	const stepSel2 = container2.selectAll('.step'); // selecciono los "steps"
+
+    function updateChart(index, what,containerNumber,entra) {  // funcion que llama cada vez que cruza un umbral
+        const sel = d3.select('#scrolly'+containerNumber).select(`[data-index='${index}']`);
+        what.classed('is-active', (d, i) => i === index);
+        scrollyTelling(containerNumber,index,entra); // <<<<< AQUI LLAMA AL GRAFICO VERDADERO
+    }
+
+    function init(what,containerNumber) { // configuracion inicial
+        Stickyfill.add(d3.select('.sticky').node()); // fallback para browsers sin sticky
+
+        enterView({
+            selector: what.nodes(),
+            offset: 0.6,
+            enter: el => {
+                const index = +d3.select(el).attr('data-index');
+                updateChart(index,what,containerNumber,1);
+            },
+            exit: el => {
+                let index = +d3.select(el).attr('data-index');
+                index = Math.max(0, index - 1);
+                updateChart(index,what,containerNumber,0);
+            }
+        });
+    }
+  
+  
+
+    // **** END SCROLLY *******
+
+
+/* COLORES
+azul #00468B
+violeta #8B6BAF
+rojo #F04E53
+naranja #F26522
+verde #62BB46
+*/
+       
+        
+var ejeY, ejeX, tituloY, minDate, maxDate;
+
+var altoMaximo = 1.5; // cuantas veces el ancho permitimos que sea el alto maximo
+
+//var svg = d3.selectAll(".contenedorGrafico").append("svg"),
+    margin = isMobile ? {top: 35, right: 20, bottom: 15, left: 20} : {top: 40, right: 35, bottom: 25, left: 35},
+    widthReal =  +d3.select('#grafico1').style('width').slice(0, -2),
+    heightReal = +d3.select('#grafico1').style('height').slice(0, -2)-25;
+
+d3.selectAll(".contenedorGrafico").filter((d,i)=>i==1).append("div").attr("class","epigrafe")
+            .html("www.decodificar.org");
+
+/* 
+    if (heightReal > altoMaximo*widthReal) {
+        svg.style('margin-top', (heightReal - altoMaximo*widthReal)/2 + "px")
+        heightReal = altoMaximo*widthReal;
+    }
+ */
+   // svg.attr("viewBox", [0, 0, widthReal, heightReal]);
+
+    height = heightReal - margin.top - margin.bottom;
+    width = widthReal - margin.left - margin.right;
+    
+
+	var parseTime = d3.timeParse("%Y-%m-%d");
+
+///******** MANEJO DE DATOS ********
+
+   /*  var data = files[0];
+
+    data.forEach(function(d) {
+      d.fecha = parseTime(d.fecha);
+      d.casos_tot = +d.casos_tot;
+    });
+    
+console.log(data) */
+
+
+///******** setup ********
+
+/* 
+       svg.append("g")
+    	.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+	;
+
+	svg.each(function(d,i){
+		d3.select(this).select("g").attr("id","gInterno"+i);
+	})
+ */
+
+
+//*************** Primer scrolly
+
+
+
+
+
+/// Segundo scrolly                            
+    
+                                
+    
+                
+        
+ 
+
+        init(stepSel1,1)
+	    init(stepSel2,2)
+
+function scrollyTelling(containerNumber,step,entra){
+
+    
+
+	if(containerNumber == 1){  //GRAFICO PRIMER SCROLLY
+		switch (step) {
+			case 0: 
+			break;
+
+	    }
+
+  
+  
+	}else{
+
+
+            switch (step) { //GRAFICO SEGUNDO SCROLLY
+                case 0: 
+                d3.selectAll("#vacuna").transition().duration(600).style("opacity",0)
+                d3.selectAll("#medidas").transition().duration(600).style("opacity",1)
+                break;
+
+                case 1: 
+                d3.selectAll("#vacuna").transition().duration(600).style("opacity",1)
+                d3.selectAll("#inmunidadLimite").transition().duration(600).style("opacity",0)
+                break;
+
+                case 2: // aparece 40%
+                d3.selectAll("#medidas").transition().duration(600).style("opacity",1)
+                d3.selectAll("#fallecimientos").transition().duration(600).style("opacity",0)
+                d3.selectAll("#muertes3").transition().duration(600).style("opacity",0)
+                d3.selectAll("#inmunidadLimite").transition().duration(600).style("opacity",1)
+                d3.selectAll("#inmunidad").transition().duration(600).style("opacity",0)
+                break;
+
+                case 3: // curva sin medidas
+                d3.selectAll("#inmunidad").transition().duration(600).style("opacity",1)
+                d3.selectAll("#flechita").transition().duration(500).style("opacity",0)
+                break;
+
+                case 4: 
+                d3.selectAll("#fallecimientos").transition().duration(600).style("opacity",1)
+                d3.selectAll("#muertes3").transition().duration(600).style("opacity",1)
+                d3.selectAll("#muertes2").transition().duration(600).style("opacity",0)
+                d3.selectAll("#inmunidad").transition().duration(600).style("opacity",1)
+                d3.selectAll("#inmunidadMedidas").transition().duration(600).style("opacity",0)
+                d3.selectAll("#flechita").transition().duration(500).style("opacity",0)
+                break;
+
+                case 5: 
+                d3.selectAll("#muertes3").transition().duration(600).style("opacity",1)
+                d3.selectAll("#muertes2").transition().duration(600).style("opacity",1)
+                d3.selectAll("#inmunidadMedidas").transition().duration(900).style("opacity",1)
+                d3.selectAll("#flechita").transition().duration(500).style("opacity",1)
+                d3.selectAll("#inmunidad").transition().duration(900).style("opacity",1)
+                break;
+
+                case 6: 
+                d3.selectAll("#muertes3").transition().duration(600).style("opacity",0)
+                d3.selectAll("#inmunidad").transition().duration(900).style("opacity",0)
+                d3.selectAll("#flechita").transition().duration(500).style("opacity",0)
+                break;
+
+            }
+
+
+
+                    
+    }
+          
+
+}
+
+
+
+//********** funciones
+ 
+
+ 
+
+
+function ajustaMesesEjeX(g) {
+        var diasUltimoMes = d3.timeDay.count(d3.timeMonth.floor(x.domain()[1]),x.domain()[1]);
+        var diasPrimerMes = Math.abs(d3.timeDay.count(d3.timeMonth.ceil(x.domain()[0]),x.domain()[0]));
+		  // ESTO PONE LOS NOMBRES DE LOS MESES EN MEDIO DE CADA MES
+           g.selectAll(".tick:not(:last-of-type):not(:last-of-type) text") // para todos los meses menos el ultimo
+                .attr("dx", x(d3.timeDay.offset(x.domain()[0], 15 ))) // mueve el equivalente a 15 dias
+                .attr("dy", "0.3em") ;
+
+          if(diasPrimerMes>8){
+            g.selectAll(".tick:first-of-type text") // el ultimo si no esta completo lo centra en los dias que haya
+                .clone(true)
+                .text(d3.timeFormat("%B")(d3.timeMonth.floor(x.domain()[0])))
+                .attr("dx",  x(d3.timeDay.offset(x.domain()[0], diasPrimerMes/2))*-1)
+                .attr("dy", "0.3em") ;
+            }
+
+  
+            if(diasUltimoMes<8){
+                g.selectAll(".tick:last-of-type text").remove()
+            }else{
+            g.selectAll(".tick:last-of-type text") // el ultimo si no esta completo lo centra en los dias que haya
+                .text(d3.timeFormat("%b")(d3.timeMonth.floor(x.domain()[1])))
+                .attr("dx",  x(d3.timeDay.offset(x.domain()[0], diasUltimoMes/2 )))
+                .attr("dy", "0.3em") ;
+            }
+
+            g.selectAll(".tick line") // las lineas que separan los meses, mas altas
+                .attr("y2", "1.4em") ;
+			}
+
+
+});
+
+</script>
+
+
+<div class="note info"><p>Si bien los números presentados más arriba dependen de varios supuestos, la inmunidad de rebaño por contagio natural no es factible de lograr en un plazo razonable y además, para lograrla, fallecerían muchas personas. Además, asumir una estrategia en la que muchísimas personas deben contagiarse y morir en un tiempo corto supone un riesgo para el sistema sanitario y para la salud de cada individuo.</p>
+<p>Con la ausencia aún de una vacuna efectiva, la mejor manera como población para combatir la pandemia de COVID-19 sigue siendo respetar las normas de distanciamiento social y de higiene.</p>
+</div>]]></content>
+  </entry>
 </search>

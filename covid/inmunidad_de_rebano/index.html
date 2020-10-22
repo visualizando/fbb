@@ -50,7 +50,7 @@
   };
 </script>
 
-  <title>¿Podemos lograr la inmunidad de rebaño sin vacuna? | Decodificar: COVID19</title><meta name="robots" content="noindex">
+  <title>¿Podemos lograr la inmunidad de rebaño sin vacuna? | Decodificar: COVID19</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132699662-2"></script>
     <script>
@@ -393,6 +393,18 @@ var coloreaCategorias = d3.scaleOrdinal()
 
     }
 
+    .label.vacunadas{
+        background: #363f84;
+
+    }
+
+
+    .label.verde{
+        background: #62BB46;
+
+    }
+
+
 
     .label.celeste{
         background: #5badd4;
@@ -475,7 +487,7 @@ verde #62BB46
                 </p>
             </div>
             <div class='step' data-index='1'>
-				      <p>Ahora imaginemos otra población “B” donde también hay un virus pero <b>no es nuevo</b>, ya tiene una vacuna efectiva, y la mayoría de las personas están vacunadas.
+				      <p>Ahora imaginemos otra población “B” donde también hay un virus pero <b>no es nuevo</b>, ya tiene una vacuna efectiva, y la mayoría de <mark class="label vacunadas">las personas están vacunadas</mark>.
                         <br/><br/>
                         La propagación de este virus es más dificultosa porque hay menos chances de que encuentre personas no protegidas por la vacuna. 
                 </p>
@@ -790,12 +802,12 @@ verde #62BB46
             </div>
             <div class='step' data-index='1'>
                 <p>
-                    En pocas palabras, no es factible por dos motivos: no se puede realizar en el corto plazo (antes de la aprobación de la vacuna), y conllevaría muchísimas muertes. Profundicemos.
+                    En pocas palabras, no es factible por dos motivos: no se puede realizar en el corto plazo (antes de la <mark class="label verde">aprobación de la vacuna</mark>), y conllevaría muchísimas muertes. Profundicemos.
                     </p>
             </div>
             <div class='step' data-index='2'>
                 <p>
-                    Para estimar el porcentaje de la población que debería ser inmune hay que tener en cuenta, entre varias otras cosas, características propias de la población y el número reproductivo básico del virus o R0.
+                    Para estimar el porcentaje de la población que debería ser inmune hay que tener en cuenta, entre varias otras cosas, características propias de la población y el <a href="/covid/como_se_compara/">número reproductivo básico del virus o R0</a>.
                     <br/><br/>
 Es un número difícil de saber con certeza. Las estimaciones más confiables calculan que entre el 40% y el 70% de población <mark class="label gris">debería estar inmunizada</mark> contra el virus de COVID-19 para lograr la inmunidad colectiva.
 				</p>
@@ -1085,9 +1097,9 @@ function ajustaMesesEjeX(g) {
 </script>
 
 
-<div class="note info"><p>Si bien los números presentados más arriba dependen de varios supuestos, la inmunidad de rebaño por contagio natural no es factible de lograr en un plazo razonable y además, para lograrla, fallecerían muchas personas. Además, asumir una estrategia en la que muchísimas personas deben contagiarse y morir en un tiempo supone un riesgo para el sistema sanitario y para la salud de cada individuo.</p>
+<div class="note info"><p>Si bien los números presentados más arriba dependen de varios supuestos, la inmunidad de rebaño por contagio natural no es factible de lograr en un plazo razonable y además, para lograrla, fallecerían muchas personas. Además, asumir una estrategia en la que muchísimas personas deben contagiarse y morir en un tiempo corto supone un riesgo para el sistema sanitario y para la salud de cada individuo.</p>
 <p>Con la ausencia aún de una vacuna efectiva, la mejor manera como población para combatir la pandemia de COVID-19 sigue siendo respetar las normas de distanciamiento social y de higiene.</p>
-</div><!-- flag of hidden posts -->
+</div>
     </div>
                       <div class="compartir">Compartir:
                         <a  href="https://www.facebook.com/sharer/sharer.php?u=https://decodificar.org/covid/inmunidad_de_rebano/&quote=¿Podemos lograr la inmunidad de rebaño sin vacuna?" target="_blank" title="Share on Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURI(https://decodificar.org/covid/inmunidad_de_rebano/) + '&quote=' + encodeURI(¿Podemos lograr la inmunidad de rebaño sin vacuna?); return false;"><i class="fab fa-facebook" aria-hidden="true"></i></a>
@@ -1106,6 +1118,13 @@ function ajustaMesesEjeX(g) {
 
 
         
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/covid/como_se_compara/" rel="prev" title="¿Cómo se compara COVID-19 con otras enfermedades contagiosas?">
+      <i class="fa fa-chevron-left"></i> ¿Cómo se compara COVID-19 con otras enfermedades contagiosas?
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
       </footer>
     
   </article>
