@@ -438,6 +438,11 @@ var coloreaCategorias = d3.scaleOrdinal()
         font-size: 11px;
     }
 	
+    #encloser{
+        fill:none;
+        stroke: #8B6BAF;
+        stroke-width: 2px;
+    }
     
 /* COLORES
 azul #00468B
@@ -464,45 +469,50 @@ verde #62BB46
         <!-- acá van los textos de cada paso -->
         <article>
             <div class='step' data-index='0'>
-				      <p>Como vimos en esta historia sobre testeos, el número de casos confirmados de COVID-19 es menor al número total de personas que realmente tienen la enfermedad.
-                <br/><br/>
-                Esto representa un enorme desafío durante la pandemia porque identificar y aislar a las personas que cursan la enfermedad es una de las mejores herramientas para contenerla.
+			    <p>
+                    Los testeos son una parte clave en el seguimiento de la pandemia. Esa "foto" que obtenemos al testear es una parte de la realidad. Y depende de dónde y cómo tomemos esa foto.
+                    <br/><br/>
+                    Imaginemos que en una determinada población definimos los “casos sospechosos” para COVID-19: aquellas personas que presentan ciertos síntomas.
                 </p>
             </div>
             <div class='step' data-index='1'>
-				      <p>¿Cuántos testeos se hacen por día en Argentina? Esta fue una de las preguntas que más se repitió desde el inicio de la pandemia en nuestro país. 
-                <br/><br/>
-                En este gráfico podemos ver cuántos testeos se hacen por día. ¿Es mucho o es poco? Para responder debemos compararlo con el número de casos nuevos confirmados por día. Es decir, con las personas cuyos testeos dan positivos.
-                <br/><br/>                
-                Veamos testeos y casos diarios en el mismo gráfico.
+				      <p>
+                        Ante la dificultad de testear a toda la población repetidas veces en el tiempo, una estrategia de testeo podría implicar encontrar a todos los casos sospechosos (buscarlos activamente o promover que contacten al sistema de salud) y testearlos.
                 </p>
             </div>
             <div class='step' data-index='2'>
-				      <p>Como aclaración, también es importante mencionar que actualmente la definición de “caso confirmado” incluye la posibilidad de confirmar un caso por criterio clínico/epidemiológico. Esto es sin la necesidad de hacer un testeo propiamente.
-                <br/><br/>
-                Sin embargo, la proporción de casos que se confirman con este criterio es por ahora muy baja. 
+				      <p>
+                        De esas personas que testeamos, algunas dan positivo para COVID-19 y otras no.
+                        <br/><br/>
+                        La relación entre la cantidad de resultados positivos y el número total de testeos es el índice de positividad. Por ejemplo, acá se testea a todo el universo de casos sospechosos y encontramos que más o menos de cada 100 personas, 90 dieron positivo. Esto se traduce en un índice de positividad del 90%.
                 </p>
             </div>
             <div class='step' data-index='3'>
-				      <p>Hay días donde el número de testeos parece bastante más grande que el de casos confirmados. Otros días, dichas cifras no están tan alejadas.
-                <br/><br/>
-                ¿Cómo medimos eso? Mirando la proporción que hay entre ellos, es decir el famoso índice de positividad.
+				      <p>
+                        Atención. Como ya sabemos, hay seguramente muchos casos de personas que también tienen COVID-19 pero que, al no tener síntomas y no ser identificados como casos sospechosos, no las estamos testeando.
                 </p>
             </div>
             <div class='step' data-index='4'>
-				      <p>El índice de positividad nos indica justamente eso: cuántos testeos dan positivos (casos confirmados diarios) del total de testeos que hacemos por día .
-                <br/><br/>
-                Y este índice también es muy importante porque nos da información sobre nuestra estrategia de testeo y, además, sobre la misma evolución de la pandemia.
+				      <p>
+                        ¿Qué pasa si cambiamos la definición de caso sospechoso para incluir más síntomas? Es decir, si agrandamos el universo que consideramos “prioritario” en la estrategia de testeo. 
+                        <br/><br/>
+                        Deberán hacerse más testeos, lo que posiblemente disminuya el índice de positividad, al estar considerando otros casos con menos probabilidad de tenser COVID-19. Aquí asumimos nuevamente que tenemos la capacidad de testear a todos los que consideremos caso sospechoso.
                 </p>
             </div>
             <div class='step' data-index='5'>
-				      <p>La Organización Mundial de la Salud recomienda que el índice de positividad sea menor al 5%. 
-                <br/><br/>
-                Argentina tuvo etapas de la pandemia con positividad chica de acuerdo a lo recomendado, y etapas con positividad muy grande y creciente. 
-                <br/><br/>                
-                ¿Cómo se entiende el índice de positividad?
+				      <p>
+                        ¿Qué pasa si tenemos una definición amplia de caso sospechoso pero no podemos testearlos a todos? Podría ser por ejemplo por falta de disponibilidad de kits de testeo o porque esas personas no acceden al sistema de salud.
+                        <br/><br/>
+                        En la práctica, vamos a tener que elegir a quién testear.
                 </p>
             </div>
+            <div class='step' data-index='6'>
+                <p>
+                  Si eligiéramos al azar entre los casos sospechosos, el índice de positividad no debería cambiar (en términos de probabilidad).
+            <br/><br/>
+            Sin embargo, lo que sucede es que se decide  priorizar a trabajadores esenciales o pacientes internados que tienen una probabilidad mayor de estar contagiados y, por lo tanto, el índice de positividad probablemente será alto.
+        </p>
+    </div>
         </article>
 		
 	</div>
@@ -519,43 +529,22 @@ verde #62BB46
         <article>
             <div class='step' data-index='0'>
                 <p>
-                  Hacemos testeos para conocer la realidad de la pandemia, pero la "foto" que obtenemos es forzosamente recortada. Y depende de dónde y cómo miremos. 
-                  <br/><br/>
-                  ¿Qué significa un índice de positividad de 1%? ¿Y uno del 90%?
-                  <br/><br/>                  
-                  Imaginemos que hacemos 100 testeos sobre una población determinada.  ¿Qué pasa si vamos cambiando la parte de la población a la que testeamos?
+                    Una de las formas que sugiere la OMS para lograr el control de la pandemia es que la estrategia de testeo tenga una definición abarcativa de “caso sospechoso” que se combine con el rastreo activo de contactos para lograr testear a la mayor cantidad posible de casos sospechosos.
                 </p>
             </div>
             <div class='step' data-index='1'>
                 <p>
-                    Hacemos los primeros 100 testeos y obtenemos un índice de positividad cercano a 1%. Es decir, más o menos 1 test daría positivo y los otros 99 negativo.
+                    Bajo las premisas antes mencionadas, la OMS recomienda que  el índice de positividad sea menor al 5%. 
                     <br/><br/>
-                    Hacer estos testeos lleva tiempo e implica usar recursos. Si tantos testeos nos dan negativos, quizás eso nos está diciendo que estamos testeando mucho más que lo necesario o que estamos testeando a personas que tienen pocas chances de tener la enfermedad. Es como testear al azar en la esquina de una plaza.
-                    </p>
+                    En Argentina, el índice promedio de la última semana es de XX, aunque es importante destacar que no siempre ni en todas las jurisdicciones se cumplieron las sugerencias de la OMS.
+                </p>
             </div>
+            
             <div class='step' data-index='2'>
                 <p>
-                    Ahora supongamos que testeamos a un grupo de personas mayores que vive en un geriátrico y donde se detectó un caso confirmado.
-                    <br/><br/>
-                    En este grupo obtenemos un índice cercano al 90%: de 100 testeos, más o menos 90 nos dan positivo y 10 negativo.
-				</p>
+                    Debemos tener en cuenta también que el número de testeos usado para calcular la positividad podría incluir testeos para altas de pacientes o no estar considerando todos los negativos, por lo que el índice podría estar subestimado o sobreestimado de acuerdo a cuál sea el caso.
+                    </p>
             </div>
-			<div class='step' data-index='3'>
-                <p>
-                    Consideremos finalmente una estrategia de testeo más general que nos da un índice de positividad cercano al 50%. Esto significa que una de cada dos personas que testeamos tiene la enfermedad.
-                    <br/><br/>
-                    Como vemos, con este índice de positividad hay una chance grande de que muchas personas fuera de la "foto" también tengan la enfermedad. ¿Qué deberíamos hacer entonces?
-				</p>
-
-			</div>
-			
-			<div class='step' data-index='4'>
-                <p>
-                  Aumentar la cantidad de testeos es una de las opciones: incorporar grupos más generales hace que el índice de positividad baje. La solución está en el medio entre testear demasiado poco (positividad muy grande) y el testeo masivo (positividad extremadamente chica, pero muy difícil de llevar a la práctica y costoso).
-                  <br/><br/>
-                  Sin embargo, el índice de positividad sigue dependiendo de a dónde apuntamos la foto. Hacer más testeos no necesariamente implica reducir el índice.
-				</p>
-			</div>
 			
         </article>
     </div>
@@ -740,7 +729,7 @@ var positivador = files[1];
  
 
 
-	var gBarras = d3.select("#gInterno0");
+	var gBarras = d3.select("#gInterno1");// estan invertidos
 
     ejeX = gBarras.append("g") // EJE X
         .attr("class", "axis axis--x")
@@ -797,22 +786,23 @@ var positivador = files[1];
        
 //********* aca van los bubbles
 
-var gBubbles = d3.select("#gInterno1");
+var gBubbles = d3.select("#gInterno0"); // estan invertidos
     
 var ratio = width/height;
 
-var contagiados = 0.7; // porcentaje de contagiados
-var matrix = [32,52],
+var contagiados = 0.009, sospechosos = 0.01; // porcentaje de contagiados
+var diam = 7, padding = 6, enclosingCircle; 
+var matrix = [Math.floor(width/(diam+padding)), Math.floor(height/(diam+padding))],
     grafRatio = isMobile?matrix[0]/matrix[1]:matrix[1]/matrix[0];
 
 
-var cantX = isMobile?matrix[0]:matrix[1],
-    cantY = isMobile?matrix[1]:matrix[0],
+var cantY = isMobile?matrix[0]:matrix[1],
+    cantX = isMobile?matrix[1]:matrix[0],
     total = cantX*cantY
     ;
 
-var diam = d3.min([(height-20)/cantY*0.75,(width)/cantX*0.75]),
-    padding = diam*0.3;
+    console.log(cantX, cantY, total)
+
 
     var anchoGraf = (diam*cantX)+(padding*(cantX-1)); // ancho total de las pelotitas
     var altoGraf = (diam*cantY)+(padding*(cantY-1)); // alto total de las pelotitas
@@ -837,15 +827,21 @@ var scaleY = d3.scaleBand()
     .round(true);
 
 
+var puntitos = d3.range(total).map((d,i)=>{
+        var random = Math.random();
+    return {
+              "index":i,
+              "sospechoso":random>sospechosos?0:1,
+              "positivo":random>contagiados?0:1,
+              "x":scaleX(i % cantX),
+              "y":scaleY(Math.floor(i / cantX)),
+              "r":diam/2
+              }});
+
+
   gBubbles.append("g")
           .selectAll("circle")
-          .data(d3.range(total).map((d,i)=>{return {
-              "index":i,
-//              "positivo":Math.random()*Math.sin(i/(total/2)*Math.PI/2)>contagiados?1:0,
-              "positivo":+positivador[Math.floor(i / cantX)][i % cantX],
-              "x":scaleX(i % cantX),
-              "y":scaleY(Math.floor(i / cantX))
-              }}))
+          .data(puntitos)
           .join("circle")
               .attr('cx', d => d.x)
               .attr('cy', d => d.y)
@@ -853,56 +849,71 @@ var scaleY = d3.scaleBand()
                 .attr("id",d=>"c"+d.index)
                 .attr("class","persona")
                 .attr("opacity",1)
-                .style("fill",d=>d.positivo?"#F26522":"#62BB46")
+                .style("fill",d=>d.sospechoso?"#8B6BAF":"#62BB46")
                 ;
 
 
-      /*         d3.selectAll(".persona").each(function(d) {
-                          switch(d.index){
-                              case 973:
-                              case 971:
-                              case 975:
-                              case 909:
-                              case 911:
-                              case 907:
-                              case 906:
-                              case 856:
-                              case 875:
-                              case 852:
-                              case 726:
-                              case 755:
-                              d.positivo = 1
-                              break;
-                              
+                
 
-                          }
-                    }) */
+              
+              function roseta (personas){
+                var angle = Math.PI * (3 - Math.sqrt(5));
+                var maxRadius, lugaresVacios = [];
+                personas.filter(d=>d.sospechoso).each((d,i)=>{
+                    var r = (diam/2 + padding/4) * Math.sqrt(i);
+                    var a = i * angle;
+
+                    lugaresVacios.push({"x":d.x,"y":d.y,"r":diam/2}) // guardo los lugares vacios
+
+                    d.x = anchoGraf/2 + r * Math.cos(a);
+                    d.y = altoGraf/2 + r * Math.sin(a);
+                    
+                });
+                
+                enclosingCircle = d3.packEnclose(personas.filter(d=>d.sospechoso).data());
+                enclosingCircle.r = enclosingCircle.r*1.1
+                //elimino los lugares vacios del medio
+
+                lugaresVacios = lugaresVacios.filter(d=>!isInside({"radius":enclosingCircle.r*1.2,"x":enclosingCircle.x,"y":enclosingCircle.y},d.x,d.y));
+                
+                gBubbles.append("circle").attr("id","encloser").attr("r",enclosingCircle.r).attr("cx",enclosingCircle.x).attr("cy",enclosingCircle.y);
+
+                personas.filter(d=>!d.sospechoso && isInside({"radius":enclosingCircle.r*1.2,"x":enclosingCircle.x,"y":enclosingCircle.y},d.x,d.y))
+                        .each((d,i)=>{
+                                if(i<lugaresVacios.length){ // failproof
+                                    d.x = lugaresVacios[i].x;
+                                    d.y = lugaresVacios[i].y;
+                                }else{
+                                    
+                                    d.x = lugaresVacios[i-lugaresVacios.length].x;
+                                    d.y = lugaresVacios[i-lugaresVacios.length].y;
+                                }
+                            });
+                personas.transition().duration(600).delay(d=>d.sospechoso*10).attr("cx",d=>d.x).attr("cy",d=>d.y)
+              }
                    
 
 ;
-
-
-
                 gBubbles.append("circle")
                             .attr("id","selector")
 
-    var selector = {
-                    "radius":0,
-                    "x":width/2,
-                    "y":height/2
-    }
+                var selector = {
+                                "radius":0,
+                                "x":width/2,
+                                "y":height/2
+                }
 
 
 
-    var marginBars = 90;
+        var marginBars = 90;
 
-var xStats = d3.scaleLinear()
-        .domain([0, total])
-        .range([0, anchoGraf-marginBars-10])
+        var xStats = d3.scaleLinear()
+                .domain([0, total])
+                .range([0, anchoGraf-marginBars-10])
 
-var xStatsPorc = d3.scaleLinear()
-        .domain([0, 1])
-        .range([0, anchoGraf-marginBars-10])
+        var xStatsPorc = d3.scaleLinear()
+                .domain([0, 1])
+                .range([0, anchoGraf-marginBars-10])
 
         var stats = gBubbles.append("g").attr("id","stats")
         .attr("transform",`translate(0,${altoGraf+5})`)
@@ -913,10 +924,9 @@ var xStatsPorc = d3.scaleLinear()
     var statsPositividad =  stats.append("g").attr("id","statsPositividad").style("opacity",0);
     
     statsTesteos.append("text").attr("id","testeos")
-                    .attr("dy",15)
-                    ;
+                    .attr("dy",15);
                 
-                    statsPositividad.append("text").attr("id","positividad")
+                statsPositividad.append("text").attr("id","positividad")
                     .attr("dy",30)
                     ;
 
@@ -948,13 +958,11 @@ var xStatsPorc = d3.scaleLinear()
                     statsPositividad.append("rect").attr("id","positividadBar")
                     .attr("x",marginBars)
                     .attr("y",20)
-                    //.attr("width",xStatsPorc(adentro.filter(d=>d.positivo)._groups[0].length/adentro._groups[0].length))
                     .attr("width",1)
                     .attr("height",12)
                     .style("fill","#F04E53")
                     ;
 
-                    updateSelector(selector);
 
 
     function updateSelector(selector){
@@ -969,6 +977,8 @@ var xStatsPorc = d3.scaleLinear()
                                 }).transition().duration(200).style("opacity",d=>d.isInside?1:0.4);
 
                                 var adentro = d3.selectAll(".persona").filter(d=>d.isInside);
+                                adentro.style("fill",d=>d.positivo?"#F26522":"#62BB46")
+
                                 d3.select("#positividadBar").transition().duration(200).attr("width",xStatsPorc(adentro.filter(d=>d.positivo)._groups[0].length/adentro._groups[0].length));
                                 d3.select("#testeosBar").transition().duration(200).attr("width",xStats(adentro._groups[0].length));
                                 d3.select("#testeos").text("Testeos: "+adentro._groups[0].length);
@@ -987,48 +997,39 @@ var xStatsPorc = d3.scaleLinear()
 	    init(stepSel2,2)
 
 function scrollyTelling(containerNumber,step,entra){
-
-
-	if(containerNumber == 1){  //GRAFICO PRIMER SCROLLY
+	if(containerNumber == 0){  //GRAFICO PRIMER SCROLLY
 		switch (step) {
 			case 0: // Casos confirmados diarios 
-        d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",d=>d.key=="casos"?1:0)
-        d3.selectAll(".axis-title").text("Casos confirmados diarios en Argentina")
+                console.log("aaa")
+                d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",d=>d.key=="casos"?1:0)
+                d3.selectAll(".axis-title").text("Casos confirmados diarios en Argentina")
 			break;
 
-      case 1: // testeos diarios 
-			case 2: // testeos diarios 
-      d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",d=>d.key=="casos"?0:1)
-      d3.selectAll(".axis-title").text("Número de testeos diarios en Argentina")
-      break;
+        case 1: // testeos diarios 
+    	case 2: // testeos diarios 
+            d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",d=>d.key=="casos"?0:1)
+            d3.selectAll(".axis-title").text("Número de testeos diarios en Argentina")
+        break;
 
-      case 3: // Casos confirmados y testeos diarios 
-      d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",1)
-      d3.select("#lineaPositividad").selectAll("path").transition().duration(600).style("opacity",0)
-      d3.select("#axisDer").transition().duration(600).style("opacity",0)
-      d3.selectAll(".axis-title").text("Número de testeos y casos confirmados diarios en Argentina")
-      
+        case 3: // Casos confirmados y testeos diarios 
+            d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",1)
+            d3.select("#lineaPositividad").selectAll("path").transition().duration(600).style("opacity",0)
+            d3.select("#axisDer").transition().duration(600).style("opacity",0)
+            d3.selectAll(".axis-title").text("Número de testeos y casos confirmados diarios en Argentina")
+        break;
 
+        case 4: // Casos confirmados y positividad
+            d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",d=>d.key=="casos"?1:0)
+            d3.select("#lineaPositividad").selectAll("path").transition().duration(600).style("opacity",1)
+            d3.select("#axisDer").transition().duration(600).style("opacity",1)
+            d3.selectAll(".axis-title").text("Índice de positividad y casos confirmados diarios en Argentina")
+            d3.select("#linea5porciento").select("line").transition().duration(600).style("opacity",0)
+        break;
 
-      break;
-
-      case 4: // Casos confirmados y positividad
-      d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",d=>d.key=="casos"?1:0)
-      d3.select("#lineaPositividad").selectAll("path").transition().duration(600).style("opacity",1)
-      d3.select("#axisDer").transition().duration(600).style("opacity",1)
-      d3.selectAll(".axis-title").text("Índice de positividad y casos confirmados diarios en Argentina")
-      d3.select("#linea5porciento").select("line").transition().duration(600).style("opacity",0)
-      break;
-
-      case 5: // una línea de referencia en 5% de positividad.
-      d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",d=>d.key=="casos"?0.5:0)
-      d3.select("#linea5porciento").select("line").transition().duration(600).style("opacity",1)
-      break;
-
-      
-
-
-
+        case 5: // una línea de referencia en 5% de positividad.
+            d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",d=>d.key=="casos"?0.5:0)
+            d3.select("#linea5porciento").select("line").transition().duration(600).style("opacity",1)
+        break;
 	    }
 
   
@@ -1037,34 +1038,20 @@ function scrollyTelling(containerNumber,step,entra){
 
 
             switch (step) { //GRAFICO SEGUNDO SCROLLY
-                case 0: // veo solo el circulo y testeos --- TODOS MISMO COLOR (violeta)
-                         updateSelector({"radius":40,"x":width/3,"y":height/2})
-                         d3.select("#statsPositividad").transition().duration(200).style("opacity",0)
-                break;
+                case 1:
+                    roseta(d3.selectAll(".persona"))
+                    d3.select("#statsPositividad").transition().duration(200).style("opacity",0)
+                    break;
 
-                case 1: // buscar positivdad baja
-                        updateSelector({"radius":40,"x":width/2,"y":height/2})
+                case 2: // veo solo el circulo y testeos --- TODOS MISMO COLOR (violeta)
+                        updateSelector({"radius":enclosingCircle.r,"x":enclosingCircle.x,"y":enclosingCircle.y})
                         d3.select("#statsPositividad").transition().duration(600).style("opacity",1)
                 break;
-
-                case 2: // buscar positivdad alta
-                        updateSelector({"radius":40,"x":width/2,"y":height/5})
-                break;
-
-                case 3: // buscar positivdad intermedia
-                        updateSelector({"radius":60,"x":width/2,"y":height/4.5})
-                break;
-
-                case 4: // aumenta el circulo 
-                        updateSelector({"radius":200,"x":width/2,"y":height/2})
-                break;
+            
             }
-
-
-
                     
     }
-          
+        
 
 }
 
@@ -1116,8 +1103,8 @@ function ajustaMesesEjeX(g) {
 </script>
 
 
-<div class="note info"><p>El número de testeos para confirmar casos de COVID-19 es muy importante en la estrategia de contención de la pandemia. Sin embargo, lo importante no es simplemente hacer la mayor cantidad de testeos sino hacerlos de forma eficiente: usar los recursos para obtener la mejor información posible para tomar decisiones (aislar a las personas, rastrear sus contactos, implementar nuevas restricciones o flexibilizarlas).</p>
-<p>Entonces no alcanza con saber cuántos testeos se hicieron, necesitamos pensar también en cuántos de todos esos testeos dan positivo. Además, el índice de positividad nacional esconde diferencias entre ciudades y distritos, que en algunos casos pueden ser muy grandes. Algunos distritos pueden tener índices muy altos, y otros muy bajos.</p>
+<div class="note info"><p>La estrategia de testeos para confirmar casos de COVID-19 es muy importante como forma de contención de la pandemia. Ante la escasez de recursos, lo importante no es simplemente hacer la mayor cantidad de testeos, sino también hacerlos de forma eficiente: usar los recursos disponibles para obtener la mejor información posible para tomar ciertas decisiones, como aislar a las personas, rastrear sus contactos, implementar nuevas restricciones o flexibilizarlas.</p>
+<p>El índice de positividad depende de esta estrategia. Así, por ejemplo, el índice de positividad nacional  no expresa las diferentes estrategias de testeo que se están implementando en cada provincia ni las diferencias que puede haber entre ciudades, más allá de las recomendaciones y lineamientos generales del Ministerio de Salud de la Nación.</p>
 </div><!-- flag of hidden posts -->
     </div>
                       <div class="compartir">Compartir:
