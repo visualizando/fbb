@@ -390,9 +390,9 @@ var coloreaCategorias = d3.scaleOrdinal()
 
     }
 
-    .label.celeste{
-        background: #5badd4;
-
+    circle.persona.asintomaticos{
+        fill: #5badd4 !important;
+        opacity: 1 !important;
     }
 
     .label.violeta{
@@ -429,8 +429,9 @@ var coloreaCategorias = d3.scaleOrdinal()
     }
 
     #selector{
-        stroke: #8B6BAF;
-        stroke-width: 2px;
+        stroke: #222;
+        stroke-width: 1px;
+        stroke-dasharray: 4 2;
         fill:none;
     }
 
@@ -655,6 +656,20 @@ var positivador = files[1];
 
 // AGREGAR  MOVING AVERAGE DE 7 DIAS A LA POSITIVIDAD ****************
 
+
+
+/* var movingWindowAvg = function (arr, wlen) { // window size = wlen
+return arr.map(function (, idx) {
+var wnd = arr.slice(idx - wlen + 1, idx + 1);
+var result = d3.sum(wnd) / wnd.length;
+// Check for isNaN, the javascript way
+result = (result == result) ? result : ;
+return result;
+});
+};
+
+var avgData = movingWindowAvg(avg, 7); // 7-step backward moving window. */
+
 		data.forEach(element => {
 			element.fecha = parseTime(element.fecha_informe);
             delete element.fecha_informe;
@@ -796,12 +811,12 @@ var matrix = [Math.floor(width/(diam+padding)), Math.floor(height/(diam+padding)
     grafRatio = isMobile?matrix[0]/matrix[1]:matrix[1]/matrix[0];
 
 
-var cantY = isMobile?matrix[0]:matrix[1],
-    cantX = isMobile?matrix[1]:matrix[0],
+var cantY = matrix[1],
+    cantX = matrix[0],
     total = cantX*cantY
     ;
 
-    console.log(cantX, cantY, total)
+    console.log(isMobile,cantX, cantY, total)
 
 
     var anchoGraf = (diam*cantX)+(padding*(cantX-1)); // ancho total de las pelotitas
@@ -829,14 +844,18 @@ var scaleY = d3.scaleBand()
 
 var puntitos = d3.range(total).map((d,i)=>{
         var random = Math.random();
-    return {
-              "index":i,
-              "sospechoso":random>sospechosos?0:1,
-              "positivo":random>contagiados?0:1,
-              "x":scaleX(i % cantX),
-              "y":scaleY(Math.floor(i / cantX)),
-              "r":diam/2
-              }});
+                return {
+                        "index":i,
+                        "sospechoso":random,//random>sospechosos?0:1,
+                        "positivo":random,//random>contagiados?0:1,
+                        "x":scaleX(i % cantX),
+                        "y":scaleY(Math.floor(i / cantX)),
+                        "x0":scaleX(i % cantX),
+                        "y0":scaleY(Math.floor(i / cantX)),
+                        "randomID":Math.random(),
+                        "r":diam/2
+                        }}
+                        );
 
 
   gBubbles.append("g")
@@ -849,17 +868,27 @@ var puntitos = d3.range(total).map((d,i)=>{
                 .attr("id",d=>"c"+d.index)
                 .attr("class","persona")
                 .attr("opacity",1)
-                .style("fill",d=>d.sospechoso?"#8B6BAF":"#62BB46")
+                .style("fill",d=>d.sospechoso<sospechosos?"#8B6BAF":"#ccc")
                 ;
 
 
-                
+                gBubbles.append("circle")   // AGREGO EL CIRCULO ENCLOSER que agrupa los sospechosos
+                            .attr("id","encloser")
+                            .attr("cx",anchoGraf/2)
+                            .attr("cy",altoGraf/2)
+                            .attr("r",0);
+
+                gBubbles.append("circle") // AGREGO EL CIRCULO SELECTOR que agrupa los testeados
+                            .attr("id","selector")
+                            .attr("cx",anchoGraf/2)
+                            .attr("cy",altoGraf/2)
+                            .attr("r",0);
 
               
-              function roseta (personas){
+              function roseta (personas, sospechosos){
                 var angle = Math.PI * (3 - Math.sqrt(5));
                 var maxRadius, lugaresVacios = [];
-                personas.filter(d=>d.sospechoso).each((d,i)=>{
+                personas.filter(d=>d.sospechoso<sospechosos?1:0).each((d,i)=>{
                     var r = (diam/2 + padding/4) * Math.sqrt(i);
                     var a = i * angle;
 
@@ -870,15 +899,15 @@ var puntitos = d3.range(total).map((d,i)=>{
                     
                 });
                 
-                enclosingCircle = d3.packEnclose(personas.filter(d=>d.sospechoso).data());
-                enclosingCircle.r = enclosingCircle.r*1.1
+                enclosingCircle = d3.packEnclose(personas.filter(d=>d.sospechoso<sospechosos?1:0).data());
+                enclosingCircle.r = enclosingCircle.r+5
                 //elimino los lugares vacios del medio
 
-                lugaresVacios = lugaresVacios.filter(d=>!isInside({"radius":enclosingCircle.r*1.2,"x":enclosingCircle.x,"y":enclosingCircle.y},d.x,d.y));
+                lugaresVacios = lugaresVacios.filter(d=>!isInside({"radius":enclosingCircle.r*1.1,"x":enclosingCircle.x,"y":enclosingCircle.y},d.x,d.y));
                 
-                gBubbles.append("circle").attr("id","encloser").attr("r",enclosingCircle.r).attr("cx",enclosingCircle.x).attr("cy",enclosingCircle.y);
+                d3.select("#encloser").attr("r",enclosingCircle.r).attr("cx",enclosingCircle.x).attr("cy",enclosingCircle.y);
 
-                personas.filter(d=>!d.sospechoso && isInside({"radius":enclosingCircle.r*1.2,"x":enclosingCircle.x,"y":enclosingCircle.y},d.x,d.y))
+                personas.filter(d=>d.sospechoso<sospechosos?0:1 && isInside({"radius":enclosingCircle.r*1.1,"x":enclosingCircle.x,"y":enclosingCircle.y},d.x,d.y))
                         .each((d,i)=>{
                                 if(i<lugaresVacios.length){ // failproof
                                     d.x = lugaresVacios[i].x;
@@ -889,18 +918,17 @@ var puntitos = d3.range(total).map((d,i)=>{
                                     d.y = lugaresVacios[i-lugaresVacios.length].y;
                                 }
                             });
-                personas.transition().duration(600).delay(d=>d.sospechoso*10).attr("cx",d=>d.x).attr("cy",d=>d.y)
+                personas.transition().duration(600).attr("cx",d=>d.x).attr("cy",d=>d.y)
               }
                    
 
 ;
-                gBubbles.append("circle")
-                            .attr("id","selector")
+
 
                 var selector = {
                                 "radius":0,
-                                "x":width/2,
-                                "y":height/2
+                                "x":anchoGraf/2,
+                                "y":altoGraf/2
                 }
 
 
@@ -944,7 +972,7 @@ var puntitos = d3.range(total).map((d,i)=>{
                     .attr("y",5)
                     .attr("width",1)
                     .attr("height",12)
-                    .style("fill","#8B6BAF")
+                    .style("fill","#333")
                     ;
                 
                     statsPositividad.append("rect")
@@ -965,7 +993,7 @@ var puntitos = d3.range(total).map((d,i)=>{
 
 
 
-    function updateSelector(selector){
+    function updateSelector(selector, sospechosos, contagiados){
 
         d3.select("#selector").transition().duration(600)
                             .attr("r",selector.radius)
@@ -974,15 +1002,16 @@ var puntitos = d3.range(total).map((d,i)=>{
                             .on("end", function(d) {
                                 d3.selectAll(".persona").each(d=>{
                                     d.isInside = isInside(selector,d.x,d.y)
-                                }).transition().duration(200).style("opacity",d=>d.isInside?1:0.4);
+                                }).transition().duration(200).style("opacity",d=>selector.r?d.isInside?1:0.4:1);
+                                
+                                d3.selectAll(".persona").filter(d=>d.sospechoso<sospechosos?1:0).style("fill",d=>d.isInside?d.positivo<contagiados?"#F26522":"#62BB46":"#8B6BAF");
 
                                 var adentro = d3.selectAll(".persona").filter(d=>d.isInside);
-                                adentro.style("fill",d=>d.positivo?"#F26522":"#62BB46")
 
                                 d3.select("#positividadBar").transition().duration(200).attr("width",xStatsPorc(adentro.filter(d=>d.positivo)._groups[0].length/adentro._groups[0].length));
                                 d3.select("#testeosBar").transition().duration(200).attr("width",xStats(adentro._groups[0].length));
                                 d3.select("#testeos").text("Testeos: "+adentro._groups[0].length);
-                                d3.select("#positividad").text("Positivad: "+d3.format(".0%")(adentro.filter(d=>d.positivo)._groups[0].length/adentro._groups[0].length));
+                                d3.select("#positividad").text("Positivad: "+d3.format(".0%")(adentro.filter(d=>d.positivo<contagiados?1:0)._groups[0].length/adentro._groups[0].length));
 
                             })
 
@@ -1038,14 +1067,26 @@ function scrollyTelling(containerNumber,step,entra){
 
 
             switch (step) { //GRAFICO SEGUNDO SCROLLY
+                case 0:
+                d3.selectAll(".persona").transition().duration(600).attr("cx",d=>d.x0).attr("cy",d=>d.y0);
+                d3.select("#encloser").transition().duration(600).attr("r",0);
+
+                    break;
                 case 1:
-                    roseta(d3.selectAll(".persona"))
+                    roseta(d3.selectAll(".persona"),0.01)
                     d3.select("#statsPositividad").transition().duration(200).style("opacity",0)
+                    updateSelector({"radius":0,"x":enclosingCircle.x,"y":enclosingCircle.y},0.01,0.009)
+                    d3.select("#statsPositividad").transition().duration(600).style("opacity",0)
                     break;
 
                 case 2: // veo solo el circulo y testeos --- TODOS MISMO COLOR (violeta)
-                        updateSelector({"radius":enclosingCircle.r,"x":enclosingCircle.x,"y":enclosingCircle.y})
+                        updateSelector({"radius":enclosingCircle.r-5,"x":enclosingCircle.x,"y":enclosingCircle.y},0.01,0.009)
                         d3.select("#statsPositividad").transition().duration(600).style("opacity",1)
+                        d3.selectAll(".persona").classed("asintomaticos", false);
+                break;
+
+                case 3: // aparecen los asintomaticos
+                        d3.selectAll(".persona").filter(d=>!d.sospechoso<sospechosos?1:0).filter(d=>d.randomID<0.005?1:0).classed("asintomaticos", true);
                 break;
             
             }
