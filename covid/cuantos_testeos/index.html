@@ -595,7 +595,7 @@ Promise.all([
 
         enterView({
             selector: what.nodes(),
-            offset: 0.6,
+            offset: 0.4,
             enter: el => {
                 const index = +d3.select(el).attr('data-index');
                 updateChart(index,what,containerNumber,1);
@@ -703,7 +703,7 @@ var avgData = movingWindowAvg(avg, 7); // 7-step backward moving window. */
 //***************
 
 	var x = d3.scaleTime()
-			.range([0, width])
+			.range([0, width-20])
 			.domain(d3.extent(data, d => d.fecha));
 
  
@@ -891,6 +891,12 @@ var puntitos = d3.range(total).map((d,i)=>{
               function roseta (personas, sospechosos){
                 var angle = Math.PI * (3 - Math.sqrt(5));
                 var maxRadius, lugaresVacios = [];
+                personas.each(d=>{
+                    d.x = d.x0;
+                    d.y = d.y0;
+                    
+                });
+
                 personas.sort((a, b) => a.positivo - b.positivo)
                 personas.filter(d=>d.sospechoso<sospechosos?1:0).each((d,i)=>{
                     var r = (diam/2 + padding/4) * Math.sqrt(i);
@@ -922,6 +928,7 @@ var puntitos = d3.range(total).map((d,i)=>{
                                     d.y = lugaresVacios[i-lugaresVacios.length].y;
                                 }
                             });
+
                 personas.transition().delay(300).duration(300)
                             .attr("cx",d=>d.x)
                             .attr("cy",d=>d.y)
@@ -956,13 +963,15 @@ var puntitos = d3.range(total).map((d,i)=>{
 
 
     var statsTesteos =  stats.append("g").attr("id","statsTesteos");
-    var statsPositividad =  stats.append("g").attr("id","statsPositividad").style("opacity",0);
+    var statsPositividad =  stats.append("g").attr("id","statsPositividad");
     
     statsTesteos.append("text").attr("id","testeos")
+                    .text("Testeos:-")
                     .attr("dy",15);
                 
                 statsPositividad.append("text").attr("id","positividad")
                     .attr("dy",30)
+                    .text("Positivad:-")
                     ;
 
                 statsTesteos.append("rect")
@@ -1015,10 +1024,11 @@ var puntitos = d3.range(total).map((d,i)=>{
 
                                 var adentro = d3.selectAll(".persona").filter(d=>d.isInside);
 
-                                d3.select("#positividadBar").transition().duration(200).attr("width",xStatsPorc(adentro.filter(d=>d.positivo)._groups[0].length/adentro._groups[0].length));
+                                d3.select("#positividadBar").transition().duration(200).attr("width",xStatsPorc(adentro.filter(d=>d.positivo<contagiados?1:0)._groups[0].length/adentro._groups[0].length));
                                 d3.select("#testeosBar").transition().duration(200).attr("width",xStats(adentro._groups[0].length));
                                 d3.select("#testeos").text("Testeos: "+adentro._groups[0].length);
-                                d3.select("#positividad").text("Positivad: "+d3.format(".0%")(adentro.filter(d=>d.positivo<contagiados?1:0)._groups[0].length/adentro._groups[0].length));
+                                var porcentajePositividad = adentro.filter(d=>d.positivo<contagiados?1:0)._groups[0].length/adentro._groups[0].length;
+                                d3.select("#positividad").text("Positivad: "+(isNaN(porcentajePositividad)?"-":d3.format(".0%")(porcentajePositividad)));
 
                             })
 
@@ -1033,37 +1043,27 @@ var puntitos = d3.range(total).map((d,i)=>{
 	    init(stepSel2,2)
 
 function scrollyTelling(containerNumber,step,entra){
-	if(containerNumber == 0){  //GRAFICO PRIMER SCROLLY
+    console.log("step:" + step, "scrolly:"+containerNumber, "dir:"+entra)
+	if(containerNumber == 2){  //GRAFICO PRIMER SCROLLY
 		switch (step) {
-			case 0: // Casos confirmados diarios 
-                console.log("aaa")
-                d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",d=>d.key=="casos"?1:0)
-                d3.selectAll(".axis-title").text("Casos confirmados diarios en Argentina")
+			case 0: // testeos y positivos 
+                d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",1)
+                d3.select("#lineaPositividad").selectAll("path").transition().duration(600).style("opacity",0)
+                d3.select("#axisDer").transition().duration(600).style("opacity",0)
+                d3.selectAll(".axis-title").text("Número de testeos y casos confirmados diarios en Argentina")
 			break;
 
-        case 1: // testeos diarios 
-    	case 2: // testeos diarios 
-            d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",d=>d.key=="casos"?0:1)
-            d3.selectAll(".axis-title").text("Número de testeos diarios en Argentina")
-        break;
-
-        case 3: // Casos confirmados y testeos diarios 
-            d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",1)
-            d3.select("#lineaPositividad").selectAll("path").transition().duration(600).style("opacity",0)
-            d3.select("#axisDer").transition().duration(600).style("opacity",0)
-            d3.selectAll(".axis-title").text("Número de testeos y casos confirmados diarios en Argentina")
-        break;
-
-        case 4: // Casos confirmados y positividad
+        case 1: // positividad
             d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",d=>d.key=="casos"?1:0)
             d3.select("#lineaPositividad").selectAll("path").transition().duration(600).style("opacity",1)
             d3.select("#axisDer").transition().duration(600).style("opacity",1)
             d3.selectAll(".axis-title").text("Índice de positividad y casos confirmados diarios en Argentina")
             d3.select("#linea5porciento").select("line").transition().duration(600).style("opacity",0)
+
         break;
 
-        case 5: // una línea de referencia en 5% de positividad.
-            d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",d=>d.key=="casos"?0.5:0)
+        case 2: // una línea de referencia en 5% de positividad.
+            d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",0)
             d3.select("#linea5porciento").select("line").transition().duration(600).style("opacity",1)
         break;
 	    }
@@ -1077,32 +1077,30 @@ function scrollyTelling(containerNumber,step,entra){
                 case 0:
                 d3.selectAll(".persona").transition().duration(600).attr("cx",d=>d.x0).attr("cy",d=>d.y0);
                 d3.select("#encloser").transition().duration(600).attr("r",0);
-
                     break;
+
                 case 1:
                     roseta(d3.selectAll(".persona"),sospechosos)
-                    d3.select("#statsPositividad").transition().duration(200).style("opacity",0)
                     updateSelector({"radius":0,"x":enclosingCircle.x,"y":enclosingCircle.y},sospechosos,contagiados)
-                    d3.select("#statsPositividad").transition().duration(600).style("opacity",0)
                     break;
 
                 case 2: // veo solo el circulo y testeos --- TODOS MISMO COLOR (violeta)
                         updateSelector({"radius":enclosingCircle.r-5,"x":enclosingCircle.x,"y":enclosingCircle.y},sospechosos,contagiados)
-                        d3.select("#statsPositividad").transition().duration(600).style("opacity",1)
                         d3.selectAll(".asintomaticos").classed("asintomaticos", false);
                 break;
 
                 case 3: // aparecen los asintomaticos
                         d3.selectAll(".persona").filter(d=>d.sospechoso<sospechosos?0:1).filter(d=>d.randomID<0.005?1:0).classed("asintomaticos", true);
                         updateSelector({"radius":0,"x":enclosingCircle.x,"y":enclosingCircle.y},sospechosos,contagiados)
-
+                        roseta(d3.selectAll(".persona"),sospechosos)
+                        
                 break;
 
                 case 4: // cambio caso sospechoso
+                var multiplicaSospechosos = 12;
+                        updateSelector({"radius":0,"x":enclosingCircle.x,"y":enclosingCircle.y},sospechosos*multiplicaSospechosos,contagiados)
                         d3.selectAll(".asintomaticos").classed("asintomaticos", false);
-                        roseta(d3.selectAll(".persona"),sospechosos*12)
-                        
-
+                        roseta(d3.selectAll(".persona"),sospechosos*multiplicaSospechosos)
                 break;
             
                 case 5: // vuelvo a testear
@@ -1110,7 +1108,12 @@ function scrollyTelling(containerNumber,step,entra){
                     break;
 
                 case 6: // vuelvo a testear
-                updateSelector({"radius":enclosingCircle.r*0.4-5,"x":enclosingCircle.x,"y":enclosingCircle.y},sospechosos*12,contagiados)
+                d3.select("#selector").transition().duration(600)
+                            .attr("r",enclosingCircle.r*0.4-5)
+                break;
+
+                case 7: // vuelvo a testear
+                    updateSelector({"radius":enclosingCircle.r*0.4-5,"x":enclosingCircle.x,"y":enclosingCircle.y},sospechosos*12,contagiados)
                 break;
             }
                     
