@@ -496,18 +496,21 @@ verde #62BB46
             <div class='step' data-index='4'>
 				      <p>
                         ¿Qué pasa si cambiamos la definición de caso sospechoso para incluir más síntomas? Es decir, si agrandamos el universo que consideramos “prioritario” en la estrategia de testeo. 
-                        <br/><br/>
-                        Deberán hacerse más testeos, lo que posiblemente disminuya el índice de positividad, al estar considerando otros casos con menos probabilidad de tenser COVID-19. Aquí asumimos nuevamente que tenemos la capacidad de testear a todos los que consideremos caso sospechoso.
                 </p>
             </div>
             <div class='step' data-index='5'>
+                <p>
+                  Deberán hacerse más testeos, lo que posiblemente disminuya el índice de positividad, al estar considerando otros casos con menos probabilidad de tenser COVID-19. Aquí asumimos nuevamente que tenemos la capacidad de testear a todos los que consideremos caso sospechoso.
+                     </p>
+                </div>
+            <div class='step' data-index='6'>
 				      <p>
                         ¿Qué pasa si tenemos una definición amplia de caso sospechoso pero no podemos testearlos a todos? Podría ser por ejemplo por falta de disponibilidad de kits de testeo o porque esas personas no acceden al sistema de salud.
                         <br/><br/>
                         En la práctica, vamos a tener que elegir a quién testear.
                 </p>
             </div>
-            <div class='step' data-index='6'>
+            <div class='step' data-index='7'>
                 <p>
                   Si eligiéramos al azar entre los casos sospechosos, el índice de positividad no debería cambiar (en términos de probabilidad).
             <br/><br/>
@@ -805,7 +808,7 @@ var gBubbles = d3.select("#gInterno0"); // estan invertidos
     
 var ratio = width/height;
 
-var contagiados = 0.009, sospechosos = 0.01; // porcentaje de contagiados
+var contagiados = 0.012, sospechosos = 0.016; // porcentaje de contagiados
 var diam = 7, padding = 6, enclosingCircle; 
 var matrix = [Math.floor(width/(diam+padding)), Math.floor(height/(diam+padding))],
     grafRatio = isMobile?matrix[0]/matrix[1]:matrix[1]/matrix[0];
@@ -846,8 +849,8 @@ var puntitos = d3.range(total).map((d,i)=>{
         var random = Math.random();
                 return {
                         "index":i,
-                        "sospechoso":random,//random>sospechosos?0:1,
-                        "positivo":random,//random>contagiados?0:1,
+                        "sospechoso":random,
+                        "positivo":random,
                         "x":scaleX(i % cantX),
                         "y":scaleY(Math.floor(i / cantX)),
                         "x0":scaleX(i % cantX),
@@ -888,6 +891,7 @@ var puntitos = d3.range(total).map((d,i)=>{
               function roseta (personas, sospechosos){
                 var angle = Math.PI * (3 - Math.sqrt(5));
                 var maxRadius, lugaresVacios = [];
+                personas.sort((a, b) => a.positivo - b.positivo)
                 personas.filter(d=>d.sospechoso<sospechosos?1:0).each((d,i)=>{
                     var r = (diam/2 + padding/4) * Math.sqrt(i);
                     var a = i * angle;
@@ -905,7 +909,7 @@ var puntitos = d3.range(total).map((d,i)=>{
 
                 lugaresVacios = lugaresVacios.filter(d=>!isInside({"radius":enclosingCircle.r*1.1,"x":enclosingCircle.x,"y":enclosingCircle.y},d.x,d.y));
                 
-                d3.select("#encloser").attr("r",enclosingCircle.r).attr("cx",enclosingCircle.x).attr("cy",enclosingCircle.y);
+                d3.select("#encloser").transition().duration(300).attr("r",enclosingCircle.r).attr("cx",enclosingCircle.x).attr("cy",enclosingCircle.y);
 
                 personas.filter(d=>d.sospechoso<sospechosos?0:1 && isInside({"radius":enclosingCircle.r*1.1,"x":enclosingCircle.x,"y":enclosingCircle.y},d.x,d.y))
                         .each((d,i)=>{
@@ -918,7 +922,10 @@ var puntitos = d3.range(total).map((d,i)=>{
                                     d.y = lugaresVacios[i-lugaresVacios.length].y;
                                 }
                             });
-                personas.transition().duration(600).attr("cx",d=>d.x).attr("cy",d=>d.y)
+                personas.transition().delay(300).duration(300)
+                            .attr("cx",d=>d.x)
+                            .attr("cy",d=>d.y)
+                            .style("fill",d=>d.sospechoso<sospechosos?"#8B6BAF":"#ccc")
               }
                    
 
@@ -1073,22 +1080,38 @@ function scrollyTelling(containerNumber,step,entra){
 
                     break;
                 case 1:
-                    roseta(d3.selectAll(".persona"),0.01)
+                    roseta(d3.selectAll(".persona"),sospechosos)
                     d3.select("#statsPositividad").transition().duration(200).style("opacity",0)
-                    updateSelector({"radius":0,"x":enclosingCircle.x,"y":enclosingCircle.y},0.01,0.009)
+                    updateSelector({"radius":0,"x":enclosingCircle.x,"y":enclosingCircle.y},sospechosos,contagiados)
                     d3.select("#statsPositividad").transition().duration(600).style("opacity",0)
                     break;
 
                 case 2: // veo solo el circulo y testeos --- TODOS MISMO COLOR (violeta)
-                        updateSelector({"radius":enclosingCircle.r-5,"x":enclosingCircle.x,"y":enclosingCircle.y},0.01,0.009)
+                        updateSelector({"radius":enclosingCircle.r-5,"x":enclosingCircle.x,"y":enclosingCircle.y},sospechosos,contagiados)
                         d3.select("#statsPositividad").transition().duration(600).style("opacity",1)
-                        d3.selectAll(".persona").classed("asintomaticos", false);
+                        d3.selectAll(".asintomaticos").classed("asintomaticos", false);
                 break;
 
                 case 3: // aparecen los asintomaticos
-                        d3.selectAll(".persona").filter(d=>!d.sospechoso<sospechosos?1:0).filter(d=>d.randomID<0.005?1:0).classed("asintomaticos", true);
+                        d3.selectAll(".persona").filter(d=>d.sospechoso<sospechosos?0:1).filter(d=>d.randomID<0.005?1:0).classed("asintomaticos", true);
+                        updateSelector({"radius":0,"x":enclosingCircle.x,"y":enclosingCircle.y},sospechosos,contagiados)
+
+                break;
+
+                case 4: // cambio caso sospechoso
+                        d3.selectAll(".asintomaticos").classed("asintomaticos", false);
+                        roseta(d3.selectAll(".persona"),sospechosos*12)
+                        
+
                 break;
             
+                case 5: // vuelvo a testear
+                    updateSelector({"radius":enclosingCircle.r-5,"x":enclosingCircle.x,"y":enclosingCircle.y},sospechosos*12,contagiados)
+                    break;
+
+                case 6: // vuelvo a testear
+                updateSelector({"radius":enclosingCircle.r*0.4-5,"x":enclosingCircle.x,"y":enclosingCircle.y},sospechosos*12,contagiados)
+                break;
             }
                     
     }
