@@ -457,7 +457,7 @@ var coloreaCategorias = d3.scaleOrdinal()
       fill:#bb161b;
     }
 
-    #selector{
+    #selector, #statsTesteos line{
         stroke: #00468B;
         stroke-width: 2px;
         stroke-dasharray: 8 2;
@@ -467,6 +467,14 @@ var coloreaCategorias = d3.scaleOrdinal()
     #stats text{
         font-size: 11px;
     }
+
+    #testeos{
+        font-size: 12px;
+        font-weight: 800;
+        text-anchor: middle;
+    }
+
+   
 	
     #encloser{
         fill:none;
@@ -1033,19 +1041,37 @@ var puntitos = d3.range(total).map((d,i)=>{
         ;
 
 
-    var statsTesteos =  stats.append("g").attr("id","statsTesteos");
+
+    var statsTesteos =  gBubbles.append("g").attr("id","statsTesteos").style("opacity",0);
+
     var statsPositividad =  stats.append("g").attr("id","statsPositividad");
     
+
     statsTesteos.append("text").attr("id","testeos")
+                    .text("Testeos:")
+                    .attr("y",altoGraf-50)
+                    .attr("x",anchoGraf/2);
+
+    statsTesteos.append("line")
+                    .attr("x1",anchoGraf/2)
+                    .attr("y1",altoGraf-65)
+                    .attr("x2",anchoGraf/2)
+                    .attr("y2",altoGraf/2)
+
+                    ;
+
+                
+    
+    /* statsTesteos.append("text").attr("id","testeos")
                     .text("Testeos:-")
                     .attr("dy",15);
-                
+     */            
                 statsPositividad.append("text").attr("id","positividad")
-                    .attr("dy",30)
+                    .attr("dy",10)
                     .text("Positivad:-")
                     ;
 
-                statsTesteos.append("rect")
+               /*  statsTesteos.append("rect")
                     .attr("x",marginBars)
                     .attr("y",5)
                     .attr("width",xStats(total))
@@ -1061,10 +1087,10 @@ var puntitos = d3.range(total).map((d,i)=>{
                     .attr("height",12)
                     .style("fill","#00468B")
                     ;
-                
+                */ 
                     statsPositividad.append("rect")
                     .attr("x",marginBars)
-                    .attr("y",20)
+                    .attr("y",0)
                     .attr("width",xStatsPorc(1))
                     .attr("height",12)
                     .style("fill","#ddd")
@@ -1072,7 +1098,7 @@ var puntitos = d3.range(total).map((d,i)=>{
 
                     statsPositividad.append("rect").attr("id","positividadBar")
                     .attr("x",marginBars)
-                    .attr("y",20)
+                    .attr("y",0)
                     .attr("width",1)
                     .attr("height",12)
                     .style("fill","#bb161b")
@@ -1081,6 +1107,9 @@ var puntitos = d3.range(total).map((d,i)=>{
 
 
     function updateSelector(selector, sospechosos, contagiados){
+
+        if (selector.radius==0) d3.select("#statsTesteos").transition().duration(200).style("opacity",0);
+        d3.select("#statsTesteos").select("line").transition().duration(600).attr("y2",selector.y+selector.radius);
 
         d3.select("#selector").transition().duration(600)
                             .attr("r",selector.radius)
@@ -1096,8 +1125,9 @@ var puntitos = d3.range(total).map((d,i)=>{
                                 var adentro = d3.selectAll(".persona").filter(d=>d.isInside);
 
                                 d3.select("#positividadBar").transition().duration(200).attr("width",xStatsPorc(adentro.filter(d=>d.positivo<contagiados?1:0)._groups[0].length/adentro._groups[0].length));
-                                d3.select("#testeosBar").transition().duration(200).attr("width",xStats(adentro._groups[0].length));
+                                d3.select("#statsTesteos").style("opacity",selector.radius?1:0);
                                 d3.select("#testeos").text("Testeos: "+adentro._groups[0].length);
+
                                 var porcentajePositividad = adentro.filter(d=>d.positivo<contagiados?1:0)._groups[0].length/adentro._groups[0].length;
                                 d3.select("#positividad").text("Positivad: "+(isNaN(porcentajePositividad)?"-":d3.format(".0%")(porcentajePositividad)));
 
@@ -1188,6 +1218,7 @@ function scrollyTelling(containerNumber,step,entra){
                 case 6: // vuelvo a testear
                 d3.select("#selector").transition().duration(600)
                             .attr("r",enclosingCircle.r*0.4-5)
+                            d3.select("#statsTesteos").select("line").transition().duration(600).attr("y2",altoGraf/2+enclosingCircle.r*0.4-5);
                             d3.select("#titulo").text("Menos testeos que casos sospechosos")
                             
                 break;
