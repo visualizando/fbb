@@ -391,9 +391,26 @@ var coloreaCategorias = d3.scaleOrdinal()
 
     }
 
+    .label.azul{
+        background: #00468B;
+        color:white;
+
+    }
+
+    
+    .label.rojo{
+        background: #bb161b;
+        color:white;
+    }
+    
+
     circle.persona.asintomaticos{
         fill: #5badd4 !important;
         opacity: 1 !important;
+    }
+
+    .label.celeste{
+        background: #5badd4;
     }
 
     .label.violeta{
@@ -402,7 +419,7 @@ var coloreaCategorias = d3.scaleOrdinal()
     }
 
     svg g.barra rect.tests{
-      fill: #8B6BAF;
+      fill: #00468B;
       opacity: 0;
     }
 
@@ -500,29 +517,29 @@ verde #62BB46
 			    <p>
                     Los testeos son una parte clave en el seguimiento de la pandemia. Esa "foto" que obtenemos al testear es una parte de la realidad. Y depende de dónde y cómo tomemos esa foto.
                     <br/><br/>
-                    Imaginemos que en una determinada población definimos los “casos sospechosos” para COVID-19: aquellas personas que presentan ciertos síntomas.
+                    Imaginemos que en una determinada población definimos los <mark class="label violeta">“casos sospechosos”</mark> para COVID-19: aquellas personas que presentan ciertos síntomas.
                 </p>
             </div>
             <div class='step' data-index='1'>
 				      <p>
-                        Ante la dificultad de testear a toda la población repetidas veces en el tiempo, una estrategia de testeo podría implicar encontrar a todos los casos sospechosos (buscarlos activamente o promover que contacten al sistema de salud) y testearlos.
+                        Ante la dificultad de testear a toda la población repetidas veces en el tiempo, una estrategia de testeo podría implicar encontrar a todos los casos sospechosos (buscarlos activamente o promover que contacten al sistema de salud) y <mark class="label azul">testearlos</mark>.
                 </p>
             </div>
             <div class='step' data-index='2'>
 				      <p>
-                        De esas personas que testeamos, algunas dan positivo para COVID-19 y otras no.
+                        De esas personas que testeamos, algunas dan <mark class="label naranja">positivo para COVID-19</mark> y otras no.
                         <br/><br/>
-                        La relación entre la cantidad de resultados positivos y el número total de testeos es el índice de positividad. Por ejemplo, acá se testea a todo el universo de casos sospechosos y encontramos que más o menos de cada 100 personas, 90 dieron positivo. Esto se traduce en un índice de positividad del 90%.
+                        La relación entre la cantidad de resultados positivos y el número total de testeos es el <mark class="label rojo">índice de positividad</mark>. Por ejemplo, acá se testea a todo el universo de casos sospechosos y encontramos que más o menos de cada 100 personas, 90 dieron positivo. Esto se traduce en un índice de positividad del 90%.
                 </p>
             </div>
             <div class='step' data-index='3'>
 				      <p>
-                        Atención. Como ya sabemos, hay seguramente muchos casos de personas que también tienen COVID-19 pero que, al no tener síntomas y no ser identificados como casos sospechosos, no las estamos testeando.
+                        Atención. Como ya sabemos, hay seguramente muchos casos de personas que también tienen COVID-19 pero que, al no tener síntomas y no ser identificados como <mark class="label celeste">casos sospechosos</mark>, no las estamos testeando.
                 </p>
             </div>
             <div class='step' data-index='4'>
 				      <p>
-                        ¿Qué pasa si cambiamos la definición de caso sospechoso para incluir más síntomas? Es decir, si agrandamos el universo que consideramos “prioritario” en la estrategia de testeo. 
+                        ¿Qué pasa si cambiamos la <mark class="label violeta">definición de caso sospechoso</mark> para incluir más síntomas? Es decir, si agrandamos el universo que consideramos “prioritario” en la estrategia de testeo. 
                 </p>
             </div>
             <div class='step' data-index='5'>
@@ -562,14 +579,14 @@ verde #62BB46
                 <p>
                     Una de las formas que sugiere la OMS para lograr el control de la pandemia es que la estrategia de testeo tenga una definición abarcativa de “caso sospechoso” que se combine con el rastreo activo de contactos para lograr testear a la mayor cantidad posible de casos sospechosos.
                     <br/><br/>
-                    En este gráfico, vemos la cantidad de testeos y casos confirmados para cada día en Argentina.
+                    En este gráfico, vemos la <mark class="label azul">cantidad de testeos</mark> y <mark class="label naranja">casos confirmados</mark> para cada día en Argentina.
                 </p>
             </div>
             <div class='step' data-index='1'>
                 <p>
-                    Bajo las premisas antes mencionadas, la OMS recomienda que  el índice de positividad sea menor al 5%. 
+                    Bajo las premisas antes mencionadas, la OMS recomienda que  el <mark class="label rojo">índice de positividad sea menor al 5%</mark>. 
                     <br/><br/>
-                    En Argentina, el índice promedio de la última semana es de XX, aunque es importante destacar que no siempre ni en todas las jurisdicciones se cumplieron las sugerencias de la OMS.
+                    En Argentina, el índice promedio de la última semana es de  <mark class="label rojo"><span id="indicePromedio"></span></mark>, aunque es importante destacar que no siempre ni en todas las jurisdicciones se cumplieron las sugerencias de la OMS.
                 </p>
             </div>
             
@@ -764,6 +781,13 @@ var avgData = movingWindowAvg(avg, 7); // 7-step backward moving window. */
           .call(d3.axisLeft(yPosit).ticks(null, "%"))
           .call(g => g.select(".domain").remove());
 
+
+        var promedio6 = 0;
+        var ultimos6 = data.slice(-6).forEach(element => {
+          promedio6 += element.positividad;
+        });;
+        
+                d3.select("#indicePromedio").html(d3.format(".0%")(promedio6/6)); // AGREGA EL PROMEDIO SEMANAL AL STEP ULTIMO
   
     svg.append("g")
     	.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
@@ -865,8 +889,6 @@ var cantY = matrix[1],
     cantX = matrix[0],
     total = cantX*cantY
     ;
-
-    console.log(isMobile,cantX, cantY, total)
 
 
     var anchoGraf = (diam*cantX)+(padding*(cantX-1)); // ancho total de las pelotitas
@@ -1092,7 +1114,6 @@ var puntitos = d3.range(total).map((d,i)=>{
 	    init(stepSel2,2)
 
 function scrollyTelling(containerNumber,step,entra){
-    console.log("step:" + step, "scrolly:"+containerNumber, "dir:"+entra)
 	if(containerNumber == 2){  //GRAFICO PRIMER SCROLLY
 		switch (step) {
 			case 0: // testeos y positivos 
