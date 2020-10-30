@@ -352,12 +352,13 @@ var coloreaCategorias = d3.scaleOrdinal()
   
   
   
+  
 
 
 
     .axis-title {
       fill: #222;
-        font-size: 14px;
+        font-size: 12px;
         text-anchor: start;
     }
     
@@ -412,26 +413,37 @@ var coloreaCategorias = d3.scaleOrdinal()
 
     svg g#lineaPositividad path{
       fill:none;
-      stroke: #F04E53;
+      stroke: #9c171b;
       opacity: 0;
     }
      
     g#axisDer .tick text{
         text-anchor: start;
-        fill: #F04E53;
+        fill: #bb161b;
 	  }
 
     g#linea5porciento line{
       stroke-dasharray: 3px 2px;
       fill:none;
-      opacity: 0;
-      stroke: #F04E53;
+      stroke: #bb161b;
+    }
+
+   #baseline{
+      fill:none;
+      stroke: #ddd;
+    }
+
+
+    g#linea5porciento text{
+        font-size: 10px;
+        font-family: sans-serif;
+      fill:#bb161b;
     }
 
     #selector{
-        stroke: #222;
-        stroke-width: 1px;
-        stroke-dasharray: 4 2;
+        stroke: #00468B;
+        stroke-width: 2px;
+        stroke-dasharray: 8 2;
         fill:none;
     }
 
@@ -444,6 +456,12 @@ var coloreaCategorias = d3.scaleOrdinal()
         stroke: #8B6BAF;
         stroke-width: 2px;
     }
+
+    #titulo {
+            font-size: 13px;
+        }
+      
+
     
 /* COLORES
 azul #00468B
@@ -455,6 +473,15 @@ verde #62BB46
        
      
     @media only screen and (min-width: 768px) {
+       
+        .axis-title {
+        font-size: 14px;
+
+            }
+
+        #titulo {
+            font-size: 14px;
+        }
       
     }
     
@@ -500,7 +527,7 @@ verde #62BB46
             </div>
             <div class='step' data-index='5'>
                 <p>
-                  Deberán hacerse más testeos, lo que posiblemente disminuya el índice de positividad, al estar considerando otros casos con menos probabilidad de tenser COVID-19. Aquí asumimos nuevamente que tenemos la capacidad de testear a todos los que consideremos caso sospechoso.
+                  Deberán hacerse más testeos, lo que posiblemente disminuya el índice de positividad, al estar considerando otros casos con menos probabilidad de tener COVID-19. Aquí asumimos nuevamente que tenemos la capacidad de testear a todos los que consideremos caso sospechoso.
                      </p>
                 </div>
             <div class='step' data-index='6'>
@@ -534,6 +561,8 @@ verde #62BB46
             <div class='step' data-index='0'>
                 <p>
                     Una de las formas que sugiere la OMS para lograr el control de la pandemia es que la estrategia de testeo tenga una definición abarcativa de “caso sospechoso” que se combine con el rastreo activo de contactos para lograr testear a la mayor cantidad posible de casos sospechosos.
+                    <br/><br/>
+                    En este gráfico, vemos la cantidad de testeos y casos confirmados para cada día en Argentina.
                 </p>
             </div>
             <div class='step' data-index='1'>
@@ -627,7 +656,7 @@ var ejeY, ejeX, tituloY, minDate, maxDate;
 var altoMaximo = 1.5; // cuantas veces el ancho permitimos que sea el alto maximo
 
 var svg = d3.selectAll(".contenedorGrafico").append("svg"),
-    margin = isMobile ? {top: 35, right: 20, bottom: 15, left: 20} : {top: 40, right: 35, bottom: 25, left: 35},
+    margin = isMobile ? {top: 25, right: 20, bottom: 15, left: 30} : {top: 60, right: 35, bottom: 25, left: 35},
     widthReal =  +d3.select('#grafico1').style('width').slice(0, -2),
     heightReal = +d3.select('#grafico1').style('height').slice(0, -2)-25;
 
@@ -770,7 +799,7 @@ var avgData = movingWindowAvg(avg, 7); // 7-step backward moving window. */
     tituloY = ejeY.append("text")
         .attr("class", "axis-title")
         .attr("y", -8)
-        .text("Casos confirmados diarios en Argentina");
+        .text("Casos confirmados diarios (Arg)");
 
 
 	
@@ -790,16 +819,32 @@ var avgData = movingWindowAvg(avg, 7); // 7-step backward moving window. */
                 .attr("class", (d,i) => !i?"tests":"casos");
                 
 
+                gBarras.append("line").attr("id","baseline")
+                .attr("x1", x(x.domain()[0]))
+                .attr("x2", x(x.domain()[1]))
+                .attr("y1", yPosit(0))
+                .attr("y2", yPosit(0));
+
+
         gBarras.append("g").attr("id","lineaPositividad")
                 .append("path")
                                 .attr("d", line(data));
 
-        var linea5 = gBarras.append("g").attr("id","linea5porciento")
-                .append("line")
+
+        
+        var linea5 = gBarras.append("g").attr("id","linea5porciento").style("opacity",0);
+
+                linea5.append("line")
                 .attr("x1", x(x.domain()[0]))
                 .attr("x2", x(x.domain()[1]))
                 .attr("y1", yPosit(0.05))
                 .attr("y2", yPosit(0.05));
+
+                linea5.append("text")
+                .text('5%')
+                .attr("x", width/2)
+                .attr("y", yPosit(0.055))
+                ;
 
        
 //********* aca van los bubbles
@@ -808,8 +853,10 @@ var gBubbles = d3.select("#gInterno0"); // estan invertidos
     
 var ratio = width/height;
 
-var contagiados = 0.012, sospechosos = 0.016; // porcentaje de contagiados
-var diam = 7, padding = 6, enclosingCircle; 
+width = isMobile?width*1.1:width
+
+var contagiados = 0.025, sospechosos = 0.03; // porcentaje de contagiados
+var diam = isMobile?6:7, padding = isMobile?4:6, enclosingCircle; 
 var matrix = [Math.floor(width/(diam+padding)), Math.floor(height/(diam+padding))],
     grafRatio = isMobile?matrix[0]/matrix[1]:matrix[1]/matrix[0];
 
@@ -835,6 +882,8 @@ var scaleX = d3.scaleBand()
     
     
     gBubbles.attr("transform", "translate(" + ((widthReal - anchoGraf)/2) + "," + (isMobile?diam:margin.top*0.8) + ")");
+
+    gBubbles.append("text").attr("id","titulo").attr("x",margin.left).attr("y",isMobile?8:0).text("Casos sospechosos")
     
     
 var scaleY = d3.scaleBand()
@@ -915,7 +964,7 @@ var puntitos = d3.range(total).map((d,i)=>{
 
                 lugaresVacios = lugaresVacios.filter(d=>!isInside({"radius":enclosingCircle.r*1.1,"x":enclosingCircle.x,"y":enclosingCircle.y},d.x,d.y));
                 
-                d3.select("#encloser").transition().duration(300).attr("r",enclosingCircle.r).attr("cx",enclosingCircle.x).attr("cy",enclosingCircle.y);
+                d3.select("#encloser").transition().duration(400).attr("r",enclosingCircle.r).attr("cx",enclosingCircle.x).attr("cy",enclosingCircle.y);
 
                 personas.filter(d=>d.sospechoso<sospechosos?0:1 && isInside({"radius":enclosingCircle.r*1.1,"x":enclosingCircle.x,"y":enclosingCircle.y},d.x,d.y))
                         .each((d,i)=>{
@@ -929,7 +978,7 @@ var puntitos = d3.range(total).map((d,i)=>{
                                 }
                             });
 
-                personas.transition().delay(300).duration(300)
+                personas.transition().duration(599)
                             .attr("cx",d=>d.x)
                             .attr("cy",d=>d.y)
                             .style("fill",d=>d.sospechoso<sospechosos?"#8B6BAF":"#ccc")
@@ -988,7 +1037,7 @@ var puntitos = d3.range(total).map((d,i)=>{
                     .attr("y",5)
                     .attr("width",1)
                     .attr("height",12)
-                    .style("fill","#333")
+                    .style("fill","#00468B")
                     ;
                 
                     statsPositividad.append("rect")
@@ -1004,7 +1053,7 @@ var puntitos = d3.range(total).map((d,i)=>{
                     .attr("y",20)
                     .attr("width",1)
                     .attr("height",12)
-                    .style("fill","#F04E53")
+                    .style("fill","#bb161b")
                     ;
 
 
@@ -1050,22 +1099,24 @@ function scrollyTelling(containerNumber,step,entra){
                 d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",1)
                 d3.select("#lineaPositividad").selectAll("path").transition().duration(600).style("opacity",0)
                 d3.select("#axisDer").transition().duration(600).style("opacity",0)
-                d3.selectAll(".axis-title").text("Número de testeos y casos confirmados diarios en Argentina")
+                d3.selectAll(".axis-title").text("Testeos y casos confirmados diarios (Arg)")
+                d3.select("#linea5porciento").transition().duration(600).style("opacity",0)
 			break;
 
         case 1: // positividad
             d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",d=>d.key=="casos"?1:0)
             d3.select("#lineaPositividad").selectAll("path").transition().duration(600).style("opacity",1)
             d3.select("#axisDer").transition().duration(600).style("opacity",1)
-            d3.selectAll(".axis-title").text("Índice de positividad y casos confirmados diarios en Argentina")
-            d3.select("#linea5porciento").select("line").transition().duration(600).style("opacity",0)
+            d3.selectAll(".axis-title").text("Positividad y casos confirmados diarios (Arg)")
+            d3.select("#linea5porciento").transition().duration(600).style("opacity",1)
 
         break;
 
-        case 2: // una línea de referencia en 5% de positividad.
+        case 2: // positividad
             d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",0)
-            d3.select("#linea5porciento").select("line").transition().duration(600).style("opacity",1)
         break;
+
+        
 	    }
 
   
@@ -1077,22 +1128,26 @@ function scrollyTelling(containerNumber,step,entra){
                 case 0:
                 d3.selectAll(".persona").transition().duration(600).attr("cx",d=>d.x0).attr("cy",d=>d.y0);
                 d3.select("#encloser").transition().duration(600).attr("r",0);
+                d3.select("#titulo").text("Casos sospechosos")
                     break;
 
                 case 1:
                     roseta(d3.selectAll(".persona"),sospechosos)
-                    updateSelector({"radius":0,"x":enclosingCircle.x,"y":enclosingCircle.y},sospechosos,contagiados)
+                    if(!entra)updateSelector({"radius":0,"x":enclosingCircle.x,"y":enclosingCircle.y},sospechosos,contagiados)
+                    d3.select("#titulo").text("Testeos a casos sospechosos")
                     break;
 
                 case 2: // veo solo el circulo y testeos --- TODOS MISMO COLOR (violeta)
                         updateSelector({"radius":enclosingCircle.r-5,"x":enclosingCircle.x,"y":enclosingCircle.y},sospechosos,contagiados)
                         d3.selectAll(".asintomaticos").classed("asintomaticos", false);
+                        d3.select("#titulo").text("Índice de positividad")
                 break;
 
                 case 3: // aparecen los asintomaticos
-                        d3.selectAll(".persona").filter(d=>d.sospechoso<sospechosos?0:1).filter(d=>d.randomID<0.005?1:0).classed("asintomaticos", true);
+                        d3.selectAll(".persona").filter(d=>d.sospechoso<sospechosos?0:1).filter(d=>d.randomID<contagiados*2?1:0).classed("asintomaticos", true);
                         updateSelector({"radius":0,"x":enclosingCircle.x,"y":enclosingCircle.y},sospechosos,contagiados)
                         roseta(d3.selectAll(".persona"),sospechosos)
+                        d3.select("#titulo").text("Casos asintomáticos")
                         
                 break;
 
@@ -1101,19 +1156,24 @@ function scrollyTelling(containerNumber,step,entra){
                         updateSelector({"radius":0,"x":enclosingCircle.x,"y":enclosingCircle.y},sospechosos*multiplicaSospechosos,contagiados)
                         d3.selectAll(".asintomaticos").classed("asintomaticos", false);
                         roseta(d3.selectAll(".persona"),sospechosos*multiplicaSospechosos)
+                        d3.select("#titulo").text("Ampliación de definición")
                 break;
             
                 case 5: // vuelvo a testear
                     updateSelector({"radius":enclosingCircle.r-5,"x":enclosingCircle.x,"y":enclosingCircle.y},sospechosos*12,contagiados)
+                    d3.select("#titulo").text("Ampliación de definición")
                     break;
 
                 case 6: // vuelvo a testear
                 d3.select("#selector").transition().duration(600)
                             .attr("r",enclosingCircle.r*0.4-5)
+                            d3.select("#titulo").text("Menos testeos que casos sospechosos")
+                            
                 break;
 
                 case 7: // vuelvo a testear
                     updateSelector({"radius":enclosingCircle.r*0.4-5,"x":enclosingCircle.x,"y":enclosingCircle.y},sospechosos*12,contagiados)
+                    d3.select("#titulo").text("Menos testeos que casos sospechosos")
                 break;
             }
                     
