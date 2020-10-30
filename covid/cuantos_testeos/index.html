@@ -474,7 +474,7 @@ var coloreaCategorias = d3.scaleOrdinal()
         text-anchor: middle;
     
         paint-order: stroke;
-        stroke: #dbc7c7;
+        stroke: #f1f1f1;
         stroke-width: 8px;
         stroke-linecap: butt;
         stroke-linejoin: round;
@@ -1126,7 +1126,9 @@ var puntitos = d3.range(total).map((d,i)=>{
                                     d.isInside = isInside(selector,d.x,d.y)
                                 }).transition().duration(200).style("opacity",d=>selector.r?d.isInside?1:0.4:1);
                                 
-                                d3.selectAll(".persona").filter(d=>d.sospechoso<sospechosos?1:0).style("fill",d=>d.isInside?d.positivo<contagiados?"#F26522":"#62BB46":"#8B6BAF");
+                                d3.selectAll(".persona")
+                                    .filter(d=>d.sospechoso<sospechosos?1:0)
+                                    .style("fill",d=>d.isInside?d.positivo<contagiados?"#F26522":"#62BB46":"#8B6BAF");
 
                                 var adentro = d3.selectAll(".persona").filter(d=>d.isInside);
 
