@@ -32,7 +32,7 @@
 <meta property="og:locale" content="es_ES">
 <meta property="og:image" content="https://decodificar.org/images/10_testeos_redes.jpg">
 <meta property="article:published_time" content="2020-09-29T01:49:26.219Z">
-<meta property="article:modified_time" content="2020-09-23T03:00:00.000Z">
+<meta property="article:modified_time" content="2020-10-30T03:00:00.000Z">
 <meta property="article:author" content="Fundacion Bunge y Born">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://decodificar.org/images/10_testeos_redes.jpg">
@@ -50,7 +50,7 @@
   };
 </script>
 
-  <title>¿Cuántos son muchos o pocos testeos? | Decodificar: COVID19</title><meta name="robots" content="noindex">
+  <title>¿Cuántos son muchos o pocos testeos? | Decodificar: COVID19</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132699662-2"></script>
     <script>
@@ -282,7 +282,7 @@ var coloreaCategorias = d3.scaleOrdinal()
                 <i class="far fa-calendar-check"></i>
               </span>
               <!-- <span class="post-meta-item-text">Editado el</span> -->
-              <time title="Modificado por: 23 de septiembre de 2020 00" itemprop="dateModified" datetime="2020-09-23T00:00:00-03:00">Publicado el 23 de septiembre de 2020</time>
+              <time title="Modificado por: 30 de octubre de 2020 00" itemprop="dateModified" datetime="2020-10-30T00:00:00-03:00">Publicado el 30 de octubre de 2020</time>
             </span>
 
           
@@ -359,6 +359,7 @@ var coloreaCategorias = d3.scaleOrdinal()
     .axis-title {
       fill: #222;
         font-size: 12px;
+        font-family: sans-serif;
         text-anchor: start;
     }
     
@@ -399,7 +400,7 @@ var coloreaCategorias = d3.scaleOrdinal()
 
     
     .label.rojo{
-        background: #bb161b;
+        background: #9c171b;
         color:white;
     }
     
@@ -436,15 +437,13 @@ var coloreaCategorias = d3.scaleOrdinal()
      
     g#axisDer .tick text{
         text-anchor: start;
-        fill: #bb161b;
+        fill: #9c171b;
 	  }
-
     g#linea5porciento line{
       stroke-dasharray: 3px 2px;
       fill:none;
-      stroke: #bb161b;
+      stroke: #9c171b;
     }
-
    #baseline{
       fill:none;
       stroke: #ddd;
@@ -454,9 +453,8 @@ var coloreaCategorias = d3.scaleOrdinal()
     g#linea5porciento text{
         font-size: 10px;
         font-family: sans-serif;
-      fill:#bb161b;
+      fill:#9c171b;
     }
-
     #selector, #statsTesteos line{
         stroke: #00468B;
         stroke-width: 2px;
@@ -488,7 +486,8 @@ var coloreaCategorias = d3.scaleOrdinal()
         stroke-width: 2px;
     }
 
-    #titulo {
+    #titulo, #titulo1 {
+        text-anchor: middle;
             font-size: 13px;
         }
       
@@ -505,12 +504,8 @@ verde #62BB46
      
     @media only screen and (min-width: 768px) {
        
-        .axis-title {
-        font-size: 14px;
-
-            }
-
-        #titulo {
+        
+        #titulo, #titulo1 {
             font-size: 14px;
         }
       
@@ -691,8 +686,11 @@ var svg = d3.selectAll(".contenedorGrafico").append("svg"),
     widthReal =  +d3.select('#grafico1').style('width').slice(0, -2),
     heightReal = +d3.select('#grafico1').style('height').slice(0, -2)-25;
 
-d3.select("#contenedorGrafico").append("div").attr("class","epigrafe")
-            .html("www.decodificar.org - "+epigrafeData[0].fecha+" - Fuente: "+ epigrafeData[0].fuente);
+d3.selectAll(".contenedorGrafico").append("div").attr("class","epigrafe")
+            .html((d,i)=>{
+                if(i) return "www.decodificar.org - "+epigrafeData[0].fecha+" - Fuente: "+ epigrafeData[0].fuente;
+                return "www.decodificar.org"
+                });
 
 
     if (heightReal > altoMaximo*widthReal) {
@@ -769,11 +767,11 @@ var avgData = movingWindowAvg(avg, 7); // 7-step backward moving window. */
  
     var y = d3.scaleLinear()
         .domain([0, d3.max(data, d => d3.max(keys, key => d[key]))]).nice()
-        .rangeRound([height, 0])
+        .rangeRound([height, 30])
 
     var yPosit = d3.scaleLinear()
         .domain([0, d3.max(data, d => d.positividad)]).nice()
-        .rangeRound([height, 0])
+        .rangeRound([height, 30])
       
     var line = d3.line()
         .defined(d => d.positividad>0)
@@ -816,6 +814,8 @@ var avgData = movingWindowAvg(avg, 7); // 7-step backward moving window. */
 
 	var gBarras = d3.select("#gInterno1");// estan invertidos
 
+    gBarras.append("text").attr("id","titulo1").attr("x",width/2).attr("y",isMobile?-2:0).text("Casos confirmados diarios (Arg)")
+
     ejeX = gBarras.append("g") // EJE X
         .attr("class", "axis axis--x")
         .attr("transform", "translate(0," + (height+2) + ")")
@@ -836,9 +836,16 @@ var avgData = movingWindowAvg(avg, 7); // 7-step backward moving window. */
     
     tituloY = ejeY.append("text")
         .attr("class", "axis-title")
-        .attr("y", -8)
-        .text("Casos confirmados diarios (Arg)");
+        .attr("x", -20)
+        .attr("y", 15)
+        .text("Casos diarios");
 
+    tituloYder = ejeYDer.append("text")
+        .attr("class", "axis-title")
+        .attr("y", 15)
+        .style("text-anchor","end")
+        .style("fill","#9c171b")
+        .text("Positividad");
 
 	
         gBarras.append("g")
@@ -919,7 +926,7 @@ var scaleX = d3.scaleBand()
     
     gBubbles.attr("transform", "translate(" + ((widthReal - anchoGraf)/2) + "," + (isMobile?diam:margin.top*0.8) + ")");
 
-    gBubbles.append("text").attr("id","titulo").attr("x",margin.left).attr("y",isMobile?8:0).text("Casos sospechosos")
+    gBubbles.append("text").attr("id","titulo").attr("x",width/2).attr("y",isMobile?8:0).text("Casos sospechosos")
     
     
 var scaleY = d3.scaleBand()
@@ -935,7 +942,7 @@ var puntitos = d3.range(total).map((d,i)=>{
                 return {
                         "index":i,
                         "sospechoso":random,
-                        "positivo":random,
+                        "positivo":0,
                         "x":scaleX(i % cantX),
                         "y":scaleY(Math.floor(i / cantX)),
                         "x0":scaleX(i % cantX),
@@ -982,8 +989,11 @@ var puntitos = d3.range(total).map((d,i)=>{
                     
                 });
 
-                personas.sort((a, b) => a.positivo - b.positivo)
-                personas.filter(d=>d.sospechoso<sospechosos?1:0).each((d,i)=>{
+                personas.sort((a, b) => a.sospechoso - b.sospechoso)
+                var personasSospechosas = personas.filter(d=>d.sospechoso<sospechosos?1:0)
+                
+                personasSospechosas.each((d,i)=>{
+                    
                     var r = (diam/2 + padding/4) * Math.sqrt(i);
                     var a = i * angle;
 
@@ -1107,9 +1117,8 @@ var puntitos = d3.range(total).map((d,i)=>{
                     .attr("y",0)
                     .attr("width",1)
                     .attr("height",12)
-                    .style("fill","#bb161b")
+                    .style("fill","#9c171b")
                     ;
-
 
 
     function updateSelector(selector, sospechosos, contagiados){
@@ -1126,17 +1135,21 @@ var puntitos = d3.range(total).map((d,i)=>{
                                     d.isInside = isInside(selector,d.x,d.y)
                                 }).transition().duration(200).style("opacity",d=>selector.r?d.isInside?1:0.4:1);
                                 
+                                
+
                                 d3.selectAll(".persona")
                                     .filter(d=>d.sospechoso<sospechosos?1:0)
-                                    .style("fill",d=>d.isInside?d.positivo<contagiados?"#F26522":"#62BB46":"#8B6BAF");
+                                    .each(d=>d.positivo=d.sospechoso<contagiados?1:d.randomID<0.015?1:0)
+                                    .style("fill",d=>d.isInside?d.positivo?"#F26522":"#62BB46":"#8B6BAF");
 
                                 var adentro = d3.selectAll(".persona").filter(d=>d.isInside);
 
-                                d3.select("#positividadBar").transition().duration(200).attr("width",xStatsPorc(adentro.filter(d=>d.positivo<contagiados?1:0)._groups[0].length/adentro._groups[0].length));
+                                d3.select("#positividadBar").transition().duration(200)
+                                    .attr("width",xStatsPorc(adentro.filter(d=>d.positivo?1:0)._groups[0].length/adentro._groups[0].length));
                                 d3.select("#statsTesteos").style("opacity",selector.radius?1:0);
                                 d3.select("#testeos").text("Testeos: "+adentro._groups[0].length);
 
-                                var porcentajePositividad = adentro.filter(d=>d.positivo<contagiados?1:0)._groups[0].length/adentro._groups[0].length;
+                                var porcentajePositividad = adentro.filter(d=>d.positivo?1:0)._groups[0].length/adentro._groups[0].length;
                                 d3.select("#positividad").text("Positivad: "+(isNaN(porcentajePositividad)?"-":d3.format(".0%")(porcentajePositividad)));
 
                             })
@@ -1158,7 +1171,7 @@ function scrollyTelling(containerNumber,step,entra){
                 d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",1)
                 d3.select("#lineaPositividad").selectAll("path").transition().duration(600).style("opacity",0)
                 d3.select("#axisDer").transition().duration(600).style("opacity",0)
-                d3.selectAll(".axis-title").text("Testeos y casos confirmados diarios (Arg)")
+                d3.select("#titulo1").text("Testeos y casos confirmados diarios (Arg)")
                 d3.select("#linea5porciento").transition().duration(600).style("opacity",0)
 			break;
 
@@ -1166,7 +1179,7 @@ function scrollyTelling(containerNumber,step,entra){
             d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",d=>d.key=="casos"?1:0)
             d3.select("#lineaPositividad").selectAll("path").transition().duration(600).style("opacity",1)
             d3.select("#axisDer").transition().duration(600).style("opacity",1)
-            d3.selectAll(".axis-title").text("Positividad y casos confirmados diarios (Arg)")
+            d3.select("#titulo1").text("Positividad y casos confirmados diarios (Arg)")
             d3.select("#linea5porciento").transition().duration(600).style("opacity",1)
 
         break;
@@ -1220,6 +1233,7 @@ function scrollyTelling(containerNumber,step,entra){
             
                 case 5: // vuelvo a testear
                     updateSelector({"radius":enclosingCircle.r-5,"x":enclosingCircle.x,"y":enclosingCircle.y},sospechosos*12,contagiados)
+       /*              d3.selectAll(".persona").filter(d=>d.sospechoso<sospechosos?1:0).filter(d=>d.positivo<contagiados?0:0).classed("asintomaticos", true); */
                     d3.select("#titulo").text("Ampliación de definición")
                     break;
 
@@ -1292,7 +1306,7 @@ function ajustaMesesEjeX(g) {
 
 <div class="note info"><p>La estrategia de testeos para confirmar casos de COVID-19 es muy importante como forma de contención de la pandemia. Ante la escasez de recursos, lo importante no es simplemente hacer la mayor cantidad de testeos, sino también hacerlos de forma eficiente: usar los recursos disponibles para obtener la mejor información posible para tomar ciertas decisiones, como aislar a las personas, rastrear sus contactos, implementar nuevas restricciones o flexibilizarlas.</p>
 <p>El índice de positividad depende de esta estrategia. Así, por ejemplo, el índice de positividad nacional  no expresa las diferentes estrategias de testeo que se están implementando en cada provincia ni las diferencias que puede haber entre ciudades, más allá de las recomendaciones y lineamientos generales del Ministerio de Salud de la Nación.</p>
-</div><!-- flag of hidden posts -->
+</div>
     </div>
                       <div class="compartir">Compartir:
                         <a  href="https://www.facebook.com/sharer/sharer.php?u=https://decodificar.org/covid/cuantos_testeos/&quote=¿Cuántos son muchos o pocos testeos?" target="_blank" title="Share on Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURI(https://decodificar.org/covid/cuantos_testeos/) + '&quote=' + encodeURI(¿Cuántos son muchos o pocos testeos?); return false;"><i class="fab fa-facebook" aria-hidden="true"></i></a>
@@ -1311,6 +1325,13 @@ function ajustaMesesEjeX(g) {
 
 
         
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/covid/inmunidad_de_rebano/" rel="prev" title="¿Podemos lograr la inmunidad de rebaño sin vacuna?">
+      <i class="fa fa-chevron-left"></i> ¿Podemos lograr la inmunidad de rebaño sin vacuna?
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
       </footer>
     
   </article>

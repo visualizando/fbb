@@ -6896,6 +6896,1000 @@ function scrollyTelling(containerNumber,step,entra){
 </div>]]></content>
   </entry>
   <entry>
+    <title>¿Cuántos son muchos o pocos testeos?</title>
+    <url>/covid/cuantos_testeos/</url>
+    <content><![CDATA[
+
+
+
+<style>
+
+
+    .axis path, .axis line {
+      fill: none;
+      stroke: #D4D8DA;
+      stroke-width: 1px;
+     
+    }
+
+    .axis--y .domain, .axis--x .domain{
+        display: none;
+    }
+    
+    
+    .axis--y .tick{
+        stroke-width: 1px;
+        stroke-dasharray: 3px 2px;
+    }
+
+    .axis--x .tick line{
+        stroke-width: 2px;
+    }
+    
+    .axis--y .tick text{
+        text-anchor: end;
+	  }
+	
+  
+  
+  
+  
+
+
+
+    .axis-title {
+      fill: #222;
+        font-size: 12px;
+        font-family: sans-serif;
+        text-anchor: start;
+    }
+    
+    .line {
+      fill: none;
+      stroke: #a3a3a3;
+      stroke-width: 1px;
+    }
+    .linePais {
+      fill: none;
+      stroke: #00468B;
+      stroke-width: 2px;
+	}
+	
+
+  
+	#contenedorGrafico.sticky{
+			margin-bottom: 191px;
+        }
+        
+    .label.desconocido{
+        background: #8B6BAF45;
+        color:rgb(58, 58, 58) !important;
+        font-weight: 400 !important;
+    }
+     
+    
+    .label.naranja{
+        background: #F26522;
+
+    }
+
+    .label.azul{
+        background: #00468B;
+        color:white;
+
+    }
+
+    
+    .label.rojo{
+        background: #9c171b;
+        color:white;
+    }
+    
+
+    circle.persona.asintomaticos{
+        fill: #5badd4 !important;
+        opacity: 1 !important;
+    }
+
+    .label.celeste{
+        background: #5badd4;
+    }
+
+    .label.violeta{
+        background: #8B6BAF;
+
+    }
+
+    svg g.barra rect.tests{
+      fill: #00468B;
+      opacity: 0;
+    }
+
+
+    svg g.barra rect.casos{
+      fill: #F26522;
+    }
+
+    svg g#lineaPositividad path{
+      fill:none;
+      stroke: #9c171b;
+      opacity: 0;
+    }
+     
+    g#axisDer .tick text{
+        text-anchor: start;
+        fill: #9c171b;
+	  }
+    g#linea5porciento line{
+      stroke-dasharray: 3px 2px;
+      fill:none;
+      stroke: #9c171b;
+    }
+   #baseline{
+      fill:none;
+      stroke: #ddd;
+    }
+
+
+    g#linea5porciento text{
+        font-size: 10px;
+        font-family: sans-serif;
+      fill:#9c171b;
+    }
+    #selector, #statsTesteos line{
+        stroke: #00468B;
+        stroke-width: 2px;
+        stroke-dasharray: 8 2;
+        fill:none;
+    }
+
+    #stats text{
+        font-size: 11px;
+    }
+
+    #testeos{
+        font-size: 12px;
+        font-weight: 800;
+        text-anchor: middle;
+    
+        paint-order: stroke;
+        stroke: #f1f1f1;
+        stroke-width: 8px;
+        stroke-linecap: butt;
+        stroke-linejoin: round;
+    }
+
+   
+	
+    #encloser{
+        fill:none;
+        stroke: #8B6BAF;
+        stroke-width: 2px;
+    }
+
+    #titulo, #titulo1 {
+        text-anchor: middle;
+            font-size: 13px;
+        }
+      
+
+    
+/* COLORES
+azul #00468B
+violeta #8B6BAF
+rojo #F04E53
+naranja #F26522
+verde #62BB46
+*/
+       
+     
+    @media only screen and (min-width: 768px) {
+       
+        
+        #titulo, #titulo1 {
+            font-size: 14px;
+        }
+      
+    }
+    
+</style>
+
+
+<section id='scrolly1'>
+    <div class='scrolly'>
+        <!-- aca va el grafico que va a quedar fijo -->
+        <figure id="grafico1" class='sticky contenedorGrafico' >
+        </figure>
+
+        <!-- acá van los textos de cada paso -->
+        <article>
+            <div class='step' data-index='0'>
+			    <p>
+                    Los testeos son una parte clave en el seguimiento de la pandemia. Esa "foto" que obtenemos al testear es una parte de la realidad. Y depende de dónde y cómo tomemos esa foto.
+                    <br/><br/>
+                    Imaginemos que en una determinada población definimos los <mark class="label violeta">“casos sospechosos”</mark> para COVID-19: aquellas personas que presentan ciertos síntomas.
+                </p>
+            </div>
+            <div class='step' data-index='1'>
+				      <p>
+                        Ante la dificultad de testear a toda la población repetidas veces en el tiempo, una estrategia de testeo podría implicar encontrar a todos los casos sospechosos (buscarlos activamente o promover que contacten al sistema de salud) y <mark class="label azul">testearlos</mark>.
+                </p>
+            </div>
+            <div class='step' data-index='2'>
+				      <p>
+                        De esas personas que testeamos, algunas dan <mark class="label naranja">positivo para COVID-19</mark> y otras no.
+                        <br/><br/>
+                        La relación entre la cantidad de resultados positivos y el número total de testeos es el <mark class="label rojo">índice de positividad</mark>. Por ejemplo, acá se testea a todo el universo de casos sospechosos y encontramos que más o menos de cada 100 personas, 90 dieron positivo. Esto se traduce en un índice de positividad del 90%.
+                </p>
+            </div>
+            <div class='step' data-index='3'>
+				      <p>
+                        Atención. Como ya sabemos, hay seguramente muchos casos de personas que también tienen COVID-19 pero que, al no tener síntomas y no ser identificados como <mark class="label celeste">casos sospechosos</mark>, no las estamos testeando.
+                </p>
+            </div>
+            <div class='step' data-index='4'>
+				      <p>
+                        ¿Qué pasa si cambiamos la <mark class="label violeta">definición de caso sospechoso</mark> para incluir más síntomas? Es decir, si agrandamos el universo que consideramos “prioritario” en la estrategia de testeo. 
+                </p>
+            </div>
+            <div class='step' data-index='5'>
+                <p>
+                  Deberán hacerse más testeos, lo que posiblemente disminuya el índice de positividad, al estar considerando otros casos con menos probabilidad de tener COVID-19. Aquí asumimos nuevamente que tenemos la capacidad de testear a todos los que consideremos caso sospechoso.
+                     </p>
+                </div>
+            <div class='step' data-index='6'>
+				      <p>
+                        ¿Qué pasa si tenemos una definición amplia de caso sospechoso pero no podemos testearlos a todos? Podría ser por ejemplo por falta de disponibilidad de kits de testeo o porque esas personas no acceden al sistema de salud.
+                        <br/><br/>
+                        En la práctica, vamos a tener que elegir a quién testear.
+                </p>
+            </div>
+            <div class='step' data-index='7'>
+                <p>
+                  Si eligiéramos al azar entre los casos sospechosos, el índice de positividad no debería cambiar (en términos de probabilidad).
+            <br/><br/>
+            Sin embargo, lo que sucede es que se decide  priorizar a trabajadores esenciales o pacientes internados que tienen una probabilidad mayor de estar contagiados y, por lo tanto, el índice de positividad probablemente será alto.
+        </p>
+    </div>
+        </article>
+		
+	</div>
+</section>
+
+<section id='scrolly2'>
+    <div class='scrolly'>
+ 
+        <!-- aca va el grafico que va a quedar fijo -->
+        <figure id="grafico2" class='sticky contenedorGrafico' >
+        </figure>
+
+        <!-- acá van los textos de cada paso -->
+        <article>
+            <div class='step' data-index='0'>
+                <p>
+                    Una de las formas que sugiere la OMS para lograr el control de la pandemia es que la estrategia de testeo tenga una definición abarcativa de “caso sospechoso” que se combine con el rastreo activo de contactos para lograr testear a la mayor cantidad posible de casos sospechosos.
+                    <br/><br/>
+                    En este gráfico, vemos la <mark class="label azul">cantidad de testeos</mark> y <mark class="label naranja">casos confirmados</mark> para cada día en Argentina.
+                </p>
+            </div>
+            <div class='step' data-index='1'>
+                <p>
+                    Bajo las premisas antes mencionadas, la OMS recomienda que  el <mark class="label rojo">índice de positividad sea menor al 5%</mark>. 
+                    <br/><br/>
+                    En Argentina, el índice promedio de la última semana es de  <mark class="label rojo"><span id="indicePromedio"></span></mark>, aunque es importante destacar que no siempre ni en todas las jurisdicciones se cumplieron las sugerencias de la OMS.
+                </p>
+            </div>
+            
+            <div class='step' data-index='2'>
+                <p>
+                    Debemos tener en cuenta también que el número de testeos usado para calcular la positividad podría incluir testeos para altas de pacientes o no estar considerando todos los negativos, por lo que el índice podría estar subestimado o sobreestimado de acuerdo a cuál sea el caso.
+                    </p>
+            </div>
+			
+        </article>
+    </div>
+
+</section>
+
+
+ <!-- Scripts -->
+ <script>
+	
+	//********************* CARGA DATOS ************
+
+Promise.all([
+    d3.csv("https://datos.decodificar.org/I3_positividad.csv"),
+    d3.csv("/images/pintador.csv"),
+    d3.csv("https://datos.decodificar.org/metaData_tablas_nueva.csv")
+
+]).then(function(files) {
+   
+    var epigrafeData = files[files.length-1].filter(d=>d.id_historia=="I3");
+        epigrafeData.forEach(e => {
+            e.fecha = d3.timeFormat("%-d/%b/%Y")(d3.timeParse("%Y-%m-%d")(e.fecha_actualizacion)).toLowerCase(); 
+        });
+       
+
+
+    // **** CODIGO DEL SCROLLY *******
+
+
+    const container1 = d3.select('#scrolly1'); //busco el container total
+	const container2 = d3.select('#scrolly2'); //busco el container total
+
+    const stepSel1 = container1.selectAll('.step'); // selecciono los "steps"
+	const stepSel2 = container2.selectAll('.step'); // selecciono los "steps"
+
+    function updateChart(index, what,containerNumber,entra) {  // funcion que llama cada vez que cruza un umbral
+        const sel = d3.select('#scrolly'+containerNumber).select(`[data-index='${index}']`);
+        what.classed('is-active', (d, i) => i === index);
+        scrollyTelling(containerNumber,index,entra); // <<<<< AQUI LLAMA AL GRAFICO VERDADERO
+    }
+
+    function init(what,containerNumber) { // configuracion inicial
+        Stickyfill.add(d3.select('.sticky').node()); // fallback para browsers sin sticky
+
+        enterView({
+            selector: what.nodes(),
+            offset: 0.4,
+            enter: el => {
+                const index = +d3.select(el).attr('data-index');
+                updateChart(index,what,containerNumber,1);
+            },
+            exit: el => {
+                let index = +d3.select(el).attr('data-index');
+                index = Math.max(0, index - 1);
+                updateChart(index,what,containerNumber,0);
+            }
+        });
+    }
+  
+  
+
+    // **** END SCROLLY *******
+
+
+/* COLORES
+azul #00468B
+violeta #8B6BAF
+rojo #F04E53
+naranja #F26522
+verde #62BB46
+*/
+       
+        
+var ejeY, ejeX, tituloY, minDate, maxDate;
+
+var altoMaximo = 1.5; // cuantas veces el ancho permitimos que sea el alto maximo
+
+var svg = d3.selectAll(".contenedorGrafico").append("svg"),
+    margin = isMobile ? {top: 25, right: 20, bottom: 15, left: 30} : {top: 60, right: 35, bottom: 25, left: 35},
+    widthReal =  +d3.select('#grafico1').style('width').slice(0, -2),
+    heightReal = +d3.select('#grafico1').style('height').slice(0, -2)-25;
+
+d3.selectAll(".contenedorGrafico").append("div").attr("class","epigrafe")
+            .html((d,i)=>{
+                if(i) return "www.decodificar.org - "+epigrafeData[0].fecha+" - Fuente: "+ epigrafeData[0].fuente;
+                return "www.decodificar.org"
+                });
+
+
+    if (heightReal > altoMaximo*widthReal) {
+        svg.style('margin-top', (heightReal - altoMaximo*widthReal)/2 + "px")
+        heightReal = altoMaximo*widthReal;
+    }
+
+     var signodepregunta = "M202.021 0C122.202 0 70.503 32.703 29.914 91.026c-7.363 10.58-5.093 25.086 5.178 32.874l43.138 32.709c10.373 7.865 25.132 6.026 33.253-4.148 25.049-31.381 43.63-49.449 82.757-49.449 30.764 0 68.816 19.799 68.816 49.631 0 22.552-18.617 34.134-48.993 51.164-35.423 19.86-82.299 44.576-82.299 106.405V320c0 13.255 10.745 24 24 24h72.471c13.255 0 24-10.745 24-24v-5.773c0-42.86 125.268-44.645 125.268-160.627C377.504 66.256 286.902 0 202.021 0zM192 373.459c-38.196 0-69.271 31.075-69.271 69.271 0 38.195 31.075 69.27 69.271 69.27s69.271-31.075 69.271-69.271-31.075-69.27-69.271-69.27z"
+
+    svg.attr("viewBox", [0, 0, widthReal, heightReal]);
+
+    height = heightReal - margin.top - margin.bottom;
+    width = widthReal - margin.left - margin.right;
+    
+
+	var parseTime = d3.timeParse("%Y-%m-%d");
+
+///******** MANEJO DE DATOS ********
+
+ var data = files[0];
+
+var positivador = files[1];
+    
+
+// AGREGAR  MOVING AVERAGE DE 7 DIAS A LA POSITIVIDAD ****************
+
+
+
+/* var movingWindowAvg = function (arr, wlen) { // window size = wlen
+return arr.map(function (, idx) {
+var wnd = arr.slice(idx - wlen + 1, idx + 1);
+var result = d3.sum(wnd) / wnd.length;
+// Check for isNaN, the javascript way
+result = (result == result) ? result : ;
+return result;
+});
+};
+
+var avgData = movingWindowAvg(avg, 7); // 7-step backward moving window. */
+
+		data.forEach(element => {
+			element.fecha = parseTime(element.fecha_informe);
+            delete element.fecha_informe;
+			element.casos = +element.casos_diarios_Arg;
+            delete element.casos_diarios_Arg;
+            element.tests = element.tests_realizados_dia=="NA"?0:+element.tests_realizados_dia;
+            delete element.tests_realizados_dia;
+            element.positividad = element.indice_positividad=="NA"?0:+element.indice_positividad;
+            delete element.indice_positividad;
+		});
+        
+        data.columns = ["fecha", "casos", "tests", "positividad"]; // reemplazo los titulos de las columnas
+
+
+    
+    var groupKey = data.columns[0];
+    var keys = ["tests","casos"];
+    var today =  new Date();
+    
+    var cuantosMeses = isMobile?3:5; // CANTIDAD DE MESES HACIA ATRAS PARA CORTAR
+    var paddingColumnas = 1;
+
+    data = data.filter(d=>d.fecha> d3.timeMonth.round(d3.timeMonth.offset(today, -cuantosMeses)));
+    
+
+
+
+//***************
+
+	var x = d3.scaleTime()
+			.range([0, width-20])
+			.domain(d3.extent(data, d => d.fecha));
+
+ 
+    var y = d3.scaleLinear()
+        .domain([0, d3.max(data, d => d3.max(keys, key => d[key]))]).nice()
+        .rangeRound([height, 30])
+
+    var yPosit = d3.scaleLinear()
+        .domain([0, d3.max(data, d => d.positividad)]).nice()
+        .rangeRound([height, 30])
+      
+    var line = d3.line()
+        .defined(d => d.positividad>0)
+        .x(d => x(d.fecha))
+        .y(d => yPosit(d.positividad))
+        ;
+    
+
+
+      var yAxis = g => g
+      .attr("transform", `translate(${6},0)`)
+        .call(d3.axisLeft(y).ticks(null, "s"))
+        .call(g => g.select(".domain").remove())
+
+        var yAxisDer = g => g
+          .attr("transform", `translate(${width},0)`)
+          .attr("id", "axisDer")
+          .style("opacity",0)
+          .call(d3.axisLeft(yPosit).ticks(null, "%"))
+          .call(g => g.select(".domain").remove());
+
+
+        var promedio6 = 0;
+        var ultimos6 = data.slice(-6).forEach(element => {
+          promedio6 += element.positividad;
+        });;
+        
+                d3.select("#indicePromedio").html(d3.format(".0%")(promedio6/6)); // AGREGA EL PROMEDIO SEMANAL AL STEP ULTIMO
+  
+    svg.append("g")
+    	.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+	;
+
+	svg.each(function(d,i){
+		d3.select(this).select("g").attr("id","gInterno"+i);
+	})
+
+ 
+
+
+	var gBarras = d3.select("#gInterno1");// estan invertidos
+
+    gBarras.append("text").attr("id","titulo1").attr("x",width/2).attr("y",isMobile?-2:0).text("Casos confirmados diarios (Arg)")
+
+    ejeX = gBarras.append("g") // EJE X
+        .attr("class", "axis axis--x")
+        .attr("transform", "translate(0," + (height+2) + ")")
+        .call(d3.axisBottom(x)
+        	.ticks(d3.timeMonth.every(1)))
+        .call(ajustaMesesEjeX)
+        ;
+
+    ejeY = gBarras.append("g") // EJE Y
+        .attr("class", "axis axis--y")
+	   	.call(yAxis)
+	        ;
+
+  ejeYDer = gBarras.append("g") // EJE Y
+        .attr("class", "axis axis--y")
+	   	.call(yAxisDer)
+	        ;
+    
+    tituloY = ejeY.append("text")
+        .attr("class", "axis-title")
+        .attr("x", -20)
+        .attr("y", 15)
+        .text("Casos diarios");
+
+    tituloYder = ejeYDer.append("text")
+        .attr("class", "axis-title")
+        .attr("y", 15)
+        .style("text-anchor","end")
+        .style("fill","#9c171b")
+        .text("Positividad");
+
+	
+        gBarras.append("g")
+          .selectAll("g")
+          .data(data)
+          .join("g")
+            .attr("class","barra")
+            .attr("transform", d => `translate(${x(d[groupKey])},0)`)
+              .selectAll("rect")
+              .data(d => keys.map(key => ({key, value: d[key]})))
+              .join("rect")
+                .attr("x", 0)
+                .attr("y", d => y(d.value))
+                .attr("width", Math.floor(width/data.length)-paddingColumnas)
+                .attr("height", d => y(0) - y(d.value))
+                .attr("class", (d,i) => !i?"tests":"casos");
+                
+
+                gBarras.append("line").attr("id","baseline")
+                .attr("x1", x(x.domain()[0]))
+                .attr("x2", x(x.domain()[1]))
+                .attr("y1", yPosit(0))
+                .attr("y2", yPosit(0));
+
+
+        gBarras.append("g").attr("id","lineaPositividad")
+                .append("path")
+                                .attr("d", line(data));
+
+
+        
+        var linea5 = gBarras.append("g").attr("id","linea5porciento").style("opacity",0);
+
+                linea5.append("line")
+                .attr("x1", x(x.domain()[0]))
+                .attr("x2", x(x.domain()[1]))
+                .attr("y1", yPosit(0.05))
+                .attr("y2", yPosit(0.05));
+
+                linea5.append("text")
+                .text('5%')
+                .attr("x", width/2)
+                .attr("y", yPosit(0.055))
+                ;
+
+       
+//********* aca van los bubbles
+
+var gBubbles = d3.select("#gInterno0"); // estan invertidos
+    
+var ratio = width/height;
+
+width = isMobile?width*1.1:width
+
+var contagiados = 0.025, sospechosos = 0.03; // porcentaje de contagiados
+var diam = isMobile?6:7, padding = isMobile?4:6, enclosingCircle; 
+var matrix = [Math.floor(width/(diam+padding)), Math.floor(height/(diam+padding))],
+    grafRatio = isMobile?matrix[0]/matrix[1]:matrix[1]/matrix[0];
+
+
+var cantY = matrix[1],
+    cantX = matrix[0],
+    total = cantX*cantY
+    ;
+
+
+    var anchoGraf = (diam*cantX)+(padding*(cantX-1)); // ancho total de las pelotitas
+    var altoGraf = (diam*cantY)+(padding*(cantY-1)); // alto total de las pelotitas
+    
+var scaleX = d3.scaleBand()
+    .domain(d3.range(cantX))
+    .range([0, anchoGraf])
+    .paddingOuter(0)
+    .align(0.5)
+    .round(true);
+
+    
+    
+    gBubbles.attr("transform", "translate(" + ((widthReal - anchoGraf)/2) + "," + (isMobile?diam:margin.top*0.8) + ")");
+
+    gBubbles.append("text").attr("id","titulo").attr("x",width/2).attr("y",isMobile?8:0).text("Casos sospechosos")
+    
+    
+var scaleY = d3.scaleBand()
+    .domain(d3.range(cantY))
+    .range([0, altoGraf])
+    .paddingOuter(0)
+    .align(0.5)
+    .round(true);
+
+
+var puntitos = d3.range(total).map((d,i)=>{
+        var random = Math.random();
+                return {
+                        "index":i,
+                        "sospechoso":random,
+                        "positivo":0,
+                        "x":scaleX(i % cantX),
+                        "y":scaleY(Math.floor(i / cantX)),
+                        "x0":scaleX(i % cantX),
+                        "y0":scaleY(Math.floor(i / cantX)),
+                        "randomID":Math.random(),
+                        "r":diam/2
+                        }}
+                        );
+
+
+  gBubbles.append("g")
+          .selectAll("circle")
+          .data(puntitos)
+          .join("circle")
+              .attr('cx', d => d.x)
+              .attr('cy', d => d.y)
+                .attr("r",diam/2)
+                .attr("id",d=>"c"+d.index)
+                .attr("class","persona")
+                .attr("opacity",1)
+                .style("fill",d=>d.sospechoso<sospechosos?"#8B6BAF":"#ccc")
+                ;
+
+
+                gBubbles.append("circle")   // AGREGO EL CIRCULO ENCLOSER que agrupa los sospechosos
+                            .attr("id","encloser")
+                            .attr("cx",anchoGraf/2)
+                            .attr("cy",altoGraf/2)
+                            .attr("r",0);
+
+                gBubbles.append("circle") // AGREGO EL CIRCULO SELECTOR que agrupa los testeados
+                            .attr("id","selector")
+                            .attr("cx",anchoGraf/2)
+                            .attr("cy",altoGraf/2)
+                            .attr("r",0);
+
+              
+              function roseta (personas, sospechosos){
+                var angle = Math.PI * (3 - Math.sqrt(5));
+                var maxRadius, lugaresVacios = [];
+                personas.each(d=>{
+                    d.x = d.x0;
+                    d.y = d.y0;
+                    
+                });
+
+                personas.sort((a, b) => a.sospechoso - b.sospechoso)
+                var personasSospechosas = personas.filter(d=>d.sospechoso<sospechosos?1:0)
+                
+                personasSospechosas.each((d,i)=>{
+                    
+                    var r = (diam/2 + padding/4) * Math.sqrt(i);
+                    var a = i * angle;
+
+                    lugaresVacios.push({"x":d.x,"y":d.y,"r":diam/2}) // guardo los lugares vacios
+
+                    d.x = anchoGraf/2 + r * Math.cos(a);
+                    d.y = altoGraf/2 + r * Math.sin(a);
+                    
+                });
+                
+                enclosingCircle = d3.packEnclose(personas.filter(d=>d.sospechoso<sospechosos?1:0).data());
+                enclosingCircle.r = enclosingCircle.r+5
+                //elimino los lugares vacios del medio
+
+                lugaresVacios = lugaresVacios.filter(d=>!isInside({"radius":enclosingCircle.r*1.1,"x":enclosingCircle.x,"y":enclosingCircle.y},d.x,d.y));
+                
+                d3.select("#encloser").transition().duration(400).attr("r",enclosingCircle.r).attr("cx",enclosingCircle.x).attr("cy",enclosingCircle.y);
+
+                personas.filter(d=>d.sospechoso<sospechosos?0:1 && isInside({"radius":enclosingCircle.r*1.1,"x":enclosingCircle.x,"y":enclosingCircle.y},d.x,d.y))
+                        .each((d,i)=>{
+                                if(i<lugaresVacios.length){ // failproof
+                                    d.x = lugaresVacios[i].x;
+                                    d.y = lugaresVacios[i].y;
+                                }else{
+                                    
+                                    d.x = lugaresVacios[i-lugaresVacios.length].x;
+                                    d.y = lugaresVacios[i-lugaresVacios.length].y;
+                                }
+                            });
+
+                personas.transition().duration(599)
+                            .attr("cx",d=>d.x)
+                            .attr("cy",d=>d.y)
+                            .style("fill",d=>d.sospechoso<sospechosos?"#8B6BAF":"#ccc")
+              }
+                   
+
+;
+
+
+                var selector = {
+                                "radius":0,
+                                "x":anchoGraf/2,
+                                "y":altoGraf/2
+                }
+
+
+
+        var marginBars = 90;
+
+        var xStats = d3.scaleLinear()
+                .domain([0, total])
+                .range([0, anchoGraf-marginBars-10])
+
+        var xStatsPorc = d3.scaleLinear()
+                .domain([0, 1])
+                .range([0, anchoGraf-marginBars-10])
+
+        var stats = gBubbles.append("g").attr("id","stats")
+        .attr("transform",`translate(0,${altoGraf+5})`)
+        ;
+
+
+
+    var statsTesteos =  gBubbles.append("g").attr("id","statsTesteos").style("opacity",0);
+
+    var statsPositividad =  stats.append("g").attr("id","statsPositividad");
+    
+
+    statsTesteos.append("text").attr("id","testeos")
+                    .text("Testeos:")
+                    .attr("y",altoGraf-50)
+                    .attr("x",anchoGraf/2);
+
+    statsTesteos.append("line")
+                    .attr("x1",anchoGraf/2)
+                    .attr("y1",altoGraf-65)
+                    .attr("x2",anchoGraf/2)
+                    .attr("y2",altoGraf/2)
+
+                    ;
+
+                
+    
+    /* statsTesteos.append("text").attr("id","testeos")
+                    .text("Testeos:-")
+                    .attr("dy",15);
+     */            
+                statsPositividad.append("text").attr("id","positividad")
+                    .attr("dy",10)
+                    .text("Positivad:-")
+                    ;
+
+               /*  statsTesteos.append("rect")
+                    .attr("x",marginBars)
+                    .attr("y",5)
+                    .attr("width",xStats(total))
+                    .attr("height",12)
+                    .style("fill","#ddd")
+                    ;
+
+
+                statsTesteos.append("rect").attr("id","testeosBar")
+                    .attr("x",marginBars)
+                    .attr("y",5)
+                    .attr("width",1)
+                    .attr("height",12)
+                    .style("fill","#00468B")
+                    ;
+                */ 
+                    statsPositividad.append("rect")
+                    .attr("x",marginBars)
+                    .attr("y",0)
+                    .attr("width",xStatsPorc(1))
+                    .attr("height",12)
+                    .style("fill","#ddd")
+                    ;
+
+                    statsPositividad.append("rect").attr("id","positividadBar")
+                    .attr("x",marginBars)
+                    .attr("y",0)
+                    .attr("width",1)
+                    .attr("height",12)
+                    .style("fill","#9c171b")
+                    ;
+
+
+    function updateSelector(selector, sospechosos, contagiados){
+
+        if (selector.radius==0) d3.select("#statsTesteos").transition().duration(200).style("opacity",0);
+        d3.select("#statsTesteos").select("line").transition().duration(600).attr("y2",selector.y+selector.radius);
+
+        d3.select("#selector").transition().duration(600)
+                            .attr("r",selector.radius)
+                            .attr("cx", selector.x)
+                            .attr("cy", selector.y)
+                            .on("end", function(d) {
+                                d3.selectAll(".persona").each(d=>{
+                                    d.isInside = isInside(selector,d.x,d.y)
+                                }).transition().duration(200).style("opacity",d=>selector.r?d.isInside?1:0.4:1);
+                                
+                                
+
+                                d3.selectAll(".persona")
+                                    .filter(d=>d.sospechoso<sospechosos?1:0)
+                                    .each(d=>d.positivo=d.sospechoso<contagiados?1:d.randomID<0.015?1:0)
+                                    .style("fill",d=>d.isInside?d.positivo?"#F26522":"#62BB46":"#8B6BAF");
+
+                                var adentro = d3.selectAll(".persona").filter(d=>d.isInside);
+
+                                d3.select("#positividadBar").transition().duration(200)
+                                    .attr("width",xStatsPorc(adentro.filter(d=>d.positivo?1:0)._groups[0].length/adentro._groups[0].length));
+                                d3.select("#statsTesteos").style("opacity",selector.radius?1:0);
+                                d3.select("#testeos").text("Testeos: "+adentro._groups[0].length);
+
+                                var porcentajePositividad = adentro.filter(d=>d.positivo?1:0)._groups[0].length/adentro._groups[0].length;
+                                d3.select("#positividad").text("Positivad: "+(isNaN(porcentajePositividad)?"-":d3.format(".0%")(porcentajePositividad)));
+
+                            })
+
+    }
+                                
+    
+                
+        
+ 
+
+        init(stepSel1,1)
+	    init(stepSel2,2)
+
+function scrollyTelling(containerNumber,step,entra){
+	if(containerNumber == 2){  //GRAFICO PRIMER SCROLLY
+		switch (step) {
+			case 0: // testeos y positivos 
+                d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",1)
+                d3.select("#lineaPositividad").selectAll("path").transition().duration(600).style("opacity",0)
+                d3.select("#axisDer").transition().duration(600).style("opacity",0)
+                d3.select("#titulo1").text("Testeos y casos confirmados diarios (Arg)")
+                d3.select("#linea5porciento").transition().duration(600).style("opacity",0)
+			break;
+
+        case 1: // positividad
+            d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",d=>d.key=="casos"?1:0)
+            d3.select("#lineaPositividad").selectAll("path").transition().duration(600).style("opacity",1)
+            d3.select("#axisDer").transition().duration(600).style("opacity",1)
+            d3.select("#titulo1").text("Positividad y casos confirmados diarios (Arg)")
+            d3.select("#linea5porciento").transition().duration(600).style("opacity",1)
+
+        break;
+
+        case 2: // positividad
+            d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",0)
+        break;
+
+        
+	    }
+
+  
+  
+	}else{
+
+
+            switch (step) { //GRAFICO SEGUNDO SCROLLY
+                case 0:
+                d3.selectAll(".persona").transition().duration(600).attr("cx",d=>d.x0).attr("cy",d=>d.y0);
+                d3.select("#encloser").transition().duration(600).attr("r",0);
+                d3.select("#titulo").text("Casos sospechosos")
+                    break;
+
+                case 1:
+                    roseta(d3.selectAll(".persona"),sospechosos)
+                    if(!entra)updateSelector({"radius":0,"x":enclosingCircle.x,"y":enclosingCircle.y},sospechosos,contagiados)
+                    d3.select("#titulo").text("Testeos a casos sospechosos")
+                    break;
+
+                case 2: // veo solo el circulo y testeos --- TODOS MISMO COLOR (violeta)
+                        updateSelector({"radius":enclosingCircle.r-5,"x":enclosingCircle.x,"y":enclosingCircle.y},sospechosos,contagiados)
+                        d3.selectAll(".asintomaticos").classed("asintomaticos", false);
+                        d3.select("#titulo").text("Índice de positividad")
+                break;
+
+                case 3: // aparecen los asintomaticos
+                        d3.selectAll(".persona").filter(d=>d.sospechoso<sospechosos?0:1).filter(d=>d.randomID<contagiados*2?1:0).classed("asintomaticos", true);
+                        updateSelector({"radius":0,"x":enclosingCircle.x,"y":enclosingCircle.y},sospechosos,contagiados)
+                        roseta(d3.selectAll(".persona"),sospechosos)
+                        d3.select("#titulo").text("Casos asintomáticos")
+                        
+                break;
+
+                case 4: // cambio caso sospechoso
+                var multiplicaSospechosos = 12;
+                        updateSelector({"radius":0,"x":enclosingCircle.x,"y":enclosingCircle.y},sospechosos*multiplicaSospechosos,contagiados)
+                        d3.selectAll(".asintomaticos").classed("asintomaticos", false);
+                        roseta(d3.selectAll(".persona"),sospechosos*multiplicaSospechosos)
+                        d3.select("#titulo").text("Ampliación de definición")
+                break;
+            
+                case 5: // vuelvo a testear
+                    updateSelector({"radius":enclosingCircle.r-5,"x":enclosingCircle.x,"y":enclosingCircle.y},sospechosos*12,contagiados)
+       /*              d3.selectAll(".persona").filter(d=>d.sospechoso<sospechosos?1:0).filter(d=>d.positivo<contagiados?0:0).classed("asintomaticos", true); */
+                    d3.select("#titulo").text("Ampliación de definición")
+                    break;
+
+                case 6: // vuelvo a testear
+                d3.select("#selector").transition().duration(600)
+                            .attr("r",enclosingCircle.r*0.4-5)
+                            d3.select("#statsTesteos").select("line").transition().duration(600).attr("y2",altoGraf/2+enclosingCircle.r*0.4-5);
+                            d3.select("#titulo").text("Menos testeos que casos sospechosos")
+                            
+                break;
+
+                case 7: // vuelvo a testear
+                    updateSelector({"radius":enclosingCircle.r*0.4-5,"x":enclosingCircle.x,"y":enclosingCircle.y},sospechosos*12,contagiados)
+                    d3.select("#titulo").text("Menos testeos que casos sospechosos")
+                break;
+            }
+                    
+    }
+        
+
+}
+
+
+
+//********** funciones
+ 
+
+ 
+function isInside(circle, x, y){
+            var distancia = Math.sqrt(Math.pow(circle.x-x,2) + Math.pow(circle.y-y,2));
+               return distancia<circle.radius?1:0
+            }
+
+
+function ajustaMesesEjeX(g) {
+        var diasUltimoMes = d3.timeDay.count(d3.timeMonth.floor(x.domain()[1]),x.domain()[1]);
+        var diasPrimerMes = Math.abs(d3.timeDay.count(d3.timeMonth.ceil(x.domain()[0]),x.domain()[0]));
+		  // ESTO PONE LOS NOMBRES DE LOS MESES EN MEDIO DE CADA MES
+           g.selectAll(".tick:not(:last-of-type):not(:last-of-type) text") // para todos los meses menos el ultimo
+                .attr("dx", x(d3.timeDay.offset(x.domain()[0], 15 ))) // mueve el equivalente a 15 dias
+                .attr("dy", "0.3em") ;
+
+          if(diasPrimerMes>8){
+            g.selectAll(".tick:first-of-type text") // el ultimo si no esta completo lo centra en los dias que haya
+                .clone(true)
+                .text(d3.timeFormat("%B")(d3.timeMonth.floor(x.domain()[0])))
+                .attr("dx",  x(d3.timeDay.offset(x.domain()[0], diasPrimerMes/2))*-1)
+                .attr("dy", "0.3em") ;
+            }
+
+  
+            if(diasUltimoMes<8){
+                g.selectAll(".tick:last-of-type text").remove()
+            }else{
+            g.selectAll(".tick:last-of-type text") // el ultimo si no esta completo lo centra en los dias que haya
+                .text(d3.timeFormat("%b")(d3.timeMonth.floor(x.domain()[1])))
+                .attr("dx",  x(d3.timeDay.offset(x.domain()[0], diasUltimoMes/2 )))
+                .attr("dy", "0.3em") ;
+            }
+
+            g.selectAll(".tick line") // las lineas que separan los meses, mas altas
+                .attr("y2", "1.4em") ;
+			}
+
+
+});
+
+</script>
+
+
+<div class="note info"><p>La estrategia de testeos para confirmar casos de COVID-19 es muy importante como forma de contención de la pandemia. Ante la escasez de recursos, lo importante no es simplemente hacer la mayor cantidad de testeos, sino también hacerlos de forma eficiente: usar los recursos disponibles para obtener la mejor información posible para tomar ciertas decisiones, como aislar a las personas, rastrear sus contactos, implementar nuevas restricciones o flexibilizarlas.</p>
+<p>El índice de positividad depende de esta estrategia. Así, por ejemplo, el índice de positividad nacional  no expresa las diferentes estrategias de testeo que se están implementando en cada provincia ni las diferencias que puede haber entre ciudades, más allá de las recomendaciones y lineamientos generales del Ministerio de Salud de la Nación.</p>
+</div>]]></content>
+  </entry>
+  <entry>
     <title>¿Podemos lograr la inmunidad de rebaño sin vacuna?</title>
     <url>/covid/inmunidad_de_rebano/</url>
     <content><![CDATA[
