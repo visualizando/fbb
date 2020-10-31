@@ -7123,7 +7123,7 @@ verde #62BB46
 				      <p>
                         De esas personas que <mark class="label azul">testeamos</mark>, algunas dan <mark class="label naranja">positivo para COVID-19</mark> y <mark class="label verde">otras no</mark>.
                         <br/><br/>
-                        La relación entre la cantidad de resultados positivos y el número total de testeos es el <mark class="label rojo">índice de positividad</mark>. Por ejemplo, acá se testea a todo el universo de casos sospechosos y encontramos que más o menos de cada 100 personas, 90 dieron positivo. Esto se traduce en un índice de positividad del 90%.
+                        La relación entre la cantidad de resultados positivos y el número total de testeos es el <mark class="label rojo">índice de positividad</mark>. Por ejemplo, acá se testea a todo el universo de casos sospechosos y encontramos que de cada <span id="numTesteos"></span> personas, <span id="numPositivos"></span> dieron positivo. Esto se traduce en un índice de positividad del <span id="numPositividad"></span>.
                 </p>
             </div>
             <div class='step' data-index='3'>
@@ -7739,9 +7739,17 @@ var puntitos = d3.range(total).map((d,i)=>{
                                     .attr("width",xStatsPorc(adentro.filter(d=>d.positivo?1:0)._groups[0].length/adentro._groups[0].length));
                                 d3.select("#statsTesteos").style("opacity",selector.radius?1:0);
                                 d3.select("#testeos").text("Testeos: "+adentro._groups[0].length);
+                                
+
+                                                                
 
                                 var porcentajePositividad = adentro.filter(d=>d.positivo?1:0)._groups[0].length/adentro._groups[0].length;
                                 d3.select("#positividad").text("Positivad: "+(isNaN(porcentajePositividad)?"-":d3.format(".0%")(porcentajePositividad)));
+
+
+                                d3.select("#numTesteos").text(adentro._groups[0].length);
+                                d3.select("#numPositivos").text(adentro.filter(d=>d.positivo?1:0)._groups[0].length);
+                                d3.select("#numPositividad").text(d3.format(".0%")(porcentajePositividad));
 
                             })
 
