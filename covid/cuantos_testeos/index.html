@@ -474,7 +474,7 @@ var coloreaCategorias = d3.scaleOrdinal()
         font-size: 12px;
         font-weight: 800;
         text-anchor: middle;
-    
+        fill: #00468B;
         paint-order: stroke;
         stroke: #f1f1f1;
         stroke-width: 8px;
@@ -540,7 +540,7 @@ verde #62BB46
             </div>
             <div class='step' data-index='2'>
 				      <p>
-                        De esas personas que <mark class="label azul">testeamos</mark>, algunas dan <mark class="label naranja">positivo para COVID-19</mark> y <mark class="label verde">otras no</mark>.
+                        De esas personas que <mark class="label azul">testeamos</mark>  (las que están dentro del círculo con línea punteada), algunas dan <mark class="label naranja">positivo para COVID-19</mark> y <mark class="label verde">otras no</mark>.
                         <br/><br/>
                         La relación entre la cantidad de resultados positivos y el número total de testeos es el <mark class="label rojo">índice de positividad</mark>. Por ejemplo, acá se testea a todo el universo de casos sospechosos y encontramos que de cada <span id="numTesteos"></span> personas, <span id="numPositivos"></span> dieron positivo. Esto se traduce en un índice de positividad del <span id="numPositividad"></span>.
                 </p>
@@ -793,6 +793,8 @@ var avgData = movingWindowAvg(avg, 7); // 7-step backward moving window. */
 
       var yAxis = g => g
       .attr("transform", `translate(${6},0)`)
+      .attr("id", "axisIzq")
+
         .call(d3.axisLeft(y).ticks(null, "s"))
         .call(g => g.select(".domain").remove())
 
@@ -1199,10 +1201,13 @@ function scrollyTelling(containerNumber,step,entra){
             d3.select("#axisDer").transition().duration(600).style("opacity",1)
             d3.select("#titulo1").text("Positividad y casos confirmados diarios (Arg)")
             d3.select("#linea5porciento").transition().duration(600).style("opacity",1)
+            d3.select("#axisIzq").transition().duration(600).style("opacity",1)
+
 
         break;
 
         case 2: // positividad
+            d3.select("#axisIzq").transition().duration(600).style("opacity",0)
             d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",0)
         break;
 
