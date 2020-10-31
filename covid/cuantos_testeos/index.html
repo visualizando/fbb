@@ -1207,6 +1207,8 @@ function scrollyTelling(containerNumber,step,entra){
         break;
 
         case 2: // positividad
+        d3.select("#titulo1").text("Positividad (Arg)")
+
             d3.select("#axisIzq").transition().duration(600).style("opacity",0)
             d3.selectAll(".barra").selectAll("rect").transition().duration(600).style("opacity",0)
         break;
