@@ -7828,15 +7828,15 @@ function scrollyTelling(containerNumber,step,entra){
                     d3.select("#titulo").text("Ampliación de definición")
                     break;
 
-                case 6: // vuelvo a testear
+               /*  case 6: // vuelvo a testear
                 d3.select("#selector").transition().duration(600)
                             .attr("r",enclosingCircle.r*0.4-5)
                             d3.select("#statsTesteos").select("line").transition().duration(600).attr("y2",altoGraf/2+enclosingCircle.r*0.4-5);
                             d3.select("#titulo").text("Menos testeos que casos sospechosos")
                             
-                break;
+                break; */
 
-                case 7: // vuelvo a testear
+                case 6: // vuelvo a testear
                     updateSelector({"radius":enclosingCircle.r*0.4-5,"x":enclosingCircle.x,"y":enclosingCircle.y},sospechosos*12,contagiados)
                     d3.select("#titulo").text("Menos testeos que casos sospechosos")
                 break;
