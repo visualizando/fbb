@@ -7149,16 +7149,14 @@ verde #62BB46
 				      <p>
                         ¿Qué pasa si tenemos una definición amplia de caso sospechoso pero no podemos testearlos a todos? Podría ser por ejemplo por falta de disponibilidad de kits de testeo o porque esas personas no acceden al sistema de salud (el círculo de línea punteada ahora se achica).
                         <br/><br/>
-
-                        En la práctica, vamos a tener que elegir a quién testear. 
-                        
+                       En la práctica, vamos a tener que elegir a quién testear. 
                 </p>
             </div>
             <div class='step' data-index='7'>
                 <p>
-                  Si eligiéramos al azar entre los casos sospechosos, el índice de positividad no debería cambiar (en términos de probabilidad).
-            <br/><br/>
-            Sin embargo, lo que sucede es que se decide  priorizar a trabajadores esenciales o pacientes internados que tienen una probabilidad mayor de estar contagiados y, por lo tanto, el índice de positividad probablemente será alto.
+                    Si eligiéramos al azar entre los casos sospechosos, el índice de positividad no debería cambiar (en términos de probabilidad).
+                    <br/><br/>
+                   Sin embargo, lo que sucede es que se decide priorizar a quienes tienen una probabilidad mayor de estar contagiados, como trabajadores de la salud o pacientes internados y, por lo tanto, el índice de positividad probablemente será alto.
         </p>
     </div>
         </article>
