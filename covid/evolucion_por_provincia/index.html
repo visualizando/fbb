@@ -810,7 +810,7 @@ var clip = grafico.append("defs").append("svg:clipPath")
 					break;
 
 				case 8:
-					nombres = dataParaLabels.filter(d=> d.dup > 25 && d.dup < 100).map(r=>nombresPcias[r.name][0]);
+					nombres = dataParaLabels.filter(d=> d.dup > 25 && d.dup < 101).map(r=>nombresPcias[r.name][0]);
 					break;
 
 				case 9:
@@ -877,11 +877,11 @@ function scrollyTelling(step){
 
 
 		case 8: // duplica en mas de 25
-			apagaProvincias(25,100);
+			apagaProvincias(25,101);
 			break;
 
 		case 9: // sin casos nuevos
-			apagaProvincias(100,2000);
+			apagaProvincias(101,2000);
 			break;
 
 		case 10: // sin casos nuevos
