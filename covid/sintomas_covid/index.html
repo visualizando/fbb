@@ -365,7 +365,9 @@ var coloreaCategorias = d3.scaleOrdinal()
     }
 
     .dia rect{
-        fill: #ddd
+        fill: #ddd;
+        stroke: #ddd;
+        stroke-width: 1px;
     }
 
     .dia text{
@@ -742,12 +744,12 @@ var grafico = svg.append("g")
         if(containerNumber == 1){  //GRAFICO PRIMER SCROLLY
             switch (step) {
                 case 0: // inicio
-                d3.selectAll(".dia").selectAll("rect").transition().duration(600).style("fill","#ddd");
+                d3.selectAll(".dia rect").transition().duration(600).style("fill","#ddd");
                 d3.selectAll(".estrecho").transition().duration(600).style("opacity",0)
                 break;
 
                 case 1: // semana anterior
-                d3.selectAll(".dia").filter(d=>d.dia<1).selectAll("rect").transition().duration(600).style("fill","#F2652230")
+                d3.selectAll(".dia rect").transition().duration(600).delay((d,i)=>i*30).style("fill",d=>d.dia<1?"#F2652230":"#ddd")
                 d3.select("#aislamiento").transition().duration(600).style("opacity",0)
                 d3.selectAll(".estrecho").transition().duration(600).style("opacity",1)
 
@@ -755,7 +757,7 @@ var grafico = svg.append("g")
 
 
                 case 2: // semana siguiente
-                d3.selectAll(".dia").filter(d=>d.dia<14).selectAll("rect").transition().duration(600).style("fill","#F2652230")
+                d3.selectAll(".dia rect").transition().duration(600).delay((d,i)=>i*30).style("fill",d=>d.dia<14?"#F2652230":"#ddd")
                 d3.select("#aislamiento").transition().duration(600).style("opacity",1)
                 d3.select("#llamarHospital").transition().duration(600).delay(300).style("opacity",0)
                 break;
@@ -764,13 +766,21 @@ var grafico = svg.append("g")
                 case 3: // llamar
                 d3.select("#llamarHospital").transition().duration(600).style("opacity",1)
                 d3.select("#pcr").transition().duration(600).style("opacity",0)
+                d3.selectAll(".dia").selectAll("rect").transition().duration(600).style("stroke","#ddd");
+
                 break;
 
 
                 case 4: // test
                 d3.select("#pcr").transition().duration(600).style("opacity",1)
-                //d3.selectAll(".dia").selectAll("rect").transition().duration(600).style("fill", d=>d.dia<1?"#ddd":d.dia>13?"#ddd":"#F2652250");
-                d3.selectAll(".dia").filter(d=>d.dia<1&&d.dia>13).selectAll("rect").transition().duration(600).style("stroke", "#F26522");
+                d3.select("#serologia").transition().duration(600).style("opacity",0)
+                d3.selectAll(".dia rect").transition().duration(600).delay((d,i)=>i*30).style("stroke", d=>d.dia>0&&d.dia<14?"#F26522":"#ddd");
+                break;
+
+                case 5: // serologico
+                d3.select("#pcr").transition().duration(600).style("opacity",0)
+                d3.select("#serologia").transition().duration(600).style("opacity",1)
+                d3.selectAll(".dia rect").transition().duration(600).delay((d,i)=>i*30).style("stroke", d=>d.dia>8&&d.dia<28?"#62BB46":"#ddd");
                 break;
 
 
