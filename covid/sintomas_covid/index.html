@@ -757,6 +757,7 @@ var grafico = svg.append("g")
 
 
                 case 2: // semana siguiente
+                d3.selectAll(".estrecho").transition().duration(600).style("opacity",0)
                 d3.selectAll(".dia rect").transition().duration(600).delay((d,i)=>i*30).style("fill",d=>d.dia<14?"#F2652230":"#ddd")
                 d3.select("#aislamiento").transition().duration(600).style("opacity",1)
                 d3.select("#llamarHospital").transition().duration(600).delay(300).style("opacity",0)
@@ -772,6 +773,7 @@ var grafico = svg.append("g")
 
 
                 case 4: // test
+                d3.select("#llamarHospital").transition().duration(600).delay(300).style("opacity",0)
                 d3.select("#pcr").transition().duration(600).style("opacity",1)
                 d3.select("#serologia").transition().duration(600).style("opacity",0)
                 d3.selectAll(".dia rect").transition().duration(600).delay((d,i)=>i*30).style("stroke", d=>d.dia>0&&d.dia<14?"#F26522":"#ddd");
