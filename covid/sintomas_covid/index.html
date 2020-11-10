@@ -357,6 +357,12 @@ var coloreaCategorias = d3.scaleOrdinal()
 
     }
 
+    .label.azul{
+        background: #00468B;
+        color:white;
+
+    }
+
 
     .label.violeta{
         background: #8B6BAF;
@@ -410,7 +416,7 @@ var coloreaCategorias = d3.scaleOrdinal()
             <div class='step' data-index='0'>
                 <p> 
                     
-                    Vamos a imaginarnos que hoy empiezo con algún síntoma compatible con COVID-19 (fiebre, dolor de garganta, falta de aire, tos, ausencia de olfato o gusto, etc.).
+                    Vamos a imaginarnos que <mark class="label azul">hoy empiezo</mark> con algún síntoma compatible con COVID-19 (fiebre, dolor de garganta, falta de aire, tos, ausencia de olfato o gusto, etc.).
                     <br/><br/>
                     ¿Qué es lo que tengo que hacer?
 
@@ -430,14 +436,14 @@ Es importante advertir a estas personas para que también consideren un posible 
                     <br/><br/>
                     Desde que aparecieron los síntomas hay dos cosas esenciales para hacer.
                     <br/><br/>                    
-                    Lo primero es que debo “autoconsiderarme” caso sospechoso. Eso significa que, en lo posible, debo permanecer en mi casa y reducir el contacto con otras personas (ya sea del ámbito personal, laboral o social) por 10/14 días o hasta una recibir una indicación médica distinta.
+                    Lo primero es que debo “autoconsiderarme” <a href="https://www.argentina.gob.ar/salud/coronavirus-COVID-19/definicion-de-caso" target="_blank">caso sospechoso</a>. Eso significa que, en lo posible, debo permanecer en mi casa y reducir el contacto con otras personas (ya sea del ámbito personal, laboral o social) por 10/14 días o hasta recibir una indicación médica distinta.
                 </p>
             </div>
             <div class='step' data-index='3'>
                 <p>
                     Además del autoaislamiento, debo contactarme con el sistema de salud para que me digan los pasos a seguir y para el registro del caso.
                     <br/><br/>
-Aquí algunos teléfonos útiles.
+Aquí algunos <a href="https://www.argentina.gob.ar/coronavirus/telefonos" target="_blank">teléfonos útiles</a>.
                 </p>
             </div>
             <div class='step' data-index='4'>
@@ -689,7 +695,6 @@ var grafico = svg.append("g")
                     .style("opacity",0)
                     ;
 
-
                     tipitos.append("rect").attr("id","aislamiento")
                     .attr("x",scaleDias(1)-4)
                     .attr("y",scaleSemanas(2)-4)
@@ -699,8 +704,6 @@ var grafico = svg.append("g")
                     .style("opacity",0)
                     ;
 
-
-
                     tipitos.append("use")
                     .attr("xlink:href","#llamada")
                     .attr("id","llamarHospital")
@@ -708,10 +711,7 @@ var grafico = svg.append("g")
                     .attr("y",scaleSemanas(2)+scaleSemanas.bandwidth()/2+marginText/2)
                     .attr("fill","#8B6BAF")
                     .style("opacity",0)
-
                     ;
-
-            
                     
                     tipitos.append("use")
                     .attr("xlink:href","#test")
@@ -720,10 +720,7 @@ var grafico = svg.append("g")
                     .attr("y",scaleSemanas(3)+scaleSemanas.bandwidth()/2+marginText/2)
                     .attr("fill","#F26522")
                     .style("opacity",0)
-
                     ;
-
-            
                           
                     tipitos.append("use")
                     .attr("xlink:href","#sangre")
@@ -732,11 +729,7 @@ var grafico = svg.append("g")
                     .attr("y",scaleSemanas(5)+scaleSemanas.bandwidth()/2+marginText/2)
                     .attr("fill","#62BB46")
                     .style("opacity",0)
-
                     ;
-
-            
-
 
                     init(stepSel1,1)
 
@@ -752,9 +745,7 @@ var grafico = svg.append("g")
                 d3.selectAll(".dia rect").transition().duration(600).delay((d,i)=>i*30).style("fill",d=>d.dia<1?"#F2652230":"#ddd")
                 d3.select("#aislamiento").transition().duration(600).style("opacity",0)
                 d3.selectAll(".estrecho").transition().duration(600).style("opacity",1)
-
                 break;
-
 
                 case 2: // semana siguiente
                 d3.selectAll(".estrecho").transition().duration(600).style("opacity",0)
@@ -763,14 +754,11 @@ var grafico = svg.append("g")
                 d3.select("#llamarHospital").transition().duration(600).delay(300).style("opacity",0)
                 break;
 
-
                 case 3: // llamar
                 d3.select("#llamarHospital").transition().duration(600).style("opacity",1)
                 d3.select("#pcr").transition().duration(600).style("opacity",0)
                 d3.selectAll(".dia").selectAll("rect").transition().duration(600).style("stroke","#ddd");
-
                 break;
-
 
                 case 4: // test
                 d3.select("#llamarHospital").transition().duration(600).delay(300).style("opacity",0)
@@ -784,15 +772,9 @@ var grafico = svg.append("g")
                 d3.select("#serologia").transition().duration(600).style("opacity",1)
                 d3.selectAll(".dia rect").transition().duration(600).delay((d,i)=>i*30).style("stroke", d=>d.dia>8&&d.dia<28?"#62BB46":"#ddd");
                 break;
-
-
             
             }
-
-    
         }
-            
-
     }
 
 
