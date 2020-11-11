@@ -8699,4 +8699,547 @@ function ajustaMesesEjeX(g) {
 <p>Con la ausencia aún de una vacuna efectiva, la mejor manera como población para combatir la pandemia de COVID-19 sigue siendo respetar las normas de distanciamiento social y de higiene.</p>
 </div>]]></content>
   </entry>
+  <entry>
+    <title>Síntomas de COVID-19: ¿y ahora qué?</title>
+    <url>/covid/sintomas_covid/</url>
+    <content><![CDATA[
+
+
+<style>
+
+
+
+  
+
+    svg text{
+        font-size: 11px;
+    }
+    
+    .epigrafe{
+        margin-top: 0;
+    }     
+ 
+    .flechitas{
+        fill:none;
+        
+        stroke: rgb(0, 0, 0);
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+    .label.naranja{
+        background: #F26522;
+
+    }
+
+    .label.naranjita{
+        background: #F2652230;
+        color:black !important;
+    }
+
+    .label.celeste{
+        background: #5badd4;
+
+    }
+
+    
+    .label.gris{
+        background: gray;
+
+    }
+
+    .label.azul{
+        background: #00468B;
+        color:white;
+
+    }
+
+
+    .label.violeta{
+        background: #8B6BAF;
+    }
+
+    
+
+    .label.verde{
+        background: #62BB46;
+    }
+
+    .dia rect{
+        fill: #ddd;
+        stroke: #ddd;
+        stroke-width: 1px;
+    }
+
+    .dia text{
+        fill:#666;
+        font-size: 10px;
+        text-anchor: middle;
+        font-variant-numeric:lining-nums;
+    }
+
+    #aislamiento{
+        fill: none;
+    stroke: #333;
+    stroke-dasharray: 10,5;
+    stroke-width: 2px;
+}
+
+
+    .label.punteado{
+        background-color: transparent;
+        color: black !important;
+        border-bottom: 2px dashed;
+        font-weight: 600 !important;
+        }
+
+
+    @media only screen and (min-width: 768px) {
+        .epigrafe{
+            margin-top: inherit;
+        }     
+        
+        svg text{
+            font-size: 12px;
+        }
+        
+    }
+    
+</style>
+
+
+<section id='scrolly'>
+    <div class='scrolly'>
+        
+
+        <!-- aca va el grafico que va a quedar fijo -->
+        <figure id="contenedorGrafico" class='sticky' >
+        </figure>
+
+        <!-- acá van los textos de cada paso -->
+        <article>
+            <div class='step' data-index='0'>
+                <p> 
+                    
+                    Vamos a imaginarnos que este día empecé con <mark class="label azul">algún síntoma compatible con COVID-19</mark> (fiebre, dolor de garganta, falta de aire, tos, ausencia de olfato o gusto, etc.), pueden no aparecer todos juntos. A este día le llamaremos “día 0”.
+                    <br/><br/>
+                    ¿Qué es lo que tengo que hacer? 
+                </p>
+            </div>
+            
+            <div class='step' data-index='1'>
+                <p>
+                    Para empezar, tengo que mirar hacia atrás. <mark class="label naranjita">Durante toda la semana previa</mark> al inicio de mis síntomas <mark class="label verde">pude haber contagiado a alguien</mark> sin darme cuenta, especialmente en las últimas 48 horas y a quienes conviven conmigo o con quienes haya estado al menos 15 minutos y a menos de 2 metros de distancia.
+                    <br/><br/>
+Es importante advertir a estas personas para que también consideren un posible contagio y se aíslen.
+                </p>
+            </div>
+            <div class='step' data-index='2'>
+                <p>
+                    ¿Y luego qué pasa?
+                    <br/><br/>
+                    Desde que aparecieron los síntomas hay dos cosas esenciales para hacer.
+                    <br/><br/>                    
+                    Lo primero es que debo “autoconsiderarme” <a href="https://www.argentina.gob.ar/salud/coronavirus-COVID-19/definicion-de-caso" target="_blank">caso sospechoso</a>. Eso significa que, en lo posible,  <mark class="label punteado">debo permanecer en mi casa</mark> y reducir el contacto con otras personas (ya sea del ámbito personal, laboral o social) por 10/14 días o hasta recibir una indicación médica distinta.
+                </p>
+            </div>
+            <div class='step' data-index='3'>
+                <p>
+                    Además del autoaislamiento, debo <mark class="label violeta">contactarme con el sistema de salud</mark> para que me digan los pasos a seguir y para el registro del caso.
+                    <br/><br/>
+Aquí algunos <a href="https://www.argentina.gob.ar/coronavirus/telefonos" target="_blank">teléfonos útiles</a>.
+                </p>
+            </div>
+            <div class='step' data-index='4'>
+                <p>
+                    Ahora bien, ¿cómo se confirma la sospecha de si tengo o no COVID-19?
+                    <br/><br/>
+                    <mark class="label naranja">El test de PCR</mark> detecta si tengo el virus en el cuerpo al momento del test.
+<br/><br/>
+Este test debe utilizarse dentro de los 14 días desde el inicio de los síntomas, y de ser posible en la primera semana. Pasado este tiempo, es poco probable encontrar rastros del virus y por lo tanto que el test de PCR resulte positivo.                </p>
+            </div>
+            <div class='step' data-index='5'>
+                <p>
+                    Por otro lado están los <mark class="label verde">tests serológicos</mark>, que miden los anticuerpos en sangre como una huella del contacto con el virus.
+                    <br/><br/>
+                    Si bien los anticuerpos podrían detectarse a partir del día 10, tienen una mayor concentración recién a partir de la tercera semana (día 21) de haber empezado con los síntomas. Hacer este test antes del día 10 no tendría sentido.
+                </p>
+            </div>
+           
+        </article>
+
+
+    </div>
+
+</section>
+
+
+ <!-- Scripts -->
+ <script>
+    
+//********************* CARGA DATOS ************
+
+
+    // **** CODIGO DEL SCROLLY *******
+
+    const container1 = d3.select('#scrolly'); //busco el container total
+
+    const stepSel1 = container1.selectAll('.step'); // selecciono los "steps"
+
+    function updateChart(index, what,containerNumber,entra) {  // funcion que llama cada vez que cruza un umbral
+        const sel = d3.select('#scrolly'+containerNumber).select(`[data-index='${index}']`);
+        what.classed('is-active', (d, i) => i === index);
+        scrollyTelling(containerNumber,index,entra); // <<<<< AQUI LLAMA AL GRAFICO VERDADERO
+    }
+
+    function init(what,containerNumber) { // configuracion inicial
+        Stickyfill.add(d3.select('.sticky').node()); // fallback para browsers sin sticky
+
+        enterView({
+            selector: what.nodes(),
+            offset: 0,
+            enter: el => {
+                const index = +d3.select(el).attr('data-index');
+                updateChart(index,what,containerNumber,1);
+            },
+            exit: el => {
+                let index = +d3.select(el).attr('data-index');
+                index = Math.max(0, index - 1);
+                updateChart(index,what,containerNumber,0);
+            }
+        });
+    }
+  
+
+    // **** END SCROLLY *******
+
+
+/* COLORES
+azul #00468B
+violeta #8B6BAF
+rojo #F04E53
+naranja #F26522
+verde #62BB46
+*/
+       
+        
+
+var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maximo
+
+var svg = d3.select("#contenedorGrafico").append("svg"),
+    marginTexto = isMobile ? 30:45,
+    margin = isMobile ? {top: 15, right: 10, bottom: 15, left: 10} : {top: 25, right: 40, bottom: 5, left: 65},
+    width =  +d3.select('#contenedorGrafico').style('width').slice(0, -2),
+    height = +d3.select('#contenedorGrafico').style('height').slice(0, -2)-25;
+
+    d3.select("#contenedorGrafico").append("div").attr("class","epigrafe")
+            .html("www.decodificar.org");
+
+
+    if (!isMobile && height > altoMaximo*width) {
+        svg.style('margin-top', (height - altoMaximo*width)/2 + "px")
+        height = altoMaximo*width;
+    }
+
+    svg.attr("viewBox", [0, 0, width, height]);
+
+    height = height - margin.top - margin.bottom;
+    width = width - margin.left - margin.right;
+    
+
+
+var grafico = svg.append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    ;
+
+    var displace = [isMobile||height<450?-15:-24,isMobile||height<450?-15:-20]
+    
+    var scaleIcon = isMobile||height<450?1:1.5
+    // Agrego tipito como symbolo
+    svg.append("symbol").attr("id","tipito").attr("y",displace[1]).attr("x",displace[0])
+        .append("path").style("transform",isMobile?"":"scale(1.5)").attr("d","M10,3C7.8,3,5.9,4.8,5.9,7.1s1.8,4.1,4.1,4.1s4.1-1.8,4.1-4.1S12.2,3,10,3 M16.1,15.2v8.6c0,0.8-0.7,1.5-1.5,1.5h-1v8.6c0,0.8-0.7,1.5-1.5,1.5H8c-0.8,0-1.5-0.7-1.5-1.5v-8.6h-1c-0.8,0-1.5-0.7-1.5-1.5v-8.6c0-1.7,1.4-3,3-3h0.7c1.5,0.7,3.2,0.7,4.6,0H13C14.7,12.1,16.1,13.5,16.1,15.2z");
+
+    
+    // Agrego tos como symbolo
+    svg.append("symbol").attr("id","tos").attr("y",displace[1]).attr("x",displace[0])
+        .append("path").style("transform","scale("+scaleIcon+")").attr("d","M30.2,15.2c0.6,0,1.1-0.5,1.1-1.1c0-0.6-0.5-1.1-1.1-1.1S29,13.4,29,14C29,14.7,29.5,15.2,30.2,15.2z M27.1,20.5  c-0.6,0-1.1,0.5-1.1,1.1c0,0.6,0.5,1.1,1.1,1.1c0.6,0,1.1-0.5,1.1-1.1l0,0C28.3,21,27.8,20.5,27.1,20.5z M24.1,17.8  c-0.6,0-1.1,0.5-1.1,1.1s0.5,1.1,1.1,1.1s1.1-0.5,1.1-1.1S24.7,17.8,24.1,17.8z M30.2,22.8c-0.6,0-1.1,0.5-1.1,1.1s0.5,1.1,1.1,1.1  s1.1-0.5,1.1-1.1S30.8,22.8,30.2,22.8L30.2,22.8z M30.2,17.8c-0.6,0-1.1,0.5-1.1,1.1s0.5,1.1,1.1,1.1s1.1-0.5,1.1-1.1  S30.8,17.8,30.2,17.8z M27.1,15.9c-0.6,0-1.1,0.5-1.1,1.1c0,0.6,0.5,1.1,1.1,1.1c0.6,0,1.1-0.5,1.1-1.1  C28.3,16.4,27.8,15.9,27.1,15.9z M23.6,13.8c-1-2.2-2.3-7.2-3.5-8.9c-1.9-2.6-4.9-4.2-8.1-4.2h-2c-5,0-9.1,4.1-9.1,9.1  c0,2.7,1.2,5.1,3,6.8v8.4h10.7v-1.5h3c1.7,0,3-1.4,3-3h-4.6c-0.8,0-1.5-0.7-1.5-1.5s0.7-1.5,1.5-1.5h4.6v-1.5h1.5  c0.8,0,1.5-0.7,1.5-1.5C23.7,14.2,23.7,14,23.6,13.8z M14.6,11.4c-0.8,0-1.5-0.7-1.5-1.5c0-0.8,0.7-1.5,1.5-1.5  c0.8,0,1.5,0.7,1.5,1.5C16.1,10.7,15.4,11.4,14.6,11.4z");
+
+
+  
+    // Agrego estrecho como symbolo
+    var estrecho = svg.append("symbol").attr("id","estrecho").attr("y",displace[1]).attr("x",displace[0])
+    .append("g").style("transform","scale("+scaleIcon+")");
+
+    estrecho.append("path").attr("d","M7,7.1c1.7,0,3-1.4,3-3c0-1.7-1.4-3-3-3c-1.7,0-3,1.4-3,3C3.9,5.7,5.3,7.1,7,7.1z M7,15.4c0-0.6,0.2-1.1,0.6-1.5l3.4-3.2 c0.1-0.1,0.2-0.1,0.3-0.2c-0.5-1.2-1.6-1.9-2.8-1.9h-3c-1.7,0-3,1.4-3,3v4.6c0,0.8,0.7,1.5,1.5,1.5v6.1c0,0.8,0.7,1.5,1.5,1.5h3    c0.8,0,1.5-0.7,1.5-1.5v-4.6L7.6,17C7.2,16.6,7,16,7,15.4z M25.2,7.1c1.7,0,3-1.4,3-3c0-1.7-1.4-3-3-3c-1.7,0-3,1.4-3,3    C22.2,5.7,23.5,7.1,25.2,7.1z M26.7,8.6h-3c-1.2,0-2.4,0.8-2.8,1.9c0.1,0.1,0.2,0.1,0.3,0.2l3.4,3.2c0.8,0.8,0.9,2.1,0.1,3    c0,0,0,0-0.1,0.1l-2.4,2.3v4.6c0,0.8,0.7,1.5,1.5,1.5h3c0.8,0,1.5-0.7,1.5-1.5v-6.1c0.8,0,1.5-0.7,1.5-1.5v-4.6    C29.8,10,28.4,8.6,26.7,8.6z M23.5,15l-3.4-3.2c-0.2-0.2-0.6-0.2-0.8,0c-0.1,0.1-0.2,0.2-0.2,0.4v1.7h-6.1v-1.7    c0-0.3-0.3-0.6-0.6-0.6c-0.1,0-0.3,0.1-0.4,0.2L8.7,15c-0.2,0.2-0.2,0.6,0,0.8l3.4,3.2c0.2,0.2,0.6,0.2,0.8,0    c0.1-0.1,0.2-0.2,0.2-0.4V17h6.1v1.7c0,0.3,0.3,0.6,0.6,0.6c0.1,0,0.3-0.1,0.4-0.2l3.4-3.2C23.7,15.6,23.7,15.3,23.5,15z");
+	estrecho.append("path").attr("d","M7.1,7c1.7,0,3-1.4,3-3c0-1.7-1.4-3-3-3c-1.7,0-3,1.4-3,3C4.1,5.7,5.5,7,7.1,7z");
+	estrecho.append("path").attr("d","M7.1,15.4c0-0.6,0.2-1.1,0.6-1.5l3.4-3.2c0.1-0.1,0.2-0.1,0.3-0.2c-0.5-1.2-1.6-1.9-2.8-1.9h-3c-1.7,0-3,1.4-3,3v4.6   c0,0.8,0.7,1.5,1.5,1.5v6.1c0,0.8,0.7,1.5,1.5,1.5h3c0.8,0,1.5-0.7,1.5-1.5v-4.6l-2.4-2.3C7.4,16.5,7.1,16,7.1,15.4z");
+	estrecho.append("path").attr("d","M25.4,7c1.7,0,3-1.4,3-3c0-1.7-1.4-3-3-3c-1.7,0-3,1.4-3,3C22.3,5.7,23.7,7,25.4,7z");
+	estrecho.append("path").attr("d","M26.9,8.5h-3c-1.2,0-2.4,0.8-2.8,1.9c0.1,0.1,0.2,0.1,0.3,0.2l3.4,3.2c0.8,0.8,0.9,2.1,0.1,3c0,0,0,0-0.1,0.1l-2.4,2.3v4.6   c0,0.8,0.7,1.5,1.5,1.5h3c0.8,0,1.5-0.7,1.5-1.5v-6.1c0.8,0,1.5-0.7,1.5-1.5v-4.6C29.9,9.9,28.6,8.5,26.9,8.5z");
+	estrecho.append("path").attr("d","M23.7,15l-3.4-3.2c-0.2-0.2-0.6-0.2-0.8,0c-0.1,0.1-0.2,0.2-0.2,0.4v1.7h-6.1v-1.7c0-0.3-0.3-0.6-0.6-0.6   c-0.1,0-0.3,0.1-0.4,0.2L8.8,15c-0.2,0.2-0.2,0.6,0,0.8l3.4,3.2c0.2,0.2,0.6,0.2,0.8,0c0.1-0.1,0.2-0.2,0.2-0.4v-1.7h6.1v1.7   c0,0.3,0.3,0.6,0.6,0.6c0.1,0,0.3-0.1,0.4-0.2l3.4-3.2C23.9,15.6,23.9,15.2,23.7,15z");
+
+//        .append("path").attr("d","M7,7.1c1.7,0,3-1.4,3-3c0-1.7-1.4-3-3-3c-1.7,0-3,1.4-3,3C3.9,5.7,5.3,7.1,7,7.1z M7,15.4c0-0.6,0.2-1.1,0.6-1.5l3.4-3.2 c0.1-0.1,0.2-0.1,0.3-0.2c-0.5-1.2-1.6-1.9-2.8-1.9h-3c-1.7,0-3,1.4-3,3v4.6c0,0.8,0.7,1.5,1.5,1.5v6.1c0,0.8,0.7,1.5,1.5,1.5h3    c0.8,0,1.5-0.7,1.5-1.5v-4.6L7.6,17C7.2,16.6,7,16,7,15.4z M25.2,7.1c1.7,0,3-1.4,3-3c0-1.7-1.4-3-3-3c-1.7,0-3,1.4-3,3    C22.2,5.7,23.5,7.1,25.2,7.1z M26.7,8.6h-3c-1.2,0-2.4,0.8-2.8,1.9c0.1,0.1,0.2,0.1,0.3,0.2l3.4,3.2c0.8,0.8,0.9,2.1,0.1,3    c0,0,0,0-0.1,0.1l-2.4,2.3v4.6c0,0.8,0.7,1.5,1.5,1.5h3c0.8,0,1.5-0.7,1.5-1.5v-6.1c0.8,0,1.5-0.7,1.5-1.5v-4.6    C29.8,10,28.4,8.6,26.7,8.6z M23.5,15l-3.4-3.2c-0.2-0.2-0.6-0.2-0.8,0c-0.1,0.1-0.2,0.2-0.2,0.4v1.7h-6.1v-1.7    c0-0.3-0.3-0.6-0.6-0.6c-0.1,0-0.3,0.1-0.4,0.2L8.7,15c-0.2,0.2-0.2,0.6,0,0.8l3.4,3.2c0.2,0.2,0.6,0.2,0.8,0    c0.1-0.1,0.2-0.2,0.2-0.4V17h6.1v1.7c0,0.3,0.3,0.6,0.6,0.6c0.1,0,0.3-0.1,0.4-0.2l3.4-3.2C23.7,15.6,23.7,15.3,23.5,15z");
+
+
+        // Agrego estrecho como symbolo
+        svg.append("symbol").attr("id","llamada").attr("y",displace[1]).attr("x",displace[0])
+        .append("path").style("transform","scale("+scaleIcon+")").attr("d","M23.7,15.9c2.5,0,4.6-2,4.6-4.6s-2-4.6-4.6-4.6s-4.6,2-4.6,4.6S21.2,15.9,23.7,15.9z M26,17.4c-0.1,0-0.2,0-0.3,0.1  c-1.3,0.4-2.6,0.4-3.9,0c-0.1,0-0.2-0.1-0.3-0.1c-2.9,0-5.3,2.4-5.3,5.3c0,0,0,0,0,0c0,1.2,1,2.3,2.3,2.3H29c1.2,0,2.3-1,2.3-2.3  C31.3,19.9,29,17.5,26,17.4C26,17.4,26,17.4,26,17.4z M16.6,17.9c0.3-0.3,0.7-0.6,1-0.8V6.8c0-0.8-0.7-1.5-1.5-1.5h-1.5v-3  c0-0.8-0.7-1.5-1.5-1.5H5.5C4.6,0.7,4,1.4,4,2.2v3H2.4C1.6,5.3,0.9,6,0.9,6.8v17.5c0,0.4,0.3,0.8,0.8,0.8h13.7  c-0.5-0.6-0.8-1.4-0.8-2.2C14.6,21,15.3,19.2,16.6,17.9z M7.8,19.9c0,0.3-0.3,0.6-0.6,0.6H5.3c-0.3,0-0.6-0.3-0.6-0.6V18  c0-0.3,0.3-0.6,0.6-0.6h1.9c0.3,0,0.6,0.3,0.6,0.6V19.9z M7.8,13.8c0,0.3-0.3,0.6-0.6,0.6H5.3c-0.3,0-0.6-0.3-0.6-0.6v-1.9  c0-0.3,0.3-0.6,0.6-0.6h1.9c0.3,0,0.6,0.3,0.6,0.6V13.8z M10,8c0,0.2-0.1,0.3-0.3,0.3H8.8C8.7,8.3,8.5,8.2,8.5,8V6.8H7.3  C7.1,6.8,7,6.7,7,6.5V5.6c0-0.2,0.1-0.3,0.3-0.3h1.2V4c0-0.2,0.1-0.3,0.3-0.3h0.9C9.9,3.8,10,3.9,10,4v1.2h1.2  c0.2,0,0.3,0.1,0.3,0.3v0.9c0,0.2-0.1,0.3-0.3,0.3H10V8z M13.8,19.9c0,0.3-0.3,0.6-0.6,0.6h-1.9c-0.3,0-0.6-0.3-0.6-0.6V18  c0-0.3,0.3-0.6,0.6-0.6h1.9c0.3,0,0.6,0.3,0.6,0.6V19.9z M13.8,13.8c0,0.3-0.3,0.6-0.6,0.6h-1.9c-0.3,0-0.6-0.3-0.6-0.6v-1.9  c0-0.3,0.3-0.6,0.6-0.6h1.9c0.3,0,0.6,0.3,0.6,0.6V13.8z");
+
+  
+
+                // Agrego estrecho como symbolo
+                svg.append("symbol").attr("id","test").attr("y",displace[1]).attr("x",displace[0])
+        .append("path").style("transform","scale("+scaleIcon+")").attr("d","M22.6,14.5L22.1,13l1.4-0.5c0.8-0.3,1.2-1.1,1-1.9c-0.1-0.2-0.2-0.4-0.3-0.5c-1.6-1.8-4.4-6.1-6.1-7.4  c-2.6-1.9-5.9-2.5-9-1.5L7.2,1.9C2.4,3.4-0.2,8.6,1.4,13.4c0.8,2.6,2.7,4.5,5,5.5l0.7,0.2v5.9h10.7v-2.5l3.8-1.4  c1.6-0.5,2.5-2.2,2-3.8L22.6,14.5z M14.9,10.6c-0.8,0.3-1.7-0.2-1.9-1s0.2-1.7,1-1.9s1.7,0.2,1.9,1C16.1,9.5,15.7,10.3,14.9,10.6z   M27.3,16.2c-0.1-0.8-0.9-2.2-1.2-2.6c-0.4-0.5-1.2-0.6-1.7-0.2c-0.5,0.4-0.6,1.2-0.2,1.7c0.3,0.4,1.4,1.3,2.2,1.6l4.1,4.9l0.8-0.6  L27.3,16.2z");
+
+
+
+                        // Agrego estrecho como symbolo
+                        svg.append("symbol").attr("id","sangre").attr("y",displace[1]).attr("x",displace[0])
+        .append("path").style("transform","scale("+scaleIcon+")").attr("d","M21.7,11l-2.5,2.5c-0.2,0.2-0.4,0.2-0.6,0L18,13c-0.2-0.2-0.2-0.4,0-0.6l2.6-2.5l-2.1-2.1L16,10.4c-0.2,0.2-0.4,0.2-0.6,0  l-0.6-0.6c-0.2-0.2-0.2-0.4,0-0.6l2.6-2.5l-1.2-1.2c-0.8-0.8-1.9-1.2-3-1l-3,0.4L5.9,0.5c-0.2-0.2-0.4-0.2-0.6,0L4.8,1.1  c-0.2,0.2-0.2,0.4,0,0.6L9.1,6L8.9,8.9c-0.1,1.1,0.3,2.3,1,3l8.5,8.5l6.3-6.3L21.7,11z M29.7,21.1l-0.6-0.5c-0.2-0.2-0.4-0.2-0.6,0  l-1.3,1.3l-2.1-2.1l2.6-2.6l0.8-0.8c0.2-0.2,0.2-0.4,0-0.6L27,14.3c-0.2-0.2-0.4-0.2-0.6,0l-0.8,0.8l-7.1,7.1  c-0.2,0.2-0.2,0.4,0,0.6l1.6,1.6c0.2,0.2,0.4,0.2,0.6,0l3.4-3.4l2.2,2.1L25,24.3c-0.2,0.2-0.2,0.4,0,0.6l0.6,0.6  c0.1,0,0.3,0,0.5-0.1l3.7-3.7C29.9,21.5,29.9,21.3,29.7,21.1z M2.4,7.4c0,1.2,1,2.3,2.3,2.3c1.2,0,2.3-1,2.3-2.3s-2.3-4-2.3-4  S2.4,6.2,2.4,7.4z");
+
+
+        
+        
+
+
+    
+    // agrego punta de flecha
+
+    var arrowPoints = [[1, 1], [4, 4], [1, 7]];
+
+    var markerBoxWidth = 5, markerBoxHeight = 8;
+    svg
+    .append('defs')
+    .append('marker')
+    .attr('id', 'arrow')
+    .attr('refX', 3)
+    .attr('stroke-width', 1.2)
+    .attr('refY', markerBoxHeight/2)
+    .attr('markerWidth', markerBoxWidth)
+    .attr('markerHeight', markerBoxHeight)
+    .append('path')
+    .attr('d', d3.line()(arrowPoints))
+    .attr("class","flechitas");
+
+ 
+    
+
+                    var padding = 15, anchoGrafico = width-margin.right;
+
+
+
+        var scaleSemanas = d3.scaleBand() //y
+                    .domain(d3.range(1,6))
+                    .paddingInner(0.1)
+                    .paddingOuter(isMobile?2.5:0.2)
+                    .align(0.5)
+                    .range([0,height]);
+
+                    
+
+        var scaleDias = d3.scaleBand() // x
+                    .domain(d3.range(1,8))
+                    .paddingInner(0.05)
+                    .paddingOuter(isMobile?0.01:0.2)
+                    .align(0.5)
+                    .range([0,width]);
+
+     
+            var total = 35,marginText=12;
+   
+            var dataDias = d3.range(total).map((d,i)=>{
+                            return {
+                                    "index":i+1,
+                                    "x":(i % 7)+1,
+                                    "y":(Math.floor(i / 7))+1,
+                                    "dia":i-7
+                                    }}
+                                    );
+
+
+
+            var calendario = grafico.append("g").attr("id","calendario");
+
+            var dias = calendario.selectAll("g")
+                        .data(dataDias)
+                        .join("g")
+                            .attr("class","dia")
+                            .attr("transform", d => `translate(${scaleDias(d.x)},${scaleSemanas(d.y)})`)
+                            .attr("id",d=>"dia"+d.index)
+                         
+                ;
+
+
+                        dias.append("rect")
+                            .attr("width",scaleDias.bandwidth())
+                            .attr("height",scaleSemanas.bandwidth());
+
+                        dias.append("text")
+                            .attr("y",marginText)
+                            .attr("x",scaleDias.bandwidth()/2)
+                            .text(d=>`Dia ${d.dia}`);
+                
+                    
+
+            var tipitos = grafico.append("g")
+                    
+            
+                tipitos.append("use")
+                    .attr("xlink:href","#tos")
+                    .attr("id","inicio")
+                    .attr("x",scaleDias(1)+scaleDias.bandwidth()/2)
+                    .attr("y",scaleSemanas(2)+scaleSemanas.bandwidth()/2+marginText/2)
+                    .attr("fill","#00468B")
+
+                    ;
+
+                tipitos.append("use")
+                    .attr("xlink:href","#estrecho")
+                    .attr("class","estrecho")
+                    .attr("x",scaleDias(5)+scaleDias.bandwidth()/2)
+                    .attr("y",scaleSemanas(1)+scaleSemanas.bandwidth()/2+marginText/2)
+                    .attr("fill","#62BB46")
+                    .style("opacity",0)
+                    ;
+
+         /*    
+                    tipitos.append("use")
+                    .attr("xlink:href","#tipito")
+                    .attr("class","estrecho")
+                    .attr("x",scaleDias(5)+scaleDias.bandwidth()/2+(isMobile?15:10))
+                    .attr("y",scaleSemanas(1)+scaleSemanas.bandwidth()/2+marginText/2)
+                    .attr("fill","#00468B")
+                    .style("opacity",0)
+                    ; */
+
+                    tipitos.append("rect").attr("id","aislamiento")
+                    .attr("x",scaleDias(1)-4)
+                    .attr("y",scaleSemanas(2)-4)
+                    .attr("width",scaleDias(7)+scaleDias.bandwidth()+7)
+                    .attr("height",scaleSemanas(4)-scaleSemanas(2))
+                    .attr("fill","#8B6BAF")
+                    .style("opacity",0)
+                    ;
+
+                    tipitos.append("use")
+                    .attr("xlink:href","#llamada")
+                    .attr("id","llamarHospital")
+                    .attr("x",scaleDias(2)+scaleDias.bandwidth()/2)
+                    .attr("y",scaleSemanas(2)+scaleSemanas.bandwidth()/2+marginText/2)
+                    .attr("fill","#8B6BAF")
+                    .style("opacity",0)
+                    ;
+                    
+                    d3.selectAll(".dia").filter(d=>d.dia>0&&d.dia<14).append("use")
+                    .attr("xlink:href","#test")
+                    .attr("class","pcr")
+                    .attr("x",scaleDias.bandwidth()/2)
+                    .attr("y",scaleSemanas.bandwidth()/2+marginText/2)
+                    .attr("fill","#F26522")
+                    .style("opacity",0)
+                    ;
+
+                    d3.selectAll(".dia").filter(d=>d.dia>8&&d.dia<28).append("use")
+                    .attr("xlink:href","#sangre")
+                    .attr("class","serologia")
+                    .attr("x",scaleDias.bandwidth()/2)
+                    .attr("y",scaleSemanas.bandwidth()/2+marginText/2)
+                    .attr("fill","#62BB46")
+                    .style("opacity",0)
+                    ;
+       
+
+                    init(stepSel1,1)
+
+    function scrollyTelling(containerNumber,step,entra){
+        if(containerNumber == 1){  //GRAFICO PRIMER SCROLLY
+            switch (step) {
+                case 0: // inicio
+                d3.selectAll(".dia rect").transition().duration(600).style("fill","#ddd");
+                d3.selectAll(".estrecho").transition().duration(600).style("opacity",0)
+                break;
+
+                case 1: // semana anterior
+                d3.selectAll(".dia rect").transition().duration(600).delay((d,i)=>i*30).style("fill",d=>d.dia<1?"#F2652240":"#ddd")
+                d3.select("#aislamiento").transition().duration(600).style("opacity",0)
+                d3.selectAll(".estrecho").transition().duration(600).style("opacity",1)
+                break;
+
+                case 2: // semana siguiente
+                d3.selectAll(".estrecho").transition().duration(600).style("opacity",0)
+                d3.selectAll(".dia rect").transition().duration(600).delay((d,i)=>i*30).style("fill",d=>d.dia<14?d.dia<0?"#F2652220":"#F2652250":"#ddd")
+                d3.select("#aislamiento").transition().duration(600).style("opacity",1)
+                d3.select("#llamarHospital").transition().duration(600).delay(300).style("opacity",0)
+                break;
+
+                case 3: // llamar
+                d3.select("#llamarHospital").transition().duration(600).style("opacity",1)
+                d3.selectAll(".pcr").transition().duration(600).delay((d,i)=>i*30).style("opacity",0)
+                //d3.selectAll(".dia").selectAll("rect").transition().duration(600).style("stroke","#ddd");
+                break;
+
+                case 4: // test
+                d3.select("#llamarHospital").transition().duration(600).delay(300).style("opacity",0)
+                d3.selectAll(".pcr").transition().duration(600).delay((d,i)=>i*30).style("opacity",1)
+                d3.selectAll(".serologia").transition().duration(600).delay((d,i)=>i*30).style("opacity",0)
+               // d3.selectAll(".dia rect").transition().duration(600).delay((d,i)=>i*30).style("stroke", d=>d.dia>0&&d.dia<14?"#F26522":"#ddd");
+                break;
+
+                case 5: // serologico
+                d3.selectAll(".pcr").transition().duration(600).delay((d,i)=>i*30).style("opacity",0)
+                d3.selectAll(".serologia").transition().duration(600).delay((d,i)=>i*30).style("opacity",1)
+                //d3.selectAll(".dia rect").transition().duration(600).delay((d,i)=>i*30).style("stroke", d=>d.dia>8&&d.dia<28?"#62BB46":"#ddd");
+                break;
+            
+            }
+        }
+    }
+
+
+
+
+//********** funciones
+ 
+
+
+function wrap(text, width, dy, alignBottom) {
+  text.each(function() {
+    var text = d3.select(this),
+        words = text.text().split(/\s+/).reverse(),
+        word,
+        line = [],
+        lineNumber = 1,
+        lineHeight = dy, // ems
+        y = text.attr("y"),
+        clase = text.attr("class"),
+        x = parseFloat(text.attr("x")),
+        tspan = text.text(null).append("tspan").attr("x", 0)
+                    .attr("dy", dy + "em");
+    while (word = words.pop()) {
+      line.push(word);
+      tspan.text(line.join(" "))
+            .attr("x", x).attr("class",clase);
+      if (tspan.node().getComputedTextLength() > width) {
+        lineNumber++;
+
+        line.pop();
+        tspan.text(line.join(" "));
+        line = [word];
+        tspan = text.append("tspan")
+                .attr("x", x)
+                .attr("dy", dy + "em").text(word).attr("class",clase);
+      }
+    }
+    if(alignBottom) d3.select(this).attr("y",y-lineNumber*10-5)
+  });
+}
+
+</script>
+
+
+<div class="note info"><p>Es muy importante prestar atención a la aparición de síntomas y actuar rápidamente para parar una posible cadena de contagios.</p>
+<p>Las decisiones que tomamos en el día a día sobre con quiénes nos encontramos y el grado de cumplimiento de las medidas de prevención sobre COVID-19 pueden impactar directamente en nuestra salud y en la de nuestro círculo de amistades, familia o del trabajo. No es lo mismo llevarle algo a mi abuela y estar 5 minutos con ella en el exterior a una distancia de 2 metros o más que estar con amigos 1 hora sin respetar las distancias ni usar barbijo.</p>
+<img src="/images/calendarioContagios.jpg" class="">
+
+<p>Saber cómo actuar si tengo síntomas, en qué momento puedo contagiar y qué tests son útiles en cada etapa es tan importante como tomar medidas de prevención.</p>
+</div>]]></content>
+  </entry>
 </search>
