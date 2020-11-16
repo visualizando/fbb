@@ -601,11 +601,7 @@ var coloreaCategorias = d3.scaleOrdinal()
                     La burbuja donde creés que estás en realidad es mucho más grande.
                 </p>
             </div>
-            <div class='step' data-index='6'>
-                <p>
-                    La burbuja <mark class="label azul">donde creés que estás</mark> en realidad es <mark class="label naranja">mucho más grande</mark>.
-                </p>
-            </div>
+           
            
         </article>
 
@@ -736,7 +732,7 @@ var svg = d3.select("#contenedorGrafico svg")
 
                 case 3: // benja
                     d3.selectAll(".tipito.g4, .tipito.g5:not(.emi), #c4, #c5").transition().duration(400).delay((d,i)=>i*50).style("opacity",1)
-                    d3.selectAll(".tipito.emi").transition().duration(400).style("fill","#ccc").style("opacity",1);
+                    d3.selectAll(".tipito.emi, .tipito.benja, .tipito.carla").transition().duration(400).style("fill","#ccc").style("opacity",1);
                     
                     d3.selectAll(".tipito.ariel").transition().duration(400).delay(401).style("fill","#ccc");
                     d3.selectAll(".tipito.benja, .tipito.carla ").transition().duration(400).delay(401).style("fill","#67BD45").style("opacity",1);
@@ -749,9 +745,13 @@ var svg = d3.select("#contenedorGrafico svg")
 
                 case 4: // ACA HAY QUE PRENDER A EMI NARANJA
                     d3.selectAll(".tipito.g5.emi").transition().duration(400).delay((d,i)=>i*50).style("opacity",1)
-                    d3.selectAll(".tipito.g6, .tipito.g7, #c6, #c7").transition().duration(400).delay((d,i)=>i*50).style("opacity",0)
+                    d3.selectAll(".tipito.g6, .tipito.g7").transition().duration(400).delay((d,i)=>i*50).style("opacity",0)
                     d3.selectAll(".tipito.emi").transition().duration(400).delay((d,i)=>i*50).style("fill","#F26522")
                     d3.selectAll(".tipito.benja, .tipito.carla").transition().duration(400).delay(401).style("fill","#ccc")
+
+                    d3.selectAll(".circle").transition().duration(200).delay((d,i)=>i*50)
+                    .style("stroke","black")
+                    .style("opacity",(d,i)=>i<5?1:0)
 
                     engloba =d3.packEnclose(circulosData.splice(0,5))
                     moveRed = 15;
@@ -760,19 +760,12 @@ var svg = d3.select("#contenedorGrafico svg")
                 case 5: // inicio
                     d3.selectAll(".tipito.g6, .tipito.g7").transition().duration(400).delay((d,i)=>i*50).style("opacity",1)
                     d3.selectAll(".circle").transition().duration(400).delay((d,i)=>i*50)
-                        .style("stroke","black")
+                    .style("stroke",(d,i)=>i?"#ddd":"#00468B")
                         .style("opacity",1)
                         ;
                         moveRed =15;
                     engloba =d3.packEnclose(circulosData.splice(0,7))
 
-                break;
-
-                case 6: // inicio
-                    d3.selectAll(".circle").transition().duration(600)
-                        .style("stroke",(d,i)=>i?"#ddd":"#00468B");
-                    engloba =d3.packEnclose(circulosData.splice(0,7))
-                    moveRed =15;
                 break;
 
             
@@ -782,8 +775,8 @@ var svg = d3.select("#contenedorGrafico svg")
             console.log(engloba.x,width/2)
             d3.select("#todo").transition().duration(400).delay(400).attr("transform","translate("+(207/2-engloba.x)+",0)")
             d3.select("#engloba").transition().duration(400).delay(400).attr("r",engloba.r+(step?3:0)).attr("cx",engloba.x).attr("cy",engloba.y)
-            .style("stroke",step==6?"#F26522":"black") // cambia de color en el ultimo step
-            .style("stroke-width",step>4?"2":"1"); // cambia de color en el ultimo step
+            .style("stroke",step==5?"#F26522":"black") // cambia de color en el ultimo step
+            .style("stroke-width",step==5?"2":"1"); // cambia de color en el ultimo step
 
         }
     }
