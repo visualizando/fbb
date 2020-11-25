@@ -342,11 +342,13 @@ var coloreaCategorias = d3.scaleOrdinal()
      
     }
 
-    .axis--y .domain, .axis--x .domain{
+/*     .axis--y .domain, .axis--x .domain{
         display: none;
     }
+ */    
     
-    
+   
+
     .axis--y .tick{
         stroke-width: 1px;
         stroke-dasharray: 3px 2px;
@@ -363,21 +365,14 @@ var coloreaCategorias = d3.scaleOrdinal()
         }
 
 
-    #ejeY,#ejeY  .tick text{
-        fill:#00468B;
-
-    }
-    #ejeYder, #ejeYder .tick text{
-        fill:#F26522;
-    }
-
     .axis-title {
-        font-size: 11px;
+        font-size: 12px;
         text-anchor: start;
+        fill: black;
     }
     
     .axis-title.der{
-        text-anchor: end;
+        text-anchor: middle;
     }
 
     .linea {
@@ -388,14 +383,12 @@ var coloreaCategorias = d3.scaleOrdinal()
 
 
     .label.naranja{
-        background: #F26522;
+        background: #ffb491;
 
     }
 
-    .label.azul{
-        background: #00468B;
-        color:white;
-
+    .label.verde{
+        background: #a4eb8e;
     }
 
     .label.rebrote{
@@ -414,6 +407,18 @@ var coloreaCategorias = d3.scaleOrdinal()
         stroke-width: 4px;
     }
     
+    #ejeX.resaltado text.axis-title, #ejeX.resaltado text, #ejeY.resaltado text.axis-title, #ejeY.resaltado text, #ejeX.resaltado .domain{
+        stroke:#ffb491;
+        stroke-width: 5px;
+        stroke-linejoin: round;
+       
+        paint-order: stroke;
+        transition: fill 0.5s, stroke 0.5s, stroke-width 0.5s;
+    }
+
+    #ejeY.resaltado text.axis-title,#ejeY.resaltado text, #ejeY.resaltado .domain{
+        stroke:#a4eb8e;
+    }    
 
 
     @media only screen and (min-width: 768px) {
@@ -444,9 +449,9 @@ var coloreaCategorias = d3.scaleOrdinal()
             
             <div class='step' data-index='1'>
                 <p>
-                    Para responder eso tenemos que combinar ambos datos. En el eje horizontal vamos a poner el número de casos totales por millón de habitantes de cada país, desde el comienzo de la pandemia hasta ahora.
+                    Para responder eso tenemos que combinar ambos datos. En el eje horizontal vamos a <mark class="label naranja">poner el número de casos totales por millón de habitantes</mark> de cada país, desde el comienzo de la pandemia hasta ahora.
                     <br/><br/>
-                    En el eje vertical vamos a poner, para cada dato del eje horizontal, el número de casos nuevos diarios que le corresponde, también por millón de habitantes.
+                    En el eje vertical vamos a poner, para cada dato del eje horizontal, <mark class="label verde">el número de casos nuevos diarios que le corresponde</mark>, también por millón de habitantes.
                 </p>
             </div>
             <div class='step' data-index='2'>
@@ -458,9 +463,9 @@ var coloreaCategorias = d3.scaleOrdinal()
             </div>
             <div class='step' data-index='3'>
                 <p>
-                    En este gráfico, si un país tiene un recorrido en diagonal significa que está en crecimiento exponencial: el número de casos nuevos es proporcional al número de casos totales.
+                    En este gráfico, si un país tiene un recorrido en diagonal significa que está en <a href="https://decodificar.org/covid/record_de_contagios/" target="_blank">crecimiento exponencial</a>: el número de casos nuevos es proporcional al número de casos totales.
                     <br/><br/>
-                    Todos los países comenzaron de esta forma: recorriendo la diagonal principal, con un tiempo de duplicación muy corto de aproximadamente 3 días. Es decir, este escenario es cuando no había control de la pandemia.
+                    Todos los países comenzaron de esta forma: recorriendo la diagonal principal, con un <a href="https://decodificar.org/covid/el_ritmo_de_la_pandemia/" target="_blank">tiempo de duplicación</a> muy corto de aproximadamente 3 días. Es decir, este escenario es cuando no había control de la pandemia.
                 </p>
             </div>
             <div class='step' data-index='4'>
@@ -559,6 +564,42 @@ verde #62BB46
        
 //iso_code	location	pais_corto	date	casos_diarios_por_millon_prom	casos_acumulados_por_millon
 
+var groups = {
+    "d2":"g1",
+    "ARG":"g1",
+    
+    "ct":"g2",
+    "AUS":"g2",
+    "NZL":"g2",
+    "CHN":"g2",
+    "SGP":"g2",
+    
+    "cs":"g3",
+    "URY":"g3",
+    "USA":"g3",
+    "BRA":"g3",
+    "IND":"g3",
+    "COL":"g3",
+    "CHL":"g3",
+    
+    "rb":"g4",
+    "SPA":"g4",
+    "ISR":"g4",
+    "FRA":"g4",
+    "GBR":"g4",
+    "ITA":"g4",
+    "NWY":"g4",
+    "SWD":"g4",
+    "GER":"g4",
+    "FIN":"g4"
+}
+
+var coloresGroups = d3.scaleOrdinal()
+        .domain(["g1","g2","g3","g4"])
+        //azul -  violeta - rojo - verde
+        .range(["#00468B","#8B6BAF","#F04E53","#62BB46"]);
+
+
 
 var parseTime = d3.timeParse("%Y-%m-%d");
 
@@ -570,25 +611,35 @@ var dataOrig =  files[0].map(obj => {
                                 "name":obj.location,
                                 "casos":obj.iso_code.length==2?+obj.casos_acumulados_por_millon:+obj.casos_diarios_por_millon_prom,
                                 "total":obj.iso_code.length==2?+obj.casos_diarios_por_millon_prom:+obj.casos_acumulados_por_millon,
-                                "fecha":parseTime(obj.date),
-                                "startOp":paisesSelectos.indexOf(obj.iso_code)>=0?1:0
+                                "startOp":paisesSelectos.indexOf(obj.iso_code)>=0?1:0,
+                                "group":groups[obj.iso_code]
                                 }
             });
-
+console.log(dataOrig)
 
             
-           data = d3.nest().key(d => d.iso).entries(dataOrig);
+           data = d3.nest()
+                .key(d => d.iso)
+                .rollup( d=> {
+                    return {
+                    "valores": d.map(r=>{return {"casos":r.casos, "total":r.total}}),
+                    "startOp":d[0].startOp,
+                    "name":d[0].name,
+                    "group":d[0].group
+                }})
+                .entries(dataOrig);
 
 
+           console.log(data);
         
 var ejeY, ejeX, tituloY, minDate, maxDate, line;
 
 
-var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maximo
+var altoMaximo = 1.5; // cuantas veces el ancho permitimos que sea el alto maximo
 
 
 var svg = d3.selectAll(".contenedorGrafico").append("svg"),
-    margin = isMobile ? {top: 55, right: 20, bottom: 35, left: 20} : {top: 70, right: 30, bottom: 25, left: 30},
+    margin = isMobile ? {top: 55, right: 20, bottom: 35, left: 20} : {top: 70, right: 40, bottom: 55, left: 40},
     width =  +d3.select('#grafico1').style('width').slice(0, -2),
     height = +d3.select('#grafico1').style('height').slice(0, -2)-25;
 
@@ -611,6 +662,14 @@ var svg = d3.selectAll(".contenedorGrafico").append("svg"),
     width = width - margin.left - margin.right;
     
 
+    var clip = svg.append("defs").append("svg:clipPath")
+        .attr("id", "clip")
+        .append("svg:rect")
+        .attr("width", width-1 )
+        .attr("height", height-1 )
+        .attr("x", 1)
+        .attr("y", 1);
+
 
 var x = d3.scaleLog()
         .domain([1, d3.max(dataOrig, d=>d.total)])
@@ -621,11 +680,14 @@ var y = d3.scaleLog()
         .domain([0.1, d3.max(dataOrig, d=>d.casos)])
         .range([height, 0]);
 
-        
+
+
 var line = d3.line()
         .defined(d =>d.casos>0.1&&d.total>0.5)
         .x(d=>x(d.total))
-        .y(d=>y(d.casos));
+        .y(d=>y(d.casos))
+        .curve(d3.curveBasis);
+;
 
         
 var yAxis = d3.axisRight(y)
@@ -639,11 +701,11 @@ var xAxis = d3.axisBottom(x)
 
 
 var dataParaLabels = data.filter(d=>d.key.length>2).map(r=>{  //Prepara la data para poner los labels
-
-                    return  {"labelY": y(r.values[r.values.length-1].casos),
-                            "labelX": x(r.values[r.values.length-1].total),
-                            "name":isMobile?r.values[0].iso:r.values[0].name,
-                            "startOp":r.values[0].startOp
+                    return  {"labelY": y(r.value.valores[r.value.valores.length-1].casos),
+                            "labelX": x(r.value.valores[r.value.valores.length-1].total),
+                            "name":isMobile?r.key:r.value.name,
+                            "startOp":r.value.startOp,
+                            "group":r.value.group
                         }
                         });
 
@@ -658,25 +720,38 @@ var gInterno = svg.append("g")
     var ejeY = gInterno.append("g") // EJE Y
                 .attr("id", "ejeY")
                 .attr("class", "axis axis--y")
-                .call(yAxis);
+                .call(yAxis)
+                .append("text").text("Casos diarios por millón (log)")
+                    .attr("class","axis-title")
+                    .attr("dy", -10);
 
     var ejeX = gInterno.append("g") // EJE X
                 .attr("id", "ejeX")
                 .attr("class", "axis axis--x")
                 .attr("transform", "translate(0," + (height+5) + ")")
-                .call(xAxis);
+                .call(xAxis)
+                .append("text")
+                .text("Casos acumulados por millón (log)")
+                    .attr("y",30).attr("x", width/2)
+                    .attr("class","axis-title der")
+        ;
 
-    var paises = gInterno.append("g").attr("id","paises");
+                
 
+    
+
+    var paises = gInterno.append("g").attr("id","paises").attr("clip-path", "url(#clip)");
+;
+
+    
     paises.selectAll("path")
-                .data(data)
+                .data(data.filter(d=>d.key.length>2))
                 .join("path")
-                    .attr("class", d=>"linea casos "+ (d.key.length>2?"pais":"recta"))
-                    .style("stroke", d=>coloreaCategorias(d.values[0].name))
-                    .style("opacity", d=>d.values[0].startOp)
+                    .attr("class", "linea casos pais")
+                    .style("stroke", d=>coloresGroups(d.value.group))
+                    .style("opacity", d=>d.value.startOp)
                     .attr("id", e=>e.key)
-                    .attr("d", e=>line(e.values)
-                    );
+                    .attr("d", d=> line(d.value.valores));
 
 
     paises.selectAll("text")  // AGREGA LOS LABELS
@@ -686,11 +761,23 @@ var gInterno = svg.append("g")
 					.attr("y",d=>d.labelY)
 					.attr("dy", "3px")
 					.attr("dx", "3px")
-                    .style("fill", d=>coloreaCategorias(d.name))
+                    .style("fill",  d=>coloresGroups(d.group))
                     .style("opacity", d=>d.startOp)
 					.attr("class", "prov labelPaises")
                     .text(d=>d.name); //
                     
+    gInterno.append("g").attr("id","rectas").attr("clip-path", "url(#clip)")
+.selectAll("path")// AGREGA LAS LINEAS MODELADAS
+                .data(data.filter(d=>d.key.length<3))
+                .join("path")
+                    .attr("class", "linea casos recta")
+                    .style("stroke",  d=>coloresGroups(d.value.group))
+                    .style("opacity", 0)
+                    .attr("id", e=>e.key)
+                    .attr("d", d=> line(d.value.valores));
+                    
+
+                                      
 
     
     init(stepSel1,1)
@@ -702,58 +789,53 @@ function scrollyTelling(containerNumber,step,entra){
 
 
 	if(containerNumber == 1){  
-       
+        var recta = 0;
         switch (step) {
+            
             case 0: //
-
+            d3.selectAll("#ejeY, #ejeX").classed("resaltado",false)
             break;
 
             case 1: //resaltamos los ejes
-
+                 d3.selectAll("svg").selectAll("#ejeY, #ejeX").classed("resaltado",true)
             break;
+
             case 2: //apagamos ejes
-                d3.select("#d1").transition().duration(600).style("opacity",0)
+            d3.selectAll("#ejeY, #ejeX").classed("resaltado",false)
             break;
 
             case 3: //prende diagonal1
-                d3.select("#d1").transition().duration(600).style("opacity",1)
-                d3.select("#d2").transition().duration(600).style("opacity",0)
+                recta = "d1";
             break;
 
             case 4: //prende diagonal1
-                d3.select("#d1").transition().duration(600).style("opacity",0)
-                d3.select("#d2").transition().duration(600).style("opacity",1)
-                d3.select("#ct").transition().duration(600).style("opacity",0)
+                recta = "d2";
             break;
 
             case 5: //prende diagonal1
-                d3.select("#d2").transition().duration(600).style("opacity",0)
-                d3.select("#ct").transition().duration(600).style("opacity",1)
-                d3.select("#cs").transition().duration(600).style("opacity",0)
+                recta = "ct";
             break;
 
             case 6: //prende diagonal1
-                d3.select("#cs").transition().duration(600).style("opacity",1)
-                d3.select("#rb").transition().duration(600).style("opacity",0)
-                d3.select("#ct").transition().duration(600).style("opacity",0)
+                recta = "cs";
             break;
 
             case 7: //prende diagonal1
-            d3.select("#cs").transition().duration(600).style("opacity",0)
-                d3.select("#rb").transition().duration(600).style("opacity",1)
+                recta = "rb";
                 d3.selectAll(".labelPaises").filter(d=>!d.startOp).transition().duration(600).style("opacity",0)
-                d3.selectAll(".pais").filter(d=>!d.values[0].startOp).transition().duration(600).style("opacity",0)
+                d3.selectAll(".pais").filter(d=>!d.value.startOp).transition().duration(600).style("opacity",0)
             break;
 
             case 8: //prende diagonal1
-                d3.select("#rb").transition().duration(600).style("opacity",0)
                 d3.selectAll(".labelPaises, .pais").transition().duration(600).delay((d,i)=>i*30).style("opacity",1)
             break;
-
-
-
-
         }
+
+
+        d3.selectAll(".recta").transition().duration(600).style("opacity",d=>d.key==recta?1:0)
+        d3.select("#paises").transition().duration(600)
+            .style("opacity",recta?0.5:1);
+
 
       
   
@@ -799,7 +881,24 @@ function relax(dataInterna, spacing) {
 				}
 			}
 
+            function movingAverage(values) {
+                console.log(values);
+                let N = 7;
+                let i = 0;
+                let sum = 0;
+                const means = new Float64Array(values.length).fill(NaN);
+                for (let n = Math.min(N - 1, values.length); i < n; ++i) {
+                    sum += values[i];
+                }
+                for (let n = values.length; i < n; ++i) {
+                    sum += values[i];
+                    means[i] = sum / N;
+                    sum -= values[i - N + 1];
+                }
+                return means;
+                }
 
+  
 
 });
 
