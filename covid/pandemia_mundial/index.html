@@ -550,7 +550,7 @@ Promise.all([
 
 ]).then(function(files) {
 
-  var epigrafeData = files[files.length-1].filter(d=>d.id_historia=="E5");
+  var epigrafeData = files[files.length-1].filter(d=>d.id_historia=="E7");
         epigrafeData.forEach(e => {
             e.fecha = d3.timeFormat("%-d/%b/%Y")(d3.timeParse("%Y-%m-%d")(e.fecha_actualizacion)).toLowerCase(); 
         });
