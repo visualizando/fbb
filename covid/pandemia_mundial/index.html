@@ -391,6 +391,33 @@ var coloreaCategorias = d3.scaleOrdinal()
         background: #a4eb8e;
     }
 
+    
+    .label.verdeFuerte{
+        background: #62BB46;
+    }
+
+    .label.gris{
+        background: #555;
+        color:white;
+    }
+
+
+    .label.azul{
+        background: #00468B;
+        color:white;
+    }
+
+    .label.violeta{
+        background: #8B6BAF;
+        color:white;
+    }
+
+    
+    .label.rojo{
+        background: #F04E53;
+        color:white;
+    }
+
     .label.rebrote{
         background: #f28e2c;
     }
@@ -429,6 +456,15 @@ var coloreaCategorias = d3.scaleOrdinal()
         }
     }
     
+
+/* COLORES
+azul #00468B
+violeta #8B6BAF
+rojo #F04E53
+naranja #F26522
+verde #62BB46
+*/
+       
 </style>
 
 
@@ -465,12 +501,12 @@ var coloreaCategorias = d3.scaleOrdinal()
                 <p>
                     En este gráfico, si un país tiene un recorrido en diagonal significa que está en <a href="https://decodificar.org/covid/record_de_contagios/" target="_blank">crecimiento exponencial</a>: el número de casos nuevos es proporcional al número de casos totales.
                     <br/><br/>
-                    Todos los países comenzaron de esta forma: recorriendo la diagonal principal, con un <a href="https://decodificar.org/covid/el_ritmo_de_la_pandemia/" target="_blank">tiempo de duplicación</a> muy corto de aproximadamente 3 días. Es decir, este escenario es cuando no había control de la pandemia.
+                    Todos los países comenzaron de esta forma: <mark class="label gris">recorriendo la diagonal principal</mark>, con un <a href="https://decodificar.org/covid/el_ritmo_de_la_pandemia/" target="_blank">tiempo de duplicación</a> muy corto de aproximadamente 3 días. Es decir, este escenario es cuando no había control de la pandemia.
                 </p>
             </div>
             <div class='step' data-index='4'>
                 <p>
-                    Gracias a medidas de contención y mitigación, muchos países, como Argentina, lograron correrse a diagonales más bajas.
+                    Gracias a medidas de contención y mitigación, muchos países, como Argentina, lograron correrse a <mark class="label azul">diagonales más bajas</mark>.
                     <br/><br/>
                     ¿Qué significa esto? Que el crecimiento del número de casos sigue siendo exponencial, pero con un ritmo menor (tiempo de duplicación más largo).
                 </p>
@@ -479,22 +515,22 @@ var coloreaCategorias = d3.scaleOrdinal()
                 <p>
                     Unos pocos casos lograron controlar casi completamente la propagación del virus, como por ejemplo Nueva Zelanda.
                     <br/><br/>
-                    Estos países no solo se apartaron de la diagonal principal, sino que "doblaron la curva" y lograron un comportamiento hacia abajo (donde el número de casos totales casi no crece, salvo que ocurra un rebrote).
+                    Estos países no solo se apartaron de la diagonal principal, sino que <mark class="label violeta">"doblaron la curva" y lograron un comportamiento hacia abajo</mark> (donde el número de casos totales casi no crece, salvo que ocurra un rebrote).
                 </p>
             </div>
             <div class='step' data-index='6'>
                 <p>
-                    Otros países, como Estados Unidos, lograron salir del crecimiento exponencial pero siguen creciendo pues el número de casos nuevos diarios se mantiene aproximadamente constante (se ve que la curva se hizo aproximadamente horizontal).
+                    Otros países, como Estados Unidos, lograron salir del crecimiento exponencial pero siguen creciendo pues el número de casos nuevos diarios se mantiene aproximadamente constante (se ve que la curva <mark class="label rojo">se hizo aproximadamente horizontal</mark>).
                 </p>
             </div>
             <div class='step' data-index='7'>
                 <p>
-                    ¿Y cómo se ven los rebrotes en este gráfico? Como una curva que parecía haber sido controlada (tramo hacia abajo), pero volvió a crecimiento exponencial (vuelve a recorrer alguna de las diagonales). El primer ejemplo fue Singapur.
+                    ¿Y cómo se ven los <mark class="label verdeFuerte">rebrotes</mark> en este gráfico? Como una curva que parecía haber sido controlada (tramo hacia abajo), pero volvió a crecimiento exponencial (vuelve a recorrer alguna de las diagonales). El primer ejemplo fue Singapur.
                 </p>
             </div>
             <div class='step' data-index='8'>
                 <p>
-                    La realidad es compleja. Este ejercicio de simplificación e idealización nos permite interpretar la evolución de cada país en términos de estos "comportamientos elementales" (crecimiento exponencial, crecimiento constante, control) y sus combinaciones (por ejemplo un rebrote).
+                    La realidad es compleja. Este ejercicio de simplificación e idealización nos permite interpretar la evolución de cada país en términos de estos "comportamientos elementales" (crecimiento exponencial, <mark class="label rojo">crecimiento constante</mark>, <mark class="label violeta">control</mark>) y sus combinaciones (por ejemplo un <mark class="label verdeFuerte">rebrote</mark>).
                 </p>
             </div>
         </article>
@@ -553,27 +589,16 @@ Promise.all([
 
     // **** END SCROLLY *******
 
-
-/* COLORES
-azul #00468B
-violeta #8B6BAF
-rojo #F04E53
-naranja #F26522
-verde #62BB46
-*/
-       
 //iso_code	location	pais_corto	date	casos_diarios_por_millon_prom	casos_acumulados_por_millon
 
 var groups = {
+    "d1":"g0",
     "d2":"g1",
     "ARG":"g1",
-    
     "ct":"g2",
     "AUS":"g2",
     "NZL":"g2",
     "CHN":"g2",
-    "SGP":"g2",
-    
     "cs":"g3",
     "URY":"g3",
     "USA":"g3",
@@ -581,23 +606,23 @@ var groups = {
     "IND":"g3",
     "COL":"g3",
     "CHL":"g3",
-    
     "rb":"g4",
-    "SPA":"g4",
+    "ESP":"g4",
     "ISR":"g4",
     "FRA":"g4",
     "GBR":"g4",
     "ITA":"g4",
-    "NWY":"g4",
-    "SWD":"g4",
-    "GER":"g4",
+    "NOR":"g4",
+    "SWE":"g4",
+    "DEU":"g4",
+    "SGP":"g4",
     "FIN":"g4"
 }
 
 var coloresGroups = d3.scaleOrdinal()
-        .domain(["g1","g2","g3","g4"])
+        .domain(["g0","g1","g2","g3","g4"])
         //azul -  violeta - rojo - verde
-        .range(["#00468B","#8B6BAF","#F04E53","#62BB46"]);
+        .range(["#555","#00468B","#8B6BAF","#F04E53","#62BB46"]);
 
 
 
@@ -906,9 +931,7 @@ function relax(dataInterna, spacing) {
 
 
 
-<div class="note info"><p>El retraso entre el número de fallecimientos y el número de casos confirmados se debe principalmente al curso natural de la enfermedad (aunque otras causas como retrasos en la carga de datos también pueden tener efecto).</p>
-<p>Mientras más se tarde en testear a las personas con síntomas, y mientras más se tarde en conocer el resultado de ese test, menor será el retraso entre la curva de casos y la de fallecimientos. Las dos curvas estarán más “cerca”.</p>
-<p>La curva del número de fallecimientos es un indicador más confiable que la del número de casos confirmados, porque no depende de decisiones como la definición de caso sospechoso y el número de testeos que se están realizando. Sin embargo, tiene sus propias limitaciones y la principal es que es un indicador que llega con más retraso que el de casos confirmados.</p>
+<div class="note info"><p>Para entender la evolución de la pandemia hay muchos datos que podemos mirar. Combinarlos, visualizarlos de determinadas maneras y compararlos con otros nos permite obtener más información que analizarlos de forma individual.</p>
 </div><!-- flag of hidden posts -->
     </div>
                       <div class="compartir">Compartir:
