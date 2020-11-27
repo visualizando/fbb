@@ -50,7 +50,7 @@
   };
 </script>
 
-  <title>¿Cómo entender la evolución de la pandemia en el mundo? | Decodificar: COVID19</title><meta name="robots" content="noindex">
+  <title>¿Cómo entender la evolución de la pandemia en el mundo? | Decodificar: COVID19</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132699662-2"></script>
     <script>
@@ -424,7 +424,13 @@ var coloreaCategorias = d3.scaleOrdinal()
 
     .labelPaises{
         font-size: 10px;
-    }
+        text-anchor: start;
+        paint-order: stroke;
+        stroke: #f1f1f1;
+        stroke-width: 5px;
+        stroke-linecap: butt;
+        stroke-linejoin: round;
+	}
 
     .linea.casos.pais{
         stroke-width: 1px;
@@ -530,7 +536,7 @@ verde #62BB46
             </div>
             <div class='step' data-index='8'>
                 <p>
-                    La realidad es compleja. Este ejercicio de simplificación e idealización nos permite interpretar la evolución de cada país en términos de estos "comportamientos elementales" (crecimiento exponencial, <mark class="label rojo">crecimiento constante</mark>, <mark class="label violeta">control</mark>) y sus combinaciones (por ejemplo un <mark class="label verdeFuerte">rebrote</mark>).
+                    La realidad es compleja. Este ejercicio de simplificación e idealización nos permite interpretar la evolución de cada país en términos de estos "comportamientos elementales" (<mark class="label azul">crecimiento exponencial</mark>, <mark class="label rojo">crecimiento constante</mark>, <mark class="label violeta">control</mark>) y sus combinaciones (por ejemplo un <mark class="label verdeFuerte">rebrote</mark>).
                 </p>
             </div>
         </article>
@@ -573,7 +579,7 @@ Promise.all([
 
         enterView({
             selector: what.nodes(),
-            offset: 0.5,
+            offset: 0.3,
             enter: el => {
                 const index = +d3.select(el).attr('data-index');
                 updateChart(index,what,containerNumber,1);
@@ -592,31 +598,35 @@ Promise.all([
 //iso_code	location	pais_corto	date	casos_diarios_por_millon_prom	casos_acumulados_por_millon
 
 var groups = {
-    "d1":"g0",
-    "d2":"g1",
+    "d1":"g0", // diagonal
+
+    "d2":"g1", // paralela
     "ARG":"g1",
-    "ct":"g2",
+
+    "ct":"g2", // control
     "AUS":"g2",
     "NZL":"g2",
     "CHN":"g2",
-    "cs":"g3",
-    "URY":"g3",
+
+    "cs":"g3", // constante
+    //"URY":"g3",
     "USA":"g3",
     "BRA":"g3",
-    "IND":"g3",
-    "COL":"g3",
+    //"IND":"g3",
+    //"COL":"g3",
     "CHL":"g3",
-    "rb":"g4",
-    "ESP":"g4",
-    "ISR":"g4",
-    "FRA":"g4",
-    "GBR":"g4",
+
+    "rb":"g4", //rebrote
+    //"ESP":"g4",
+    //"ISR":"g4",
+    //"FRA":"g4",
+    //"GBR":"g4",
     "ITA":"g4",
-    "NOR":"g4",
-    "SWE":"g4",
+    //"NOR":"g4",
+    //"SWE":"g4",
     "DEU":"g4",
     "SGP":"g4",
-    "FIN":"g4"
+    //"FIN":"g4"
 }
 
 var coloresGroups = d3.scaleOrdinal()
@@ -640,7 +650,11 @@ var dataOrig =  files[0].map(obj => {
                                 "group":groups[obj.iso_code]
                                 }
             });
-console.log(dataOrig)
+
+
+dataOrig = dataOrig.filter(d=>Object.keys(groups).indexOf(d.iso)>0?1:0) // filtro solo los paises que estan en la lista groups
+
+;
 
             
            data = d3.nest()
@@ -654,8 +668,6 @@ console.log(dataOrig)
                 }})
                 .entries(dataOrig);
 
-
-           console.log(data);
         
 var ejeY, ejeX, tituloY, minDate, maxDate, line;
 
@@ -664,7 +676,7 @@ var altoMaximo = 1.5; // cuantas veces el ancho permitimos que sea el alto maxim
 
 
 var svg = d3.selectAll(".contenedorGrafico").append("svg"),
-    margin = isMobile ? {top: 55, right: 20, bottom: 35, left: 20} : {top: 70, right: 40, bottom: 55, left: 40},
+    margin = isMobile ? {top: 55, right: 20, bottom: 35, left: 20} : {top: 70, right: 30, bottom: 55, left: 40},
     width =  +d3.select('#grafico1').style('width').slice(0, -2),
     height = +d3.select('#grafico1').style('height').slice(0, -2)-25;
 
@@ -698,7 +710,7 @@ var svg = d3.selectAll(".contenedorGrafico").append("svg"),
 
 var x = d3.scaleLog()
         .domain([1, d3.max(dataOrig, d=>d.total)])
-        .range([0,width-25]);
+        .range([0,width-(isMobile?25:75)]);
 
 
 var y = d3.scaleLog()
@@ -757,7 +769,7 @@ var gInterno = svg.append("g")
                 .call(xAxis)
                 .append("text")
                 .text("Casos acumulados por millón (log)")
-                    .attr("y",30).attr("x", width/2)
+                    .attr("y",25).attr("x", width/2)
                     .attr("class","axis-title der")
         ;
 
@@ -788,7 +800,7 @@ var gInterno = svg.append("g")
 					.attr("dx", "3px")
                     .style("fill",  d=>coloresGroups(d.group))
                     .style("opacity", d=>d.startOp)
-					.attr("class", "prov labelPaises")
+					.attr("class", "labelPaises")
                     .text(d=>d.name); //
                     
     gInterno.append("g").attr("id","rectas").attr("clip-path", "url(#clip)")
@@ -932,7 +944,7 @@ function relax(dataInterna, spacing) {
 
 
 <div class="note info"><p>Para entender la evolución de la pandemia hay muchos datos que podemos mirar. Combinarlos, visualizarlos de determinadas maneras y compararlos con otros nos permite obtener más información que analizarlos de forma individual.</p>
-</div><!-- flag of hidden posts -->
+</div>
     </div>
                       <div class="compartir">Compartir:
                         <a  href="https://www.facebook.com/sharer/sharer.php?u=https://decodificar.org/covid/pandemia_mundial/&quote=¿Cómo entender la evolución de la pandemia en el mundo?" target="_blank" title="Share on Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURI(https://decodificar.org/covid/pandemia_mundial/) + '&quote=' + encodeURI(¿Cómo entender la evolución de la pandemia en el mundo?); return false;"><i class="fab fa-facebook" aria-hidden="true"></i></a>
@@ -951,6 +963,13 @@ function relax(dataInterna, spacing) {
 
 
         
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/covid/mi_burbuja/" rel="prev" title="Idea vs. realidad de tu burbuja de contactos">
+      <i class="fa fa-chevron-left"></i> Idea vs. realidad de tu burbuja de contactos
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
       </footer>
     
   </article>

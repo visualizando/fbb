@@ -9725,4 +9725,636 @@ function wrap(text, width, dy, alignBottom) {
 <p>Saber cómo actuar si tengo síntomas, en qué momento puedo contagiar y qué tests son útiles en cada etapa es tan importante como tomar medidas de prevención.</p>
 </div>]]></content>
   </entry>
+  <entry>
+    <title>¿Cómo entender la evolución de la pandemia en el mundo?</title>
+    <url>/covid/pandemia_mundial/</url>
+    <content><![CDATA[
+
+
+<style>
+
+    .nada{
+        fill:#4e79a7;
+        fill:#f28e2c;
+        fill:#e15759;
+        fill:#76b7b2;
+        fill:#59a14f;
+        fill:#af7aa1;
+        fill:#ff9da7;
+        fill:#9c755f;
+        fill:#8a7e78;
+
+    }
+
+    .axis path, .axis line {
+      fill: none;
+      stroke: #D4D8DA;
+      stroke-width: 1px;
+     
+    }
+
+/*     .axis--y .domain, .axis--x .domain{
+        display: none;
+    }
+ */    
+    
+   
+
+    .axis--y .tick{
+        stroke-width: 1px;
+        stroke-dasharray: 3px 2px;
+    }
+
+    .axis--x .tick line{
+        stroke-width: 2px;
+    }
+
+    
+    text.titulo {
+            font-size: 12px;
+            fill: #444;
+        }
+
+
+    .axis-title {
+        font-size: 12px;
+        text-anchor: start;
+        fill: black;
+    }
+    
+    .axis-title.der{
+        text-anchor: middle;
+    }
+
+    .linea {
+      fill: none;
+      stroke: #a3a3a3;
+      stroke-width: 2px;
+    }
+
+
+    .label.naranja{
+        background: #ffb491;
+
+    }
+
+    .label.verde{
+        background: #a4eb8e;
+    }
+
+    
+    .label.verdeFuerte{
+        background: #62BB46;
+    }
+
+    .label.gris{
+        background: #555;
+        color:white;
+    }
+
+
+    .label.azul{
+        background: #00468B;
+        color:white;
+    }
+
+    .label.violeta{
+        background: #8B6BAF;
+        color:white;
+    }
+
+    
+    .label.rojo{
+        background: #F04E53;
+        color:white;
+    }
+
+    .label.rebrote{
+        background: #f28e2c;
+    }
+
+    .labelPaises{
+        font-size: 10px;
+        text-anchor: start;
+        paint-order: stroke;
+        stroke: #f1f1f1;
+        stroke-width: 5px;
+        stroke-linecap: butt;
+        stroke-linejoin: round;
+	}
+
+    .linea.casos.pais{
+        stroke-width: 1px;
+    }
+
+    .linea.casos.recta{
+        stroke-width: 4px;
+    }
+    
+    #ejeX.resaltado text.axis-title, #ejeX.resaltado text, #ejeY.resaltado text.axis-title, #ejeY.resaltado text, #ejeX.resaltado .domain{
+        stroke:#ffb491;
+        stroke-width: 5px;
+        stroke-linejoin: round;
+       
+        paint-order: stroke;
+        transition: fill 0.5s, stroke 0.5s, stroke-width 0.5s;
+    }
+
+    #ejeY.resaltado text.axis-title,#ejeY.resaltado text, #ejeY.resaltado .domain{
+        stroke:#a4eb8e;
+    }    
+
+
+    @media only screen and (min-width: 768px) {
+  
+        text.titulo {
+            font-size: 14px;
+            fill: #444;
+        }
+    }
+    
+
+/* COLORES
+azul #00468B
+violeta #8B6BAF
+rojo #F04E53
+naranja #F26522
+verde #62BB46
+*/
+       
+</style>
+
+
+<section id='scrolly1'>
+    <div class='scrolly'>
+        <!-- aca va el grafico que va a quedar fijo -->
+        <figure id="grafico1" class='sticky contenedorGrafico' >
+        </figure>
+
+        <!-- acá van los textos de cada paso -->
+        <article>
+            <div class='step' data-index='0'>
+                <p>El número de casos por millón de habitantes es un dato que vemos seguido. Como indicador de evolución de la pandemia sabemos que, en general, tener mayor número de casos es peor.
+                    <br/><br/>
+                    ¿Qué pasa entonces con los países que tienen gran número de casos totales pero relativamente pocos casos nuevos diarios? ¿Y los que tienen muchos casos nuevos diarios pero pocos casos totales?
+                </p>
+            </div>
+            
+            <div class='step' data-index='1'>
+                <p>
+                    Para responder eso tenemos que combinar ambos datos. En el eje horizontal vamos a <mark class="label naranja">poner el número de casos totales por millón de habitantes</mark> de cada país, desde el comienzo de la pandemia hasta ahora.
+                    <br/><br/>
+                    En el eje vertical vamos a poner, para cada dato del eje horizontal, <mark class="label verde">el número de casos nuevos diarios que le corresponde</mark>, también por millón de habitantes.
+                </p>
+            </div>
+            <div class='step' data-index='2'>
+                <p>
+                    Notá que el tiempo desaparece en este gráfico: está implícito al recorrer la curva de cada país desde su comienzo hasta su final. Al comienzo, todos los países tenían pocos casos totales y pocos casos nuevos diarios; más adelante en la pandemia ambos datos fueron creciendo de distinta forma en cada país.
+                    <br/><br/>
+                    Veamos qué tipos de comportamientos podemos encontrar.
+                       </p>
+            </div>
+            <div class='step' data-index='3'>
+                <p>
+                    En este gráfico, si un país tiene un recorrido en diagonal significa que está en <a href="https://decodificar.org/covid/record_de_contagios/" target="_blank">crecimiento exponencial</a>: el número de casos nuevos es proporcional al número de casos totales.
+                    <br/><br/>
+                    Todos los países comenzaron de esta forma: <mark class="label gris">recorriendo la diagonal principal</mark>, con un <a href="https://decodificar.org/covid/el_ritmo_de_la_pandemia/" target="_blank">tiempo de duplicación</a> muy corto de aproximadamente 3 días. Es decir, este escenario es cuando no había control de la pandemia.
+                </p>
+            </div>
+            <div class='step' data-index='4'>
+                <p>
+                    Gracias a medidas de contención y mitigación, muchos países, como Argentina, lograron correrse a <mark class="label azul">diagonales más bajas</mark>.
+                    <br/><br/>
+                    ¿Qué significa esto? Que el crecimiento del número de casos sigue siendo exponencial, pero con un ritmo menor (tiempo de duplicación más largo).
+                </p>
+            </div>
+            <div class='step' data-index='5'>
+                <p>
+                    Unos pocos casos lograron controlar casi completamente la propagación del virus, como por ejemplo Nueva Zelanda.
+                    <br/><br/>
+                    Estos países no solo se apartaron de la diagonal principal, sino que <mark class="label violeta">"doblaron la curva" y lograron un comportamiento hacia abajo</mark> (donde el número de casos totales casi no crece, salvo que ocurra un rebrote).
+                </p>
+            </div>
+            <div class='step' data-index='6'>
+                <p>
+                    Otros países, como Estados Unidos, lograron salir del crecimiento exponencial pero siguen creciendo pues el número de casos nuevos diarios se mantiene aproximadamente constante (se ve que la curva <mark class="label rojo">se hizo aproximadamente horizontal</mark>).
+                </p>
+            </div>
+            <div class='step' data-index='7'>
+                <p>
+                    ¿Y cómo se ven los <mark class="label verdeFuerte">rebrotes</mark> en este gráfico? Como una curva que parecía haber sido controlada (tramo hacia abajo), pero volvió a crecimiento exponencial (vuelve a recorrer alguna de las diagonales). El primer ejemplo fue Singapur.
+                </p>
+            </div>
+            <div class='step' data-index='8'>
+                <p>
+                    La realidad es compleja. Este ejercicio de simplificación e idealización nos permite interpretar la evolución de cada país en términos de estos "comportamientos elementales" (<mark class="label azul">crecimiento exponencial</mark>, <mark class="label rojo">crecimiento constante</mark>, <mark class="label violeta">control</mark>) y sus combinaciones (por ejemplo un <mark class="label verdeFuerte">rebrote</mark>).
+                </p>
+            </div>
+        </article>
+    </div>
+</section>
+
+ <!-- Scripts -->
+ <script>
+    
+//********************* CARGA DATOS ************
+
+Promise.all([
+//    d3.csv("https://datos.decodificar.org/E7_comportamientos_elementales_sin_actualizar.csv"),
+  //  d3.csv("https://datos.decodificar.org/E7_comportamientos_elementales_actualizado.csv"),
+    d3.csv("https://datos.decodificar.org/E7_comportamientos_elementales.csv"),
+    d3.csv("https://datos.decodificar.org/metaData_tablas_nueva.csv")
+
+]).then(function(files) {
+
+  var epigrafeData = files[files.length-1].filter(d=>d.id_historia=="E7");
+        epigrafeData.forEach(e => {
+            e.fecha = d3.timeFormat("%-d/%b/%Y")(d3.timeParse("%Y-%m-%d")(e.fecha_actualizacion)).toLowerCase(); 
+        });
+
+    // **** CODIGO DEL SCROLLY *******
+
+
+    const container1 = d3.select('#scrolly1'); //busco el container total
+	
+    const stepSel1 = container1.selectAll('.step'); // selecciono los "steps"
+	
+    function updateChart(index, what,containerNumber,entra) {  // funcion que llama cada vez que cruza un umbral
+        const sel = d3.select('#scrolly'+containerNumber).select(`[data-index='${index}']`);
+        what.classed('is-active', (d, i) => i === index);
+        scrollyTelling(containerNumber,index,entra); // <<<<< AQUI LLAMA AL GRAFICO VERDADERO
+    }
+
+    function init(what,containerNumber) { // configuracion inicial
+        Stickyfill.add(d3.select('.sticky').node()); // fallback para browsers sin sticky
+
+        enterView({
+            selector: what.nodes(),
+            offset: 0.3,
+            enter: el => {
+                const index = +d3.select(el).attr('data-index');
+                updateChart(index,what,containerNumber,1);
+            },
+            exit: el => {
+                let index = +d3.select(el).attr('data-index');
+                index = Math.max(0, index - 1);
+                updateChart(index,what,containerNumber,0);
+            }
+        });
+    }
+  
+
+    // **** END SCROLLY *******
+
+//iso_code	location	pais_corto	date	casos_diarios_por_millon_prom	casos_acumulados_por_millon
+
+var groups = {
+    "d1":"g0", // diagonal
+
+    "d2":"g1", // paralela
+    "ARG":"g1",
+
+    "ct":"g2", // control
+    "AUS":"g2",
+    "NZL":"g2",
+    "CHN":"g2",
+
+    "cs":"g3", // constante
+    //"URY":"g3",
+    "USA":"g3",
+    "BRA":"g3",
+    //"IND":"g3",
+    //"COL":"g3",
+    "CHL":"g3",
+
+    "rb":"g4", //rebrote
+    //"ESP":"g4",
+    //"ISR":"g4",
+    //"FRA":"g4",
+    //"GBR":"g4",
+    "ITA":"g4",
+    //"NOR":"g4",
+    //"SWE":"g4",
+    "DEU":"g4",
+    "SGP":"g4",
+    //"FIN":"g4"
+}
+
+var coloresGroups = d3.scaleOrdinal()
+        .domain(["g0","g1","g2","g3","g4"])
+        //azul -  violeta - rojo - verde
+        .range(["#555","#00468B","#8B6BAF","#F04E53","#62BB46"]);
+
+
+
+var parseTime = d3.timeParse("%Y-%m-%d");
+
+var paisesSelectos = ["ARG","SGP", "NZL", "USA"];
+
+var dataOrig =  files[0].map(obj => {
+                return {
+                                "iso":obj.iso_code,
+                                "name":obj.location,
+                                "casos":obj.iso_code.length==2?+obj.casos_acumulados_por_millon:+obj.casos_diarios_por_millon_prom,
+                                "total":obj.iso_code.length==2?+obj.casos_diarios_por_millon_prom:+obj.casos_acumulados_por_millon,
+                                "startOp":paisesSelectos.indexOf(obj.iso_code)>=0?1:0,
+                                "group":groups[obj.iso_code]
+                                }
+            });
+
+
+dataOrig = dataOrig.filter(d=>Object.keys(groups).indexOf(d.iso)>0?1:0) // filtro solo los paises que estan en la lista groups
+
+;
+
+            
+           data = d3.nest()
+                .key(d => d.iso)
+                .rollup( d=> {
+                    return {
+                    "valores": d.map(r=>{return {"casos":r.casos, "total":r.total}}),
+                    "startOp":d[0].startOp,
+                    "name":d[0].name,
+                    "group":d[0].group
+                }})
+                .entries(dataOrig);
+
+        
+var ejeY, ejeX, tituloY, minDate, maxDate, line;
+
+
+var altoMaximo = 1.5; // cuantas veces el ancho permitimos que sea el alto maximo
+
+
+var svg = d3.selectAll(".contenedorGrafico").append("svg"),
+    margin = isMobile ? {top: 55, right: 20, bottom: 35, left: 20} : {top: 70, right: 30, bottom: 55, left: 40},
+    width =  +d3.select('#grafico1').style('width').slice(0, -2),
+    height = +d3.select('#grafico1').style('height').slice(0, -2)-25;
+
+ d3.selectAll(".contenedorGrafico").append("div").attr("class","epigrafe")
+            .html((d,i)=>{
+                var cual = i?1:0;
+                return "www.decodificar.org - "+epigrafeData[cual].fecha+" - Fuente: "+ epigrafeData[cual].fuente}
+                );
+
+
+    if (height > altoMaximo*width) {
+        svg.style('margin-top', (height - altoMaximo*width)/2 + "px")
+        height = altoMaximo*width;
+    }
+
+    svg.attr("viewBox", [0, 0, width, height]);
+
+
+    height = height - margin.top - margin.bottom;
+    width = width - margin.left - margin.right;
+    
+
+    var clip = svg.append("defs").append("svg:clipPath")
+        .attr("id", "clip")
+        .append("svg:rect")
+        .attr("width", width-1 )
+        .attr("height", height-1 )
+        .attr("x", 1)
+        .attr("y", 1);
+
+
+var x = d3.scaleLog()
+        .domain([1, d3.max(dataOrig, d=>d.total)])
+        .range([0,width-(isMobile?25:75)]);
+
+
+var y = d3.scaleLog()
+        .domain([0.1, d3.max(dataOrig, d=>d.casos)])
+        .range([height, 0]);
+
+
+
+var line = d3.line()
+        .defined(d =>d.casos>0.1&&d.total>0.5)
+        .x(d=>x(d.total))
+        .y(d=>y(d.casos))
+        .curve(d3.curveBasis);
+;
+
+        
+var yAxis = d3.axisRight(y)
+    .ticks(3).tickFormat(d3.format(",d")).tickSizeInner(0)
+;
+
+var xAxis = d3.axisBottom(x)
+    .ticks(4).tickFormat(d3.format(",d")).tickSizeInner(0)
+;
+
+
+
+var dataParaLabels = data.filter(d=>d.key.length>2).map(r=>{  //Prepara la data para poner los labels
+                    return  {"labelY": y(r.value.valores[r.value.valores.length-1].casos),
+                            "labelX": x(r.value.valores[r.value.valores.length-1].total),
+                            "name":isMobile?r.key:r.value.name,
+                            "startOp":r.value.startOp,
+                            "group":r.value.group
+                        }
+                        });
+
+    //relax(dataParaLabels, 9); // Separa los labels para que no se pisen
+
+
+var gInterno = svg.append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+        .attr("id","gInterno")
+	;
+
+    var ejeY = gInterno.append("g") // EJE Y
+                .attr("id", "ejeY")
+                .attr("class", "axis axis--y")
+                .call(yAxis)
+                .append("text").text("Casos diarios por millón (log)")
+                    .attr("class","axis-title")
+                    .attr("dy", -10);
+
+    var ejeX = gInterno.append("g") // EJE X
+                .attr("id", "ejeX")
+                .attr("class", "axis axis--x")
+                .attr("transform", "translate(0," + (height+5) + ")")
+                .call(xAxis)
+                .append("text")
+                .text("Casos acumulados por millón (log)")
+                    .attr("y",25).attr("x", width/2)
+                    .attr("class","axis-title der")
+        ;
+
+                
+
+    
+
+    var paises = gInterno.append("g").attr("id","paises").attr("clip-path", "url(#clip)");
+;
+
+    
+    paises.selectAll("path")
+                .data(data.filter(d=>d.key.length>2))
+                .join("path")
+                    .attr("class", "linea casos pais")
+                    .style("stroke", d=>coloresGroups(d.value.group))
+                    .style("opacity", d=>d.value.startOp)
+                    .attr("id", e=>e.key)
+                    .attr("d", d=> line(d.value.valores));
+
+
+    paises.selectAll("text")  // AGREGA LOS LABELS
+				.data(dataParaLabels)
+				.join("text")
+					.attr("x",d=>d.labelX)
+					.attr("y",d=>d.labelY)
+					.attr("dy", "3px")
+					.attr("dx", "3px")
+                    .style("fill",  d=>coloresGroups(d.group))
+                    .style("opacity", d=>d.startOp)
+					.attr("class", "labelPaises")
+                    .text(d=>d.name); //
+                    
+    gInterno.append("g").attr("id","rectas").attr("clip-path", "url(#clip)")
+.selectAll("path")// AGREGA LAS LINEAS MODELADAS
+                .data(data.filter(d=>d.key.length<3))
+                .join("path")
+                    .attr("class", "linea casos recta")
+                    .style("stroke",  d=>coloresGroups(d.value.group))
+                    .style("opacity", 0)
+                    .attr("id", e=>e.key)
+                    .attr("d", d=> line(d.value.valores));
+                    
+
+                                      
+
+    
+    init(stepSel1,1)
+
+    
+
+
+function scrollyTelling(containerNumber,step,entra){
+
+
+	if(containerNumber == 1){  
+        var recta = 0;
+        switch (step) {
+            
+            case 0: //
+            d3.selectAll("#ejeY, #ejeX").classed("resaltado",false)
+            break;
+
+            case 1: //resaltamos los ejes
+                 d3.selectAll("svg").selectAll("#ejeY, #ejeX").classed("resaltado",true)
+            break;
+
+            case 2: //apagamos ejes
+            d3.selectAll("#ejeY, #ejeX").classed("resaltado",false)
+            break;
+
+            case 3: //prende diagonal1
+                recta = "d1";
+            break;
+
+            case 4: //prende diagonal1
+                recta = "d2";
+            break;
+
+            case 5: //prende diagonal1
+                recta = "ct";
+            break;
+
+            case 6: //prende diagonal1
+                recta = "cs";
+            break;
+
+            case 7: //prende diagonal1
+                recta = "rb";
+                d3.selectAll(".labelPaises").filter(d=>!d.startOp).transition().duration(600).style("opacity",0)
+                d3.selectAll(".pais").filter(d=>!d.value.startOp).transition().duration(600).style("opacity",0)
+            break;
+
+            case 8: //prende diagonal1
+                d3.selectAll(".labelPaises, .pais").transition().duration(600).delay((d,i)=>i*30).style("opacity",1)
+            break;
+        }
+
+
+        d3.selectAll(".recta").transition().duration(600).style("opacity",d=>d.key==recta?1:0)
+        d3.select("#paises").transition().duration(600)
+            .style("opacity",recta?0.5:1);
+
+
+      
+  
+	}
+          
+
+}
+
+
+
+//********** funciones
+
+
+// separa en el eje Y los datos que le lleguen con formato: 
+// d.name // d.labelY 
+function relax(dataInterna, spacing) {
+				spacing = spacing? spacing : 8;
+				var dy = 1;
+				var repeat = false;
+				var count = 0;
+				dataInterna.forEach(function(dA, i) {
+					var yA = dA.labelY;
+					dataInterna.forEach(function(dB, j) {
+						var yB = dB.labelY;
+						if (i === j) {
+							return;
+						}
+						diff = yA - yB;
+						if (Math.abs(diff) > spacing) {
+							return;
+						}
+						repeat = true;
+						magnitude = diff > 0 ? 1 : -1;
+						adjust = magnitude * dy;
+						dA.labelY = +yA + adjust;
+						dB.labelY = +yB - adjust;
+						dB.labelY = dB.labelY > height ? height : dB.labelY
+						dA.labelY = dA.labelY > height ? height : dA.labelY
+					})
+				})
+				if (repeat) {
+					relax(dataInterna, spacing);
+				}
+			}
+
+            function movingAverage(values) {
+                console.log(values);
+                let N = 7;
+                let i = 0;
+                let sum = 0;
+                const means = new Float64Array(values.length).fill(NaN);
+                for (let n = Math.min(N - 1, values.length); i < n; ++i) {
+                    sum += values[i];
+                }
+                for (let n = values.length; i < n; ++i) {
+                    sum += values[i];
+                    means[i] = sum / N;
+                    sum -= values[i - N + 1];
+                }
+                return means;
+                }
+
+  
+
+});
+
+</script>
+
+
+
+<div class="note info"><p>Para entender la evolución de la pandemia hay muchos datos que podemos mirar. Combinarlos, visualizarlos de determinadas maneras y compararlos con otros nos permite obtener más información que analizarlos de forma individual.</p>
+</div>]]></content>
+  </entry>
 </search>
