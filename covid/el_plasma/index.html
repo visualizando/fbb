@@ -335,56 +335,13 @@ var coloreaCategorias = d3.scaleOrdinal()
 
     }
 
-    .axis path, .axis line {
-      fill: none;
-      stroke: #D4D8DA;
-      stroke-width: 1px;
-     
-    }
-
-    .axis--y .domain, .axis--x .domain{
-        display: none;
-    }
-    
-    
-    .axis--y .tick{
-        stroke-width: 1px;
-        stroke-dasharray: 3px 2px;
-    }
-
-    .axis--x .tick line{
-        stroke-width: 2px;
-    }
-
+ 
     
     text.titulo {
             font-size: 12px;
             fill: #444;
         }
 
-
-    #ejeY,#ejeY  .tick text{
-        fill:#00468B;
-
-    }
-    #ejeYder, #ejeYder .tick text{
-        fill:#F26522;
-    }
-
-    .axis-title {
-        font-size: 11px;
-        text-anchor: start;
-    }
-    
-    .axis-title.der{
-        text-anchor: end;
-    }
-
-    .linea {
-      fill: none;
-      stroke: #a3a3a3;
-      stroke-width: 2px;
-    }
 
 
     .label.naranja{
@@ -404,211 +361,16 @@ var coloreaCategorias = d3.scaleOrdinal()
 
     }
 
-    #tracker text.numero {
-        font-size: 19px;
-        fill: #231f20;
-        text-anchor: middle;
-        font-variant-numeric: lining-nums;
-    }
-    
-    #tracker text.titulo {
-        font-size: 10px;
-        font-weight: 700;
-        fill: #231f20;
-        text-anchor: middle;
-        font-family: oswald;
-    }
-    
-
-    div#stage0.stage{
-        margin-top: 19%;
-        }
-    div#stage4.stage{
-        margin-top: 15%;
+    .personita {
+            fill: #F26522;
         }
 
-
-         div#stage0.stage img , div#stage1.stage img,  div#stage4.stage img  {
-            width: 48%;
-            display: inline-grid;
-        }
-
-        div#stage1.stage img{
-            width: 65%;
-            display: inline-grid;
-            margin: auto;
-        }
-
-        div#stage4.stage img  {
-            width: 80%;
-            display: inline-grid;
-        }
-
-        div.stage {
-            align-items: center;
-            position: absolute;
-            opacity: 0;
-            width: 100%;
-        }
-
-
-        ul {
-            display: flex;
-            flex-wrap: wrap;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            justify-content: space-evenly;
-            }
-
-li {
-    
-    flex-grow: 0;
-}
-
-#stage3 li {
-    height: 7vh;
-    flex-grow: 0;
-}
-
-#stage2 li {
-    width: 29%;
-    flex-grow: 0;
-}
-
-
-
-.stage li img {
-  max-height: 100%;
-  object-fit: cover;
-  vertical-align: bottom;
-  margin: 0;
-
-}
-
-li.refe span {
-    font-size: 12px;
-}
-
-.stage li.refe img {
-    max-height: 87%;
-    margin-bottom: -8px !important;
-}
-
-.table-container{
-    align-items: center;
-    position: absolute;
-    bottom: 28px;
-    width: 100%;
-}
-
-#rangos{
-    font-size: 10px;
-    text-align: center;
-    padding: 0px;
-    opacity: 0;
-    max-width: 440px;
-    margin: auto;
-}
-
-
-
-#rangos tr{
-    background:transparent;
-}
-
-
-#rangos th, #rangos td {
-    border: 1px solid #ddd;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding: 2px 1px;
-    
-}
-#rangos td {
-    border-left: none;
-    width: 30%;
-}
-
-
-#rangos td:not(:last-child) {
-    border-right: 1px dashed #ddd;
-}
-
-#rangos th {
-    border-right: 1px solid #ddd;
-    font-weight: 700;
-    min-width: 70px;
-}
-
-
+   
 
 
     @media only screen and (min-width: 768px) {
   
-        div#stage2.stage {
-            margin-top: 5%;
-        }
 
-        #stage2  li {
-            width: 16%;
-        }
-
-        #stage3  li {
-            height: 6vh;
-        }
-
-        div#stage4.stage {
-            margin-top: 3%;
-        }
-        
-        div#stage0.stage{
-        margin-top: 6%;
-        }
-
-        div#stage1.stage{
-        margin-top: 5%;
-        }
-        div#stage0.stage img{
-            width: 29%;
-            display: inline-grid;
-        }
-
-        div#stage1.stage li{
-            width: 48%;
-            display: inline-grid;
-            margin: auto;
-        }
-
-        
-
-        div#stage4.stage img{
-            width: 50%;
-            display: inline-grid;
-            max-height: 340px
-        }
-
-
-        #rangos td {
-                min-width: 95px;
-            }
-
-            #rangos th {
-                min-width: 100px;
-            }
-
-
-
-        #tracker{
-            max-width: 440px;
-            margin-top: 20px;
-        }
-
-        text.titulo {
-            font-size: 14px;
-            fill: #444;
-        }
     }
     
 </style>
@@ -618,11 +380,11 @@ li.refe span {
 
 <h5 id="¿Que-es-y-como-se-obtiene-el-plasma"><a href="#¿Que-es-y-como-se-obtiene-el-plasma" class="headerlink" title="¿Qué es y cómo se obtiene el plasma?"></a>¿Qué es y cómo se obtiene el plasma?</h5><p>Nuestra sangre está formada por células y plasma. El plasma se compone de agua, sales, anticuerpos y proteínas.</p>
 <p>Para extraer plasma, se realiza un procedimiento similar al de extracción de sangre pero sin extraer los glóbulos rojos (aféresis) y se obtienen de cada donante entre 400 y 800 ml. La aféresis es un procedimiento relativamente simple pero solo se hace en centros especializados.</p>
-<p>Al exponernos a cualquier virus o bacteria, nuestro sistema inmune fabrica anticuerpos de defensa (“neutralizantes”) que van a quedar en nuestro plasma y que pueden ser medidos en una extracción de sangre. Es así como en el plasma de alguien que se recuperó de COVID- 19 podremos encontrar anticuerpos protectores contra esta enfermedad. Es lo que llamamos “plasma de convaleciente”.</p>
-<h5 id="¿Para-que-se-usa"><a href="#¿Para-que-se-usa" class="headerlink" title="¿Para qué se usa?"></a>¿Para qué se usa?</h5><p>Al vacunar a alguien, el sistema inmune de esa persona genera anticuerpos protectores (se le llama inmunización activa dado que en el receptor debe participar el sistema inmune activamente fabricando los anticuerpos: link a vacunas). En cambio, al transfundir plasma de convaleciente a alguien, los anticuerpos recibidos del donante actúan directamente sobre la infección viral en curso (se le llama inmunización pasiva dado que no hay fabricación de anticuerpos por el sistema inmune del receptor).</p>
+<p>Al exponernos a cualquier virus o bacteria, nuestro sistema inmune fabrica anticuerpos de defensa (“neutralizantes”) que van a quedar en nuestro plasma y que <a href="https://decodificar.org/covid/sintomas_covid/" target="_blank">pueden ser medidos en una extracción de sangre</a>. Es así como en el plasma de alguien que se recuperó de COVID- 19 podremos encontrar anticuerpos protectores contra esta enfermedad. Es lo que llamamos “plasma de convaleciente”.</p>
+<h5 id="¿Para-que-se-usa"><a href="#¿Para-que-se-usa" class="headerlink" title="¿Para qué se usa?"></a>¿Para qué se usa?</h5><p>Al vacunar a alguien, el sistema inmune de esa persona genera anticuerpos protectores (se le llama inmunización activa dado que en el receptor debe participar el <a href="https://decodificar.org/covid/donde_esta_la_vacuna/" target="_blank">sistema inmune activamente fabricando los anticuerpos</a>). En cambio, al transfundir plasma de convaleciente a alguien, los anticuerpos recibidos del donante actúan directamente sobre la infección viral en curso (se le llama inmunización pasiva dado que no hay fabricación de anticuerpos por el sistema inmune del receptor).</p>
 <p>Desde hace muchísimos años se usa el plasma de pacientes recuperados, por ejemplo, en la epidemia de la influenza de 1918, en brotes de Ébola, SARS, MERS, el virus Junín, entre otros.</p>
-<p>Plasma en COVID-19</p>
-<h5 id="¿Que-sabemos-hasta-ahora-del-plasma-de-convalecientes-en-el-tratamiento-de-pacientes-con-COVID-19"><a href="#¿Que-sabemos-hasta-ahora-del-plasma-de-convalecientes-en-el-tratamiento-de-pacientes-con-COVID-19" class="headerlink" title="¿Qué sabemos hasta ahora del plasma de convalecientes en el tratamiento de pacientes con COVID-19?"></a>¿Qué sabemos hasta ahora del plasma de convalecientes en el tratamiento de pacientes con COVID-19?</h5><p>Por sus usos previos en otras enfermedades, se conoce que transfundir el plasma de una persona a otra no es un procedimiento peligroso. Pero en la medicina no basta con saber que un tratamiento no es peligroso, luego se debe demostrar que es útil o “eficaz” para tratar esa enfermedad.</p>
+<h5 id="Plasma-en-COVID-19"><a href="#Plasma-en-COVID-19" class="headerlink" title="Plasma en COVID-19"></a>Plasma en COVID-19</h5><p>¿Qué sabemos hasta ahora del plasma de convalecientes en el tratamiento de pacientes con COVID-19?</p>
+<p>Por sus usos previos en otras enfermedades, se conoce que transfundir el plasma de una persona a otra no es un procedimiento peligroso. Pero en la medicina no basta con saber que un tratamiento no es peligroso, luego se debe demostrar que es útil o “eficaz” para tratar esa enfermedad.</p>
 <p>Cuando empezó la pandemia por COVID-19 se comenzó a pensar en el plasma como una posible estrategia de tratamiento. Pero como todo tratamiento, tiene un costo y riesgo, actualmente el Ministerio de Salud de la Nación recomienda que se lo administre solamente en un contexto de investigación, es decir no como un tratamiento ya probado sino como parte de un estudio en desarrollo. Analicemos cómo podría diseñarse un estudio de investigación para averiguar si el plasma es eficaz en pacientes con COVID-19.</p>
 
 
@@ -632,98 +394,7 @@ li.refe span {
 
         <!-- aca va el grafico que va a quedar fijo -->
         <figure id="grafico1" class='sticky contenedorGrafico' >
-        
-
-            <svg xmlns="http://www.w3.org/2000/svg" id="tracker" viewBox="0 -21 278.41 75">
-                <g>
-                  <g id="fase4" class="gfase">
-                    <path d="M273.43,53.12H184V0h89.47a5,5,0,0,1,5,5V48.14A5,5,0,0,1,273.43,53.12Z" />
-                    <g class="innerG">
-                        <text transform="translate(250,18)" class="titulo">FASE IV</text>
-                        <text transform="translate(250,40)" class="numero">0</text>
-                    </g>
-                  </g>
-                  <g id="fase3" class="gfase">
-                    <path d="M212.52,53.12H129.35V0h83A5,5,0,0,1,217,3.15l9.24,23.44a4.94,4.94,0,0,1-.11,3.9l-9,19.73A5,5,0,0,1,212.52,53.12Z" />
-                    <g class="innerG">
-                        <text transform="translate(195,18)" class="titulo">FASE III</text>
-                        <text transform="translate(195,40)" class="numero">3</text>
-                    </g>
-                  </g>
-                  <g id="fase2" class="gfase">
-                    <path d="M161.09,53.12H78.9V0h82a5,5,0,0,1,4.63,3.15l9.24,23.44a5,5,0,0,1-.1,3.9l-9,19.73A5,5,0,0,1,161.09,53.12Z" />
-                    <g class="innerG">
-                        <text transform="translate(145,18)" class="titulo">FASE II</text>
-                        <text transform="translate(145,40)" class="numero">10</text>
-                    </g>
-                  </g>
-                  <g id="fase1" class="gfase">
-                    <path d="M109.66,53.12H27.22V0h82.25a5,5,0,0,1,4.63,3.15l9.24,23.44a5,5,0,0,1-.1,3.9l-9,19.73A5,5,0,0,1,109.66,53.12Z" />
-                    <g class="innerG">
-                        <text transform="translate(95,18)" class="titulo">FASE I</text>
-                        <text transform="translate(95,40)" class="numero">13</text>
-                    </g>
-                  </g>
-                  <g id="fase0" class="gfase">
-                    <path d="M58.23,53.12H5a5,5,0,0,1-5-5V5A5,5,0,0,1,5,0H58a5,5,0,0,1,4.63,3.15l9.25,23.44a5,5,0,0,1-.11,3.9L62.76,50.22A5,5,0,0,1,58.23,53.12Z" />
-                    <g class="innerG">
-                      <text transform="translate(33,18)" class="titulo">PRE CLINICA</text>
-                      <text transform="translate(33,40)" class="numero">145</text>
-                    </g>
-                  </g>
-                </g>
-                <g transform="translate(60,-20)" id="aprobada" style="opacity: 0;">
-                    <path d="M.61,13.29V5.16A4.55,4.55,0,0,1,5.16.61H143.62a4.55,4.55,0,0,1,4.23,2.88l5.66,14.35H5.16A4.55,4.55,0,0,1,.61,13.29Z" fill="#e05759" stroke="#e05759" stroke-miterlimit="10" stroke-width="1.23"/>
-                    <line x1="166.1" y1="49.9" x2="150.06" y2="9.23" fill="none" stroke="#e05759" stroke-miterlimit="10" stroke-width="1.23"/>
-                    <circle cx="166.1" cy="49.9" r="4.04" fill="#e05759" stroke="#e05759" stroke-miterlimit="10"/>
-                    <text transform="translate(6.06 13.37)" font-size="9" fill="#231f20" font-family="Oswald-Bold, Oswald" font-weight="700">VACUNAS APROBADAS: <tspan id="numeroAprobadas">0</tspan></text>
-                  </g>
-              </svg>
-            
-              <div id="stage0" class="stage">
-                <img src="/images/vacunas/petri.svg">
-                <img src="/images/vacunas/microscopio.svg">
-                <img src="/images/vacunas/raton.svg">
-            </div>
-            <div id="stage1" class="stage">
-            <ul>
-              <li style="color:#459892"><img src="/images/vacunas/personita.svg">
-               <br>Dosis A</li>
-              <li style="color:#4f79a7"><img src="/images/vacunas/personitaB.svg">
-               <br>Dosis B</li>
-            </ul>
-            </div>
-            <div id="stage2" class="stage"><ul>
-              <li><img src="/images/vacunas/minivac.svg"></li>
-            </ul>
-
-            </div>
-            <div id="stage3" class="stage">
-                <ul>
-               <li><img src="/images/vacunas/minivac.svg"></li>
-             </ul>
-            </div>
-            <div id="stage4" class="stage">
-              <img src="/images/vacunas/vacuna.svg">
-            </div>
-             
-            <div class="table-container">
-                <table id="rangos">
-                    <tr>
-                        <th>Edades:</th>
-                        <td class="rango02">Niños</td>
-                        <td class="rango01">Jóvenes</td>
-                        <td class="rango02">Adultos Mayores</td>
-                    </tr>
-                    <tr>
-                        <th>Personas:</th>
-                        <td class="rango10">Decenas</td>
-                        <td class="rango11">Centenas</td>
-                        <td class="rango12">Miles</td>
-                    </tr>
-                </table>
-            </div>
-
+           
         </figure>
 
         <!-- acá van los textos de cada paso -->
@@ -791,16 +462,14 @@ Si observamos que todos/algunos de los parámetros son en promedio mejores en el
 //********************* CARGA DATOS ************
 
 Promise.all([
-    d3.csv("https://datos.decodificar.org/V1_vacunas.csv"),
-    d3.csv("https://datos.decodificar.org/metaData_tablas_nueva.csv")
-
+    
 ]).then(function(files) {
 
-    var epigrafeData = files[files.length-1].filter(d=>d.id_historia=="V1");
+/*     var epigrafeData = files[files.length-1].filter(d=>d.id_historia=="V1");
         epigrafeData.forEach(e => {
             e.fecha = d3.timeFormat("%-d/%b/%Y")(d3.timeParse("%Y-%m-%d")(e.fecha_actualizacion)).toLowerCase(); 
         });
-       
+        */
 
     // **** CODIGO DEL SCROLLY *******
 
@@ -820,7 +489,7 @@ Promise.all([
 
         enterView({
             selector: what.nodes(),
-            offset: 0.1,
+            offset: 0.5,
             enter: el => {
                 const index = +d3.select(el).attr('data-index');
                 updateChart(index,what,containerNumber,1);
@@ -848,40 +517,6 @@ verde #62BB46
 //****** DATOS
 
 
-var skewer = d3.scaleOrdinal()
-            .domain([0,1,2,3,4,5])
-            .range([
-                [0,0,0,0,0],
-                [0,1,2,3,0],
-                [0,1,2,-1,0],
-                [0,1,-2,-1,0],
-                [0,-3,-2,-1,0],
-                [0,1,2,1,0]
-            ]);
-
-var colorFase = d3.scaleOrdinal()
-            .domain(["fase0","fase1","fase2","fase3","fase4"])
-            .range([
-            ["hsl(24, 5%, 82%)","hsl(24, 0%, 92%)"],
-            ["hsl(31, 95%, 77%)","hsl(31, 0%, 87%)"],
-            ["hsl(30, 91%, 67%)","hsl(30, 0%, 77%)"],
-            ["hsl(30, 89%, 55%)","hsl(30, 0%, 65%)"],
-            ["hsl(112, 53%, 57%)","hsl(112, 0%, 67%)"]
-            ]);
-            
-            
- 
-
-var vacunas = files[0];
-
-    vacunas = vacunas.map(d=>{
-        return {
-                "titulo": d.fase,
-                "cantidad":+d.cantidad
-        }
-        
-    });
-    
 
 
 //*******
@@ -892,277 +527,226 @@ var ejeY, ejeX, tituloY, minDate, maxDate, line, posTracker, posTrackerPrev;
 
 var altoMaximo = 1.3; // cuantas veces el ancho permitimos que sea el alto maximo
 
-//svg = d3.selectAll(".contenedorGrafico").append("svg"),
-var 
-    margin = isMobile ? {top: 35, right: 20, bottom: 35, left: 20} : {top: 35, right: 30, bottom: 25, left: 30},
-    width =  +d3.select('#grafico1').style('width').slice(0, -2),
-    height = +d3.select('#grafico1').style('height').slice(0, -2)-25;
+var svg = d3.selectAll(".contenedorGrafico").append("svg"),
+    margin = isMobile ? {top: 25, right: 20, bottom: 15, left: 30} : {top: 60, right: 35, bottom: 25, left: 35},
+    widthReal =  +d3.select('#grafico1').style('width').slice(0, -2),
+    heightReal = +d3.select('#grafico1').style('height').slice(0, -2)-25;
 
 d3.select(".contenedorGrafico").append("div").attr("class","epigrafe")
-            .html("www.decodificar.org - "+epigrafeData[0].fecha+" - Fuente: "+ epigrafeData[0].fuente);
+            .html("www.decodificar.org");
 
-   
-    var trackerHeight = d3.select("#tracker").node().getBoundingClientRect().height;
-
-    var verticalAligner = d3.scaleOrdinal()
-            .domain(["bottom","middle","top"])
-            .range([height-trackerHeight-20,height/2-trackerHeight/2,0]);
             
+    if (heightReal > altoMaximo*widthReal) {
+        svg.style('margin-top', (heightReal - altoMaximo*widthReal)/2 + "px")
+        heightReal = altoMaximo*widthReal;
+    }
 
-    d3.select("#etapa1y2").html(vacunas[2].cantidad);
-    d3.select("#vacunasAprobadas").html(vacunas[5].cantidad);
+    
+    svg.attr("viewBox", [0, 0, widthReal, heightReal]);
 
-    // REEMPLAZAR LOS NUMEROS
-    d3.selectAll(".gfase").each(function(d){
+    height = heightReal - margin.top - margin.bottom;
+    width = widthReal - margin.left - margin.right;
+    
+
+
+
+   var displace = [isMobile||height<450?-15:-24,isMobile||height<450?-15:-20]
+   // Agrego tipito como symbolo
+   svg.append("symbol")
+        .attr("id","tipito")
+        //.attr("y",displace[1]).attr("x",displace[0])
+        .append("path")
+        .style("transform",isMobile?"":"scale(1.5)")
+        .attr("d","M10,3C7.8,3,5.9,4.8,5.9,7.1s1.8,4.1,4.1,4.1s4.1-1.8,4.1-4.1S12.2,3,10,3 M16.1,15.2v8.6c0,0.8-0.7,1.5-1.5,1.5h-1v8.6c0,0.8-0.7,1.5-1.5,1.5H8c-0.8,0-1.5-0.7-1.5-1.5v-8.6h-1c-0.8,0-1.5-0.7-1.5-1.5v-8.6c0-1.7,1.4-3,3-3h0.7c1.5,0.7,3.2,0.7,4.6,0H13C14.7,12.1,16.1,13.5,16.1,15.2z");
+
         
-                var fase = this.id;
-                switch(fase){
-                    case "fase0":
-                    d3.select(this).select(".numero").html(vacunas[0].cantidad);
-                    break;
+        
+        var cant = [20,5]
+        var padding = [10,5];
+        var medidas = [20,50];
 
-                    case "fase1":
-                    d3.select(this).select(".numero").html(vacunas[1].cantidad);
-                    break;
 
-                    case "fase2":
-                    d3.select(this).select(".numero").html(vacunas[3].cantidad);
-                    break;
+        var gPersons = svg.append("g").attr("id","personitas")
+        .attr("transform", "translate(" + (margin.left+ (width - cant[0]*(medidas[0]+padding[0])))/2+  "," + margin.top + ")")
 
-                    case "fase3":
-                    d3.select(this).select(".numero").html(vacunas[4].cantidad);
-                    break;
 
-                    case "fase4":
-                    d3.select(this).select(".numero").html(vacunas[6].cantidad);
-                    break;
-                }
-        }
-        );
+    var x = d3.scaleLinear()
+			.range([0, (cant[0]-1)*(medidas[0]+padding[0])])
+			.domain([0,19]);
+
+    var y = d3.scaleLinear()
+			.range([0,(cant[1]-1)*(medidas[1]+padding[1])])
+            .domain([0,4]);
+            
+    var x2 = d3.scaleLinear()
+			.range([0, 10*(medidas[0]+padding[0])])
+			.domain([0,10]);
+
+    var y2 = d3.scaleLinear()
+			.range([0,2*(medidas[1]+padding[1])])
+			.domain([0,2]);
+
+
+    var x3 = d3.scaleLinear()
+			.range([0, 9*(medidas[0]+padding[0])])
+            .domain([0,9]);
+            
+            var matrixDatos = d3.range(100).map(i => (
+                {x: i % 20, 
+                 y: Math.floor(i / 20),
+                 rand: Math.random()
+                })).sort((a, b) => d3.descending(a.rand, b.rand));
     
-    
-    d3.select("#tracker").style("margin-top",verticalAligner("middle")+"px")  
-
-    d3.select("#tracker").selectAll(".gfase").style("fill",function(d){
-        return colorFase(this.id)[0]
-    })  
-    
-    var li = d3.select("#stage2").select("li")
-    for (let i = 0; i < 10; i++) {
-        li.clone(true)
-    }
-
-    li = d3.select("#stage3").select("li");
-    var refPlacebo = li.clone(true).classed("refe",true);
-    var refVacuna = li.clone(true).classed("refe",true);;
-
-    refPlacebo.select("img").attr("src","/images/vacunas/minivacPlaceboLabel.svg");
-    refVacuna.select("img").attr("src","/images/vacunas/minivacLabel.svg");
-    refPlacebo.append("span").html("Placebo");
-    refVacuna.append("span").html("Vacuna");
-    
-    for (let i = 0; i < 50; i++) {
-        li.clone(true).select("img").attr("src",Math.random()>0.4?"/images/vacunas/minivac.svg":"/images/vacunas/minivacPlacebo.svg")
-    }
+            matrixDatos.forEach((e,i) => {
+                e.index = i;
+            });
     
 
-    
+        gPersons.selectAll("use")
+          .data(matrixDatos)
+          .join("use")
+                .attr("xlink:href","#tipito")
+                .attr("class",d=> d.index<20?"personita selected":"personita comun")
+                .attr("x", d=>x(d.x))
+                .attr("y", d=>y(d.y))
+                ;
+
+            var miniChart= [{titulo: "Días de internación"},
+            {titulo: "Asistencia respiratoria"},
+            {titulo: "Letalidad"},
+                            ]
+
+                            gPersons.append("text").text("Tratamiento")
+                                    .attr("transform", "translate(0,"+height*0.8+")")
+                            gPersons.append("text").text("Control \"Placebo\"")
+
+    var subCharts =  gPersons.append("g").attr("id", "chart")
+                .attr("transform", "translate(0,"+height*0.8+")")
+                .style("opacity",0)
+                .selectAll("g")
+                .data(miniChart)
+                .join("g")
+                .attr("transform", (d,i)=>"translate("+ width*1/3 +","+i*24+")")
+                ;
+
+        subCharts.append("text")
+                .style("font-size","12px")
+                .style("text-anchor","end")
+                .text(d=>d.titulo);
+
+        subCharts.append("rect")
+                .attr("id", (d,i)=>"rect0"+i)
+                .attr("y", -10)
+                .attr("x", 4)
+                .attr("height",6)
+                .attr("width",width*1/3)
+                .style("fill","#8B6BAF")
+                ;
+
+        subCharts.append("rect")
+                .attr("id", (d,i)=>"rect1"+i)
+                .attr("y", -3)
+                .attr("x", 4)
+                .attr("height",6)
+                .attr("width",width*1/3)
+                .style("fill","#999")
+
+                ;
+
+
     init(stepSel1,1)
 
 function scrollyTelling(containerNumber,step,entra){
-    var porcentaje = 90, etapa,cambia,stage=-1,rangos, aprobada = 0;
+    
         switch (step) {
-            case 0: // tracker
-                    etapa = -1;
-                    cambia = 1;
-                    posTracker = "middle";
-                    rangos = 0;
-            break;
-            case 1: // vacuna
-                    etapa = 4;
-                    cambia = 1;
-                    posTracker = "top";
-                    stage = "stage4";
-                    rangos = 0;
+            case 0: // 100 personitas color covid confirmado
+                d3.selectAll(".personita").transition().duration(600)
+                    .style("opacity",1)
+                    .attr("x", d=>x(d.x))
+                    .attr("y", d=>y(d.y));
+                
             break;
 
-            case 2: // tracker
-                    etapa = -1;
-                    cambia = 1;
-                    posTracker = "top";
-                    rangos = 0;
+            case 1: // seleccionamos 20 personitas, las junto y desaparecen las otras
+                d3.selectAll(".comun").transition().duration(600).style("opacity",0)
+                d3.selectAll(".selected").transition().duration(600)
+                    .style("opacity",1)
+                    .attr("x", d=>x2(d.index % 10)+(medidas[0]+padding[0])*5)
+                    .attr("y", d=>y2(Math.floor(d.index / 10))+(medidas[1]+padding[1])*2);
+
+            break;
+           
+            case 2: // Quito 2 personas
+                d3.selectAll(".selected").filter(d=>d.index==3 || d.index==19).transition().duration(400).style("opacity",0)
+                d3.selectAll(".selected").filter(d=>d.index!=3 && d.index!=19).classed("subset",true).transition().delay(402).duration(400)
+                    .attr("x", (d,i)=>x3(i % 9)+(medidas[0]+padding[0])*5.5)
+                    .attr("y", (d,i)=>y2(Math.floor(i / 9))+(medidas[1]+padding[1])*2)
+                    .style("fill","#F26522");
             break;
 
-      
+            case 3: // Divido en dos
+                d3.selectAll(".subset").transition().duration(400)
+                        .attr("x", (d,i)=>x3(i % 9)+(medidas[0]+padding[0])*5.5)
+                        .attr("y", (d,i)=>y2(Math.floor(i / 9))+(medidas[1]+padding[1])*(i<9?1:3))
+                        .style("fill",(d,i)=>i<9?"#8B6BAF":"#999")
+                        ;
 
-            case 3: // fase pre clinica
-                    etapa = 0;
-                    cambia = 1;
-                    posTracker = "top";
-                    stage = "stage0";
-                    rangos = 0;
+                d3.select("#chart").transition().duration(600)
+                    .style("opacity",0)
             break;
 
-            case 4: // Fases Clínicas: 1, 2 y 3
-                    etapa = -1;
-                    cambia = 1;
-                    posTracker = "top";
-                    rangos = 0;
+            case 4: // aparecer las barritas de variables
+
+            d3.select("#chart").transition().duration(600)
+                    .style("opacity",1);
+
+            d3.select("#chart").selectAll("rect").transition().duration(600)
+                    .attr("width",width*1/3);
             break;
 
-            case 5: // fase 1
-                    etapa = 1;
-                    cambia = 1;
-                    posTracker = "top";
-                    stage = "stage1";
-                    rangos = [1,0];
+            case 5: // actualiza barritas
+            d3.select("#chart").selectAll("rect").transition().duration(600)
+                    .attr("width",(d,i)=>{
+                            if(i<2) return width*1/3*0.3
+                            if(i<4) return width*1/3*0.7
+                            return width*1/3*0.5
+                            });
+
             break;
 
-            case 6: //fase 2
-            case 7:
-                    etapa = 2;
-                    cambia = 1;
-                    posTracker = "top";
-                    stage = "stage2";
-                    rangos = [2,1];
-            break;
-
-            case 8: //fase 1 y 2 combinadas
-                    etapa = 5;
-                    cambia = 1;
-                    posTracker = "middle";
-                    rangos = 0;
-            break;
-
-            case 9: // fase 3
-            case 10:
-                    etapa = 3;
-                    cambia = 1;
-                    posTracker = "top";
-                    stage = "stage3";
-                    rangos = [2,2];
-                    aprobada = 0;
-                    d3.select("#aprobada").transition().duration(300).style("opacity",0);
-            break;
-
-            case 11: // Aprobacion
-                    // aca tiene que prender el APROBACION
-            case 12:
-                    d3.select("#aprobada").transition().delay(300).duration(600).style("opacity",1);
-            
-                    aprobada = 1;
-                    etapa = -1;
-                    cambia = 1;
-                    posTracker = "middle";
-                    rangos = 0;
-            break;
-
-            case 13:
-                    d3.select("#aprobada").transition().duration(300).style("opacity",0);
-                    aprobada = 0;   
-                    etapa = 4;
-                    cambia = 1;
-                    posTracker = "top";
-                    stage = "stage4";
-                    rangos = 0;
-            break;
-
-            case 14:
-                    aprobada = 0;   
-                    etapa = 4;
-                    cambia = 1;
-                    posTracker = "top";
-                    stage = "stage4";
-                    rangos = 0;
+            case 6: // actualiza barritas (dan distinto)
+            d3.select("#chart").selectAll("rect").transition().duration(600)
+                    .attr("width",(d,i)=>{
+                        switch(i){
+                            case 0:
+                                return width*1/3*0.2
+                            break;
+                            case 1:
+                                return width*1/3*0.4
+                            break;
+                            case 2:
+                                return width*1/3*0.7
+                            break;
+                            case 3:
+                                return width*1/3*0.9
+                            break;
+                            case 4:
+                                return width*1/3*0.4
+                            break;
+                            case 5:
+                                return width*1/3*0.6
+                            break;
+                        }
+                            
+                            });
+                            
             break;
             
-            
 
+            
         }
-        var stepper = 10,
-            result,
-            transparenciaTextos = 0.1;
-            posChange=0;
         
-        if(cambia) {
-            if(posTracker != posTrackerPrev) posChange = 1;
-            posTrackerPrev = posTracker;
-            d3.select("#tracker").selectAll(".gfase")
-                        .transition().duration(600) //.delay(400*posChange)
-                        .style("fill",function(d){
-                            var quien = this.id.slice(-1);
-                            if(etapa==5) return colorFase(this.id)[quien==1?0:quien==2?0:1]
-                            return colorFase(this.id)[etapa>=0?etapa==quien?0:1:0]
-                        })  
-                        .attr("transform", (d,i)=>{
-                            return "translate("+(skewer(etapa)[i]*stepper)+",0)"}
-                            )
-                            .selectAll(".innerG")
-                                .attr("transform", function(d){
-                                    var quien = d3.select(this)._groups[0][0].parentNode.id.slice(-1)
-                                    var result = etapa?etapa==quien?-2*stepper:0:0;
-                                   return "translate("+result+",0)";
-                                })
-                                .selectAll("text")
-                                .style("opacity", function(d){
-                                    var quien = d3.select(this)._groups[0][0].parentNode.parentNode.id.slice(-1)
-                                    if(etapa==-1) return 1; // esto es el tracker sin nada
-                                    if(etapa==5) return quien==1?1:quien==2?1:transparenciaTextos; // esto es el tracker sin nada
-                                   return etapa==quien?1:transparenciaTextos;
-                                });                
-
-            if(posChange){
-                d3.select("#tracker")
-                                .transition().duration(300)
-                                .style("margin-top",verticalAligner(posTracker)+"px")
-
-                    } 
-
-        };
-
-        if (rangos){
-            d3.select("#rangos").transition().duration(600).style("opacity",1)
-                                .selectAll("td")
-                                .style("background-color", function(d,i){
-                                    /* console.log(d3.select(this).attr("class").slice(-2),[0,rangos[0]].join(""),[1,rangos[0]].join(""))
-                                    var quien = d3.select(this).attr("class").slice(-2);
-                                    var rangoCompara = [[0,rangos[0]].join(""),[1,rangos[0]].join("")]
-                                    if(quien == rangoCompara[0] || quien == rangoCompara[1]) return "silver";
-                                    return "transparent"; */
-                                    switch (etapa) {
-                                        case 1:
-                                            if(i==1 || i == 3 )
-                                            return "silver";
-                                            break;
-                                        case 2:
-                                            if(i<3 || i == 4 )
-                                            return "silver";
-                                            break;
-                                        case 3:
-                                            if(i<3 || i == 5 )
-                                            return "silver";
-                                            break;
-                                        default:
-                                            return "transparent";
-                                            break;
-                                    }
-                                    
-                                })
-
-        }else{
-            d3.select("#rangos").transition().duration(600).style("opacity",0)
-            .selectAll("td").style("background-color","transparent");
-        }
-
-        // esto prende y apaga las stages
-        d3.selectAll(".stage").transition().duration(400).style("opacity", function(d){
-                                    var quien = this.id;
-                                    if(stage==quien) return 1; // esto es el tracker sin nada
-                                   return 0;
-                                });  
-        
-        
-        //if(aprobada) d3.select("#tracker").transition().duration(300).delay(400).attr("viewBox",d=>(aprobada?"0 -21 278.41 75":"0 0 278.41 53.12"))  
+ 
 
 
 }
