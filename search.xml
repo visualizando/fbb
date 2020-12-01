@@ -10469,13 +10469,13 @@ function relax(dataInterna, spacing) {
                 <p>
                     Para realizar este estudio de investigación no podemos tomar a todos los pacientes con COVID-19 dada la enorme cantidad de personas que esto representaría.
                     <br/><br/>
-                    Seleccionamos entonces un grupo de personas que representen al resto de los pacientes (es lo que llamamos “muestra”).
+                    Seleccionamos entonces <mark class="label verde">un grupo de personas que representen al resto de los pacientes</mark> (es lo que llamamos “muestra”).
                 </p>
             </div>
             
             <div class='step' data-index='1'>
                 <p>
-                    Para seleccionar a estas personas se pueden definir algunos parámetros médicos, como por ejemplo, elegir para el estudio sólo a pacientes con enfermedad grave por COVID-19. Esto dejaría afuera a todos aquellos con síntomas leves. Estos parámetros son conocidos como criterios de inclusión.
+                    Para seleccionar a estas personas se pueden definir algunos parámetros médicos, como por ejemplo, elegir para el estudio sólo a <mark class="label verde">pacientes con enfermedad grave por COVID-19</mark>. Esto dejaría afuera a todos aquellos con síntomas leves. Estos parámetros son conocidos como criterios de inclusión.
                 </p>
             </div>
             <div class='step' data-index='2'>
@@ -10486,7 +10486,7 @@ function relax(dataInterna, spacing) {
             
             <div class='step' data-index='3'>
                 <p>
-                    Una vez que tenemos el grupo de personas con COVID-19, necesitamos saber si usar plasma es mejor que no usarlo. Para esto a la mitad de los seleccionados le administraremos plasma de convalecientes y a la otra mitad le administraremos placebo (agua con minerales).
+                    Una vez que tenemos el grupo de personas con COVID-19, necesitamos saber si usar plasma es mejor que no usarlo. Para esto a <mark class="label violeta">la mitad de los seleccionados le administraremos plasma de convalecientes</mark> y a <mark class="label gris">la otra mitad le administraremos placebo</mark> (agua con minerales).
                     <br/><br/>
                     Para que los resultados sean válidos, ni las personas tratadas ni los médicos que las siguen deberían saber si les tocó recibir plasma o placebo.
                 </p>
@@ -10512,7 +10512,7 @@ function relax(dataInterna, spacing) {
                 <p>
                 <b>Escenario 2</b>
                     <br/>
-Al grupo que recibió plasma le fue mejor que al que recibió placebo.
+Al grupo que <mark class="label violeta">recibió plasma</mark> le fue mejor que al que <mark class="label gris">recibió placebo</mark>.
 <br/><br/>  
 Si observamos que todos/algunos de los parámetros son en promedio mejores en el grupo que recibió plasma podemos concluir que dar plasma es mejor que dar placebo (el plasma tiene mayor eficacia)  y sería recomendable seguir administrándolo.
                 </p>
