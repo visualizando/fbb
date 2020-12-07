@@ -5830,6 +5830,15 @@ var vacunas = files[0];
     });
     
 
+    //**** PARA Reactivar los numeros, comentar el siguiente bloque:
+
+    d3.selectAll(".numero").style("display","none");
+    d3.selectAll(".titulo").attr("transform", function(d){
+        string = d3.select(this).attr("transform");
+        translate = string.substring(string.indexOf("(")+1, string.indexOf(")")).split(",");
+        return "translate("+translate[0]+",32)";
+        });
+
 
 //*******
 
