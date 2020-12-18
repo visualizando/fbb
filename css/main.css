@@ -1747,7 +1747,7 @@ pre code {
     margin: 3px 0 10px 0 !important;
   }
   .post-block {
-    margin-top: initial !important;
+    margin-top: 20px !important;
     padding: 8px 18px 8px !important;
   }
   .posts-collapse {
@@ -2888,7 +2888,7 @@ hr {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #faa679;
+  background: #fac86f;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2914,4 +2914,11 @@ hr {
 }
 .sub-menu .menu-item {
   display: inline-block;
+}
+.bienvenida {
+  border-radius: 0px 0px 5px 5px;
+  margin-bottom: -29px;
+  padding: 21px 30px 26px 30px;
+  margin-top: 0px;
+  background-color: #f1f1f1;
 }

@@ -23,16 +23,16 @@
     var CONFIG = {"hostname":"decodificar.org","root":"/","scheme":"Mist","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"remove","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeIn","post_body":"none","coll_header":"fadeIn","sidebar":"fadeInUp"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="MÉTODOS Y DATOSAjuste y tiempo de duplicaciónPara estimar el tiempo de duplicación hicimos un ajuste robusto (es decir, resistente a valores atípicos) de un modelo lineal al logaritmo de los datos. Es">
+  <meta name="description" content="¿Cuál es el ritmo de la pandemia?Ajuste y tiempo de duplicaciónPara estimar el tiempo de duplicación hicimos un ajuste robusto (es decir, resistente a valores atípicos) de un modelo lineal al logaritm">
 <meta property="og:type" content="website">
 <meta property="og:title" content="MÉTODOS Y DATOS">
 <meta property="og:url" content="https://decodificar.org/metodos/index.html">
 <meta property="og:site_name" content="Decodificar: COVID19">
-<meta property="og:description" content="MÉTODOS Y DATOSAjuste y tiempo de duplicaciónPara estimar el tiempo de duplicación hicimos un ajuste robusto (es decir, resistente a valores atípicos) de un modelo lineal al logaritmo de los datos. Es">
+<meta property="og:description" content="¿Cuál es el ritmo de la pandemia?Ajuste y tiempo de duplicaciónPara estimar el tiempo de duplicación hicimos un ajuste robusto (es decir, resistente a valores atípicos) de un modelo lineal al logaritm">
 <meta property="og:locale" content="es_ES">
 <meta property="og:image" content="https://decodificar.org/images/coverindex.jpg">
-<meta property="article:published_time" content="2020-09-29T13:48:41.898Z">
-<meta property="article:modified_time" content="2020-09-29T13:48:41.898Z">
+<meta property="article:published_time" content="2020-12-10T01:22:16.802Z">
+<meta property="article:modified_time" content="2020-12-10T01:22:16.802Z">
 <meta property="article:author" content="Fundacion Bunge y Born">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://decodificar.org/images/coverindex.jpg">
@@ -182,7 +182,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </noscript>
 
 
+
+
       <div class="main-inner">
+
+        <div class="bienvenida">
+        Decodificar es un sitio para que todos, sin importar cuánto sepamos de datos, tengamos herramientas que nos ayuden a entender lo que pasa a nuestro alrededor. En esta edición especial te acercamos herramientas simples y potentes para leer noticias y otros contenidos relacionados con la pandemia del COVID-19.
+        </div>
+
+
         
   
   
@@ -210,16 +218,56 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       
       
       <div class="post-body">
-          <h2 id="METODOS-Y-DATOS"><a href="#METODOS-Y-DATOS" class="headerlink" title="MÉTODOS Y DATOS"></a>MÉTODOS Y DATOS</h2><p>Ajuste y tiempo de duplicación<br>Para estimar el tiempo de duplicación hicimos un ajuste robusto (es decir, resistente a valores atípicos) de un modelo lineal al logaritmo de los datos. Específicamente, utilizamos el siguiente procedimiento:</p>
+          <h2 id="¿Cual-es-el-ritmo-de-la-pandemia"><a href="#¿Cual-es-el-ritmo-de-la-pandemia" class="headerlink" title="¿Cuál es el ritmo de la pandemia?"></a>¿Cuál es el ritmo de la pandemia?</h2><h4 id="Ajuste-y-tiempo-de-duplicacion"><a href="#Ajuste-y-tiempo-de-duplicacion" class="headerlink" title="Ajuste y tiempo de duplicación"></a>Ajuste y tiempo de duplicación</h4><p>Para estimar el tiempo de duplicación hicimos un ajuste robusto (es decir, resistente a valores atípicos) de un modelo lineal al logaritmo de los datos. Específicamente, utilizamos el siguiente procedimiento:</p>
 <ol>
-<li><p>Definimos una ventana temporal para cada tramo de la curva (de tres semanas de largo en el caso de los tres primeros tramos; una semana en el caso del último tramo).</p>
+<li>Definimos una ventana temporal para cada tramo de la curva (de tres semanas de largo en el caso de los tres primeros tramos; una semana en el caso del último tramo).</li>
+<li>Utilizando los datos de día y número de casos que corresponden a cada ventana temporal, ajustamos el modelo $$\ln(N) \sim \alpha + \beta(t - t_{prom})$$ donde $N$ es el número total de casos confirmados, $t$ es el tiempo en días desde el primer caso en la ventana considerada y $t_{prom}$ es el tiempo medio en la ventana considerada. Utilizamos la función <code>rlm</code> de la librería <code>MASS</code> en lenguaje R. Todos los puntos de la ventana entran en el cálculo con el mismo peso.  </li>
+<li>Dado el valor obtenido para beta, calculamos el tiempo de duplicación como $$T_d = \ln(2)/\beta$$</li>
+</ol>
+<h4 id="Simplificaciones-consideradas"><a href="#Simplificaciones-consideradas" class="headerlink" title="Simplificaciones consideradas"></a>Simplificaciones consideradas</h4><p>Utilizamos un modelo de tiempo continuo (en contraposición a un modelo de tiempo discreto, donde la evolución se da en pasos). Dados los tramos rectos que se observan en el gráfico de casos totales en escala semilog, asumimos que en dichos tramos la evolución del número total de casos está aproximadamente descrita por una función exponencial del tiempo con una dinámica subyacente del tipo $dN/dt = \beta N$. Elegimos esta aproximación por simplicidad. Otros modelos pueden considerar una dinámica de tipo logístico $dN/dt = \beta ((K-N)/K)N$ que incluye límites al crecimiento dados naturalmente por un tamaño finito de población, etc. Modelos aún más complejos distinguen diversos estadíos de la enfermedad al considerar transiciones entre personas susceptibles, infectadas, recuperadas, fallecidas y otras condiciones (por ejemplo del tipo SIR, SIRD, SEIR, MSEIR, etc.).</p>
+<h4 id="Codigo-y-datos"><a href="#Codigo-y-datos" class="headerlink" title="Código y datos"></a>Código y datos</h4><p>Disponible próximamente.</p>
+<hr>
+<h2 id="¿Como-evoluciona-mi-provincia"><a href="#¿Como-evoluciona-mi-provincia" class="headerlink" title="¿Cómo evoluciona mi provincia?"></a>¿Cómo evoluciona mi provincia?</h2><h4 id="Ajuste-y-tiempo-de-duplicacion-1"><a href="#Ajuste-y-tiempo-de-duplicacion-1" class="headerlink" title="Ajuste y tiempo de duplicación"></a>Ajuste y tiempo de duplicación</h4><p>Para estimar el tiempo de duplicación de los últimos datos de cada provincia hicimos un ajuste robusto (es decir, resistente a valores atípicos) de un modelo lineal al logaritmo de los datos correspondientes. Específicamente, utilizamos el siguiente procedimiento:</p>
+<ol>
+<li>Definimos una ventana temporal que abarca los datos de las últimas dos semanas.</li>
+<li>Para cada provincia, utilizamos los datos de día y número de casos que corresponden a la ventana temporal y ajustamos el modelo $$\ln(N) \sim \alpha + \beta(t - t_{prom})$$ donde $N$ es el número total de casos confirmados, $t$ es el tiempo en días desde el primer caso en la ventana considerada y $t_{prom}$ es el tiempo medio en la ventana considerada. Utilizamos la función <code>rlm</code> de la librería <code>MASS</code> en lenguaje R. Todos los puntos de la ventana entran en el cálculo con el mismo peso.</li>
+<li>Dado el valor obtenido para beta, calculamos el tiempo de duplicación como $$T_d = \ln(2)/\beta$$</li>
+</ol>
+<h4 id="Simplificaciones-consideradas-1"><a href="#Simplificaciones-consideradas-1" class="headerlink" title="Simplificaciones consideradas"></a>Simplificaciones consideradas</h4><p>Utilizamos un modelo de tiempo continuo (en contraposición a un modelo de tiempo discreto, donde la evolución se da en pasos). Dados los tramos rectos que se observan en el gráfico de casos totales en escala semilog, asumimos que en dichos tramos la evolución del número total de casos está aproximadamente descripta por una función exponencial del tiempo con una dinámica subyacente del tipo $dN/dt = \beta N$. Elegimos esta aproximación por simplicidad. Otros modelos pueden considerar una dinámica de tipo logístico $dN/dt = \beta ((K-N)/K) N$ que incluye límites al crecimiento dados naturalmente por un tamaño finito de población, etc. Modelos aún más complejos distinguen diversos estadíos de la enfermedad al considerar transiciones entre personas susceptibles, infectadas, recuperadas, fallecidas y otras condiciones (por ejemplo del tipo SIR, SIRD, SEIR, MSEIR, etc.).</p>
+<h4 id="Codigo-y-datos-1"><a href="#Codigo-y-datos-1" class="headerlink" title="Código y datos"></a>Código y datos</h4><p>Disponible próximamente.</p>
+<hr>
+<h2 id="¿En-que-paises-murieron-mas-personas-por-COVID-19"><a href="#¿En-que-paises-murieron-mas-personas-por-COVID-19" class="headerlink" title="¿En qué países murieron más personas por COVID-19?"></a>¿En qué países murieron más personas por COVID-19?</h2><h4 id="Correlacion-entre-numero-de-fallecidos-y-tamano-de-la-poblacion"><a href="#Correlacion-entre-numero-de-fallecidos-y-tamano-de-la-poblacion" class="headerlink" title="Correlación entre número de fallecidos y tamaño de la población"></a>Correlación entre número de fallecidos y tamaño de la población</h4><p>Tomamos todos los países con más de 50 fallecimientos por COVID-19 y más de 100.000 habitantes. Calculamos una regresión lineal robusta (es decir insensible a datos atípicos) entre el logaritmo del número de fallecimientos totales de dichos países (al 31 de julio de 2020) y el logaritmo del tamaño de sus poblaciones. Utilizamos la función <code>lmrob</code> de la librería <code>robustbase</code> en R. La pendiente obtenida es 0.75 $\pm$ 0.11 (valor central $\pm$ error estándar; intervalo de confianza del 95%: 0.55-0.96; $p=4 \times 10^{-11}$).</p>
+<p>Maronna, R. A., Martin, R. D., Yohai, V. J., &amp; Salibián-Barrera, M. (2019). Robust statistics: theory and methods (with R). John Wiley &amp; Sons.</p>
+<h4 id="Codigo-y-datos-2"><a href="#Codigo-y-datos-2" class="headerlink" title="Código y datos"></a>Código y datos</h4><p>Disponible próximamente.</p>
+<hr>
+<h2 id="¿Que-nos-dice-el-numero-de-fallecimientos"><a href="#¿Que-nos-dice-el-numero-de-fallecimientos" class="headerlink" title="¿Qué nos dice el número de fallecimientos?"></a>¿Qué nos dice el número de fallecimientos?</h2><h4 id="Estimacion-del-retraso-entre-las-curvas"><a href="#Estimacion-del-retraso-entre-las-curvas" class="headerlink" title="Estimación del retraso entre las curvas"></a>Estimación del retraso entre las curvas</h4><p>Definimos el retraso entre las curvas de casos totales y de fallecimientos como el número de días que hay que desplazar la curva de casos totales para que sea máximamente similar a la de fallecimientos. Específicamente:</p>
+<ol>
+<li>Para cada país definimos una ventana temporal de duración $D$ entre 80 y 130 días (dependiendo del país) comenzando el 1 de marzo tal que el primer pico de casos totales se encuentre dentro de la ventana.</li>
+<li>En dicha ventana tomamos la serie temporal de casos totales confirmados $C_n$ y la serie temporal del número total de fallecimientos $F_n$. Normalizamos cada serie dividiendo por su valor máximo dentro de la ventana.</li>
+<li>Calculamos el error cuadrático medio entre ellas: $$\mathit{ECM}(0) = \frac{1}{D}\sum_{n=1}^D(C_n-F_n)^2$$ Este valor corresponde a considerar un retraso de cero días.</li>
+<li>Repetimos lo anterior desplazando sucesivamente la serie de casos totales un día, dos días, tres días, etc., para obtener el error cuadrático medio en función del desplazamiento de $n$ días: $\mathit{ECM}(n)$.</li>
+<li>El retraso reportado en el texto para cada país es el que hace mínimo su error cuadrático medio.</li>
+<li>En el caso de Argentina, las curvas son crecientes (sin pico) hasta el momento del cálculo; debido a eso elegimos utilizar el logaritmo de los datos en vez de los datos originales.</li>
+</ol>
+<h4 id="Codigo-y-datos-3"><a href="#Codigo-y-datos-3" class="headerlink" title="Código y datos"></a>Código y datos</h4><p>Disponible próximamente.</p>
+<hr>
+<h2 id="¿Como-se-compara-COVID-19-con-otras-enfermedades-contagiosas"><a href="#¿Como-se-compara-COVID-19-con-otras-enfermedades-contagiosas" class="headerlink" title="¿Cómo se compara COVID-19 con otras enfermedades contagiosas?"></a>¿Cómo se compara COVID-19 con otras enfermedades contagiosas?</h2><h4 id="Digitalizacion"><a href="#Digitalizacion" class="headerlink" title="Digitalización"></a>Digitalización</h4><p>Digitalizamos el gráfico 2 del artículo “The coronavirus pandemic in five powerful charts” (ver Fuente a continuación) con el programa <code>g3data</code> en Linux.</p>
+<h4 id="Fuente"><a href="#Fuente" class="headerlink" title="Fuente"></a>Fuente</h4><p>Nature <strong>579</strong>, 482-483 (2020).<br>doi: <a href="https://www.nature.com/articles/d41586-020-00758-2" target="_blank" rel="noopener">10.1038/d41586-020-00758-2</a></p>
+<hr>
+<h2 id="¿Como-entender-la-evolucion-de-la-pandemia-en-el-mundo"><a href="#¿Como-entender-la-evolucion-de-la-pandemia-en-el-mundo" class="headerlink" title="¿Cómo entender la evolución de la pandemia en el mundo?"></a>¿Cómo entender la evolución de la pandemia en el mundo?</h2><p>Las curvas de “comportamientos elementales” son idealizaciones que dibujamos directamente sobre el gráfico (es decir, sin utilizar un modelo matemático) para clasificar curvas reales en términos de conceptos simplificados más elementales. La relación entre dichos conceptos y sus potenciales modelos matemáticos es la siguiente:</p>
+<ol>
+<li><p><strong>Diagonal principal</strong>: crecimiento exponencial con tiempo de duplicación de aproximadamente 2-3 días. Modelo simplificado: $\frac{dN}{dt} = \beta_1N$, donde $N$ es el número total de casos. El tiempo de duplicación es $T_d = \ln(2)/\beta_1$. Ver notas metodológicas de la historia “¿Cuál es el ritmo de la pandemia?”. En el gráfico de casos nuevos diarios vs. casos totales (con escala logarítmica en ambos ejes) se ve como un tramo recto diagonal.</p>
 </li>
-<li><p>Utilizando los datos de día y número de casos que corresponden a cada ventana temporal, ajustamos el modelo<br>$ln(N) ~ alfa + beta*(t - tprom)$<br>donde N es el número total de casos confirmados, t es el tiempo en días desde el primer caso en la ventana considerada y tprom es el tiempo medio en la ventana considerada. Utilizamos la función rlm de la librería MASS en lenguaje R. Todos los puntos de la ventana entran en el cálculo con el mismo peso.</p>
+<li><p><strong>Diagonal paralela</strong>: crecimiento exponencial con tiempo de duplicación mayor. Modelo simplificado: $\frac{dN}{dt} = \beta_2N$, con $\beta_2&lt;\beta_1$. En el gráfico de casos nuevos diarios vs. casos totales (con escala logarítmica en ambos ejes) se ve como un tramo recto diagonal por debajo de la diagonal principal.</p>
 </li>
-<li><p>Dado el valor obtenido para beta, calculamos el tiempo de duplicación como<br>Td = ln(2)/beta</p>
+<li><p><strong>Control</strong>: el número de casos nuevos diarios se acerca a cero. Modelo simplificado: $\frac{dN}{dt} \sim 0$. En el gráfico de casos nuevos diarios vs. casos totales (con escala logarítmica en ambos ejes) se ve como un tramo recto que se hace vertical hacia abajo.</p>
+</li>
+<li><p><strong>Constante</strong>: el número de casos nuevos diarios tiene un valor constante. Modelo simplificado: $\frac{dN}{dt} = c$, donde $c$ es una constante positiva. En el gráfico de casos nuevos diarios vs. casos totales (con escala logarítmica en ambos ejes) se ve como un tramo recto horizontal.</p>
 </li>
 </ol>
-<h3 id="Simplificaciones-consideradas"><a href="#Simplificaciones-consideradas" class="headerlink" title="Simplificaciones consideradas"></a>Simplificaciones consideradas</h3><p>Utilizamos un modelo de tiempo continuo (en contraposición a un modelo de tiempo discreto, donde la evolución se da en pasos). Dados los tramos rectos que se observan en el gráfico de casos totales en escala semilog, asumimos que en dichos tramos la evolución del número total de casos está aproximadamente descripta por una función exponencial del tiempo con una dinámica subyacente del tipo dN/dt = beta<em>N. Elegimos esta aproximación por simplicidad. Otros modelos pueden considerar una dinámica de tipo logístico dN/dt = beta</em>((K-N)/K)*N que incluye límites al crecimiento dados naturalmente por un tamaño finito de población, etc. Modelos aún más complejos distinguen diversos estadíos de la enfermedad al considerar transiciones entre personas susceptibles, infectadas, recuperadas, fallecidas y otras condiciones (por ejemplo del tipo SIR, SIRD, SEIR, MSEIR, etc.).</p>
+<p>Para modelar las <em>transiciones</em> entre estos comportamientos elementales (como por ejemplo pasar de la diagonal principal a crecimiento constante) o sus <em>composiciones</em> (por ejemplo pensar un rebrote como diagonal + control + diagonal) deberían considerarse expresiones matemáticas más complicadas.</p>
+<hr>
+<h2 id="¿Como-sabemos-si-el-plasma-funciona-para-tratar-COVID-19"><a href="#¿Como-sabemos-si-el-plasma-funciona-para-tratar-COVID-19" class="headerlink" title="¿Cómo sabemos si el plasma funciona para tratar COVID-19?"></a>¿Cómo sabemos si el plasma funciona para tratar COVID-19?</h2><h4 id="Fuente-1"><a href="#Fuente-1" class="headerlink" title="Fuente"></a>Fuente</h4><p><a href="https://www.argentina.gob.ar/salud/coronavirus-COVID-19/abordaje-terapeutico" target="_blank" rel="noopener">Recomendaciones condicionales para el abordaje terapéutico de COVID-19 - Versión 3.0</a> (Ministerio de Salud de la Nación)</p>
 
       </div>
       
@@ -289,7 +337,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="reporte">
 <a href="/">
   Inicio</a> - 
-<a href="#">
+<a href="/metodos/">
     Métodos</a> - 
 <a href="/about/">
     Acerca del proyecto</a>
