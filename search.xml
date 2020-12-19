@@ -810,7 +810,7 @@ verde #62BB46
                     <br/><br/>
                     Por ejemplo, en el inicio de la pandemia una persona que había perdido el olfato y tenía tos no era testeada. Pero, después del 8 de junio, sí.
                     <br/><br/>
-                    Esta persona no aparecía en nuestro universo de casos sospechosos y <mark class="label naranja">ahora sí.</mark>
+                    Esta persona no aparecía en nuestro universo de casos sospechosos y <mark class="label naranja"> sí comenzó a aparecer luego.</mark>
 				</p>
 			</div>
 			
@@ -1340,7 +1340,7 @@ function ajustaMesesEjeX(g) {
             </div>
             <div class='step' data-index='3'>
                 <p>
-                    Para saber cómo va el ritmo de cada provincia, tenemos que mirar la inclinación de las partes <a href="/covid/el_ritmo_de_la_pandemia/"> rectas de cada curva</a>, por ejemplo en los últimos días.
+                    Para saber cuál era el ritmo de cada provincia, tenemos que mirar la inclinación de las partes <a href="/covid/el_ritmo_de_la_pandemia/"> rectas de cada curva</a>, por ejemplo en los últimos días.
 					<br/><br/>
 					Esa inclinación nos da el tiempo de duplicación de casos, que no es el mismo en todos los lugares.
 					<br/><br/>
@@ -1356,36 +1356,36 @@ function ajustaMesesEjeX(g) {
             </div>
             <div class='step' data-index='5'>
                 <p>
-                    Considerando los datos de las últimas dos semanas, estas son las provincias en las que el número de casos confirmados se duplica en menos de 5 días.
+                    Considerando los datos de las últimas dos semanas al 01/12/2020, estas son las provincias en las que el número de casos confirmados se duplicaba en menos de 5 días.
 					<br/><br/>
-                    Es decir, el ritmo de la pandemia en estas provincias es muy alto
+					Es decir, el ritmo de la pandemia en estas provincias era muy alto.
 					<span class="pcias"></span>
 				</p>
             </div>
             <div class='step' data-index='6'>
                 <p>
-					Estas son las provincias en las que sus casos confirmados se están duplicando con tiempos de entre 5 y 15 días.
+					Estas eran las provincias en las que sus casos confirmados se estaban duplicando con tiempos de entre 5 y 15 días.
 					<span class="pcias"></span>
 				</p>
             </div>
 
 			<div class='step' data-index='7'>
                 <p>
-					En éstas, la duplicación de casos se da entre 15 y 25 días.
+					En éstas, la duplicación de casos se daba entre 15 y 25 días.
 					<span class="pcias"></span>
 				</p>
 			</div>
 			
 			<div class='step' data-index='8'>
                 <p>
-					Y en estas provincias, donde los brotes parecen estar más controlados, y los casos se están duplicando muy lentamente (cada 25 días o más)...
+					Y en estas provincias, donde los brotes parecían estar más controlados, y los casos se estaban duplicando muy lentamente (cada 25 días o más)...
 					<span class="pcias"></span>
 				</p>
 			</div>
 
 			<div class='step' data-index='9'>
                 <p>
-					...o también están aquellas que, directamente, no tienen casos nuevos.
+					...o también estaban aquellas que, directamente, no tenían casos nuevos.
 					<span class="pcias"></span>
 				</p>
 			</div>
@@ -1898,8 +1898,7 @@ function relax(dataInterna, spacing) {
 </script>
 
 
-<div class="note info"><p>En algunos lugares fue y es posible flexibilizar las medidas de aislamiento social antes que en otros. Pero, más importante aún,  ¡la evolución local de la pandemia puede ir cambiando! Y, por lo tanto, las medidas también. </p>
-<p>Por ahora, no te olvides de seguir el ritmo de la pandemia en tu provincia.</p>
+<div class="note info"><p>En algunos lugares fue posible flexibilizar las medidas de aislamiento social antes que en otros. Pero, más importante aún,  ¡la evolución local de la pandemia puede ir cambiando! Y, por lo tanto, las medidas también. </p>
 </div>]]></content>
   </entry>
   <entry>
@@ -2052,14 +2051,14 @@ function relax(dataInterna, spacing) {
             </div>
             <div class='step' data-index='3'>
                 <p>
-                    Por otro lado, está la curva que estamos acostumbrados a ver en todos lados, y que no parece muy aplanada. Representa el número de casos confirmados acumulado en el tiempo, es decir que muestra todas las personas que alguna vez tuvieron testeo positivo. Pero ...
+                    Por otro lado, está la curva de casos acumulados diarios, que no era tan aplanada. Representa el número de casos confirmados acumulado en el tiempo, es decir que muestra todas las personas que alguna vez tuvieron testeo positivo. Pero...
                 </p>
             </div>
             <div class='step' data-index='4'>
                 <p>
-                    … sabemos que algunas de esas personas ya están recuperadas y otras fallecieron. Estas ya no ocuparán camas de hospitales ni necesitarán respiradores (y además ya no transmiten el virus).
+                    … sabemos que algunas de esas personas ya se habían recuperado y  otras habían fallecido. Estas no ocupaban camas de hospitales ni respiradores (y además ya no transmitían el virus).
                     <br/><br/>
-                Las que quedan son las personas que tienen COVID-19 en el presente: <mark class="label activos">los casos activos</mark>.
+                Las que quedan son las personas que tenían COVID-19 en ese momento: <mark class="label activos">los casos activos</mark>.
                 </p>
             </div>
             <div class='step' data-index='5'>
@@ -2701,10 +2700,10 @@ verde #62BB46
         <!-- acá van los textos de cada paso -->
         <article>
             <div class='step' data-index='0'>
-				<p>Varias veces por semana encontramos en las noticias el anuncio de 
-                    <mark class="label naranja">cada nuevo récord de casos diarios</mark>, rompiendo el récord de los <mark class="label naranjaclaro">días anteriores</mark>. La pregunta surge inmediatamente: ¿significa que estamos peor?
+				<p> Varias veces por semana encontrábamos en las noticias el anuncio de
+                    <mark class="label naranja">cada nuevo récord de casos diarios</mark>, rompiendo el récord de los <mark class="label naranjaclaro">días anteriores</mark>. La pregunta surgía inmediatamente: ¿significa que estamos peor?
                 <br/><br/>
-                Dado que se trata de una pandemia, te proponemos cambiar de pregunta: ¿es <b>esperable</b> quebrar el récord cada día?
+                Dado que se trata de una pandemia, te proponemos cambiar de pregunta: ¿era <b>esperable</b> quebrar el récord cada día?
                 </p>
             </div>
             
@@ -2800,12 +2799,12 @@ verde #62BB46
         <article>
             <div class='step' data-index='0'>
                 <p>
-                    Entonces, durante las etapas iniciales de una pandemia <b>es esperable</b> que rompamos cada día el récord de casos nuevos (más allá de fluctuaciones normales como las que vemos en los datos reales).
+                    Entonces, durante las etapas iniciales de la pandemia era esperable que rompiéramos cada día el récord de casos nuevos (más allá de fluctuaciones normales como las que se veían en los datos reales).
                 </p>
             </div>
             <div class='step' data-index='1'>
                 <p>
-                    Y no solo eso. Además es esperable romperlo <b>inclusive en presencia de medidas</b> de mitigación/contención, aunque quizás con un <a href="/covid/el_ritmo_de_la_pandemia">ritmo</a> menor.
+                    Y no solo eso. Además era esperable romperlo <b>inclusive en presencia de medidas</b> de mitigación/contención, aunque quizás con un <a href="/covid/el_ritmo_de_la_pandemia">ritmo</a> menor.
                     <br/><br/>                    
                     La novedad debería ser, en todo caso, que durante varios días <b>no se haya roto el récord</b>, lo que podría apuntar al éxito de las medidas.
                 </p>
@@ -3188,7 +3187,7 @@ function ajustaMesesEjeX(g) {
             </div>
             <div class='step' data-index='2'>
                 <p>
-                    Algunas de esas personas (aproximadamente 15%), aunque tengan COVID-19, <b>nunca van a desarrollar ningún síntoma</b>. Son las que denominamos  “casos asintomáticos”.
+                    Algunas de esas personas, aunque tengan COVID-19, <b>nunca van a desarrollar ningún síntoma</b>. Son las que denominamos  “casos asintomáticos”.
                     <br/><br/>
                     El grupo de asintomáticos es especialmente importante porque difícilmente se los testea (y por ende nunca formarán parte de lo que consideramos 
                     <a href="/covid/la_cantidad_de_contagiados/">“casos confirmados”</a>) pero tienen capacidad de transmitir el virus. Una forma de detectar a los asintomáticos es haciendo testeos masivos, que son complicados y caros. Pasado un determinado tiempo, van a recuperarse y dejar de transmitir el virus.
@@ -3196,7 +3195,7 @@ function ajustaMesesEjeX(g) {
             </div>
             <div class='step' data-index='3'>
                 <p>
-                    La historia continúa, porque la otra gran parte de las personas que tienen COVID-19 <b>sí van a tener síntomas</b> (aproximadamente 85%). Estas son capaces de transmitir el virus y tienen más probabilidades de que, por sus síntomas, se las testee.
+                    La historia continúa, porque la otra gran parte de las personas que tienen COVID-19 <b>sí van a tener síntomas</b>. Estas son capaces de transmitir el virus y tienen más probabilidades de que, por sus síntomas, se las testee.
                     <br/><br/>
                     A diferencia de los asintomáticos, este <mark class="label violeta">grupo de “sintomáticos”</mark> es conocido para nosotros porque, en general los testeamos y, cuando dan positivo, van a figurar en los casos confirmados.
                 </p>
@@ -3886,7 +3885,7 @@ function wrap(text, width, dy, alignBottom) {
             <div class='step' data-index='0'>
                 <p> La <mark class="label naranja">cantidad de muertes totales</mark> y por <mark class="label naranjaclaro">millón de habitantes</mark> en todo el mundo por COVID-19 son cifras con las que nos cruzamos a diario.
                     <br/><br/>
-                    Este es el ranking de los  países según ambos datos.
+                    Este es el ranking de los países según ambos datos al 01/12/2020.
                     <br/><br/>
                     ¿Sirven estos números para comparar el impacto de la pandemia entre los distintos países? ¿Cuál conviene mirar?
                 </p>
@@ -4607,7 +4606,7 @@ function wrap(text, width, dy, alignBottom) {
         <!-- acá van los textos de cada paso -->
         <article>
             <div class='step' data-index='0'>
-                <p>Venimos viendo este gráfico hace bastante tiempo. Sí, es el de número de casos nuevos confirmados por día en Argentina (promedio de los últimos 7 días). Nos interesa mirar <b>este rango de tiempo en especial.</b>
+                <p>Venimos viendo este gráfico hace bastante tiempo. Sí, es el de número de casos nuevos confirmados por día en Argentina (promedio de los últimos 7 días) al 01/12/2020. Nos interesa mirar <b>este rango de tiempo en especial.</b>
                     <br/><br/>
                     ¿Qué pasa si a este mismo gráfico le agregamos <b>la curva de fallecimientos</b> por COVID-19 por día en Argentina?
                 </p>
@@ -4739,7 +4738,7 @@ function wrap(text, width, dy, alignBottom) {
             </div>
             <div class='step' data-index='1'>
                 <p>
-                    Esto probablemente se deba a un simple aumento en el número de testeos, lo que produce un aumento en los casos confirmados pero no en los fallecimientos. 
+                    Esto probablemente se haya debido a un simple aumento en el número de testeos, lo que produce un aumento en los casos confirmados pero no en los fallecimientos. 
                     <br/><br/>
                     Basados en el número de fallecimientos, podríamos decir que <mark class="label rebrote">el rebrote</mark> en realidad es similar a la primera ola de contagios.
                 </p>
@@ -5443,10 +5442,7 @@ li.refe span {
     min-width: 70px;
 }
 
-
-
-
-    @media only screen and (min-width: 768px) {
+    @media only screen and (min-width: 768px) and (min-height: 550px)  {
   
         div#stage2.stage {
             margin-top: 5%;
@@ -5517,6 +5513,90 @@ li.refe span {
             fill: #444;
         }
     }
+
+    
+@media only screen and (max-height: 550px){
+     div#stage2.stage {
+            margin-top: 5%;
+        }
+
+        #stage2  li {
+            width: 16%;
+        }
+
+        #stage3  li {
+            height: 8vh;
+        }
+
+div#stage2.stage {
+    margin-top: 0%;
+}
+
+        div#stage4.stage {
+            margin-top: 3%;
+        }
+        
+        div#stage0.stage{
+        margin-top: 6%;
+        }
+
+        div#stage1.stage{
+        margin-top: 0%;
+        }
+
+        div#stage0.stage img{
+            width: 29%;
+            display: inline-grid;
+        }
+
+div#stage1.stage img {
+    width: 65%;
+    display: block;
+    margin: auto;
+    height: 100%;
+}
+
+div#stage1.stage li {
+    width: 48%;
+    display: inline-grid;
+    margin: auto;
+    height: 54vh;
+}
+        
+
+        div#stage4.stage img{
+            width: 50%;
+            display: inline-grid;
+            max-height: 45vh;
+        }
+
+
+        #rangos td {
+                min-width: 95px;
+            }
+
+            #rangos th {
+                min-width: 100px;
+            }
+
+        .table-container{
+
+            bottom: 35px;
+
+        }
+
+
+
+        #tracker{
+            max-width: 440px;
+            margin-top: 20px;
+        }
+
+        text.titulo {
+            font-size: 14px;
+            fill: #444;
+        }
+}
     
 </style>
 
@@ -7199,7 +7279,7 @@ verde #62BB46
                 <p>
                     Bajo las premisas antes mencionadas, la OMS recomienda que  el <mark class="label rojo">índice de positividad sea menor al 5%</mark>. 
                     <br/><br/>
-                    En Argentina, el índice promedio de la última semana es de  <mark class="label rojo"><span id="indicePromedio"></span></mark>, aunque es importante destacar que no siempre ni en todas las jurisdicciones se cumplieron las sugerencias de la OMS.
+                    En Argentina, el índice promedio al 10/12/2020 era de <mark class="label rojo"><span id="indicePromedio"></span></mark>, aunque es importante destacar que no siempre ni en todas las jurisdicciones se cumplieron las sugerencias de la OMS.
                 </p>
             </div>
             
@@ -8408,14 +8488,16 @@ verde #62BB46
         <article>
             <div class='step' data-index='0'>
                 <p>
-                    En el caso de COVID-19 todavía no tenemos vacunas y, por lo tanto, no podemos aspirar en el corto plazo a la inmunidad de rebaño a través de la vacunación.
+                    En el caso de COVID, debido a la ausencia de la vacuna a la fecha y, por lo tanto, no podemos aspirar en el corto plazo a la inmunidad de rebaño a través de la vacunación.
                 <br/><br/>
-                Y tampoco es factible lograr inmunidad de rebaño por contagio natural. ¿Por qué no?
+                    Y tampoco era factible lograr inmunidad de rebaño por contagio natural. ¿Por qué no?
                 </p>
             </div>
             <div class='step' data-index='1'>
                 <p>
-                    En pocas palabras, no es factible por dos motivos: no se puede realizar en el corto plazo (antes de la <mark class="label verde">aprobación de la vacuna</mark>), y conllevaría muchísimas muertes. Profundicemos.
+                    En pocas palabras, no era factible por dos motivos: no se puede realizar en el corto plazo (antes de la aprobación de la vacuna), y conllevaría muchísimas muertes. Profundicemos.
+                <br/><br/>
+Consideremos esta curva hipotética que muestra de manera simplificada la evolución del número de casos totales.
                     </p>
             </div>
             <div class='step' data-index='2'>
@@ -8429,7 +8511,7 @@ Es un número difícil de saber con certeza. Las estimaciones más confiables ca
                 <p>
                     En Argentina, el 40% de la población contagiada significaría que unas <b>18 millones de personas</b> se enfermen.
                     <br/><br/>
-Esto supondría, además, llegar a ese 40% de forma rápida y mucho antes de la aprobación de una vacuna, lo que solo sería probable que suceda sin ninguna medida de prevención.
+Esto supondría, además, llegar a ese 40% de forma rápida y mucho antes de la aprobación de una vacuna, lo que solo sería probable que suceda si no tomáramos casi ninguna medida de prevención. Este escenario está representado por una curva hipotética mucho más empinada.
 				</p>
 
 			</div>
@@ -8438,7 +8520,7 @@ Esto supondría, además, llegar a ese 40% de forma rápida y mucho antes de la 
                 <p>
                     Más allá del tiempo, avanzar con esa estrategia implicaría que de los 18 millones de personas contagiadas, al menos 70.000 <a href="/covid/historia_de_un_caso/">fallecieran solo por esta causa</a>.
                     <br/><br/>
-                Como referencia, en 2018 murieron casi 32.000 personas por todas las enfermedades respiratorias.
+                Como referencia, en 2018 murieron casi 32.000 personas por enfermedades infecciosas respiratorias.
 				</p>
 			</div>
             
