@@ -10617,9 +10617,10 @@ d3.select(".contenedorGrafico").append("div").attr("class","epigrafe")
     }
 
     
-    svg.attr("viewBox", [0, 0, widthReal, heightReal]);
+    svg.attr("viewBox", [0, 0, widthReal, d3.max([heightReal,450])]);
+    svg.attr("height", heightReal);
 
-    height = heightReal - margin.top - margin.bottom;
+    height = d3.max([(heightReal - margin.top - margin.bottom),450]);
     width = widthReal - margin.left - margin.right;
     
 
@@ -10641,6 +10642,7 @@ d3.select(".contenedorGrafico").append("div").attr("class","epigrafe")
         var padding = isMobile?[10,5]:[10,5];
         var medidas = isMobile?[12,32]:[20,50];
 
+        
 
         var gPersons = svg.append("g").attr("id","personitas")
         .attr("transform", "translate(" + (margin.left+ (width - cant[0]*(medidas[0]+padding[0])))/2+  "," + margin.top + ")")
