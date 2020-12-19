@@ -5368,7 +5368,7 @@ li {
 }
 
 #stage3 li {
-    height: 7vh;
+    height: 6vh;
     flex-grow: 0;
 }
 
@@ -5399,7 +5399,7 @@ li.refe span {
 .table-container{
     align-items: center;
     position: absolute;
-    bottom: 28px;
+    bottom: 42px;
     width: 100%;
 }
 
@@ -5498,6 +5498,12 @@ li.refe span {
             #rangos th {
                 min-width: 100px;
             }
+
+        .table-container{
+
+            bottom: 35px;
+
+        }
 
 
 
