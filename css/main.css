@@ -2888,7 +2888,7 @@ hr {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #d9ff44;
+  background: #b37571;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2921,4 +2921,48 @@ hr {
   padding: 21px 30px 26px 30px;
   margin-top: 0px;
   background-color: #f1f1f1;
+}
+hr {
+  height: 2px;
+  margin: 90px 0;
+}
+.notaActualizacion {
+  border-radius: 10px;
+  margin: 10px;
+  margin-bottom: -45px;
+  padding: 16px 20px 17px 20px;
+  margin-top: 10px;
+  background-color: #ffe6a9;
+  font-size: 0.8em;
+  line-height: 1.2em;
+}
+@media only screen and (min-width: 768px) {
+  .notaActualizacion {
+    margin: 0px;
+    margin-bottom: -45px;
+    margin-top: 10px;
+    padding: 16px 20px 17px 20px;
+    background-color: #ffe6a9;
+    font-size: 0.9em;
+    line-height: 1.3em;
+  }
+}
+.post-body .note.default:not(.no-icon)::before {
+  content: "\f0c3";
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  color: #777;
+  margin: 0px 12px;
+  top: 0px;
+}
+.post-body .note.default {
+  padding: 19px 60px;
+}
+@media only screen and (min-width: 768px) {
+  .post-body .note.default:not(.no-icon)::before {
+    top: 15px;
+  }
+  .post-body .note.default {
+    font-size: 0.8em;
+  }
 }

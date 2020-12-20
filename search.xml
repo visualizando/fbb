@@ -607,7 +607,13 @@ function ajustaMesesEjeX(g) {
 
 <div class="note info"><p>Para evaluar la situación conviene, entonces, mirar la inclinación de la curva (¡en escala semi-log!): menor inclinación significa menor ritmo de contagio, es decir situación más controlada.</p>
 <p>En resumen, el ritmo de la curva es uno de los termómetros que tenemos para evaluar la situación actual, y nos da mayor información que la cifra aislada del número total de casos.</p>
-</div>]]></content>
+</div>
+
+
+<div class="note default"><p>Ver <a href="https://decodificar.org/metodos/#%C2%BFCual-es-el-ritmo-de-la-pandemia">Métodos y fuentes</a> de esta historia</p>
+</div>
+
+]]></content>
   </entry>
   <entry>
     <title>¿Cuántos contagiados hay realmente?</title>
@@ -1899,7 +1905,11 @@ function relax(dataInterna, spacing) {
 
 
 <div class="note info"><p>En algunos lugares fue posible flexibilizar las medidas de aislamiento social antes que en otros. Pero, más importante aún,  ¡la evolución local de la pandemia puede ir cambiando! Y, por lo tanto, las medidas también. </p>
-</div>]]></content>
+</div>
+
+<div class="note default"><p>Ver <a href="https://decodificar.org/metodos/#%C2%BFComo-evoluciona-mi-provincia">Métodos y fuentes</a> de esta historia</p>
+</div>
+]]></content>
   </entry>
   <entry>
     <title>Hay que achatar la curva… ¿qué curva?</title>
@@ -4491,7 +4501,13 @@ function wrap(text, width, dy, alignBottom) {
 
 <div class="note info"><p>Ajustar por tamaño de población (es decir, mirar el dato por millón de habitantes) nos permite hacer comparaciones más correctas entre países que tienen diferente tamaño.</p>
 <p>Otra corrección posible es la de comparar sólo entre países que se encuentren en etapas similares de la pandemia (por ejemplo, que hayan encontrado el pico). Puede haber aún más factores escondidos: densidad habitacional, condiciones sanitarias, edad de la población, riqueza del país, etc. Tener en cuenta estos factores nos ayuda a hacer comparaciones cada vez mejores.</p>
-</div>]]></content>
+</div>
+
+
+<div class="note default"><p>Ver <a href="https://decodificar.org/metodos/#%C2%BFEn-que-paises-murieron-mas-personas-por-COVID-19">Métodos y fuentes</a> de esta historia</p>
+</div>
+
+]]></content>
   </entry>
   <entry>
     <title>¿Qué nos dice el número de fallecimientos?</title>
@@ -5212,7 +5228,12 @@ function ajustaMesesEjeX(g) {
 <div class="note info"><p>El retraso entre el número de fallecimientos y el número de casos confirmados se debe principalmente al curso natural de la enfermedad (aunque otras causas como retrasos en la carga de datos también pueden tener efecto).</p>
 <p>Mientras más se tarde en testear a las personas con síntomas, y mientras más se tarde en conocer el resultado de ese test, menor será el retraso entre la curva de casos y la de fallecimientos. Las dos curvas estarán más “cerca”.</p>
 <p>La curva del número de fallecimientos es un indicador más confiable que la del número de casos confirmados, porque no depende de decisiones como la definición de caso sospechoso y el número de testeos que se están realizando. Sin embargo, tiene sus propias limitaciones y la principal es que es un indicador que llega con más retraso que el de casos confirmados.</p>
-</div>]]></content>
+</div>
+
+
+<div class="note default"><p>Ver <a href="https://decodificar.org/metodos/#%C2%BFQue-nos-dice-el-numero-de-fallecimientos">Métodos y fuentes</a> de esta historia</p>
+</div>
+]]></content>
   </entry>
   <entry>
     <title>¿Cuándo tendremos una vacuna segura y efectiva?</title>
@@ -6988,7 +7009,15 @@ function scrollyTelling(containerNumber,step,entra){
 
 <div class="note info"><p>La realidad es difícilmente una cuestión de blanco o negro. Es más bien compleja y tiene muchos matices. Hay gérmenes que son más contagiosos pero menos letales, y gérmenes que son más letales pero menos contagiosos. Y además, independientemente de eso, para algunos tenemos vacunas y/o tratamientos y para otros no.</p>
 <p>Si bien estas cualidades de los virus pueden variar con el paso del tiempo y dependen de factores externos (distintas regiones, grupos de edad, condiciones socioeconómicas, conocimiento que los científicos van adquiriendo, etc.), al comparar al virus de COVID-19 con otros gérmenes que conocemos mejor se hace más fácil entender cuál es el desafío y el grado de peligrosidad de la pandemia que enfrentamos.</p>
-</div>]]></content>
+</div>
+
+
+
+<pre><code>{% note default %}
+
+ Ver [Métodos y fuentes](https://decodificar.org/metodos/#%C2%BFComo-se-compara-COVID-19-con-otras-enfermedades-contagiosas) de esta historia
+    
+{% endnote %}</code></pre>]]></content>
   </entry>
   <entry>
     <title>¿Da igual hacer muchos o pocos testeos?</title>
@@ -10452,7 +10481,14 @@ function relax(dataInterna, spacing) {
 
 
 <div class="note info"><p>Para entender la evolución de la pandemia hay muchos datos que podemos mirar. Combinarlos, visualizarlos de determinadas maneras y compararlos con otros nos permite obtener más información que analizarlos de forma individual.</p>
-</div>]]></content>
+</div>
+
+
+
+
+<div class="note default"><p>Ver <a href="https://decodificar.org/metodos/#%C2%BFComo-entender-la-evolucion-de-la-pandemia-en-el-mundo">Métodos y fuentes</a> de esta historia</p>
+</div>
+]]></content>
   </entry>
   <entry>
     <title>¿Cómo sabemos si el plasma funciona para tratar pacientes con COVID-19?</title>
@@ -10942,6 +10978,11 @@ function titleCase(string) {
 
 <div class="note info"><p>La pandemia por COVID-19 nos obligó a iniciar rápidamente estudios de investigación de tratamientos y vacunas. El tratamiento con plasma de convalecientes, aunque seguro y eficaz en otras enfermedades, no había sido probado frente a esta nueva enfermedad y por esto hubo que hacer estudios de investigación para determinarlo.</p>
 <p>Aún con algunos estudios que muestren que el plasma no tiene efectos beneficiosos en el tratamiento de personas con COVID-19, ¿quiere decir que en ninguna circunstancia es útil? No, lo que sí nos dice es que para el tipo de pacientes representados en el estudio (pacientes graves, por ejemplo) no es efectivo. ¿Podría ser efectivo para otros tipos de pacientes? (pacientes leves, o pacientes graves de un rango de edad específico, o aquellos que se eligió excluir del estudio). Y de igual manera, si un estudio mostrase que el plasma es beneficioso en cierto grupo, ¿esto significa que va a tener eficacia en todos los pacientes? Tampoco. Para saber eso, necesitaríamos hacer nuevos estudios, con nuevos criterios de inclusión y/o exclusión, e incluso podríamos elegir otras variables para medir la eficacia.</p>
-</div>]]></content>
+</div>
+
+
+<div class="note default"><p>Ver <a href="https://decodificar.org/metodos/#%C2%BFComo-sabemos-si-el-plasma-funciona-para-tratar-COVID-19">Métodos y fuentes</a> de esta historia</p>
+</div>
+]]></content>
   </entry>
 </search>
