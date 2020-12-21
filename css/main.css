@@ -2224,15 +2224,44 @@ pre code {
     display: none;
   }
 }
-.post-nav {
+.post-footer.relacionadas {
   border-top: 1px solid #eee;
+  margin-top: 65px;
+  padding: 10px 5px 0;
+}
+.post-footer.relacionadas .post-title {
+  font-size: 1em;
+}
+.post-nav {
   display: flex;
   justify-content: space-between;
-  margin-top: 15px;
+  margin-top: 5px;
   padding: 10px 5px 0;
 }
 .post-nav-item {
   flex: 1;
+  padding: 10px;
+/* 
+  .fa {
+    font-size: $font-size-smallest;
+  }
+
+  &:first-child {
+    margin-right: 15px;
+
+    .fa {
+      margin-right: 5px;
+    }
+  }
+
+  &:last-child {
+    margin-left: 15px;
+    text-align: right;
+
+    .fa {
+      margin-left: 5px;
+    }
+  } */
 }
 .post-nav-item a {
   border-bottom: none;
@@ -2242,22 +2271,6 @@ pre code {
 }
 .post-nav-item a:active {
   top: 2px;
-}
-.post-nav-item .fa {
-  font-size: 0.65em;
-}
-.post-nav-item:first-child {
-  margin-right: 15px;
-}
-.post-nav-item:first-child .fa {
-  margin-right: 5px;
-}
-.post-nav-item:last-child {
-  margin-left: 15px;
-  text-align: right;
-}
-.post-nav-item:last-child .fa {
-  margin-left: 5px;
 }
 .rtl.post-body p,
 .rtl.post-body a,
@@ -2888,7 +2901,7 @@ hr {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #b37571;
+  background: #ed1dff;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
