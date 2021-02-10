@@ -29,8 +29,8 @@
 <meta property="og:description" content="¿Cuál es el ritmo de la pandemia?Ajuste y tiempo de duplicaciónPara estimar el tiempo de duplicación hicimos un ajuste robusto (es decir, resistente a valores atípicos) de un modelo lineal al logaritm">
 <meta property="og:locale" content="es_ES">
 <meta property="og:image" content="https://decodificar.org/images/coverindex.jpg">
-<meta property="article:published_time" content="2020-12-10T01:22:16.802Z">
-<meta property="article:modified_time" content="2020-12-10T01:22:16.802Z">
+<meta property="article:published_time" content="2021-02-10T20:22:07.416Z">
+<meta property="article:modified_time" content="2021-02-10T20:22:07.416Z">
 <meta property="article:author" content="Fundacion Bunge y Born">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://decodificar.org/images/coverindex.jpg">
@@ -159,9 +159,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <a href="/" rel="section">Inicio</a>
 
   </li>
-        <li class="menu-item menu-item-metodos">
+        <li class="menu-item menu-item-métodos">
 
-    <a href="/metodos/" rel="section">Metodos</a>
+    <a href="/metodos/" rel="section">Métodos</a>
 
   </li>
         <li class="menu-item menu-item-acerca-del-proyecto">
@@ -225,7 +225,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <li>Dado el valor obtenido para beta, calculamos el tiempo de duplicación como $$T_d = \ln(2)/\beta$$</li>
 </ol>
 <h4 id="Simplificaciones-consideradas"><a href="#Simplificaciones-consideradas" class="headerlink" title="Simplificaciones consideradas"></a>Simplificaciones consideradas</h4><p>Utilizamos un modelo de tiempo continuo (en contraposición a un modelo de tiempo discreto, donde la evolución se da en pasos). Dados los tramos rectos que se observan en el gráfico de casos totales en escala semilog, asumimos que en dichos tramos la evolución del número total de casos está aproximadamente descrita por una función exponencial del tiempo con una dinámica subyacente del tipo $dN/dt = \beta N$. Elegimos esta aproximación por simplicidad. Otros modelos pueden considerar una dinámica de tipo logístico $dN/dt = \beta ((K-N)/K)N$ que incluye límites al crecimiento dados naturalmente por un tamaño finito de población, etc. Modelos aún más complejos distinguen diversos estadíos de la enfermedad al considerar transiciones entre personas susceptibles, infectadas, recuperadas, fallecidas y otras condiciones (por ejemplo del tipo SIR, SIRD, SEIR, MSEIR, etc.).</p>
-<h4 id="Codigo-y-datos"><a href="#Codigo-y-datos" class="headerlink" title="Código y datos"></a>Código y datos</h4><p>Disponible próximamente.</p>
 <hr>
 <h2 id="¿Como-evoluciona-mi-provincia"><a href="#¿Como-evoluciona-mi-provincia" class="headerlink" title="¿Cómo evoluciona mi provincia?"></a>¿Cómo evoluciona mi provincia?</h2><h4 id="Ajuste-y-tiempo-de-duplicacion-1"><a href="#Ajuste-y-tiempo-de-duplicacion-1" class="headerlink" title="Ajuste y tiempo de duplicación"></a>Ajuste y tiempo de duplicación</h4><p>Para estimar el tiempo de duplicación de los últimos datos de cada provincia hicimos un ajuste robusto (es decir, resistente a valores atípicos) de un modelo lineal al logaritmo de los datos correspondientes. Específicamente, utilizamos el siguiente procedimiento:</p>
 <ol>
@@ -234,11 +233,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <li>Dado el valor obtenido para beta, calculamos el tiempo de duplicación como $$T_d = \ln(2)/\beta$$</li>
 </ol>
 <h4 id="Simplificaciones-consideradas-1"><a href="#Simplificaciones-consideradas-1" class="headerlink" title="Simplificaciones consideradas"></a>Simplificaciones consideradas</h4><p>Utilizamos un modelo de tiempo continuo (en contraposición a un modelo de tiempo discreto, donde la evolución se da en pasos). Dados los tramos rectos que se observan en el gráfico de casos totales en escala semilog, asumimos que en dichos tramos la evolución del número total de casos está aproximadamente descripta por una función exponencial del tiempo con una dinámica subyacente del tipo $dN/dt = \beta N$. Elegimos esta aproximación por simplicidad. Otros modelos pueden considerar una dinámica de tipo logístico $dN/dt = \beta ((K-N)/K) N$ que incluye límites al crecimiento dados naturalmente por un tamaño finito de población, etc. Modelos aún más complejos distinguen diversos estadíos de la enfermedad al considerar transiciones entre personas susceptibles, infectadas, recuperadas, fallecidas y otras condiciones (por ejemplo del tipo SIR, SIRD, SEIR, MSEIR, etc.).</p>
-<h4 id="Codigo-y-datos-1"><a href="#Codigo-y-datos-1" class="headerlink" title="Código y datos"></a>Código y datos</h4><p>Disponible próximamente.</p>
 <hr>
 <h2 id="¿En-que-paises-murieron-mas-personas-por-COVID-19"><a href="#¿En-que-paises-murieron-mas-personas-por-COVID-19" class="headerlink" title="¿En qué países murieron más personas por COVID-19?"></a>¿En qué países murieron más personas por COVID-19?</h2><h4 id="Correlacion-entre-numero-de-fallecidos-y-tamano-de-la-poblacion"><a href="#Correlacion-entre-numero-de-fallecidos-y-tamano-de-la-poblacion" class="headerlink" title="Correlación entre número de fallecidos y tamaño de la población"></a>Correlación entre número de fallecidos y tamaño de la población</h4><p>Tomamos todos los países con más de 50 fallecimientos por COVID-19 y más de 100.000 habitantes. Calculamos una regresión lineal robusta (es decir insensible a datos atípicos) entre el logaritmo del número de fallecimientos totales de dichos países (al 31 de julio de 2020) y el logaritmo del tamaño de sus poblaciones. Utilizamos la función <code>lmrob</code> de la librería <code>robustbase</code> en R. La pendiente obtenida es 0.75 $\pm$ 0.11 (valor central $\pm$ error estándar; intervalo de confianza del 95%: 0.55-0.96; $p=4 \times 10^{-11}$).</p>
 <p>Maronna, R. A., Martin, R. D., Yohai, V. J., &amp; Salibián-Barrera, M. (2019). Robust statistics: theory and methods (with R). John Wiley &amp; Sons.</p>
-<h4 id="Codigo-y-datos-2"><a href="#Codigo-y-datos-2" class="headerlink" title="Código y datos"></a>Código y datos</h4><p>Disponible próximamente.</p>
 <hr>
 <h2 id="¿Que-nos-dice-el-numero-de-fallecimientos"><a href="#¿Que-nos-dice-el-numero-de-fallecimientos" class="headerlink" title="¿Qué nos dice el número de fallecimientos?"></a>¿Qué nos dice el número de fallecimientos?</h2><h4 id="Estimacion-del-retraso-entre-las-curvas"><a href="#Estimacion-del-retraso-entre-las-curvas" class="headerlink" title="Estimación del retraso entre las curvas"></a>Estimación del retraso entre las curvas</h4><p>Definimos el retraso entre las curvas de casos totales y de fallecimientos como el número de días que hay que desplazar la curva de casos totales para que sea máximamente similar a la de fallecimientos. Específicamente:</p>
 <ol>
@@ -249,7 +246,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <li>El retraso reportado en el texto para cada país es el que hace mínimo su error cuadrático medio.</li>
 <li>En el caso de Argentina, las curvas son crecientes (sin pico) hasta el momento del cálculo; debido a eso elegimos utilizar el logaritmo de los datos en vez de los datos originales.</li>
 </ol>
-<h4 id="Codigo-y-datos-3"><a href="#Codigo-y-datos-3" class="headerlink" title="Código y datos"></a>Código y datos</h4><p>Disponible próximamente.</p>
 <hr>
 <h2 id="¿Como-se-compara-COVID-19-con-otras-enfermedades-contagiosas"><a href="#¿Como-se-compara-COVID-19-con-otras-enfermedades-contagiosas" class="headerlink" title="¿Cómo se compara COVID-19 con otras enfermedades contagiosas?"></a>¿Cómo se compara COVID-19 con otras enfermedades contagiosas?</h2><h4 id="Digitalizacion"><a href="#Digitalizacion" class="headerlink" title="Digitalización"></a>Digitalización</h4><p>Digitalizamos el gráfico 2 del artículo “The coronavirus pandemic in five powerful charts” (ver Fuente a continuación) con el programa <code>g3data</code> en Linux.</p>
 <h4 id="Fuente"><a href="#Fuente" class="headerlink" title="Fuente"></a>Fuente</h4><p>Nature <strong>579</strong>, 482-483 (2020).<br>doi: <a href="https://www.nature.com/articles/d41586-020-00758-2" target="_blank" rel="noopener">10.1038/d41586-020-00758-2</a></p>
