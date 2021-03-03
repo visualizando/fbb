@@ -690,7 +690,7 @@ var grafico = svg.append("g")
     
     tituloY = ejeY.append("text")
         .attr("class", "axis-title")
-        .attr("y", -8)
+        .attr("y", isMobile?-20:-8)
         .text(tituloGrafico[1]);
 
 
@@ -741,7 +741,7 @@ var grafico = svg.append("g")
         .attr("class", d=>{return "duplicacionesTextos"+" duplica"+d.index})
         .style("opacity", d=> { return d.index==0 ? 100 : 0})
         .attr('x', d => Math.abs(x(d.hastaX) - x(d.desdeX))/2+ x(d.desdeX))
-        .attr('y', d => yLog(d.desdeY) - 10 - Math.abs(yLog(d.hastaY) - yLog(d.desdeY) )/2)
+        .attr('y', d => yLog(d.desdeY) - 2 - Math.abs(yLog(d.hastaY) - yLog(d.desdeY) )/2)
         .style("fill", d => colores(d.index+1))
         .text(d=> { return d.duplicacion + " días"});
 

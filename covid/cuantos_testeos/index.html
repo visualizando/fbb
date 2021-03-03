@@ -1108,7 +1108,7 @@ var puntitos = d3.range(total).map((d,i)=>{
      */            
                 statsPositividad.append("text").attr("id","positividad")
                     .attr("dy",10)
-                    .text("Positivad:-")
+                    .text("Positividad:-")
                     ;
 
                /*  statsTesteos.append("rect")
@@ -1177,7 +1177,7 @@ var puntitos = d3.range(total).map((d,i)=>{
                                                                 
 
                                 var porcentajePositividad = adentro.filter(d=>d.positivo?1:0)._groups[0].length/adentro._groups[0].length;
-                                d3.select("#positividad").text("Positivad: "+(isNaN(porcentajePositividad)?"-":d3.format(".0%")(porcentajePositividad)));
+                                d3.select("#positividad").text("Positividad: "+(isNaN(porcentajePositividad)?"-":d3.format(".0%")(porcentajePositividad)));
 
 
                                 d3.select("#numTesteos").text(adentro._groups[0].length);

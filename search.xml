@@ -362,7 +362,7 @@ var grafico = svg.append("g")
     
     tituloY = ejeY.append("text")
         .attr("class", "axis-title")
-        .attr("y", -8)
+        .attr("y", isMobile?-20:-8)
         .text(tituloGrafico[1]);
 
 
@@ -413,7 +413,7 @@ var grafico = svg.append("g")
         .attr("class", d=>{return "duplicacionesTextos"+" duplica"+d.index})
         .style("opacity", d=> { return d.index==0 ? 100 : 0})
         .attr('x', d => Math.abs(x(d.hastaX) - x(d.desdeX))/2+ x(d.desdeX))
-        .attr('y', d => yLog(d.desdeY) - 10 - Math.abs(yLog(d.hastaY) - yLog(d.desdeY) )/2)
+        .attr('y', d => yLog(d.desdeY) - 2 - Math.abs(yLog(d.hastaY) - yLog(d.desdeY) )/2)
         .style("fill", d => colores(d.index+1))
         .text(d=> { return d.duplicacion + " días"});
 
@@ -1607,7 +1607,11 @@ var clip = grafico.append("defs").append("svg:clipPath")
         .attr("class", "axis axis--x")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x)
-        	.ticks(d3.timeMonth.every(1)))
+        	.ticks(d3.timeMonth.every(1))
+			            .tickFormat(d3.timeFormat(isMobile?"%b":"%B"))
+
+			)
+			
         .call(ajustaMesesEjeX)
         ;
 
@@ -1847,7 +1851,7 @@ function ajustaMesesEjeX(g) {
           if(diasPrimerMes>8){
             g.selectAll(".tick:first-of-type text") // el ultimo si no esta completo lo centra en los dias que haya
                 .clone(true)
-                .text(d3.timeFormat("%B")(d3.timeMonth.floor(x.domain()[0])))
+                .text(d3.timeFormat(isMobile?"%b":"%B")(d3.timeMonth.floor(x.domain()[0])))
                 .attr("dx",  x(d3.timeDay.offset(x.domain()[0], diasPrimerMes/2))*-1)
                 .attr("dy", "0.3em") ;
             }
@@ -2666,7 +2670,6 @@ function relax(dataInterna, spacing) {
 
     .epigrafe{
         margin-top: -5px;
-    margin-left: 30px;
     position: absolute;
     bottom: 9px;
     }
@@ -2976,7 +2979,10 @@ var svg = d3.selectAll(".contenedorGrafico").filter((d,i)=>i==1?0:1).append("svg
         .attr("class", "axis axis--x")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x)
-        	.ticks(d3.timeMonth.every(1)))
+        	.ticks(d3.timeMonth.every(1))
+            .tickFormat(d3.timeFormat(isMobile?"%b":"%B"))
+
+            )
         .call(ajustaMesesEjeX)
         ;
 
@@ -2988,7 +2994,7 @@ var svg = d3.selectAll(".contenedorGrafico").filter((d,i)=>i==1?0:1).append("svg
     tituloY = ejeY.append("text")
         .attr("class", "axis-title")
         .attr("y", -8)
-        .text("Número de casos diarios confirmados (Arg.)");
+        .text(isMobile?"Núm. casos diarios conf. (Arg.)":"Número de casos diarios confirmados (Arg.)");
 
 	
 		gBarras.append("g").attr("id","gBarras")
@@ -3070,7 +3076,6 @@ function scrollyTelling(containerNumber,step){
 function ajustaMesesEjeX(g) {
         var diasUltimoMes = d3.timeDay.count(d3.timeMonth.floor(x.domain()[1]),x.domain()[1]);
         var diasPrimerMes = Math.abs(d3.timeDay.count(d3.timeMonth.ceil(x.domain()[0]),x.domain()[0]));
-        console.log(x.domain()[0],d3.timeDay.offset(x.domain()[0], diasPrimerMes/2))
 		  // ESTO PONE LOS NOMBRES DE LOS MESES EN MEDIO DE CADA MES
            g.selectAll(".tick:not(:last-of-type):not(:last-of-type) text") // para todos los meses menos el ultimo
                 .attr("dx", x(d3.timeDay.offset(x.domain()[0], 15 ))) // mueve el equivalente a 15 dias
@@ -3079,7 +3084,7 @@ function ajustaMesesEjeX(g) {
           if(diasPrimerMes>8){
             g.selectAll(".tick:first-of-type text") // el ultimo si no esta completo lo centra en los dias que haya
                 .clone(true)
-                .text(d3.timeFormat("%B")(d3.timeMonth.floor(x.domain()[0])))
+                .text(d3.timeFormat(isMobile?"%b":"%B")(d3.timeMonth.floor(x.domain()[0])))
                 .attr("dx",  x(d3.timeDay.offset(x.domain()[0], diasPrimerMes/2))*-1)
                 .attr("dy", "0.3em") ;
             }
@@ -7797,7 +7802,7 @@ var puntitos = d3.range(total).map((d,i)=>{
      */            
                 statsPositividad.append("text").attr("id","positividad")
                     .attr("dy",10)
-                    .text("Positivad:-")
+                    .text("Positividad:-")
                     ;
 
                /*  statsTesteos.append("rect")
@@ -7866,7 +7871,7 @@ var puntitos = d3.range(total).map((d,i)=>{
                                                                 
 
                                 var porcentajePositividad = adentro.filter(d=>d.positivo?1:0)._groups[0].length/adentro._groups[0].length;
-                                d3.select("#positividad").text("Positivad: "+(isNaN(porcentajePositividad)?"-":d3.format(".0%")(porcentajePositividad)));
+                                d3.select("#positividad").text("Positividad: "+(isNaN(porcentajePositividad)?"-":d3.format(".0%")(porcentajePositividad)));
 
 
                                 d3.select("#numTesteos").text(adentro._groups[0].length);
@@ -10722,7 +10727,7 @@ verde #62BB46
 
 var ejeY, ejeX, tituloY, minDate, maxDate, line, posTracker, posTrackerPrev;
 
-var altoMaximo = 1.5; // cuantas veces el ancho permitimos que sea el alto maximo
+var altoMaximo = 1.7; // cuantas veces el ancho permitimos que sea el alto maximo
 
 var svg = d3.selectAll(".contenedorGrafico").append("svg"),
     margin = isMobile ? {top: 25, right: 10, bottom: 15, left: 10} : {top: 60, right: 35, bottom: 25, left: 35},
