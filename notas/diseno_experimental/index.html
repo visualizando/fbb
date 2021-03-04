@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="Gy0v5fPBzo8V6kQn7oOcPhNXVas7zpn5e7eVTANnKBM">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather:300,300italic,400,400italic,700,700italic|Oswald:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"decodificar.org","root":"/","scheme":"Mist","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"remove","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"none","post_body":"none","coll_header":"none","sidebar":"fadeInUp"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="¿Todas las personas que participan en un ensayo clínico para una posible vacuna reciben efectivamente la vacuna? ¿Quién sí y quién no? ¿Cuántas personas participan? Cuando de vacunas se trata, la cant">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Diseño experimental">
+<meta property="og:url" content="https://decodificar.org/notas/diseno_experimental/index.html">
+<meta property="og:site_name" content="Decodificar: COVID19">
+<meta property="og:description" content="¿Todas las personas que participan en un ensayo clínico para una posible vacuna reciben efectivamente la vacuna? ¿Quién sí y quién no? ¿Cuántas personas participan? Cuando de vacunas se trata, la cant">
+<meta property="og:locale" content="es_ES">
+<meta property="og:image" content="https://decodificar.org/images/coverindex.jpg">
+<meta property="article:published_time" content="2021-03-04T19:19:51.774Z">
+<meta property="article:modified_time" content="2021-03-04T19:19:51.774Z">
+<meta property="article:author" content="Fundacion Bunge y Born">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://decodificar.org/images/coverindex.jpg">
+
+<link rel="canonical" href="https://decodificar.org/notas/diseno_experimental/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false,
+    lang   : 'es'
+  };
+</script>
+
+  <title>Diseño experimental | Decodificar: COVID19
+</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132699662-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-132699662-2');
+      }
+    </script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PWMSB36');</script>
+<!-- End Google Tag Manager -->
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+  
+</head>
+
+<body itemscope  class="white" itemtype="http://schema.org/WebPage">
+
+  
+
+  <div class="container">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <img src="/images/logo-web.png">
+<!--       <i class="logo-line"></i>
+      <h1 class="site-title">Decodificar: COVID19</h1>
+      <i class="logo-line"></i> -->
+    </a>
+      <p class="site-subtitle" itemprop="description">Entendiendo la pandemia</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+
+    <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Cambiar a barra de navegación">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-inicio">
+
+    <a href="/" rel="section">Inicio</a>
+
+  </li>
+        <li class="menu-item menu-item-métodos">
+
+    <a href="/metodos/" rel="section">Métodos</a>
+
+  </li>
+        <li class="menu-item menu-item-notas">
+
+    <a href="/notas/" rel="section">Notas</a>
+
+  </li>
+        <li class="menu-item menu-item-acerca-del-proyecto">
+
+    <a href="/about/" rel="section">Acerca del proyecto</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+      </header>
+
+      
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+
+
+      <div class="main-inner">
+
+
+        
+  
+  
+
+        <div class="content page posts-expand">
+          
+
+    
+    
+    
+    <div class="post-block" lang="es">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">Diseño experimental
+</h1>
+
+<div class="post-meta">
+  
+  <ul class="breadcrumb">
+          
+            <li><a href="/notas/">NOTAS</a></li>
+          <li>DISENO_EXPERIMENTAL</li>
+        
+  </ul>
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <p>¿Todas las personas que participan en un ensayo clínico para una posible vacuna reciben efectivamente la vacuna? ¿Quién sí y quién no? ¿Cuántas personas participan? Cuando de vacunas se trata, la cantidad de preguntas posibles es enorme. Pero, ¿cómo sabemos si una vacuna es efectiva?</p>
+<h3 id="Como-saber-si-una-vacuna-es-efectiva"><a href="#Como-saber-si-una-vacuna-es-efectiva" class="headerlink" title="Cómo saber si una vacuna es efectiva"></a>Cómo saber si una vacuna es efectiva</h3><p>Las vacunas nos ayudan a prevenir enfermedades. Si una vacuna es efectiva se supone que, al vacunarnos, nuestras chances de enfermarnos (o al menos de enfermarnos gravemente) deberían ser considerablemente menores que si no nos hubiésemos vacunado. Y esperamos también que, al tener menos chances de enfermarnos, tengamos menos chances de transmitir a otras personas el virus o bacteria que produce la enfermedad.</p>
+<p>Supongamos que <a href="https://decodificar.org/covid/donde_esta_la_vacuna/">estamos estudiando una preparación que es una potencial vacuna</a> y ya hemos determinado que no produce efectos adversos serios. Queremos saber ahora si efectivamente funciona o no para prevenir la enfermedad. Hagamos de cuenta que somos científicos y queremos determinar cuán fuerte es el efecto “protector” que tuvo la vacuna sobre las personas que fueron vacunadas. Tratamos de determinar si hay una relación de causa y efecto entre vacunarse y estar protegido contra la enfermedad. </p>
+<p>Cuando queremos averiguar si una vacuna funciona y previene contraer una determinada enfermedad, intuitivamente la primera idea que viene a la cabeza es aplicarla a un grupo de personas y evaluar si se enferman o no. Llamaríamos entonces a un grupo de personas sanas dispuestas a probar la vacuna y, unos meses después de ser inyectadas, contaríamos cuántas personas se enfermaron.</p>
+<p><img src="https://datos.decodificar.org/imagenes/nota4_a.jpg" alt="tratamiento_sin_control">\</p>
+<p>Supongamos que el resultado de nuestro estudio es que el 5% de las personas contrajeron la enfermedad luego de ser vacunadas. ¿Significa eso que la vacuna no funciona porque se enfermaron igual? Nos falta algo más para responder esta pregunta. </p>
+<h3 id="¿Que-habria-pasado-si…"><a href="#¿Que-habria-pasado-si…" class="headerlink" title="¿Qué habría pasado si…?"></a>¿Qué habría pasado si…?</h3><p>¿Qué habría pasado si NO hubiésemos vacunado a esas personas? ¿Se habrían enfermado igual? ¿Se habrían enfermado la misma cantidad de personas? Es un experimento que solo puede llevarse a cabo en la imaginación: deberíamos observar al <em>mismo grupo</em> de personas, en el mismo momento, vacunados y no vacunados. De esta manera, podríamos estar bastante seguros de qué efecto tiene la vacunación (nuestra “variable independiente”) sobre las chances de enfermarse (nuestra “variable dependiente”), asumiendo que en ambos escenarios lo único que está cambiando es el hecho de que esas personas pueden estar o no vacunadas. </p>
+<p>Como efectivamente no es posible este escenario de ver qué pasa en una misma persona con vacuna y sin vacuna, lo que hacemos es construir dos grupos de personas muy similares (con similar porcentaje de mujeres y hombres, promedio de edad, historial clínico, etc.). </p>
+<p>Una vez que tenemos dos grupos de personas comparables, vamos a aplicarle la vacuna a uno de esos grupos (le llamamos “grupo tratamiento”), y al otro no le aplicaremos la vacuna sino un placebo -simula ser la vacuna aunque no lo es- (le llamamos “grupo control”). Lo que observemos en el “grupo control” nos permitirá responder a nuestra pregunta: ¿qué habría pasado si no le aplicábamos la vacuna (o el tratamiento)?</p>
+<p>De esta forma, lo único que estamos cambiando entre un grupo y otro es la condición de vacunados: un grupo está vacunado y el otro no. Si encontramos diferencias entre los resultados de estos dos grupos (contraer la enfermedad, por ejemplo), podríamos atribuir esa diferencia con bastante seguridad a la vacuna. </p>
+<p><img src="https://datos.decodificar.org/imagenes/nota4_b.jpg" alt="tratamienvot_vs_control">\</p>
+<p>Luego de aplicar la vacuna al grupo tratamiento y un placebo al grupo control, observamos que nuevamente en el grupo tratamiento un 5% de los vacunados contrajo la enfermedad pero, ATENCIÓN, en el grupo control (aquellos que no están vacunados), el porcentaje de personas que contrajo la enfermedad es altísimo -un 90%. </p>
+<p>Es decir, entre los que NO se vacunan hay muchísimas personas que contrajeron la enfermedad. Dado que los dos grupos son muy similares entre sí (porque los elegimos así a propósito), la diferencia que observamos en el resultado es atribuible a la vacuna y, por lo tanto, podríamos decir que tiene un claro efecto disminuyendo las chances de contraer la enfermedad.</p>
+<h3 id="La-Ferrari-de-los-experimentos-controlado-aleatorizado-y-doble-ciego"><a href="#La-Ferrari-de-los-experimentos-controlado-aleatorizado-y-doble-ciego" class="headerlink" title="La Ferrari de los experimentos: controlado, aleatorizado y doble ciego"></a>La Ferrari de los experimentos: controlado, aleatorizado y doble ciego</h3><p>La idea que describimos en la sección anterior parece simple: no alcanza con mirar el efecto en un solo grupo, debemos comparar los resultados de dos grupos similares y uno de ellos NO debe ser expuesto al tratamiento. Esta simple y potente idea necesitó muchos, muchos años de investigación científica para desarrollarla. Hoy la conocemos por su nombre largo: *ensayo clínico controlado aleatorizado doble ciego”. ¿De qué se trata?</p>
+<h3 id="Controlado-medir-dos-grupos-similares"><a href="#Controlado-medir-dos-grupos-similares" class="headerlink" title="Controlado: medir dos grupos similares"></a>Controlado: medir dos grupos similares</h3><p>Cuando se trata de construir grupos similares de personas se presentan muchos desafíos, básicamente por lo distintos que somos unos a otros. Una forma de quitarle peso a esas diferencias consiste en armar grupos tan grandes que, aún en su enorme heterogeneidad interna, sean globalmente similares. </p>
+<p>Construyamos por ejemplo un grupo control y un grupo tratamiento sobre los que podríamos probar una nueva vacuna para COVID-19. </p>
+<p><img src="https://datos.decodificar.org/imagenes/nota4_c.jpg" alt="contruccion_grupos">\</p>
+<p>Efectivamente, elegimos una serie de características como sexo, edad y enfermedades preexistentes, para mirar con mayor atención. Dependiendo de la enfermedad para la que estamos probando la vacuna, algunas de estas características van a ser más importantes que otras. Por ejemplo, podríamos pensar en algunos casos que la etnia o la masa corporal de las personas son una característica importante y, por lo tanto, necesitaríamos tenerla en cuenta.</p>
+<p>¿Estamos pensando lo mismo? Exacto, hay decenas o cientos de variables posibles. Y no podríamos tener en cuenta a todas pero, después de tantos años de investigación y publicación de experimentos y resultados, tenemos bastantes pistas que nos ayudan a identificar cuáles son las más importantes. ¡Por eso es tan importante compartir lo que investigamos, cómo lo hicimos y qué resultados obtuvimos!</p>
+<h3 id="Aleatorizado-asignar-grupo-al-azar"><a href="#Aleatorizado-asignar-grupo-al-azar" class="headerlink" title="Aleatorizado: asignar grupo al azar"></a>Aleatorizado: asignar grupo al azar</h3><p>Cuando construimos un grupo control y otro tratamiento, es muy importante que la probabilidad de ser asignado a uno u otro grupo sea exactamente la misma. Si las personas con diabetes fueran todas asignadas al grupo control, los dos grupos ya no serían similares pues no habría diabéticos en el grupo tratamiento. Esto podría influir en los resultados (por ejemplo si las personas con diabetes se enfermaran con mayor probabilidad por su condición de salud) por lo que debe evitarse. Para esto los investigadores asignan los grupos al azar haciendo, por ejemplo, un sorteo o algo muy parecido.</p>
+<p><img src="https://datos.decodificar.org/imagenes/nota4_d.jpg" alt="aleatorizacion">\</p>
+<h3 id="Doble-ciego-sin-saber-en-que-grupo-estoy"><a href="#Doble-ciego-sin-saber-en-que-grupo-estoy" class="headerlink" title="Doble ciego: sin saber en qué grupo estoy"></a>Doble ciego: sin saber en qué grupo estoy</h3><p>Las pruebas que se llevan a cabo para probar vacunas y muchísimos otros tratamientos se hacen a “doble ciego”. El primer ciego significa que las personas no saben si les están aplicando la vacuna o un placebo (eso que simula ser la vacuna pero no lo es). El segundo ciego se refiere a los investigadores a cargo de administrar el experimento y seguir a esas personas tampoco saben quién recibe qué.</p>
+<p>¿Y por qué es importante el cegamiento? En las pruebas de la vacuna para la tos convulsa, allá por 1936, se asignaba a cada niño o niña al grupo control o tratamiento en base a la letra inicial de su apellido. Unas letras estaban pre-asignadas al grupo control y, otras letras, al tratamiento. Esto podría generar que, al evaluar a una niña con apellido designado al grupo placebo, el médico minimice algunos síntomas o no los busque igual que lo haría si evaluara a alguien en el grupo tratamiento. Esto podría ocurrir aún sin que el profesional sea consciente de ello y sin involucrar buenas o malas intenciones de su parte (como lo muestran muchas investigaciones del campo de las ciencias cognitivas) y por eso debemos evitarlo.</p>
+<h3 id="Para-seguir-pensando"><a href="#Para-seguir-pensando" class="headerlink" title="Para seguir pensando"></a>Para seguir pensando</h3><p>Si bien los ensayos clínicos controlados aleatorizados doble ciego son el tipo de estudio que aportan evidencia de la mejor calidad para probar nuevos tratamientos o vacunas, no son el único tipo de estudios en el ámbito de la salud. Existen otros estudios de tipo “observacional” en los que no se interviene a los pacientes sino que se observa si están expuestos o no a cierto factor de riesgo. Por ejemplo, en los estudios llamados “de cohorte” se toma un gran grupo de personas sanas, se determina su exposición al factor de riesgo (por ejemplo si fuman o no) y se mide a lo largo del tiempo qué chances tienen de desarrollar la enfermedad (en este caso cáncer de pulmón). Los estudios de “caso-control” toman un grupo de personas con cierta patología (por ejemplo cáncer de pulmón, los “casos”) y otro grupo sin la patología (los “controles”) para luego analizar la relación con la existencia previa del factor de riesgo (si son fumadores o no).</p>
+<p>Los dilemas éticos están presentes en muchas instancias de la investigación científica. En los estudios clínicos para desarrollar vacunas contra COVID-19, al grupo control se le administra un placebo que parece la vacuna pero no tiene ninguna actividad terapéutica real (por ejemplo una inyección de solución salina). Claro, no hay ninguna vacuna conocida todavía y lo mismo ocurriría si estuviéramos estudiando un medicamento como primera cura para una enfermedad. Pero supongamos por un momento que estamos estudiando el efecto de una nueva droga, y tenemos una población de personas enfermas asignadas a grupo tratamiento o grupo control para evaluar si dicha droga influye en la curación. El detalle importante es que ya hay una terapia conocida que tiene cierto grado de éxito para tratar la enfermedad. ¿Sería ético usar un placebo para el grupo control, en vez de proveerle la terapia conocida? La investigación científica está continuamente enfrentando dilemas éticos como este y ha desarrollado criterios para resolverlos, como por ejemplo que el grupo control no reciba placebo sino el tratamiento estándar (si existe).</p>
+<hr>
+
+      </div>
+      
+      
+      
+    </div>
+    
+  <ul class="breadcrumb">
+          
+            <li><a href="/notas/">NOTAS</a></li>
+          <li>DISENO_EXPERIMENTAL</li>
+        
+  </ul>
+
+    
+    
+    
+
+
+        </div>
+        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        <!-- <div class="firma"> -->
+
+<!-- <a href="/">
+  Inicio</a> 
+  &mdash;
+  <a href="/about/">
+    Acerca del proyecto</a>
+</div> -->
+
+<div class="firma">
+  <img src="/images/logo_small.png"> 
+  Un proyecto de la <a href="https://www.fundacionbyb.org/" target="_blank">Fundación Bunge y Born</a>, en alianza con  <a href="http://expedicionciencia.org.ar/" target="_blank">Expedición Ciencia</a>
+</div>
+
+<div class="redes">
+<a href="https://www.facebook.com/fundacionbungeyborn/" target="_blank"><i class="fab fa-facebook-square"></i></a>
+<a href="https://www.instagram.com/fundacionbungeyborn/" target="_blank"><i class="fab fa-instagram-square"></i></a>
+<a href="https://www.linkedin.com/company/fundacion-bunge-y-born/" target="_blank"><i class="fab fa-linkedin"></i></a>
+</div>
+
+
+<div class="reporte">
+<a href="/">
+  Inicio</a> - 
+<a href="/metodos/">
+    Métodos</a> - 
+<a href="/about/">
+    Acerca del proyecto</a>
+</div>
+
+
+<div class="copyright">
+<a rel="license noopener" href="http://creativecommons.org/licenses/by-sa/2.5/ar/" target="_blank">
+ <img alt="Licencia Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/2.5/ar/88x31.png" /></a>
+ Esta obra está bajo una <a rel="license noopener" href="http://creativecommons.org/licenses/by-sa/2.5/ar/" target="_blank">Licencia Creative Commons Atribución-CompartirIgual 2.5 Argentina</a>.
+<br />
+ <span itemprop="copyrightYear"><i class="fab fa-creative-commons"></i>&nbsp;2020</span>
+  <span class="author" itemprop="copyrightHolder">Fundación Bunge y Born</span>
+ / <a href="https://www.fundacionbyb.org/politica-de-privacidad" target="_blank">Política de privacidad</a>
+
+</div>
+
+<div class="powered-by">
+Creado con <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a>
+&amp; <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

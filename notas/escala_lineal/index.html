@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="Gy0v5fPBzo8V6kQn7oOcPhNXVas7zpn5e7eVTANnKBM">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather:300,300italic,400,400italic,700,700italic|Oswald:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"decodificar.org","root":"/","scheme":"Mist","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"remove","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"none","post_body":"none","coll_header":"none","sidebar":"fadeInUp"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="La escala lineal, esa manera de colocar los números de la recta numérica tal que queden equiespaciados de acuerdo a su valor, puede ser la más intuitiva pero no es la única. La gran estrella en los ti">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Escala lineal vs. escala logarítmica">
+<meta property="og:url" content="https://decodificar.org/notas/escala_lineal/index.html">
+<meta property="og:site_name" content="Decodificar: COVID19">
+<meta property="og:description" content="La escala lineal, esa manera de colocar los números de la recta numérica tal que queden equiespaciados de acuerdo a su valor, puede ser la más intuitiva pero no es la única. La gran estrella en los ti">
+<meta property="og:locale" content="es_ES">
+<meta property="og:image" content="https://decodificar.org/images/coverindex.jpg">
+<meta property="article:published_time" content="2021-03-04T19:08:56.427Z">
+<meta property="article:modified_time" content="2021-03-04T19:08:56.427Z">
+<meta property="article:author" content="Fundacion Bunge y Born">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://decodificar.org/images/coverindex.jpg">
+
+<link rel="canonical" href="https://decodificar.org/notas/escala_lineal/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false,
+    lang   : 'es'
+  };
+</script>
+
+  <title>Escala lineal vs. escala logarítmica | Decodificar: COVID19
+</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132699662-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-132699662-2');
+      }
+    </script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PWMSB36');</script>
+<!-- End Google Tag Manager -->
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+  
+</head>
+
+<body itemscope  class="white" itemtype="http://schema.org/WebPage">
+
+  
+
+  <div class="container">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <img src="/images/logo-web.png">
+<!--       <i class="logo-line"></i>
+      <h1 class="site-title">Decodificar: COVID19</h1>
+      <i class="logo-line"></i> -->
+    </a>
+      <p class="site-subtitle" itemprop="description">Entendiendo la pandemia</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+
+    <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Cambiar a barra de navegación">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-inicio">
+
+    <a href="/" rel="section">Inicio</a>
+
+  </li>
+        <li class="menu-item menu-item-métodos">
+
+    <a href="/metodos/" rel="section">Métodos</a>
+
+  </li>
+        <li class="menu-item menu-item-notas">
+
+    <a href="/notas/" rel="section">Notas</a>
+
+  </li>
+        <li class="menu-item menu-item-acerca-del-proyecto">
+
+    <a href="/about/" rel="section">Acerca del proyecto</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+      </header>
+
+      
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+
+
+      <div class="main-inner">
+
+
+        
+  
+  
+
+        <div class="content page posts-expand">
+          
+
+    
+    
+    
+    <div class="post-block" lang="es">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">Escala lineal vs. escala logarítmica
+</h1>
+
+<div class="post-meta">
+  
+  <ul class="breadcrumb">
+          
+            <li><a href="/notas/">NOTAS</a></li>
+          <li>ESCALA_LINEAL</li>
+        
+  </ul>
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <p>La escala lineal, esa manera de colocar los números de la recta numérica tal que queden equiespaciados de acuerdo a su valor, puede ser la más intuitiva pero no es la única. La gran estrella en los tiempos de pandemia de COVID-19 es la llamada <em>escala logarítmica</em>. ¿De qué se trata?</p>
+<h3 id="Escala-lineal-le-ponemos-nombre-a-lo-intuitivo"><a href="#Escala-lineal-le-ponemos-nombre-a-lo-intuitivo" class="headerlink" title="Escala lineal: le ponemos nombre a lo intuitivo"></a>Escala lineal: le ponemos nombre a lo intuitivo</h3><p>Tomemos la famosa y querida recta numérica. La manera más intuitiva que tenemos de ubicar datos en la recta (o quizás la manera a la cual estamos más acostumbrados…) es colocarlos de manera proporcional a su valor, como sigue:</p>
+<p><img src="https://datos.decodificar.org/imagenes/nota1_a.jpg" alt="escala_lineal">\</p>
+<p>A esta manera de colocar los datos en la recta numérica la llamamos “escala lineal”: números que difieren en la misma cantidad y que estarán separados por la misma distancia. Por ejemplo, los valores 10 y 20 están separados por la misma distancia que los valores 110 y 120, o que los valores 1.010 y 1.020 (sus diferencias son siempre 10).</p>
+<p>Como veremos a continuación, esta no es la única manera de ubicar datos en una recta numérica. Y sí, podemos acomodar los datos del modo que deseemos dependiendo de la utilidad que queramos darle.</p>
+<h3 id="¿Cuando-la-escala-lineal-NO-es-util"><a href="#¿Cuando-la-escala-lineal-NO-es-util" class="headerlink" title="¿Cuándo la escala lineal NO es útil?"></a>¿Cuándo la escala lineal NO es útil?</h3><p>Veamos un ejemplo diferente. ¿Cómo quedan los siguientes datos en la recta numérica en la versión lineal que conocemos?</p>
+<p><img src="https://datos.decodificar.org/imagenes/nota1_b.jpg" alt="escala_logarítmica">\</p>
+<p>Algunos valores quedan demasiado pegados entre sí y casi no podemos distinguirlos (los valores chicos), mientras que otros quedan demasiado separados y ocupan casi toda la recta (los grandes). Parece bastante obvio que ocurra esto, dados los números que estamos considerando. Se debe a que los números que queremos colocar en la recta tienen tamaños muy, muy diferentes entre sí. Y no creas que es una situación tan rara, esto ocurre por ejemplo cuando estamos analizando datos de una cantidad que crece no solamente muy rápido sino que crece <em>cada vez más rápido</em>. Un ejemplo es el crecimiento exponencial de la cantidad de bacterias en un cultivo o del <a href="https://decodificar.org/covid/el_ritmo_de_la_pandemia/">número de casos</a> de una enfermedad como COVID-19.</p>
+<p>Aunque podría ser obvio que en la recta numérica lineal los números muy grandes siempre van a tapar a los más chicos, <em>no estamos obligados</em> a acomodar los números de manera proporcional a su valor. ¡Podemos repartir los valores en la recta numérica del modo que queramos! ¿Cómo sería eso? Antes conviene hablar sobre tamaños.</p>
+<h3 id="El-tamano-de-un-numero"><a href="#El-tamano-de-un-numero" class="headerlink" title="El tamaño de un número"></a>El tamaño de un número</h3><p>Un concepto que nos va a ayudar mucho es el de “tamaño de un número”. Aclaremos: para empezar, el propio valor de un número ya nos habla de su tamaño (1.000 es mucho más grande que 1, obviamente). Aquí nos referimos en realidad a una forma <em>compacta</em> de medir su tamaño, sin usar el número en sí mismo. Por ejemplo, quiero saber si un número está en las decenas, o en las centenas, o en los miles, etc. Y eso es justamente lo que nos dice el famoso <em>logaritmo</em>.</p>
+<p>El logaritmo de un número es una operación matemática que dice, aproximadamente, si dicho número pertenece a las unidades o a las decenas o a las centenas, etc. (es decir, cuántos “ceros” tiene). Por ejemplo:</p>
+<p><img src="https://datos.decodificar.org/imagenes/nota1_c.jpg" alt="logaritmo">\</p>
+<p>Dijimos “aproximadamente” porque, por ejemplo, el número 20 tiene un solo cero estrictamente hablando pero su logaritmo vale 1,30. ¿Cómo se ve entonces si miramos los números intermedios? Fijate que el logaritmo de todas las decenas es siempre “uno coma…”:</p>
+<p><img src="https://datos.decodificar.org/imagenes/nota1_d.jpg" alt="logaritmo_1">\</p>
+<p>Y el logaritmo de las centenas es siempre “dos coma…”:</p>
+<p><img src="https://datos.decodificar.org/imagenes/nota1_e.jpg" alt="logaritmo_2">\</p>
+<p>Así, si el logaritmo de un número es por ejemplo “seis coma…” (6,…) ya sé que se trata de un número en los millones (pero no en las decenas de millones, porque tendría un logaritmo de “siete coma…”). El tamaño de un número tal como lo definimos recién es conocido también como el “orden de magnitud” de dicho número.</p>
+<h3 id="Y-a-continuacion…-la-escala-logaritmica"><a href="#Y-a-continuacion…-la-escala-logaritmica" class="headerlink" title="Y a continuación… la escala logarítmica"></a>Y a continuación… la escala logarítmica</h3><p>¿Notaste en la primera tabla que, mientras los números crecen <em>multiplicándose por 10</em>, el valor de su logaritmo crece <em>aumentando de a uno</em>? Repetimos la tabla acá:</p>
+<p><img src="https://datos.decodificar.org/imagenes/nota1_f.jpg" alt="escala_logarítmica">\</p>
+<p>Esta observación es crucial para lo siguiente. ¿Qué pasaría si en la recta numérica ubicamos los números tal que <em>sus logaritmos</em> queden equiespaciados, es decir separados por la misma distancia? Quedaría lo siguiente:</p>
+<p><img src="https://datos.decodificar.org/imagenes/nota1_g.jpg" alt="texto alternativo">\</p>
+<p>Notá que la <em>distancia gráfica</em> entre 1 y 10 es la misma que la distancia entre 10 y 100, o que entre 100.000 y 1.000.000. En todos los casos, el salto entre consecutivos significa que el número <em>crece por un factor 10</em>.</p>
+<h3 id="Un-zoom-apropiado-para-cada-tamano"><a href="#Un-zoom-apropiado-para-cada-tamano" class="headerlink" title="Un zoom apropiado para cada tamaño"></a>Un zoom apropiado para cada tamaño</h3><p>Es importante notar que no estamos modificando los números, simplemente estamos ubicándolos de otra manera en la recta numérica. En cierto sentido sería como apretar los números grandes para que los números chicos tengan más espacio, pero haciéndolo de manera prolija y uniforme a lo largo de toda la recta. Mirá la relación entre ambas escalas:</p>
+<p><img src="https://datos.decodificar.org/imagenes/nota1_h.jpg" alt="texto alternativo">\</p>
+<p>Se ve que el rango de los números chicos está expandido en la escala logarítmica, mientras que el de los números grandes está comprimido, y todo ocurre “suavemente” sin saltos. La transformación entre la escala de la izquierda (lineal) y la escala de la derecha (logarítmica) es lo que muestra la visualización animada en la historia <a href="https://decodificar.org/covid/el_ritmo_de_la_pandemia/">“¿Cuál es el ritmo de la pandemia?”</a>.</p>
+<h3 id="Una-escala-apropiada-para-cada-tipo-de-dato"><a href="#Una-escala-apropiada-para-cada-tipo-de-dato" class="headerlink" title="Una escala apropiada para cada tipo de dato"></a>Una escala apropiada para cada tipo de dato</h3><p>Analizar datos de manera visual es apasionante. Un gráfico bien pensado y construido tiene una increíble capacidad para transmitir mucha información de manera extremadamente eficiente. Y no necesariamente esto implica que el gráfico será difícil de leer, más bien todo lo contrario. Esta área del conocimiento en particular, llamada visualización de datos, nos ha dado hermosos ejemplos a través de la historia: el famoso gráfico de C. J. Minard sobre la marcha de la Armada napoleónica sobre Moscú (¡realizado en 1869!) o, más recientemente, la combinación de número de testeos, <a href="https://decodificar.org/covid/record_de_contagios/">cantidad de casos diarios</a>, <a href="https://decodificar.org/covid/cuantos_testeos/">índice de positividad</a>, país y continente durante toda la evolución de la pandemia de COVID-19 realizado por ourworldindata.org. </p>
+<p><img src="https://datos.decodificar.org/imagenes/nota1_i.jpg" alt="texto alternativo"><br>“Mapa figurativo de las sucesivas pérdidas de hombres de la Armada Francesa en la campaña de Rusia 1812-1813”, de Charles J. Minard (1869).</p>
+<p><img src="https://datos.decodificar.org/imagenes/nota1_j.jpg" alt="texto alternativo">\</p>
+<p>Fuente: Our World in Data (fecha de datos)<br><a href="https://ourworldindata.org/grapher/covid-19-daily-tests-vs-daily-new-confirmed-cases-per-million" target="_blank" rel="noopener">https://ourworldindata.org/grapher/covid-19-daily-tests-vs-daily-new-confirmed-cases-per-million</a></p>
+<p>Noten la escala logarítmica (en ambos ejes) en el último gráfico. Eligieron esa escala porque los datos que quieren visualizar varían en un rango muy grande en ambos ejes. El otro motivo por el cual conviene elegir escala logarítmica es que nos permite “descubrir” patrones de crecimiento que en escala lineal son difíciles de distinguir, pero eso es el tema de otra nota que podés ver aquí.</p>
+<h3 id="Para-seguir-pensando"><a href="#Para-seguir-pensando" class="headerlink" title="Para seguir pensando"></a>Para seguir pensando</h3><p>Es bueno darse cuenta de que podemos usar la matemática como una herramienta: si respetamos sus reglas, podemos hacer las cosas de la manera que más nos convenga. En cierto sentido es empoderante. No estamos forzados a ubicar valores de manera equiespaciada en la recta numérica… es solo una manera posible que sirve para ciertos propósitos. Hay otras maneras de elegir la escala; por ejemplo, se puede usar el logaritmo en base 2 en vez de base 10, o ubicar los números de manera tal que <em>sus valores al cuadrado</em> queden equiespaciados. Podés encontrar más ejemplos al respecto si buscás en la web artículos referidos a “linealización de datos”.</p>
+<hr>
+
+      </div>
+      
+      
+      
+    </div>
+    
+  <ul class="breadcrumb">
+          
+            <li><a href="/notas/">NOTAS</a></li>
+          <li>ESCALA_LINEAL</li>
+        
+  </ul>
+
+    
+    
+    
+
+
+        </div>
+        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        <!-- <div class="firma"> -->
+
+<!-- <a href="/">
+  Inicio</a> 
+  &mdash;
+  <a href="/about/">
+    Acerca del proyecto</a>
+</div> -->
+
+<div class="firma">
+  <img src="/images/logo_small.png"> 
+  Un proyecto de la <a href="https://www.fundacionbyb.org/" target="_blank">Fundación Bunge y Born</a>, en alianza con  <a href="http://expedicionciencia.org.ar/" target="_blank">Expedición Ciencia</a>
+</div>
+
+<div class="redes">
+<a href="https://www.facebook.com/fundacionbungeyborn/" target="_blank"><i class="fab fa-facebook-square"></i></a>
+<a href="https://www.instagram.com/fundacionbungeyborn/" target="_blank"><i class="fab fa-instagram-square"></i></a>
+<a href="https://www.linkedin.com/company/fundacion-bunge-y-born/" target="_blank"><i class="fab fa-linkedin"></i></a>
+</div>
+
+
+<div class="reporte">
+<a href="/">
+  Inicio</a> - 
+<a href="/metodos/">
+    Métodos</a> - 
+<a href="/about/">
+    Acerca del proyecto</a>
+</div>
+
+
+<div class="copyright">
+<a rel="license noopener" href="http://creativecommons.org/licenses/by-sa/2.5/ar/" target="_blank">
+ <img alt="Licencia Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/2.5/ar/88x31.png" /></a>
+ Esta obra está bajo una <a rel="license noopener" href="http://creativecommons.org/licenses/by-sa/2.5/ar/" target="_blank">Licencia Creative Commons Atribución-CompartirIgual 2.5 Argentina</a>.
+<br />
+ <span itemprop="copyrightYear"><i class="fab fa-creative-commons"></i>&nbsp;2020</span>
+  <span class="author" itemprop="copyrightHolder">Fundación Bunge y Born</span>
+ / <a href="https://www.fundacionbyb.org/politica-de-privacidad" target="_blank">Política de privacidad</a>
+
+</div>
+
+<div class="powered-by">
+Creado con <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a>
+&amp; <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

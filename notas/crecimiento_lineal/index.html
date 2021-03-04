@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="Gy0v5fPBzo8V6kQn7oOcPhNXVas7zpn5e7eVTANnKBM">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather:300,300italic,400,400italic,700,700italic|Oswald:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"decodificar.org","root":"/","scheme":"Mist","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"remove","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"none","post_body":"none","coll_header":"none","sidebar":"fadeInUp"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="La pandemia por COVID-19 nos obligó a enfrentar una enorme variedad de desafíos. Uno de los más importantes, principalmente al inicio de la misma, fue comprender cómo evolucionaba la tasa de contagios">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Crecimiento lineal vs exponencial">
+<meta property="og:url" content="https://decodificar.org/notas/crecimiento_lineal/index.html">
+<meta property="og:site_name" content="Decodificar: COVID19">
+<meta property="og:description" content="La pandemia por COVID-19 nos obligó a enfrentar una enorme variedad de desafíos. Uno de los más importantes, principalmente al inicio de la misma, fue comprender cómo evolucionaba la tasa de contagios">
+<meta property="og:locale" content="es_ES">
+<meta property="og:image" content="https://decodificar.org/images/coverindex.jpg">
+<meta property="article:published_time" content="2021-03-04T19:25:06.662Z">
+<meta property="article:modified_time" content="2021-03-04T19:25:06.662Z">
+<meta property="article:author" content="Fundacion Bunge y Born">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://decodificar.org/images/coverindex.jpg">
+
+<link rel="canonical" href="https://decodificar.org/notas/crecimiento_lineal/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false,
+    lang   : 'es'
+  };
+</script>
+
+  <title>Crecimiento lineal vs exponencial | Decodificar: COVID19
+</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132699662-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-132699662-2');
+      }
+    </script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PWMSB36');</script>
+<!-- End Google Tag Manager -->
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+  
+</head>
+
+<body itemscope  class="white" itemtype="http://schema.org/WebPage">
+
+  
+
+  <div class="container">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <img src="/images/logo-web.png">
+<!--       <i class="logo-line"></i>
+      <h1 class="site-title">Decodificar: COVID19</h1>
+      <i class="logo-line"></i> -->
+    </a>
+      <p class="site-subtitle" itemprop="description">Entendiendo la pandemia</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+
+    <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Cambiar a barra de navegación">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-inicio">
+
+    <a href="/" rel="section">Inicio</a>
+
+  </li>
+        <li class="menu-item menu-item-métodos">
+
+    <a href="/metodos/" rel="section">Métodos</a>
+
+  </li>
+        <li class="menu-item menu-item-notas">
+
+    <a href="/notas/" rel="section">Notas</a>
+
+  </li>
+        <li class="menu-item menu-item-acerca-del-proyecto">
+
+    <a href="/about/" rel="section">Acerca del proyecto</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+      </header>
+
+      
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+
+
+      <div class="main-inner">
+
+
+        
+  
+  
+
+        <div class="content page posts-expand">
+          
+
+    
+    
+    
+    <div class="post-block" lang="es">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">Crecimiento lineal vs exponencial
+</h1>
+
+<div class="post-meta">
+  
+  <ul class="breadcrumb">
+          
+            <li><a href="/notas/">NOTAS</a></li>
+          <li>CRECIMIENTO_LINEAL</li>
+        
+  </ul>
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <p>La pandemia por COVID-19 nos obligó a enfrentar una enorme variedad de desafíos. Uno de los más importantes, principalmente al inicio de la misma, fue comprender cómo evolucionaba la tasa de contagios. Así, pudimos entender por qué aquello que pasó a fines de diciembre de 2019 en China daría origen, tan solo unos meses más tarde, a que el número de casos confirmados de COVID-19 en Argentina rompiera récords semanales. El motivo es un tipo de crecimiento llamado exponencial que, aunque parezca algo difícil, se puede <em>predecir</em>.</p>
+<h3 id="El-crecimiento-uniforme-es-intuitivo"><a href="#El-crecimiento-uniforme-es-intuitivo" class="headerlink" title="El crecimiento uniforme es intuitivo"></a>El crecimiento uniforme es intuitivo</h3><p>Hay algunos cálculos que nos resultan intuitivos, como por ejemplo las cuentas que resolvemos cotidianamente cuando vamos a la verdulería: si cada kilo de papas cuesta 40 pesos, cuando compre dos kilos tendré que pagar 80 pesos. Es proporcional, y es lo que se denomina “regla de tres simple”.</p>
+<p>El mismo razonamiento vale para otras situaciones cotidianas:<br>Imaginemos un auto que se mueve a velocidad constante; si en una hora recorrió 40 km, es intuitivo (y correcto) concluir que en dos horas recorrerá 80 km.<br>Si pongo un litro de agua a calentar sobre la hornalla y tarda 5 minutos en hervir, podemos decir que cuando ponga dos litros tardarán aproximadamente 10 minutos (si usamos la misma hornalla, la misma pava, si está aislada para no perder calor a medida que la caliento, etc.).<br>Si abro la canilla para llenar un balde de 10 litros de agua en 25 segundos, un balde de 20 litros debería llenarse en 50 segundos.</p>
+<p>Notá que estos tres ejemplos tienen en común que cambian en el tiempo, y lo hacen de manera <em>uniforme</em>: el auto se mueve a velocidad constante, la hornalla emite un flujo constante de calor, la canilla provee un flujo constante de agua.</p>
+<h3 id="Lo-que-esta-ocurriendo-en-tu-cabeza-prediccion"><a href="#Lo-que-esta-ocurriendo-en-tu-cabeza-prediccion" class="headerlink" title="Lo que está ocurriendo en tu cabeza: predicción"></a>Lo que está ocurriendo en tu cabeza: predicción</h3><p>Cuando resolvés esos cálculos en tu cabeza estás prediciendo lo que va a ocurrir. Asumiendo que las condiciones se mantienen, por ejemplo la velocidad del auto, estás calculando su posición en el futuro. Con esa simple cuenta sabés dónde va a estar el auto en dos horas (a 80 km de distancia), en 10 horas (a 400 km de distancia), o en el tiempo que te interese. Teniendo el dato de la velocidad que corresponde a cada caso, podés anticipar el futuro y saber dónde estará el auto, cuánto tardará en calentar el agua para no malgastar el gas y evitar que rebalse un bidón de 50 litros.</p>
+<p>El auto de nuestro ejemplo recorre 40 km por cada hora que pasa sin importar en qué momento nos fijemos: mismo intervalo de tiempo, misma distancia recorrida. Por este motivo podemos decir que su velocidad es constante y vale 40 km/h. (Del mismo modo podríamos definirlo para el agua en la pava: si un litro de agua logra hervir en 5 minutos, entonces estoy haciendo hervir agua a una velocidad de 0,2 litros/min. Y para el balde, si agrego 10 litros en 20 segundos estoy llenando el balde a una <em>velocidad</em> de 0,5 litros/seg = 10 litros / 20 segundos.)</p>
+<h3 id="Cuando-la-prediccion-no-es-tan-intuitiva"><a href="#Cuando-la-prediccion-no-es-tan-intuitiva" class="headerlink" title="Cuando la predicción no es tan intuitiva"></a>Cuando la predicción no es tan intuitiva</h3><p>Los ejemplos anteriores pueden resumirse en una misma idea: “sumar una cantidad fija en cada paso” o, dicho de otro modo, velocidad constante. Pero no todos los fenómenos se pueden describir con esta idea. Consideremos una versión simplificada de <a href="https://decodificar.org/covid/record_de_contagios/">cómo se propaga una enfermedad contagiosa</a>, donde cada persona puede contagiar a otras dos:</p>
+<p><img src="https://datos.decodificar.org/imagenes/nota6_a.jpg" alt="enfermedad_contagiosa">\</p>
+<p>Lo más importante que queremos notar acá es que el proceso de transmisión de la enfermedad no agrega la misma cantidad de contagiados cada día… sino cada vez más, porque cada persona puede contagiar a otras dos. En el día 1 se agregaron dos personas contagiadas, en el día 2 se agregaron <strong>cuatro</strong> personas nuevas y en el día 3 se agregaron <strong>ocho más</strong>. Podemos resumir esa dinámica en la siguiente idea: la “velocidad” de contagio no es constante, sino que la cantidad nueva de casos cada día <em>depende de cuántos casos haya</em>. Y esa diferencia es fundamental.</p>
+<h3 id="Las-predicciones-visualmente"><a href="#Las-predicciones-visualmente" class="headerlink" title="Las predicciones, visualmente"></a>Las predicciones, visualmente</h3><p>¿Cómo se ven estos dos tipos de comportamiento cuando los representamos en un gráfico en función del tiempo transcurrido? En el primer caso, que representa a muchos de los fenómenos más intuitivos (el auto, la pava de agua, el llenado del balde), la relación entre sus dos variables tiene forma recta y la inclinación o pendiente es justamente la velocidad del fenómeno que se trate. La predicción de la que hablábamos antes es, justamente, la continuación de la recta hacia el futuro. Este tipo de crecimiento se llama <strong>lineal</strong> (o aritmético):</p>
+<p><img src="https://datos.decodificar.org/imagenes/nota6_b.jpg" alt="posicion_tiempo">\</p>
+<p>El otro comportamiento, en cambio, tiene un gráfico en función del tiempo que no es recto sino curvo: cada vez más empinado. Cuando la cantidad de casos que agrega depende de la cantidad de casos que hay, se llama crecimiento <strong>exponencial</strong> (o geométrico):</p>
+<p><img src="https://datos.decodificar.org/imagenes/nota6_c.jpg" alt="casos_tiempo">\</p>
+<p>Es fácil de ver cómo nos falla la intuición cuando intentamos predecir el número de casos como si fueran la posición del auto o las papas en la verdulería. Si sabemos que en el primer día la enfermedad pasó de 1 a 3 casos totales, una predicción lineal y errónea aplicando la regla de tres simple(*) nos diría que en el siguiente día tendrá 5 casos (cuando lo correcto es 7), y en el siguiente tendrá 7 casos (cuando lo correcto es 15), etc. Notá que la regla de tres simple no es incorrecta en sí misma… lo incorrecto es aplicarla a situaciones donde las cantidades no son proporcionales (tiempo y número de casos).</p>
+<h3 id="Como-se-ve-una-enfermedad-contagiosa-real-COVID-19"><a href="#Como-se-ve-una-enfermedad-contagiosa-real-COVID-19" class="headerlink" title="Cómo se ve una enfermedad contagiosa real: COVID-19"></a>Cómo se ve una enfermedad contagiosa real: COVID-19</h3><p>Las enfermedades reales no son tan simples pero se pueden entender en base a lo que dijimos recién. El contagio entre personas no es instantáneo ni automático, lo que hace que la propagación sea más lenta que en el ejemplo simplificado. Además puede depender de muchos otros factores, como por ejemplo la duración del contacto: cuanto más tiempo estén juntas dos personas, más chances habrá de contagio. Hay otros detalles que podrían hacer la propagación más rápida, como por ejemplo que una misma persona puede transmitir la enfermedad involuntariamente durante un lapso considerable de tiempo, o que puede transmitirla a más de dos personas, e inclusive transmitirla sin saberlo mientras es asintomática.</p>
+<p>Estos detalles hacen que las cuentas sean todavía menos intuitivas que antes (no es tan fácil como multiplicar por dos), pero se puede apreciar visualmente en un gráfico del número de casos totales de COVID-19 en Argentina. Tomemos por ejemplo el comienzo de la pandemia cuando el <a href="https://decodificar.org/covid/record_de_contagios/">tiempo de duplicación</a> era de aproximadamente 3 días:</p>
+<p><img src="https://datos.decodificar.org/imagenes/nota6_d.jpg" alt="casos_totales_Argentina">\</p>
+<p>En una semana a mediados de marzo hubo 60 casos nuevos, mientras que a finales de marzo hubo 431 casos nuevos en una sola semana. Claramente, los contagios no avanzan de manera uniforme como el auto que considerábamos arriba. Y este aumento no se trata de una situación excepcional: <a href="https://decodificar.org/covid/record_de_contagios/">es lo esperable en una pandemia</a> en ausencia de medidas de mitigación/contención.</p>
+<p>Los fenómenos de crecimiento exponencial o geométrico crecen tan rápido que los datos más recientes toman toda la escala y nos hacen perder de vista a los más pequeños. Para evitar esto hemos desarrollado formas de graficarlos que se adaptan a su particular comportamiento, como por ejemplo la que te contamos en nuestra <a href="">nota sobre escala logarítmica</a>.</p>
+<h3 id="Para-seguir-pensando"><a href="#Para-seguir-pensando" class="headerlink" title="Para seguir pensando"></a>Para seguir pensando</h3><p>Hay muchas situaciones y fenómenos que se pueden describir como de crecimiento exponencial o geométrico. La manera en que se van difundiendo muy rápidamente algunos videos y otros contenidos en internet cuando se hacen “virales” puede bien considerarse exponencial, al menos en las etapas iniciales. El famoso “acople” de una guitarra eléctrica o un micrófono frente a un parlante es otro ejemplo de crecimiento exponencial. Quienes hayan estudiado las nociones básicas de finanzas en la secundaria recordarán la diferencia entre interés simple (ejemplo de crecimiento lineal) e interés compuesto (ejemplo de crecimiento exponencial). Otros crecimientos exponenciales son, por ejemplo, las reacciones en cadena que ocurren en las centrales nucleares y el crecimiento de poblaciones de personas o animales (siempre que no lleguen a la situación de encontrar recursos limitados).</p>
+<p>Que el crecimiento exponencial sea difícil de intuir no significa que sea imposible predecirlo. De hecho, podemos hacerlo y no solo de manera genérica sino cuantitativa y específica. Mucha de la investigación científica en torno a COVID-19 se dedicó a entender los mecanismos de contagio a nivel epidemiológico: determinar cuánto vale el factor de multiplicación que mejor representa a la pandemia en cierto momento y lugar (el factor 2 en el ejemplo de más arriba), cómo cambia su valor frente a medidas de mitigación/contención, el rol de las personas asintomáticas que contagian sin estar declaradas, el rol de las personas recuperadas que no vuelven a contagiarse, etc. En base a datos cuantitativos como número de casos confirmados o de fallecimientos, se proponen modelos matemáticos (<a href="https://decodificar.org/metodos/">un poco más complicados</a> que el ejemplo que vimos) que nos permiten predecir el efecto de ciertas medidas y así aportar evidencia en la toma de decisiones para enfrentar una de las peores pandemias de las que tengamos memoria.</p>
+<p>(*) Luego de restar el caso original.</p>
+<hr>
+
+      </div>
+      
+      
+      
+    </div>
+    
+  <ul class="breadcrumb">
+          
+            <li><a href="/notas/">NOTAS</a></li>
+          <li>CRECIMIENTO_LINEAL</li>
+        
+  </ul>
+
+    
+    
+    
+
+
+        </div>
+        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        <!-- <div class="firma"> -->
+
+<!-- <a href="/">
+  Inicio</a> 
+  &mdash;
+  <a href="/about/">
+    Acerca del proyecto</a>
+</div> -->
+
+<div class="firma">
+  <img src="/images/logo_small.png"> 
+  Un proyecto de la <a href="https://www.fundacionbyb.org/" target="_blank">Fundación Bunge y Born</a>, en alianza con  <a href="http://expedicionciencia.org.ar/" target="_blank">Expedición Ciencia</a>
+</div>
+
+<div class="redes">
+<a href="https://www.facebook.com/fundacionbungeyborn/" target="_blank"><i class="fab fa-facebook-square"></i></a>
+<a href="https://www.instagram.com/fundacionbungeyborn/" target="_blank"><i class="fab fa-instagram-square"></i></a>
+<a href="https://www.linkedin.com/company/fundacion-bunge-y-born/" target="_blank"><i class="fab fa-linkedin"></i></a>
+</div>
+
+
+<div class="reporte">
+<a href="/">
+  Inicio</a> - 
+<a href="/metodos/">
+    Métodos</a> - 
+<a href="/about/">
+    Acerca del proyecto</a>
+</div>
+
+
+<div class="copyright">
+<a rel="license noopener" href="http://creativecommons.org/licenses/by-sa/2.5/ar/" target="_blank">
+ <img alt="Licencia Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/2.5/ar/88x31.png" /></a>
+ Esta obra está bajo una <a rel="license noopener" href="http://creativecommons.org/licenses/by-sa/2.5/ar/" target="_blank">Licencia Creative Commons Atribución-CompartirIgual 2.5 Argentina</a>.
+<br />
+ <span itemprop="copyrightYear"><i class="fab fa-creative-commons"></i>&nbsp;2020</span>
+  <span class="author" itemprop="copyrightHolder">Fundación Bunge y Born</span>
+ / <a href="https://www.fundacionbyb.org/politica-de-privacidad" target="_blank">Política de privacidad</a>
+
+</div>
+
+<div class="powered-by">
+Creado con <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a>
+&amp; <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="Gy0v5fPBzo8V6kQn7oOcPhNXVas7zpn5e7eVTANnKBM">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather:300,300italic,400,400italic,700,700italic|Oswald:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"decodificar.org","root":"/","scheme":"Mist","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"remove","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"none","post_body":"none","coll_header":"none","sidebar":"fadeInUp"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Supongamos que una persona te sugiere comprar cierta marca de medicamento porque cuesta $100 mientras que otra marca cuesta $150. ¿Comprarías, sabiendo que el medicamento puede venir en tamaños difere">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Normalizar para comparar">
+<meta property="og:url" content="https://decodificar.org/notas/normalizar/index.html">
+<meta property="og:site_name" content="Decodificar: COVID19">
+<meta property="og:description" content="Supongamos que una persona te sugiere comprar cierta marca de medicamento porque cuesta $100 mientras que otra marca cuesta $150. ¿Comprarías, sabiendo que el medicamento puede venir en tamaños difere">
+<meta property="og:locale" content="es_ES">
+<meta property="og:image" content="https://decodificar.org/images/coverindex.jpg">
+<meta property="article:published_time" content="2021-03-04T19:54:10.071Z">
+<meta property="article:modified_time" content="2021-03-04T19:54:10.071Z">
+<meta property="article:author" content="Fundacion Bunge y Born">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://decodificar.org/images/coverindex.jpg">
+
+<link rel="canonical" href="https://decodificar.org/notas/normalizar/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false,
+    lang   : 'es'
+  };
+</script>
+
+  <title>Normalizar para comparar | Decodificar: COVID19
+</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132699662-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-132699662-2');
+      }
+    </script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PWMSB36');</script>
+<!-- End Google Tag Manager -->
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+  
+</head>
+
+<body itemscope  class="white" itemtype="http://schema.org/WebPage">
+
+  
+
+  <div class="container">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <img src="/images/logo-web.png">
+<!--       <i class="logo-line"></i>
+      <h1 class="site-title">Decodificar: COVID19</h1>
+      <i class="logo-line"></i> -->
+    </a>
+      <p class="site-subtitle" itemprop="description">Entendiendo la pandemia</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+
+    <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Cambiar a barra de navegación">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-inicio">
+
+    <a href="/" rel="section">Inicio</a>
+
+  </li>
+        <li class="menu-item menu-item-métodos">
+
+    <a href="/metodos/" rel="section">Métodos</a>
+
+  </li>
+        <li class="menu-item menu-item-notas">
+
+    <a href="/notas/" rel="section">Notas</a>
+
+  </li>
+        <li class="menu-item menu-item-acerca-del-proyecto">
+
+    <a href="/about/" rel="section">Acerca del proyecto</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+      </header>
+
+      
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+
+
+      <div class="main-inner">
+
+
+        
+  
+  
+
+        <div class="content page posts-expand">
+          
+
+    
+    
+    
+    <div class="post-block" lang="es">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">Normalizar para comparar
+</h1>
+
+<div class="post-meta">
+  
+  <ul class="breadcrumb">
+          
+            <li><a href="/notas/">NOTAS</a></li>
+          <li>NORMALIZAR</li>
+        
+  </ul>
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <p>Supongamos que una persona te sugiere comprar cierta marca de medicamento porque cuesta $100 mientras que otra marca cuesta $150. ¿Comprarías, sabiendo que el medicamento puede venir en tamaños diferentes? Antes quizás te gustaría saber el precio por unidad. Lo que estás haciendo es una <em>normalización</em> que te permite comparar mejor los precios de marcas diferentes. Ahora bien, cuando se trata de la pandemia de COVID-19, ¿cómo se hace para comparar entre países?</p>
+<h3 id="Comparar-es-fundamental…-y-dificil"><a href="#Comparar-es-fundamental…-y-dificil" class="headerlink" title="Comparar es fundamental… y difícil."></a>Comparar es fundamental… y difícil.</h3><p>Para enfrentar la pandemia de COVID-19 debemos tomar las mejores decisiones posibles. Y para eso es fundamental comparar las diferentes estrategias, circunstancias y resultados de otros países. Hemos visto que, para analizar los resultados de las medidas tomadas, <a href="https://decodificar.org/covid/muertes_por_pais/">los datos de fallecimientos</a> son en varios aspectos más confiables que los de casos confirmados, pero… ¿podemos comparar el número total de fallecimientos entre países para saber cuál tuvo mejores resultados frente a la pandemia? La respuesta rápida es NO, pero podemos aprender en el camino y en base a eso construir una medida de fallecimientos “corregida” que sí se pueda comparar. Veamos.</p>
+<p>La tabla a continuación muestra el ranking de países de acuerdo al número total de fallecimientos por COVID-19, con datos al 01/12/2020 (columna de la izquierda). Notá que muchos de los países que aparecen arriba en el ranking de muertes por COVID-19 son también los más poblados del mundo (columna de la derecha).</p>
+<p><img src="https://datos.decodificar.org/imagenes/nota7_a.jpg" alt="tabla_muertexmillon_poblacion">\</p>
+<p>Estos dos ordenamientos son sospechosamente similares… No es <em>exactamente</em> el mismo orden, pero varios de los primeros puestos en una de las columnas también están en la otra. En el fondo, ¿a qué se debe que los países queden ordenados de manera similar? ¿A la cantidad de fallecimientos, al tamaño de su población, o a ambos?</p>
+<h3 id="No-sabemos-por-que-pero-no-importa"><a href="#No-sabemos-por-que-pero-no-importa" class="headerlink" title="No sabemos por qué, pero no importa"></a>No sabemos por qué, pero no importa</h3><p>La mejor respuesta es “no sabemos”. Podríamos considerar varias explicaciones, como por ejemplo que ante una misma probabilidad de contagio el número real de casos (y por lo tanto de fallecimientos) es mayor en poblaciones más grandes que en poblaciones más chicas. O que la detección de casos es más lenta/difícil en poblaciones más grandes y por lo tanto la chance de fallecer es mayor. O varias causas al mismo tiempo. La cuestión es que no sabemos a qué se debe dicha relación y, para lo que queremos mostrar aquí, tampoco importa. El hecho es que parece haber una relación entre la cantidad de muertes por COVID-19 y el tamaño de la población de cada país: los que tienen mayor población también tienden a tener mayor cantidad de fallecimientos por COVID-19.</p>
+<p>Para ver si nuestra intuición es real, en vez de comparar renglón por renglón en la tabla de arriba podemos tomar los datos de cada país y dibujarlos en un gráfico para mirar de manera más global. En otras palabras, para cada país ponemos su dato de fallecimientos en el eje vertical y su dato de población en el eje horizontal. Lo que queda es esto:</p>
+<p><img src="https://datos.decodificar.org/imagenes/nota7_b.jpg" alt="correlacion"><br>Fuente: Our World In Data<br>Datos al 01/12/2020</p>
+<p>En este gráfico cada punto representa a un país (mostramos solo los países que tienen al menos un millón de habitantes y al menos 100 fallecimientos por COVID-19). Lo primero que se puede apreciar es que los puntos están dispersos por aquí y por allá, pero no lo hacen de cualquier manera: los que están más a la izquierda también se ubican más abajo, y los de la derecha lo hacen más arriba. Es decir que la nube de puntos tiene una forma estirada en diagonal. Parece haber un patrón (es decir, una regularidad) que habíamos sospechado mirando la tabla pero que en este gráfico se hace muy evidente: hay una tendencia general a que los países con mayor población tengan también la mayor cantidad de fallecimientos por COVID-19.</p>
+<p>Notá que dijimos que existe “una tendencia general”. Queremos decir que se cumple a grandes rasgos, aunque no sea una relación perfecta: estamos dejando de lado por un momento que los puntos están efectivamente dispersos. Tomá por ejemplo Corea del Sur, Italia y Argentina, que tienen poblaciones muy similares (alineados verticalmente) pero una cantidad muy diferente de fallecidos (Corea del Sur muy abajo). O, en la otra dirección, Corea del Sur y Australia tuvieron una cantidad muy similar de fallecidos a pesar de que Corea del Sur tiene mayor población. Pero, a pesar de estas variaciones, la tendencia general sigue ahí y es muy fuerte. Esa tendencia general que observamos arriba está representada por la recta verde: es la recta que mejor describe a ese conjunto de puntos. La inclinación de la recta, es decir el valor de su pendiente, nos dice cuánto efecto tiene el tamaño de la población en la cantidad de fallecimientos (si la pendiente fuera cero significaría que la cantidad de fallecimientos no depende del tamaño de la población: sería una recta horizontal). En términos científicos decimos que el valor de la pendiente es <em>significativamente distinto de cero.</em></p>
+<h3 id="Un-ranking-corregido"><a href="#Un-ranking-corregido" class="headerlink" title="Un ranking corregido"></a>Un ranking corregido</h3><p>Esa tendencia es uno de los motivos por los cuales no está bien comparar directamente el número de fallecimientos entre países: hay países que tienen muchos fallecidos por COVID-19 pero no necesariamente por haber manejado mal la pandemia sino simplemente por tener mayor población. ¿Qué podemos hacer entonces? Para empezar, es sorprendente que no necesitemos una explicación sobre las causas de esta relación; no es necesario saber por qué ocurre, alcanza con saber que existe. Es lo que llamamos una <a href="">correlación</a> (donde no nos importa cuál es la causa y cuál el efecto). Es un hecho que los países con mayor población tienen mayor cantidad de muertes por COVID-19: sería bueno <em>incorporar</em> esa información y hacer así una mejor comparación entre países. ¿Cómo podemos entonces utilizar esto para <em>corregir</em> el ranking? Es bastante simple: dividimos el número total de fallecimientos de cada país por el tamaño de su población expresado en millones de personas. Lo que obtenemos es el “número de muertes por millón de habitantes”, un dato que fue haciéndose más importante a medida que aprendíamos sobre esta pandemia.</p>
+<p><img src="https://datos.decodificar.org/imagenes/nota7_c.jpg" alt="ranking_corregido">\</p>
+<h3 id="Segundo-factor-la-edad"><a href="#Segundo-factor-la-edad" class="headerlink" title="Segundo factor: la edad"></a>Segundo factor: la edad</h3><p>¿Podemos quedarnos conformes con el ranking corregido? Incorporar la información sobre el tamaño de la población es un gran paso para mejorar la comparación entre países, pero a medida que vamos generando conocimiento surgen factores adicionales para tener en cuenta. Por ejemplo, a esta altura de la pandemia ya sabemos que la COVID-19 afecta más gravemente a los más ancianos. Quizás entonces los países donde hay mayor proporción de ancianos son los más perjudicados. Veamos qué datos tenemos para respaldar esta hipótesis. En el siguiente gráfico pusimos un punto por cada país, con el eje horizontal indicando la edad de su población (representada por la mediana) y en el eje vertical el número de fallecimientos COVID-19 por millón de habitantes que sale del ranking corregido.</p>
+<p><img src="https://datos.decodificar.org/imagenes/nota7_d.jpg" alt="correlacion_nueva_correcion"><br>Fuente: Our World In Data<br>Datos al 01/12/2020</p>
+<p>Efectivamente, parece ser que en este caso también hay una correlación. La recta que mejor representa al conjunto de los puntos en este gráfico tiene una pendiente que no es horizontal sino diagonal (es decir, significativamente distinta de cero). Esto significa que los puntos no están distribuidos completamente al azar sino que hay una relación subyacente. Y, como antes, podríamos encontrar varias hipótesis muy razonables para explicar esta relación: por ejemplo, que los más ancianos tienen mayor chance de tener enfermedades de base (diabetes, hipertensión, insuficiencia respiratoria por tabaquismo, etc) y eso los hace más propensos a desarrollar síntomas graves por COVID-19 y por ende fallecer. Pero no necesitamos una explicación para continuar; solo necesitamos saber que la relación existe.</p>
+<p>Con esto en la cabeza volvamos a considerar el último ranking que mostramos: número de fallecimientos por millón de habitantes. Los países con poblaciones de mayor edad están “penalizados” en este ranking porque ahora sabemos que las personas más ancianas tienen más chances de fallecer por COVID-19, y esto ocurre por las características de la enfermedad más allá de las medidas sanitarias que hayan tomado los países. Dicho de otro modo, si imaginamos dos países que hayan adoptado exactamente las mismas medidas de prevención, mitigación y contención, el que tenga mayor proporción de personas grandes tendrá probablemente mayor cantidad de fallecimientos.</p>
+<h3 id="Un-ranking-doblemente-corregido"><a href="#Un-ranking-doblemente-corregido" class="headerlink" title="Un ranking doblemente corregido"></a>Un ranking doblemente corregido</h3><p>Entonces para ser justos también deberíamos compensar el evidente efecto que tiene la edad en el número de fallecimientos. ¿Cómo? De modo similar a cuando incorporamos el dato del tamaño de la población: tomamos el número de fallecimientos por millón de habitantes que nos dejó el ranking anterior y lo dividimos por la edad de la población.</p>
+<p><img src="https://datos.decodificar.org/imagenes/nota7_e.jpg" alt="ranking_corregido_dos_factores">\</p>
+<p>Notá algunos detalles interesantes. Como partimos de un ranking ya corregido (al tener en cuenta la población de cada país), ahora estamos en un nivel superior de detalle y en el tercer ranking los países se acomodan otro poco. Mirá por ejemplo los dos primeros lugares: Perú y Bélgica intercambian posiciones. Es esperable que los países con poblaciones más ancianas (por ejemplo España, Italia, Reino Unido) bajen un poco en el nuevo ranking, mientras que los que tienen poblaciones más jóvenes suban un poco (por ejemplo Bolivia, México, Brasil). Es el efecto de la corrección por edad.</p>
+<p>Armar un ranking es una manera de comparar: ¿qué país enfrentó mejor la pandemia? Incorporar a ese ranking información adicional para compensar correlaciones es una manera de <em>normalizar</em> o estandarizar el número de fallecimientos para que el dato sea más comparable entre países que de entrada son diferentes entre sí. Lo que queda, es decir, el ranking doblemente corregido, está libre de ambas correlaciones: es una escala que representa mejor los resultados de las medidas tomadas por los distintos países para enfrentar la pandemia.</p>
+<h3 id="Para-seguir-pensando"><a href="#Para-seguir-pensando" class="headerlink" title="Para seguir pensando"></a>Para seguir pensando</h3><p>Una observación que profundiza en el camino de la cuantificación y el análisis de estas correlaciones es la siguiente: al considerar la edad de la población como segunda corrección al ranking, deberíamos asegurarnos de que <strong>no correlaciona</strong> con el factor que ya habíamos considerado para la primera corrección. Es decir, si ya corregimos por el tamaño de la población y ahora queremos corregir por edad de la población, deberíamos descartar que haya una correlación entre ambos factores. De otro modo, al aplicar la segunda corrección en realidad sería como aplicar dos veces la primera. De acuerdo a lo que mostramos en Métodos (más abajo), se ve que la correlación entre tamaño y edad de la población es muy débil (pendiente casi nula). Es decir, podemos hacer la segunda corrección con tranquilidad. Un posible siguiente paso sería comparar solo entre países que hayan pasado su primera ola de contagios, en vez de mezclar países que se encuentran en diferentes etapas de la pandemia.</p>
+<p>A medida que generamos conocimiento se hace evidente la necesidad de considerar más y más detalles. Por ejemplo, ya hay datos que señalan la profundización de las inequidades debido a la pandemia. En su informe de septiembre de 2020 con datos de Estados Unidos (<a href="https://www.mckinsey.com/featured-insights/coronavirus-leading-through-the-crisis/charting-the-path-to-the-next-normal/socioeconomic-vulnerability-increases-the-risk-of-dying-from-covid-19#" target="_blank" rel="noopener">informe en inglés</a>), la consultora McKinsey muestra que la chance de morir por COVID-19 es mayor para las personas en situación de vulnerabilidad socioeconómica. Muestra además que, dentro de ese gran grupo, el subconjunto de los que tienen problemas graves de alojamiento está especialmente perjudicado. Esto es evidencia para seguir corrigiendo el ranking de fallecimientos, ya sea por grado de vulnerabilidad de la población de cada país o por segmentos dentro de un mismo país.</p>
+<p><img src="https://datos.decodificar.org/imagenes/nota7_f.jpg" alt="riesgo_segun_vulnerabilidad"><br>Fuente: McKinsey &amp; Company, reporte “US Hispanic and Latino lives and livelihoods in the recovery from COVID-19” (septiembre 2020)<br><a href="https://www.mckinsey.com/featured-insights/coronavirus-leading-through-the-crisis/charting-the-path-to-the-next-normal/socioeconomic-vulnerability-increases-the-risk-of-dying-from-covid-19#" target="_blank" rel="noopener">https://www.mckinsey.com/featured-insights/coronavirus-leading-through-the-crisis/charting-the-path-to-the-next-normal/socioeconomic-vulnerability-increases-the-risk-of-dying-from-covid-19#</a></p>
+<h2 id="Metodos"><a href="#Metodos" class="headerlink" title="Métodos"></a>Métodos</h2><p>Para cada factor de normalización calculamos una regresión lineal robusta (es decir, insensible a datos atípicos) por medio de la función RLM de la librería statsmodels en Python:</p>
+<h3 id="Muertes-vs-poblacion"><a href="#Muertes-vs-poblacion" class="headerlink" title="Muertes vs población"></a>Muertes vs población</h3><p>Modelo: log(muertes) = M*log(población) + B<br>Pendiente: M = 0.71 +/- 0.15, p=2x10-11, intervalo de confianza 95% = [0.50 ; 0.92]</p>
+<h3 id="Muertes-vs-edad"><a href="#Muertes-vs-edad" class="headerlink" title="Muertes vs edad"></a>Muertes vs edad</h3><p>Modelo: log(muertes por millón) = M*edad (lineal) + B<br>Pendiente: M = 0.0543 +/- 0.0055, p=8x10-23, intervalo de confianza 95% = [0.0435 ; 0.0651]</p>
+<h3 id="Poblacion-vs-edad"><a href="#Poblacion-vs-edad" class="headerlink" title="Población vs edad"></a>Población vs edad</h3><p>Modelo: log(población) = M*edad (lineal) + B<br>Pendiente: M = -0.013 +/- 0.006, p=0.035, intervalo de confianza 95% = [-0.025 ; -0.001]</p>
+<hr>
+
+      </div>
+      
+      
+      
+    </div>
+    
+  <ul class="breadcrumb">
+          
+            <li><a href="/notas/">NOTAS</a></li>
+          <li>NORMALIZAR</li>
+        
+  </ul>
+
+    
+    
+    
+
+
+        </div>
+        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        <!-- <div class="firma"> -->
+
+<!-- <a href="/">
+  Inicio</a> 
+  &mdash;
+  <a href="/about/">
+    Acerca del proyecto</a>
+</div> -->
+
+<div class="firma">
+  <img src="/images/logo_small.png"> 
+  Un proyecto de la <a href="https://www.fundacionbyb.org/" target="_blank">Fundación Bunge y Born</a>, en alianza con  <a href="http://expedicionciencia.org.ar/" target="_blank">Expedición Ciencia</a>
+</div>
+
+<div class="redes">
+<a href="https://www.facebook.com/fundacionbungeyborn/" target="_blank"><i class="fab fa-facebook-square"></i></a>
+<a href="https://www.instagram.com/fundacionbungeyborn/" target="_blank"><i class="fab fa-instagram-square"></i></a>
+<a href="https://www.linkedin.com/company/fundacion-bunge-y-born/" target="_blank"><i class="fab fa-linkedin"></i></a>
+</div>
+
+
+<div class="reporte">
+<a href="/">
+  Inicio</a> - 
+<a href="/metodos/">
+    Métodos</a> - 
+<a href="/about/">
+    Acerca del proyecto</a>
+</div>
+
+
+<div class="copyright">
+<a rel="license noopener" href="http://creativecommons.org/licenses/by-sa/2.5/ar/" target="_blank">
+ <img alt="Licencia Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/2.5/ar/88x31.png" /></a>
+ Esta obra está bajo una <a rel="license noopener" href="http://creativecommons.org/licenses/by-sa/2.5/ar/" target="_blank">Licencia Creative Commons Atribución-CompartirIgual 2.5 Argentina</a>.
+<br />
+ <span itemprop="copyrightYear"><i class="fab fa-creative-commons"></i>&nbsp;2020</span>
+  <span class="author" itemprop="copyrightHolder">Fundación Bunge y Born</span>
+ / <a href="https://www.fundacionbyb.org/politica-de-privacidad" target="_blank">Política de privacidad</a>
+
+</div>
+
+<div class="powered-by">
+Creado con <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a>
+&amp; <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

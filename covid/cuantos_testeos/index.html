@@ -235,6 +235,11 @@ var coloreaCategorias = d3.scaleOrdinal()
     <a href="/metodos/" rel="section">Métodos</a>
 
   </li>
+        <li class="menu-item menu-item-notas">
+
+    <a href="/notas/" rel="section">Notas</a>
+
+  </li>
         <li class="menu-item menu-item-acerca-del-proyecto">
 
     <a href="/about/" rel="section">Acerca del proyecto</a>
@@ -770,9 +775,9 @@ var avgData = movingWindowAvg(avg, 7); // 7-step backward moving window. */
     
     var groupKey = data.columns[0];
     var keys = ["tests","casos"];
-    var today =  new Date();
+    var today =  new Date(2020,12,1);
     
-    var cuantosMeses = isMobile?3:5; // CANTIDAD DE MESES HACIA ATRAS PARA CORTAR
+    var cuantosMeses = isMobile?4:5; // CANTIDAD DE MESES HACIA ATRAS PARA CORTAR
     var paddingColumnas = 1;
 
     data = data.filter(d=>d.fecha> d3.timeMonth.round(d3.timeMonth.offset(today, -cuantosMeses)));
@@ -1316,7 +1321,7 @@ function ajustaMesesEjeX(g) {
           if(diasPrimerMes>8){
             g.selectAll(".tick:first-of-type text") // el ultimo si no esta completo lo centra en los dias que haya
                 .clone(true)
-                .text(d3.timeFormat("%B")(d3.timeMonth.floor(x.domain()[0])))
+                .text(d3.timeFormat(isMobile?"%b":"%B")(d3.timeMonth.floor(x.domain()[0])))
                 .attr("dx",  x(d3.timeDay.offset(x.domain()[0], diasPrimerMes/2))*-1)
                 .attr("dy", "0.3em") ;
             }

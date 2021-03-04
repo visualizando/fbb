@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="Gy0v5fPBzo8V6kQn7oOcPhNXVas7zpn5e7eVTANnKBM">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather:300,300italic,400,400italic,700,700italic|Oswald:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"decodificar.org","root":"/","scheme":"Mist","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"remove","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"none","post_body":"none","coll_header":"none","sidebar":"fadeInUp"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Muchas veces las personas queremos modificar un fenómeno observado. Los científicos pueden hacerlo para poner a prueba sus preguntas de investigación, los políticos pueden hacerlo para mejorar ciertos">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Causalidad entre medidas adoptadas y resultados obtenidos">
+<meta property="og:url" content="https://decodificar.org/notas/causalidad_correlacion/index.html">
+<meta property="og:site_name" content="Decodificar: COVID19">
+<meta property="og:description" content="Muchas veces las personas queremos modificar un fenómeno observado. Los científicos pueden hacerlo para poner a prueba sus preguntas de investigación, los políticos pueden hacerlo para mejorar ciertos">
+<meta property="og:locale" content="es_ES">
+<meta property="og:image" content="https://decodificar.org/images/coverindex.jpg">
+<meta property="article:published_time" content="2021-03-04T19:24:13.123Z">
+<meta property="article:modified_time" content="2021-03-04T19:24:13.123Z">
+<meta property="article:author" content="Fundacion Bunge y Born">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://decodificar.org/images/coverindex.jpg">
+
+<link rel="canonical" href="https://decodificar.org/notas/causalidad_correlacion/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false,
+    lang   : 'es'
+  };
+</script>
+
+  <title>Causalidad entre medidas adoptadas y resultados obtenidos | Decodificar: COVID19
+</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132699662-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-132699662-2');
+      }
+    </script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PWMSB36');</script>
+<!-- End Google Tag Manager -->
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+  
+</head>
+
+<body itemscope  class="white" itemtype="http://schema.org/WebPage">
+
+  
+
+  <div class="container">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <img src="/images/logo-web.png">
+<!--       <i class="logo-line"></i>
+      <h1 class="site-title">Decodificar: COVID19</h1>
+      <i class="logo-line"></i> -->
+    </a>
+      <p class="site-subtitle" itemprop="description">Entendiendo la pandemia</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+
+    <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Cambiar a barra de navegación">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-inicio">
+
+    <a href="/" rel="section">Inicio</a>
+
+  </li>
+        <li class="menu-item menu-item-métodos">
+
+    <a href="/metodos/" rel="section">Métodos</a>
+
+  </li>
+        <li class="menu-item menu-item-notas">
+
+    <a href="/notas/" rel="section">Notas</a>
+
+  </li>
+        <li class="menu-item menu-item-acerca-del-proyecto">
+
+    <a href="/about/" rel="section">Acerca del proyecto</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+      </header>
+
+      
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+
+
+      <div class="main-inner">
+
+
+        
+  
+  
+
+        <div class="content page posts-expand">
+          
+
+    
+    
+    
+    <div class="post-block" lang="es">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">Causalidad entre medidas adoptadas y resultados obtenidos
+</h1>
+
+<div class="post-meta">
+  
+  <ul class="breadcrumb">
+          
+            <li><a href="/notas/">NOTAS</a></li>
+          <li>CAUSALIDAD_CORRELACION</li>
+        
+  </ul>
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <p>Muchas veces las personas queremos modificar un fenómeno observado. Los científicos pueden hacerlo para poner a prueba sus preguntas de investigación, los políticos pueden hacerlo para mejorar ciertos indicadores de la población, los médicos pueden hacerlo para mejorar los síntomas de sus pacientes, o una persona en su casa simplemente quiere que sus tortas salgan más húmedas. ¿Cómo sabemos qué debemos modificar?</p>
+<h3 id="Una-primera-pregunta-¿cual-es-la-causa"><a href="#Una-primera-pregunta-¿cual-es-la-causa" class="headerlink" title="Una primera pregunta: ¿cuál es la causa?"></a>Una primera pregunta: ¿cuál es la causa?</h3><p>Para modificar un fenómeno necesitamos estudiarlo, entenderlo, darle un sentido en un determinado contexto. ¿Cómo lo hacemos? Estudiando sus características, estudiando sus causas. Por ejemplo, cuando observamos que la temperatura del planeta tendía a crecer año a año y comenzamos a preguntarnos qué podría estar provocando eso. O cuando nos preguntamos qué factores pueden desencadenar la diabetes, cuándo es mejor trasplantar un árbol o, más recientemente, qué causa la enfermedad que finalmente denominamos COVID-19.</p>
+<p>Sin embargo, no todo es tan sencillo. Los fenómenos que observamos pueden ser resultado de una sola causa o, más habitualmente, de múltiples causas. A veces cada una de esas causas puede ser suficiente para provocar el efecto (1), como en el caso de la fiebre que puede estar causada por varios factores diferentes (infección, picadura de abeja, insolación, etc) y cualquiera de los factores por sí solo es suficiente para dispararla. Otras veces es necesaria la conjunción de varias causas simultáneamente (2): para tener agua caliente en la canilla es necesario tener agua en el tanque y que el calefón esté encendido (no voy a tener agua caliente si alguna de las dos falta). Además una sola causa puede producir distintos efectos o “consecuencias” (3).</p>
+<p><img src="https://datos.decodificar.org/imagenes/nota5_a.jpg" alt="causas_efecto">\</p>
+<h3 id="La-gran-pregunta-como-sabemos-cual-es-la-causa-de-un-determinado-fenomeno"><a href="#La-gran-pregunta-como-sabemos-cual-es-la-causa-de-un-determinado-fenomeno" class="headerlink" title="La gran pregunta: cómo sabemos cuál es la causa de un determinado fenómeno"></a>La gran pregunta: cómo sabemos cuál es la causa de un determinado fenómeno</h3><p>Si hubiéramos vivido en Oldenburg (Alemania) a comienzos del siglo XX quizás habríamos percibido que la cantidad de nacimientos crecía año a año… al igual que la cantidad de nidos de cigüeña. En efecto, si graficamos ambos datos entre los años 1930 y 1936 (un punto por cada año) tenemos lo siguiente:</p>
+<p><img src="https://datos.decodificar.org/imagenes/nota2_b.jpg" alt="causas">\</p>
+<p><em>Fuente: R.F. Mould, Introductory Medical Statistics, figura 16.5</em><br><a href="http://library.lol/main/FB67334BECF1893769C530433980E6AE" target="_blank" rel="noopener">http://library.lol/main/FB67334BECF1893769C530433980E6AE</a></p>
+<p>¿Qué nos dice este gráfico? Pareciera que si en tu ciudad aumenta la cantidad de nidos de cigüeñas, habrá también mayor cantidad de nacimientos (y viceversa: cuando hay menos cigüeñas pareciera haber menos nacimientos). Decimos que ambas variables están “correlacionadas” (en este caso hablamos de una correlación positiva: cuando una aumenta, la otra también lo hace). ¿Podemos decir entonces con seguridad que las cigüeñas traen a los bebés? Evidentemente no, aún cuando nos tentemos rápidamente a interpretar eso del gráfico. Veamos más ejemplos para entender el porqué.</p>
+<p>Otra <a href="https://decodificar.org/covid/muertes_por_pais/">correlación de la que se habló durante la pandemia por COVID-19 es la que se observa entre la cantidad de personas fallecidas por COVID-19 en cada país y el tamaño de su población</a>. Al observar un gráfico con los datos de fallecimientos y el número de habitantes, podemos ver que en general en los países con menos habitantes hay menos cantidad de personas fallecidas por COVID-19, y los países con gran cantidad de habitantes tienen mayor cantidad. Esto es otro ejemplo de una correlación entre dos variables, aunque en este caso sí sería sensato proponer una relación de causa y efecto entre ellas.</p>
+<p><img src="https://datos.decodificar.org/imagenes/nota5_c.jpg" alt="ejemplo_correlacion">\</p>
+<h3 id="No-vale-“solo”-la-correlacion"><a href="#No-vale-“solo”-la-correlacion" class="headerlink" title="No vale “solo” la correlación"></a>No vale “solo” la correlación</h3><p>Al observar correlaciones como estas podríamos tentarnos a pensar que las cigüeñas efectivamente traen bebés y por eso hay mayor cantidad de nacimientos en las ciudades donde hay más cigüeñas. O que la causa del mayor número de fallecimientos de COVID19 en un país es su mayor número de habitantes. </p>
+<p>Pero no siempre la existencia de dos características (o variables) que están correlacionadas implica que haya una relación de causa y efecto, o relación de causalidad. Muchas veces hay correlación pero no causalidad. Justamente el desafío para entender muchos fenómenos es determinar si estas correlaciones son una “coincidencia” o si estas dos variables están relacionadas de manera tal que una es la causa la otra. En el caso de las cigüeñas y los nacimientos, la relación probable es otra: las ciudades más grandes tienen normalmente más nacimientos y además tienen más casas por lo cual seguramente tendrán más espacio para que haya más nidos de cigüeñas en sus techos. Es decir, los nidos de cigüeña y los nacimientos no están relacionados como causa y efecto sino que hay una variable “oculta” (el tamaño de la población) que podría ser la causa de las otras dos.</p>
+<p>Para establecer que ciertas relaciones son causales necesitamos más evidencia. Es decir, no basta solamente con que dos características (o variables) tengan valores correlacionados numéricamente para decir que una es la causa de la otra. Si no prestamos atención a esto, podríamos incurrir en el error de pensar que tener un encendedor en el bolsillo produce cáncer de pulmón, o que usar bastón produce arrugas (otras correlaciones divertidas para ver acá: <a href="https://www.tylervigen.com/spurious-correlations" target="_blank" rel="noopener">correlaciones espurias -sitio en inglés-</a>).</p>
+<h3 id="Algunas-caracteristicas-de-la-“causalidad”"><a href="#Algunas-caracteristicas-de-la-“causalidad”" class="headerlink" title="Algunas características de la “causalidad”"></a>Algunas características de la “causalidad”</h3><p>Entonces… ¿cuándo una correlación implica causalidad? ¿Hay alguna manera de demostrar con certeza que una relación es de causa y efecto? </p>
+<p>Analicemos algunas de estas otras características que nos ayudan a saber si una determinada cosa (C) produce determinado efecto (E) → correlación causal. Vamos a analizar la pandemia de COVID-19 y vamos a proponer una relación causal entre la movilidad de las personas (medida por ejemplo por Google o Apple) y la <a href="https://decodificar.org/covid/como_se_compara/">“contagiosidad” o transmisibilidad</a> (medida por el número reproductivo efectivo, comúnmente llamado R). El R puede ser usado como una medida de cuánto se está propagando la enfermedad en la población. Cuanta mayor transmisión haya (es decir, una tasa alta de contagios), mayor será el R. Cuando baja la transmisión, baja el R. Entonces, ¿cómo sabemos si la correlación es causal?</p>
+<p><strong>Existe un mecanismo conocido (biológico, químico, físico, sociológico, etc.) que puede explicar la relación entre la causa y el efecto.</strong> Por ejemplo, si relacionamos los índices de movilidad con el aumento de los contagios de COVID-19 tenemos una potencial una explicación biológica/epidemiológica: el virus es transmitido por secreciones respiratorias de persona a persona. Entonces a mayor movilidad de las personas, mayor cantidad de contactos con otras personas y más contagios. Este criterio no es de ayuda cuando nos enfrentamos a fenómenos cuyos mecanismos no conocemos. </p>
+<p><img src="https://datos.decodificar.org/imagenes/nota5_d.jpg" alt="mecanismo">\</p>
+<p><strong>Existe una relación temporal: la variable causa precede al efecto,</strong> que es lo mismo que decir que el efecto se produce después de la causa. Por ejemplo, si un país cierra sus fronteras, es esperable que unas dos semanas después disminuyan los casos importados de otros países. Si este país retrasa esa medida, la disminución de los casos importados también se retrasará. Esto podemos observarlo en el mismo gráfico donde pareciera que tanto la movilidad como el R se mueven de forma parecida. A medida que avanza el tiempo, cuando disminuye la movilidad también disminuye el R. Observemos estas dos variables en un gráfico.</p>
+<p><img src="https://datos.decodificar.org/imagenes/nota5_e.jpg" alt="relacion_temporal">\</p>
+<p><strong>La magnitud del efecto parece relacionarse con la magnitud de la causa:</strong> a mayor exposición a la causa se debería observar mayor tamaño del efecto. Por ejemplo, no es lo mismo que haya una aglomeración de 100 personas en una celebración a que se realice una de 100.000 mil personas. Ambas aumentarán los contagios, pero en el primer caso observaremos un aumento de los contagios de menor magnitud que la que observaremos en el segundo caso. En el gráfico que sigue vemos que Chile tuvo una gran caída de la movilidad con una disminución más pronunciada del R mientras que México tuvo una disminución más pequeña en la movilidad y una disminución pequeña del R: mientras mayor sea la causa (disminución del R), mayor el efecto (disminución de la movilidad). </p>
+<p><img src="https://datos.decodificar.org/imagenes/nota5_f.jpg" alt="magnitud_causa_efecto"><br><em>Gráficos que muestran la movilidad y el valor de R a lo largo del tiempo, durante 2020. Eje Y de la izquierda: R. Eje Y de la derecha: valor porcentual de la movilidad con respecto a niveles pre-pandemia.</em> </p>
+<p><strong>Hay consistencia del efecto en distintas observaciones de la causa:</strong> si distintas personas observan en distintos lugares y diferentes poblaciones la misma relación, esto refuerza la probabilidad de que haya una relación causal entre las variables estudiadas. Muchos países del mundo, sin excepción, observaron que las aglomeraciones de gente en ambientes cerrados producía contagios masivos de COVID-19. Esto fue igual en cualquier parte del mundo por lo que es consistente pensar que las aglomeraciones en ambientes cerrados y la transmisión del virus tienen una relación causal. </p>
+<p><strong>La relación entre la causa y el efecto es reversible:</strong> esto quiere decir que si eliminamos la causa, se deja de observar el efecto. Esto es lo que deberíamos ver si se alcanzan altos índices de vacunación ya que así se eliminaría la circulación del virus y deberíamos ver que desaparecen los contagios masivos. Volviendo al ejemplo con la movilidad, lo que debería observarse es que al aumentar nuevamente la movilidad, aumente de nuevo el R. Esto se observó en muchísimos países cuando se relajaban las medidas sanitarias y luego se observaba un nuevo aumento de los casos. En el siguiente gráfico vemos como Australia luego de relajar el aislamiento y aumentar la movilidad, volvió a subir la contagiosidad (R): </p>
+<p><img src="https://datos.decodificar.org/imagenes/nota5_g.jpg" alt="reversibilidad"><br><em>Gráficos que muestran la movilidad y el valor de R a lo largo del tiempo, durante 2020. Eje Y de la izquierda: R. Eje Y de la derecha: valor porcentual de la movilidad con respecto a niveles pre-pandemia.</em></p>
+<p><strong>Evidencia experimental de la relación causal:</strong> es la herramienta más potente que tenemos para determinar causalidad. Los científicos realizan un tipo de estudios llamados <a href="">“ensayos clínicos aleatorizados”</a> en los que se puede determinar con bastante seguridad si una cosa es causa de la otra. Estos son estudios costosos y muy largos, pero sumamente necesarios para estudiar con profundidad algunos fenómenos, como por ejemplo el efecto de potenciales medicamentos y vacunas.  Durante la pandemia, se comenzaron cientos de ensayos de este tipo a fin de conocer causas de la enfermedad, tratamientos posibles, etc. </p>
+<p>Estas son algunas de las características que ayudan a estudiar las relaciones entre dos variables y, de estar presentes, apoyan la relación causal entre ambas. No son las únicas, hay varias más. Por otro lado, estas características no suelen aparecer todas juntas y, muchas veces, una o unas pocas alcanzan para apoyar en mayor medida la idea de una causalidad. </p>
+<h3 id="Para-seguir-pensando"><a href="#Para-seguir-pensando" class="headerlink" title="Para seguir pensando"></a>Para seguir pensando</h3><p>Cuando entendemos mejor un fenómeno y sus causas, podemos actuar sobre ellas y de este modo modificarlo. Es una de las razones por las que las personas tratamos de entender cómo funciona el mundo en el que vivimos. Cuando comenzó la pandemia por COVID-19 había muchísimas cosas de esta enfermedad que no conocíamos pero con la información disponible hasta el momento todos los países intentaron con distintas estrategias (algunas muy similares entre sí) minimizar el impacto de esta enfermedad tanto en la salud como en la economía de cada región. También pudimos ver que muchas veces estas estrategias iban cambiando a medida que se comprendía mejor las causas de la propagación del virus.</p>
+<p>A veces descubrimos relaciones de causa y efecto solo luego de probar determinadas intervenciones. Hemos visto que una reducción de la movilidad correlaciona con una disminución en la contagiosidad de la enfermedad, y creemos,en base a toda la evidencia disponible, que se trata de una relación de causa y efecto. Pero entonces, ¿por qué <em>no vuelve a subir</em> el valor de R cuando la movilidad vuelve a valores pre-pandemia? Este tipo de observaciones insidiosas nos dan mucha información que no podríamos obtener haciendo un experimento (ningún país estaría dispuesto a someter a su población a una epidemia provocada para medir si la relación entre la movilidad y R es la esperada). Nos lleva a considerar más variables, como por ejemplo el uso de barbijo y el distanciamiento social: quizás la disminución drástica de la movilidad logró una rápida bajada de la contagiosidad, que luego se mantiene baja porque se <em>mantuvieron las otras medidas</em>.</p>
+<p>Muchas veces nos preguntamos: ¿sirve suspender las clases? ¿Cuán grave es que esté en conglomeraciones de gente? ¿Qué sentido tiene prohibir el tránsito entre distintas provincias? ¿Cómo sabemos si eso que hacemos está teniendo el “efecto deseado”? Para responder estas preguntas aquellos que toman decisiones deben analizar con detalle el efecto de las medidas. Si bien no es una tarea fácil, a medida que pasa el tiempo se ha sumado mucha evidencia con respecto a estas asociaciones causales y cada vez comprendemos mejor esta enfermedad. </p>
+<h3 id="FUENTES"><a href="#FUENTES" class="headerlink" title="FUENTES:"></a>FUENTES:</h3><p>[1] Correlations of Mobility and Covid-19 Transmission in Global Data Nittai K. Bergman, Ram Fishman<br>doi: <a href="https://doi.org/10.1101/2020.05.06.20093039" target="_blank" rel="noopener">https://doi.org/10.1101/2020.05.06.20093039</a></p>
+<p>[2] R.F. Mould, Introductory Medical Statistics, figura 16.5<br><a href="http://library.lol/main/FB67334BECF1893769C530433980E6AE" target="_blank" rel="noopener">http://library.lol/main/FB67334BECF1893769C530433980E6AE</a></p>
+<p>[3] The relationship between human mobility and viral transmissibility during the COVID-19 epidemics in Italy. P Cintia, D Fadda, F Giannotti - arXiv preprint </p>
+<hr>
+
+      </div>
+      
+      
+      
+    </div>
+    
+  <ul class="breadcrumb">
+          
+            <li><a href="/notas/">NOTAS</a></li>
+          <li>CAUSALIDAD_CORRELACION</li>
+        
+  </ul>
+
+    
+    
+    
+
+
+        </div>
+        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        <!-- <div class="firma"> -->
+
+<!-- <a href="/">
+  Inicio</a> 
+  &mdash;
+  <a href="/about/">
+    Acerca del proyecto</a>
+</div> -->
+
+<div class="firma">
+  <img src="/images/logo_small.png"> 
+  Un proyecto de la <a href="https://www.fundacionbyb.org/" target="_blank">Fundación Bunge y Born</a>, en alianza con  <a href="http://expedicionciencia.org.ar/" target="_blank">Expedición Ciencia</a>
+</div>
+
+<div class="redes">
+<a href="https://www.facebook.com/fundacionbungeyborn/" target="_blank"><i class="fab fa-facebook-square"></i></a>
+<a href="https://www.instagram.com/fundacionbungeyborn/" target="_blank"><i class="fab fa-instagram-square"></i></a>
+<a href="https://www.linkedin.com/company/fundacion-bunge-y-born/" target="_blank"><i class="fab fa-linkedin"></i></a>
+</div>
+
+
+<div class="reporte">
+<a href="/">
+  Inicio</a> - 
+<a href="/metodos/">
+    Métodos</a> - 
+<a href="/about/">
+    Acerca del proyecto</a>
+</div>
+
+
+<div class="copyright">
+<a rel="license noopener" href="http://creativecommons.org/licenses/by-sa/2.5/ar/" target="_blank">
+ <img alt="Licencia Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/2.5/ar/88x31.png" /></a>
+ Esta obra está bajo una <a rel="license noopener" href="http://creativecommons.org/licenses/by-sa/2.5/ar/" target="_blank">Licencia Creative Commons Atribución-CompartirIgual 2.5 Argentina</a>.
+<br />
+ <span itemprop="copyrightYear"><i class="fab fa-creative-commons"></i>&nbsp;2020</span>
+  <span class="author" itemprop="copyrightHolder">Fundación Bunge y Born</span>
+ / <a href="https://www.fundacionbyb.org/politica-de-privacidad" target="_blank">Política de privacidad</a>
+
+</div>
+
+<div class="powered-by">
+Creado con <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a>
+&amp; <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
