@@ -577,7 +577,7 @@ function ajustaMesesEjeX(g) {
           if(diasPrimerMes>8){
             g.selectAll(".tick:first-of-type text") // el ultimo si no esta completo lo centra en los dias que haya
                 .clone(true)
-                .text(d3.timeFormat("%B")(d3.timeMonth.floor(x.domain()[0])))
+                .text(d3.timeFormat(isMobile?"%b":"%B")(d3.timeMonth.floor(x.domain()[0])))
                 .attr("dx",  x(d3.timeDay.offset(x.domain()[0], diasPrimerMes/2))*-1)
                 .attr("dy", "0.3em") ;
             }
@@ -1187,7 +1187,7 @@ function ajustaMesesEjeX(g) {
           if(diasPrimerMes>8){
             g.selectAll(".tick:first-of-type text") // el ultimo si no esta completo lo centra en los dias que haya
                 .clone(true)
-                .text(d3.timeFormat("%B")(d3.timeMonth.floor(x.domain()[0])))
+                .text(d3.timeFormat(isMobile?"%b":"%B")(d3.timeMonth.floor(x.domain()[0])))
                 .attr("dx",  x(d3.timeDay.offset(x.domain()[0], diasPrimerMes/2))*-1)
                 .attr("dy", "0.3em") ;
             }
@@ -2474,7 +2474,7 @@ function ajustaMesesEjeX(g) {
           if(diasPrimerMes>8){
             g.selectAll(".tick:first-of-type text") // el ultimo si no esta completo lo centra en los dias que haya
                 .clone(true)
-                .text(d3.timeFormat("%B")(d3.timeMonth.floor(x.domain()[0])))
+                .text(d3.timeFormat(isMobile?"%b":"%B")(d3.timeMonth.floor(x.domain()[0])))
                 .attr("dx",  x(d3.timeDay.offset(x.domain()[0], diasPrimerMes/2))*-1)
                 .attr("dy", "0.3em") ;
             }
