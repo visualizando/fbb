@@ -840,7 +840,9 @@ svg.append("g")
                 .attr("class", "axis axis--x")
                 .attr("transform", "translate(0," + (height+5) + ")")
                 .call(d3.axisBottom(x)
-                .ticks(d3.timeMonth.every(1)))
+                .ticks(d3.timeMonth.every(1))
+                			            .tickFormat(d3.timeFormat(isMobile?"%b":"%B"))
+                )
                 .call(ajustaMesesEjeX)
                 ;
 
