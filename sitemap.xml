@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://decodificar.org/notas/exceso_muertes/index.html</loc>
+    
+    <lastmod>2021-04-12</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://decodificar.org/notas/vacuna_matata/index.html</loc>
+    
+    <lastmod>2021-04-12</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://decodificar.org/notas/index.html</loc>
     
     <lastmod>2021-03-04</lastmod>
@@ -31,20 +45,6 @@
   
   <url>
     <loc>https://decodificar.org/notas/diseno_experimental/index.html</loc>
-    
-    <lastmod>2021-03-04</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://decodificar.org/notas/exceso_muertes/index.html</loc>
-    
-    <lastmod>2021-03-04</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://decodificar.org/notas/vacuna_matata/index.html</loc>
     
     <lastmod>2021-03-04</lastmod>
     
@@ -193,7 +193,7 @@
 
   <url>
     <loc>https://decodificar.org/</loc>
-    <lastmod>2021-03-05</lastmod>
+    <lastmod>2021-04-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
